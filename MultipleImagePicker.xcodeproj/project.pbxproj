@@ -107,10 +107,10 @@
 		55C3BE6A18EF632D00E601DE /* MultipleImagePicker */ = {
 			isa = PBXGroup;
 			children = (
-				55EC233718EF6AEB008F5A02 /* Controller */,
-				55EC233818EF6AEB008F5A02 /* Misc */,
 				55EC233918EF6AEB008F5A02 /* Model */,
 				55EC233A18EF6AEB008F5A02 /* View */,
+				55EC233718EF6AEB008F5A02 /* Controller */,
+				55EC233818EF6AEB008F5A02 /* Misc */,
 				55C3BE6B18EF632D00E601DE /* Supporting Files */,
 			);
 			path = MultipleImagePicker;
