@@ -18,7 +18,7 @@
 		55C3BE7F18EF632D00E601DE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C3BE6418EF632D00E601DE /* Foundation.framework */; };
 		55C3BE8018EF632D00E601DE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C3BE6818EF632D00E601DE /* UIKit.framework */; };
 		55C3BE8818EF632D00E601DE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55C3BE8618EF632D00E601DE /* InfoPlist.strings */; };
-		55C3BE8A18EF632D00E601DE /* MultipleImagePickerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C3BE8918EF632D00E601DE /* MultipleImagePickerTests.m */; };
+		55EC233D18F08F95008F5A02 /* MultipleImagePickerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C3BE8918EF632D00E601DE /* MultipleImagePickerTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -281,7 +281,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55C3BE8A18EF632D00E601DE /* MultipleImagePickerTests.m in Sources */,
+				55EC233D18F08F95008F5A02 /* MultipleImagePickerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
