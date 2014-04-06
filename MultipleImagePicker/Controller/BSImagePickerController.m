@@ -8,8 +8,9 @@
 
 #import "BSImagePickerController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "BSSpeechBubbleView.h"
 
-@interface BSImagePickerController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIToolbarDelegate>
+@interface BSImagePickerController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIToolbarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -108,6 +109,10 @@
 {
     return UIBarPositionTopAttached;
 }
+
+#pragma mark - UITableViewDataSource
+
+#pragma mark - UITableViewDelegate
 
 #pragma mark - Lazy load views
 

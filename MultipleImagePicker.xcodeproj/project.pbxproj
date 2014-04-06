@@ -21,6 +21,7 @@
 		55EC233D18F08F95008F5A02 /* MultipleImagePickerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C3BE8918EF632D00E601DE /* MultipleImagePickerTests.m */; };
 		55EC234018F09340008F5A02 /* BSImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EC233F18F09340008F5A02 /* BSImagePickerController.m */; };
 		55EC234218F0A321008F5A02 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55EC234118F0A321008F5A02 /* AssetsLibrary.framework */; };
+		55EC234518F1DB6A008F5A02 /* BSSpeechBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EC234418F1DB6A008F5A02 /* BSSpeechBubbleView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		55EC233E18F09340008F5A02 /* BSImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSImagePickerController.h; sourceTree = "<group>"; };
 		55EC233F18F09340008F5A02 /* BSImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSImagePickerController.m; sourceTree = "<group>"; };
 		55EC234118F0A321008F5A02 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		55EC234318F1DB6A008F5A02 /* BSSpeechBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSpeechBubbleView.h; sourceTree = "<group>"; };
+		55EC234418F1DB6A008F5A02 /* BSSpeechBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSpeechBubbleView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +184,8 @@
 		55EC233A18EF6AEB008F5A02 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				55EC234318F1DB6A008F5A02 /* BSSpeechBubbleView.h */,
+				55EC234418F1DB6A008F5A02 /* BSSpeechBubbleView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -284,6 +289,7 @@
 				55C3BE7118EF632D00E601DE /* main.m in Sources */,
 				55C3BE7518EF632D00E601DE /* BSAppDelegate.m in Sources */,
 				55EC234018F09340008F5A02 /* BSImagePickerController.m in Sources */,
+				55EC234518F1DB6A008F5A02 /* BSSpeechBubbleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
