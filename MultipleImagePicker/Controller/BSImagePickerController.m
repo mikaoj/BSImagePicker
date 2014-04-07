@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UITableView *albumTableView;
+@property (nonatomic, strong) BSSpeechBubbleView *speechBubbleView;
 
 @property (nonatomic, strong) UIBarButtonItem *cancelButton;
 @property (nonatomic, strong) UIBarButtonItem *albumButton;
@@ -120,6 +121,7 @@
 {
     if(!_collectionView) {
         _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+        [_collectionView setAllowsMultipleSelection:YES];
         [_collectionView setTranslatesAutoresizingMaskIntoConstraints:NO];
         [_collectionView setDelegate:self];
         [_collectionView setDataSource:self];
@@ -179,6 +181,15 @@
     return _albumButton;
 }
 
+- (BSSpeechBubbleView *)speechBubbleView
+{
+    if(!_speechBubbleView) {
+        _speechBubbleView = [[BSSpeechBubbleView alloc] initWithFrame:CGRectMake(0, 0, 240, 320)];
+    }
+    
+    return _speechBubbleView;
+}
+
 #pragma mark - Button actions
 
 - (void)cancelButtonPressed:(id)sender
@@ -201,7 +212,25 @@
 
 - (void)albumButtonPressed:(id)sender
 {
+    [self.view addSubview:self.speechBubbleView];
     
+    CGRect frame = self.speechBubbleView.frame;
+    CGFloat height = frame.size.height;
+    frame.size.height = 30.0;
+    [self.speechBubbleView setFrame:frame];
+    
+    [UIView animateWithDuration:5.0
+                          delay:0.0
+         usingSpringWithDamping:0.7
+          initialSpringVelocity:0
+                        options:0
+                     animations:^{
+                         CGRect frame = self.speechBubbleView.frame;
+                         frame.size.height = height;
+                         [self.speechBubbleView setFrame:frame];
+                     } completion:^(BOOL finished) {
+                         [self.speechBubbleView removeFromSuperview];
+                     }];
 }
 
 @end

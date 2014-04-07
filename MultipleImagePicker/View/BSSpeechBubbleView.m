@@ -7,6 +7,13 @@
 //
 
 #import "BSSpeechBubbleView.h"
+#import "BSTriangleView.h"
+
+@interface BSSpeechBubbleView ()
+
+@property (nonatomic, strong) BSTriangleView *triangle;
+
+@end
 
 @implementation BSSpeechBubbleView
 
@@ -14,38 +21,29 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setPointerSize:CGSizeMake(14, 7)];
         [self setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:self.triangle];
         
-        [self setContentView:[[UIView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y+self.pointerSize.height, round(self.frame.size.width), round(self.frame.size.height-self.pointerSize.height))]];
+        [self setContentView:[[UIView alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y+self.triangle.pointerSize.height, round(self.frame.size.width), round(self.frame.size.height-self.triangle.pointerSize.height))]];
         [self.contentView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-        [self.contentView setBackgroundColor:[UIColor blackColor]];
+        [self.contentView setBackgroundColor:[UIColor blueColor]];
         [self addSubview:self.contentView];
         
         //CHANGE THESE IF YOU WANT THE ARROW TO POINT IN ANOTHER DIRECTION
 //        [self setTransform:CGAffineTransformMakeRotation(M_PI_2)];
-//        [self.errorLabel setTransform:CGAffineTransformMakeRotation(M_PI_2*3)];
     }
     return self;
 }
 
-- (void)setFrame:(CGRect)frame
+- (BSTriangleView *)triangle
 {
-    [super setFrame:frame];
-    [self setNeedsDisplay];
-}
-
-- (void)drawRect:(CGRect)rect
-{
-    CGRect currentFrame = self.bounds;
+    if(!_triangle) {
+        _triangle = [[BSTriangleView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 7)];
+        [_triangle setPointerSize:CGSizeMake(14, 7)];
+        [_triangle setColor:[UIColor blueColor]];
+    }
     
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:CGPointMake( ceil((currentFrame.size.width/2.0) - (_pointerSize.width/2.0)), _pointerSize.height)];
-    [path addLineToPoint:CGPointMake( ceil(currentFrame.size.width / 2.0), 0)];
-    [path addLineToPoint:CGPointMake( ceil((currentFrame.size.width/2.0) + (_pointerSize.width/2.0)), _pointerSize.height)];
-    [path closePath];
-    [[UIColor blackColor] set];
-    [path fill];
+    return _triangle;
 }
 
 @end

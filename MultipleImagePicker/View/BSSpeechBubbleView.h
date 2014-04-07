@@ -10,7 +10,6 @@
 
 @interface BSSpeechBubbleView : UIView
 
-@property (nonatomic, assign) CGSize pointerSize;
 @property (nonatomic, strong) UIView *contentView;
 
 @end
