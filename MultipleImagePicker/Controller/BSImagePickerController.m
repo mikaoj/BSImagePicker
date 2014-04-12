@@ -10,6 +10,10 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "BSSpeechBubbleView.h"
 #import "BSAlbumCell.h"
+#import "BSPhotoCell.h"
+
+static NSString *kPhotoCellIdentifier = @"photoCellIdentifier";
+static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 @interface BSImagePickerController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIToolbarDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -31,6 +35,8 @@
 - (void)cancelButtonPressed:(id)sender;
 - (void)doneButtonPressed:(id)sender;
 - (void)albumButtonPressed:(id)sender;
+
+- (void)registerCellIdentifiers;
 
 @end
 
@@ -81,15 +87,18 @@
         
         [[BSImagePickerController defaultAssetsLibrary] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
             if(group) {
-                [self.photoAlbums addObject:group];
-                
                 //Default to select saved photos album
                 if([[group valueForProperty:ALAssetsGroupPropertyType] isEqual:[NSNumber numberWithInteger:ALAssetsGroupSavedPhotos]]) {
+                    [self.photoAlbums insertObject:group atIndex:0];
                     [self setSelectedAlbum:group];
+                } else {
+                    [self.photoAlbums addObject:group];
                 }
             }
         } failureBlock:^(NSError *error) {
         }];
+        
+        [self registerCellIdentifiers];
     }
     return self;
 }
@@ -105,17 +114,27 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 0;
+    return 1;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 0;
+    return [self.selectedAlbum numberOfAssets];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    BSPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:indexPath];
+    
+    [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
+                                         options:0
+                                      usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                                          if(result) {
+                                              [cell.imageView setImage:[UIImage imageWithCGImage:result.thumbnail]];
+                                          }
+                                      }];
+    
+    return cell;
 }
 
 #pragma mark - UICollectionViewDelegate
@@ -134,7 +153,22 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return CGSizeZero;
+    static CGSize size;
+    
+    
+    static dispatch_once_t predicate = 0;
+    dispatch_once(&predicate, ^{
+        [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
+                                             options:0
+                                          usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                                              if(result) {
+                                                  size = CGSizeMake(CGImageGetWidth(result.thumbnail), CGImageGetHeight(result.thumbnail));
+                                              }
+                                          }];
+    });
+    
+    
+    return size;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -207,6 +241,7 @@
         [_collectionView setBackgroundColor:[UIColor whiteColor]];
         [_collectionView setAllowsMultipleSelection:YES];
         [_collectionView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [_collectionView setScrollEnabled:YES];
         [_collectionView setDelegate:self];
         [_collectionView setDataSource:self];
     }
@@ -348,7 +383,14 @@
 - (void)setSelectedAlbum:(ALAssetsGroup *)selectedAlbum
 {
     _selectedAlbum = selectedAlbum;
+    [self.albumButton setTitle:[_selectedAlbum valueForProperty:ALAssetsGroupPropertyName]];
     [self.collectionView reloadData];
+}
+
+- (void)registerCellIdentifiers
+{
+    [self.collectionView registerClass:[BSPhotoCell class] forCellWithReuseIdentifier:kPhotoCellIdentifier];
+    [self.albumTableView registerClass:[BSAlbumCell class] forCellReuseIdentifier:kAlbumCellIdentifier];
 }
 
 @end

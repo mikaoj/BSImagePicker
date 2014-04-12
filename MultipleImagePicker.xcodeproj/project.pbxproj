@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		558315E618F8192F00B54FE6 /* BSAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558315E518F8192F00B54FE6 /* BSAlbumCell.m */; };
+		558315E918F8436E00B54FE6 /* BSPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558315E818F8436E00B54FE6 /* BSPhotoCell.m */; };
 		55C3BE6518EF632D00E601DE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C3BE6418EF632D00E601DE /* Foundation.framework */; };
 		55C3BE6718EF632D00E601DE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C3BE6618EF632D00E601DE /* CoreGraphics.framework */; };
 		55C3BE6918EF632D00E601DE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C3BE6818EF632D00E601DE /* UIKit.framework */; };
@@ -39,6 +40,8 @@
 /* Begin PBXFileReference section */
 		558315E418F8192F00B54FE6 /* BSAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAlbumCell.h; sourceTree = "<group>"; };
 		558315E518F8192F00B54FE6 /* BSAlbumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAlbumCell.m; sourceTree = "<group>"; };
+		558315E718F8436E00B54FE6 /* BSPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPhotoCell.h; sourceTree = "<group>"; };
+		558315E818F8436E00B54FE6 /* BSPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPhotoCell.m; sourceTree = "<group>"; };
 		55C3BE6118EF632D00E601DE /* MultipleImagePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultipleImagePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C3BE6418EF632D00E601DE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		55C3BE6618EF632D00E601DE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -196,6 +199,8 @@
 				55EC235018F2F873008F5A02 /* BSTriangleView.m */,
 				558315E418F8192F00B54FE6 /* BSAlbumCell.h */,
 				558315E518F8192F00B54FE6 /* BSAlbumCell.m */,
+				558315E718F8436E00B54FE6 /* BSPhotoCell.h */,
+				558315E818F8436E00B54FE6 /* BSPhotoCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -299,6 +304,7 @@
 				55C3BE7118EF632D00E601DE /* main.m in Sources */,
 				558315E618F8192F00B54FE6 /* BSAlbumCell.m in Sources */,
 				55C3BE7518EF632D00E601DE /* BSAppDelegate.m in Sources */,
+				558315E918F8436E00B54FE6 /* BSPhotoCell.m in Sources */,
 				55EC234018F09340008F5A02 /* BSImagePickerController.m in Sources */,
 				55EC234518F1DB6A008F5A02 /* BSSpeechBubbleView.m in Sources */,
 				55EC235118F2F873008F5A02 /* BSTriangleView.m in Sources */,
