@@ -62,24 +62,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         _maximumNumberOfImages = NSUIntegerMax;
         
         //Add subviews
-        [self.view addSubview:self.toolbar];
         [self.view addSubview:self.collectionView];
-        
-        //Setup constraints
-        NSDictionary *views = @{@"_collectionView": self.collectionView, @"_toolbar": self.toolbar};
-        NSDictionary *metrics = @{@"statusbarHeight": [NSNumber numberWithFloat:[UIApplication sharedApplication].statusBarFrame.size.height]};
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_toolbar]|"
-                                                                         options:0
-                                                                         metrics:nil
-                                                                           views:views]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_collectionView]|"
-                                                                          options:0
-                                                                          metrics:nil
-                                                                            views:views]];
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-statusbarHeight-[_toolbar][_collectionView]|"
-                                                                          options:0
-                                                                          metrics:metrics
-                                                                            views:views]];
+        [self.view addSubview:self.toolbar];
         
         //Setup album/photo arrays
         _photoAlbums = [[NSMutableArray alloc] init];
@@ -130,7 +114,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                          options:0
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                           if(result) {
-                                              [cell.imageView setImage:[UIImage imageWithCGImage:result.thumbnail]];
+                                              [cell.imageView setImage:[UIImage imageWithCGImage:result.aspectRatioThumbnail]];
                                           }
                                       }];
     
@@ -155,14 +139,22 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     static CGSize size;
     
-    
     static dispatch_once_t predicate = 0;
     dispatch_once(&predicate, ^{
         [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
                                              options:0
                                           usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                                              //
                                               if(result) {
-                                                  size = CGSizeMake(CGImageGetWidth(result.thumbnail), CGImageGetHeight(result.thumbnail));
+                                                  //Get thumbnail size
+                                                  CGSize thumbnailSize = CGSizeMake(CGImageGetWidth(result.aspectRatioThumbnail), CGImageGetHeight(result.aspectRatioThumbnail));
+                                                  
+                                                  //We want 3 images in each row. So width should be viewWidth-(4*10)/3
+                                                  //4*10 is edgeinset
+                                                  //Height should be adapted so we maintain the aspect ratio of thumbnail
+                                                  //original height / original width x new width
+                                                  CGSize itemSize = CGSizeMake((collectionView.frame.size.width - (4*10))/3.0, 100);
+                                                  size = CGSizeMake(itemSize.width, thumbnailSize.height / thumbnailSize.width * itemSize.width);
                                               }
                                           }];
     });
@@ -173,7 +165,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsZero;
+    return UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
 }
 
 #pragma mark - UIToolbarDelegate
@@ -237,11 +229,13 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (UICollectionView *)collectionView
 {
     if(!_collectionView) {
-        _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+        _collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+        [_collectionView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
+        [_collectionView setContentInset:UIEdgeInsetsMake(self.toolbar.frame.origin.y + self.toolbar.frame.size.height, 0, 0, 0)];
         [_collectionView setBackgroundColor:[UIColor whiteColor]];
         [_collectionView setAllowsMultipleSelection:YES];
-        [_collectionView setTranslatesAutoresizingMaskIntoConstraints:NO];
         [_collectionView setScrollEnabled:YES];
+        [_collectionView setAlwaysBounceVertical:YES];
         [_collectionView setDelegate:self];
         [_collectionView setDataSource:self];
     }
@@ -252,8 +246,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (UIToolbar *)toolbar
 {
     if(!_toolbar) {
-        _toolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
-        [_toolbar setTranslatesAutoresizingMaskIntoConstraints:NO];
+        _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, [UIApplication sharedApplication].statusBarFrame.size.height, self.view.frame.size.width, 44)];
+        [_toolbar setTranslucent:YES];
+        [_toolbar setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
         [_toolbar setDelegate:self];
         
         UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
