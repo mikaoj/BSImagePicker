@@ -125,11 +125,35 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
+                                         options:0
+                                      usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                                          if(result) {
+                                              [self.photos addObject:result];
+                                              
+                                              if(self.selectionBlock) {
+                                                  self.selectionBlock();
+                                              }
+                                          }
+                                      }];
+    
     return YES;
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
+                                         options:0
+                                      usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                                          if(result) {
+                                              [self.photos removeObject:result];
+                                              
+                                              if(self.unselectionBlock) {
+                                                  self.unselectionBlock();
+                                              }
+                                          }
+                                      }];
+    
     return YES;
 }
 
@@ -248,7 +272,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     if(!_toolbar) {
         _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, [UIApplication sharedApplication].statusBarFrame.size.height, self.view.frame.size.width, 44)];
         [_toolbar setTranslucent:YES];
-        [_toolbar setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+        [_toolbar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
         [_toolbar setDelegate:self];
         
         UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace

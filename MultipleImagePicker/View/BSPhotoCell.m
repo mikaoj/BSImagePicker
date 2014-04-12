@@ -16,11 +16,31 @@
     if (self) {
         _imageView = [[UIImageView alloc] initWithFrame:self.contentView.frame];
         [_imageView setContentMode:UIViewContentModeScaleAspectFill];
-        [_imageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+        [_imageView setTranslatesAutoresizingMaskIntoConstraints:NO];
         [_imageView setClipsToBounds:YES];
         [self.contentView addSubview:_imageView];
+        
+        UIView *selectedBackgroundView = [[UIView alloc] initWithFrame:frame];
+        [selectedBackgroundView setBackgroundColor:self.tintColor];
+        [self setSelectedBackgroundView:selectedBackgroundView];
+        
+        //Setup constraints
+        NSDictionary *views = @{@"_imageView": _imageView};
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-2-[_imageView]-2-|"
+                                                                                 options:0
+                                                                                 metrics:nil
+                                                                                   views:views]];
+        [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-2-[_imageView]-2-|"
+                                                                                 options:0
+                                                                                 metrics:nil
+                                                                                   views:views]];
     }
     return self;
+}
+
+- (void)setSelected:(BOOL)selected
+{
+    [super setSelected:selected];
 }
 
 /*
