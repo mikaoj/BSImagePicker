@@ -8,6 +8,12 @@
 
 #import "BSPhotoCell.h"
 
+@interface BSPhotoCell ()
+
+@property (nonatomic, strong) UIView *selectionView;
+
+@end
+
 @implementation BSPhotoCell
 
 - (id)initWithFrame:(CGRect)frame
@@ -26,17 +32,23 @@
 - (void)setSelected:(BOOL)selected
 {
     [super setSelected:selected];
-//    [self.selectedBackgroundView setHidden:!selected];
-//    [self setNeedsDisplay];
+    NSLog(@"Selected!");
+    
+    if(selected) {
+        [self addSubview:self.selectionView];
+    } else {
+        [self.selectionView removeFromSuperview];
+    }
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (UIView *)selectionView
 {
-    // Drawing code
+    if(!_selectionView) {
+        _selectionView = [[UIView alloc] initWithFrame:self.contentView.frame];
+        [_selectionView setBackgroundColor:[UIColor colorWithWhite:0.7 alpha:0.5]];
+    }
+    
+    return _selectionView;
 }
-*/
 
 @end
