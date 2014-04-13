@@ -173,11 +173,11 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                                   //Get thumbnail size
                                                   CGSize thumbnailSize = CGSizeMake(CGImageGetWidth(result.aspectRatioThumbnail), CGImageGetHeight(result.aspectRatioThumbnail));
                                                   
-                                                  //We want 3 images in each row. So width should be viewWidth-(4*10)/3
+                                                  //We want 3 images in each row. So width should be viewWidth-(4*LEFT/RIGHT_INSET)/3
                                                   //4*10 is edgeinset
                                                   //Height should be adapted so we maintain the aspect ratio of thumbnail
                                                   //original height / original width x new width
-                                                  CGSize itemSize = CGSizeMake((collectionView.frame.size.width - (4*10))/3.0, 100);
+                                                  CGSize itemSize = CGSizeMake((collectionView.bounds.size.width - (4*5.0))/3.0, 100);
                                                   size = CGSizeMake(itemSize.width, thumbnailSize.height / thumbnailSize.width * itemSize.width);
                                               }
                                           }];
@@ -189,7 +189,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0);
+    //top, left, bottom, right
+    return UIEdgeInsetsMake(5.0, 5.0, 5.0, 5.0);
 }
 
 #pragma mark - UIToolbarDelegate
@@ -253,7 +254,10 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (UICollectionView *)collectionView
 {
     if(!_collectionView) {
-        _collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:[[UICollectionViewFlowLayout alloc] init]];
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        [flowLayout setMinimumInteritemSpacing:5.0];
+        [flowLayout setMinimumLineSpacing:5.0];
+        _collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:flowLayout];
         [_collectionView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
         [_collectionView setContentInset:UIEdgeInsetsMake(self.toolbar.frame.origin.y + self.toolbar.frame.size.height, 0, 0, 0)];
         [_collectionView setBackgroundColor:[UIColor whiteColor]];
