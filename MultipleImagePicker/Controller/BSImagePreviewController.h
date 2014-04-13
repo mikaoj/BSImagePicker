@@ -10,4 +10,6 @@
 
 @interface BSImagePreviewController : UIViewController
 
+@property (nonatomic, strong) UIImageView *imageView;
+
 @end

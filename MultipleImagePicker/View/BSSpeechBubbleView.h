@@ -12,4 +12,7 @@
 
 @property (nonatomic, strong) UIView *contentView;
 
+- (void)setBackgroundColor:(UIColor *)backgroundColor;
+- (UIColor *)backgroundColor;
+
 @end

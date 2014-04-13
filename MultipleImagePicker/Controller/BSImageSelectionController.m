@@ -11,6 +11,8 @@
 #import "BSSpeechBubbleView.h"
 #import "BSAlbumCell.h"
 #import "BSPhotoCell.h"
+#import "BSImagePreviewController.h"
+#import "BSImagePickerController.h"
 
 static NSString *kPhotoCellIdentifier = @"photoCellIdentifier";
 static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
@@ -23,13 +25,13 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 @property (nonatomic, strong) ALAssetsGroup *selectedAlbum;
 @property (nonatomic, strong) NSMutableArray *photos;
 
-@property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UITableView *albumTableView;
 @property (nonatomic, strong) BSSpeechBubbleView *speechBubbleView;
+@property (nonatomic, strong) BSImagePreviewController *imagePreviewController;
 
 @property (nonatomic, strong) UIBarButtonItem *cancelButton;
-@property (nonatomic, strong) UIBarButtonItem *albumButton;
+@property (nonatomic, strong) UIButton *albumButton;
 @property (nonatomic, strong) UIBarButtonItem *doneButton;
 
 - (void)cancelButtonPressed:(id)sender;
@@ -63,7 +65,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         
         //Add subviews
         [self.view addSubview:self.collectionView];
-        [self.view addSubview:self.toolbar];
         
         //Setup album/photo arrays
         _photoAlbums = [[NSMutableArray alloc] init];
@@ -81,6 +82,11 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
             }
         } failureBlock:^(NSError *error) {
         }];
+        
+        //Navigation bar buttons
+        [self.navigationItem setLeftBarButtonItem:self.cancelButton];
+        [self.navigationItem setRightBarButtonItem:self.doneButton];
+        [self.navigationItem setTitleView:self.albumButton];
         
         [self registerCellIdentifiers];
     }
@@ -241,7 +247,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                          CGRect frame = self.speechBubbleView.frame;
                          frame.size.height = 7.0;
                          frame.size.width = 14.0;
-                         frame.origin.y = [[UIApplication sharedApplication] statusBarFrame].size.height + self.toolbar.frame.size.height/2.0 + 10;
+                         frame.origin.y = [[UIApplication sharedApplication] statusBarFrame].size.height + 10;
                          frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
                          [self.speechBubbleView setFrame:frame];
                      } completion:^(BOOL finished) {
@@ -259,7 +265,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         [flowLayout setMinimumLineSpacing:5.0];
         _collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:flowLayout];
         [_collectionView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-        [_collectionView setContentInset:UIEdgeInsetsMake(self.toolbar.frame.origin.y + self.toolbar.frame.size.height, 0, 0, 0)];
         [_collectionView setBackgroundColor:[UIColor whiteColor]];
         [_collectionView setAllowsMultipleSelection:YES];
         [_collectionView setScrollEnabled:YES];
@@ -269,24 +274,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     }
     
     return _collectionView;
-}
-
-- (UIToolbar *)toolbar
-{
-    if(!_toolbar) {
-        _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, [UIApplication sharedApplication].statusBarFrame.size.height, self.view.frame.size.width, 44)];
-        [_toolbar setTranslucent:YES];
-        [_toolbar setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
-        [_toolbar setDelegate:self];
-        
-        UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                                                               target:nil
-                                                                               action:nil];
-        
-        [_toolbar setItems:@[self.cancelButton, space, self.albumButton, space, self.doneButton]];
-    }
-    
-    return _toolbar;
 }
 
 - (UIBarButtonItem *)cancelButton
@@ -311,13 +298,13 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     return _doneButton;
 }
 
-- (UIBarButtonItem *)albumButton
+- (UIButton *)albumButton
 {
     if(!_albumButton) {
-        _albumButton = [[UIBarButtonItem alloc] initWithTitle:@"hejsan"
-                                                        style:UIBarButtonItemStylePlain
-                                                       target:self
-                                                       action:@selector(albumButtonPressed:)];
+        _albumButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_albumButton setFrame:CGRectMake(0, 0, 200, 35)];
+        [_albumButton setTitleColor:self.view.tintColor forState:UIControlStateNormal];
+        [_albumButton addTarget:self action:@selector(albumButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _albumButton;
@@ -344,6 +331,15 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     }
     
     return _albumTableView;
+}
+
+- (BSImagePreviewController *)imagePreviewController
+{
+    if(!_imagePreviewController) {
+        _imagePreviewController = [[BSImagePreviewController alloc] init];
+    }
+    
+    return _imagePreviewController;
 }
 
 #pragma mark - Button actions
@@ -381,7 +377,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     //Set new frame
     frame.size.height = 0.0;
     frame.size.width = 0.0;
-    frame.origin.y = [[UIApplication sharedApplication] statusBarFrame].size.height + self.toolbar.frame.size.height/2.0 + 10;
+    frame.origin.y = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height;
     frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
     [self.speechBubbleView setFrame:frame];
     
@@ -406,7 +402,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (void)setSelectedAlbum:(ALAssetsGroup *)selectedAlbum
 {
     _selectedAlbum = selectedAlbum;
-    [self.albumButton setTitle:[_selectedAlbum valueForProperty:ALAssetsGroupPropertyName]];
+    [self.albumButton setTitle:[_selectedAlbum valueForProperty:ALAssetsGroupPropertyName] forState:UIControlStateNormal];
     [self.collectionView reloadData];
 }
 

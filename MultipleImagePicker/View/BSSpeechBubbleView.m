@@ -12,8 +12,6 @@
 
 @interface BSSpeechBubbleView ()
 
-
-
 @property (nonatomic, strong) BSTriangleView *triangle;
 
 
@@ -57,6 +55,18 @@
     }
     
     return _triangle;
+}
+
+- (void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    [self.contentView setBackgroundColor:backgroundColor];
+    [self.triangle setColor:backgroundColor];
+    [self.triangle setNeedsDisplay];
+}
+
+- (UIColor *)backgroundColor
+{
+    return self.contentView.backgroundColor;
 }
 
 @end

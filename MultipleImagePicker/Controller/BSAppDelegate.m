@@ -8,6 +8,7 @@
 
 #import "BSAppDelegate.h"
 #import "BSImageSelectionController.h"
+#import "BSImagePickerController.h"
 
 @implementation BSAppDelegate
 
@@ -17,7 +18,7 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    BSImageSelectionController *imagePicker = [[BSImageSelectionController alloc] init];
+    BSImagePickerController *imagePicker = [[BSImagePickerController alloc] init];
     [self.window setRootViewController:imagePicker];
     
     [self.window makeKeyAndVisible];

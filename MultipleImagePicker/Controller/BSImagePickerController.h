@@ -10,4 +10,7 @@
 
 @interface BSImagePickerController : UINavigationController
 
+@property (nonatomic, assign) BOOL disablePreview;
+@property (nonatomic, assign) BOOL disableEdit;
+
 @end

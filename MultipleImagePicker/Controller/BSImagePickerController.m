@@ -7,6 +7,7 @@
 //
 
 #import "BSImagePickerController.h"
+#import "BSImageSelectionController.h"
 
 @interface BSImagePickerController ()
 
@@ -19,6 +20,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        BSImageSelectionController *imagePicker = [[BSImageSelectionController alloc] init];
+        
+        [self pushViewController:imagePicker animated:NO];
     }
     return self;
 }
