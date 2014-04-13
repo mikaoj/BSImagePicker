@@ -24,8 +24,6 @@
 		55C3BE8818EF632D00E601DE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55C3BE8618EF632D00E601DE /* InfoPlist.strings */; };
 		55CF228F18FAD752003784D9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C3BE6618EF632D00E601DE /* CoreGraphics.framework */; };
 		55CF229118FAD757003784D9 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF229018FAD757003784D9 /* MessageUI.framework */; };
-		55CF22C118FAD8B0003784D9 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF229018FAD757003784D9 /* MessageUI.framework */; };
-		55CF22C218FADACC003784D9 /* libBlocksKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF22BF18FAD890003784D9 /* libBlocksKit.a */; };
 		55EC233D18F08F95008F5A02 /* MultipleImagePickerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C3BE8918EF632D00E601DE /* MultipleImagePickerTests.m */; };
 		55EC234018F09340008F5A02 /* BSImageSelectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EC233F18F09340008F5A02 /* BSImageSelectionController.m */; };
 		55EC234218F0A321008F5A02 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55EC234118F0A321008F5A02 /* AssetsLibrary.framework */; };
@@ -69,51 +67,6 @@
 		55C3BE8718EF632D00E601DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55C3BE8918EF632D00E601DE /* MultipleImagePickerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultipleImagePickerTests.m; sourceTree = "<group>"; };
 		55CF229018FAD757003784D9 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		55CF229318FAD890003784D9 /* A2BlockDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockDelegate.h; sourceTree = "<group>"; };
-		55CF229418FAD890003784D9 /* A2BlockInvocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2BlockInvocation.h; sourceTree = "<group>"; };
-		55CF229518FAD890003784D9 /* A2DynamicDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = A2DynamicDelegate.h; sourceTree = "<group>"; };
-		55CF229618FAD890003784D9 /* BKGlobals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKGlobals.h; sourceTree = "<group>"; };
-		55CF229718FAD890003784D9 /* BKMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKMacros.h; sourceTree = "<group>"; };
-		55CF229818FAD890003784D9 /* BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlocksKit.h; sourceTree = "<group>"; };
-		55CF229918FAD890003784D9 /* ffi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi.h; sourceTree = "<group>"; };
-		55CF229A18FAD890003784D9 /* ffi_armv7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_armv7.h; sourceTree = "<group>"; };
-		55CF229B18FAD890003784D9 /* ffi_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_common.h; sourceTree = "<group>"; };
-		55CF229C18FAD890003784D9 /* ffi_i386.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffi_i386.h; sourceTree = "<group>"; };
-		55CF229D18FAD890003784D9 /* fficonfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fficonfig.h; sourceTree = "<group>"; };
-		55CF229E18FAD890003784D9 /* fficonfig_armv7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fficonfig_armv7.h; sourceTree = "<group>"; };
-		55CF229F18FAD890003784D9 /* fficonfig_i386.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fficonfig_i386.h; sourceTree = "<group>"; };
-		55CF22A018FAD890003784D9 /* ffitarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget.h; sourceTree = "<group>"; };
-		55CF22A118FAD890003784D9 /* ffitarget_armv7.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget_armv7.h; sourceTree = "<group>"; };
-		55CF22A218FAD890003784D9 /* ffitarget_i386.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ffitarget_i386.h; sourceTree = "<group>"; };
-		55CF22A318FAD890003784D9 /* MFMailComposeViewController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MFMailComposeViewController+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22A418FAD890003784D9 /* MFMessageComposeViewController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MFMessageComposeViewController+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22A518FAD890003784D9 /* NSArray+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22A618FAD890003784D9 /* NSCache+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCache+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22A718FAD890003784D9 /* NSDictionary+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22A818FAD890003784D9 /* NSIndexSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22A918FAD890003784D9 /* NSInvocation+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSInvocation+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22AA18FAD890003784D9 /* NSMutableArray+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22AB18FAD890003784D9 /* NSMutableDictionary+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22AC18FAD890003784D9 /* NSMutableIndexSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableIndexSet+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22AD18FAD890003784D9 /* NSMutableOrderedSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableOrderedSet+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22AE18FAD890003784D9 /* NSMutableSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableSet+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22AF18FAD890003784D9 /* NSObject+A2DynamicDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+A2DynamicDelegate.h"; sourceTree = "<group>"; };
-		55CF22B018FAD890003784D9 /* NSObject+AssociatedObjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+AssociatedObjects.h"; sourceTree = "<group>"; };
-		55CF22B118FAD890003784D9 /* NSObject+BlockObservation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+BlockObservation.h"; sourceTree = "<group>"; };
-		55CF22B218FAD890003784D9 /* NSObject+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22B318FAD890003784D9 /* NSOrderedSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOrderedSet+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22B418FAD890003784D9 /* NSSet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSSet+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22B518FAD890003784D9 /* NSTimer+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22B618FAD890003784D9 /* NSURLConnection+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLConnection+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22B718FAD890003784D9 /* UIActionSheet+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActionSheet+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22B818FAD890003784D9 /* UIAlertView+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22B918FAD890003784D9 /* UIBarButtonItem+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22BA18FAD890003784D9 /* UIControl+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22BB18FAD890003784D9 /* UIGestureRecognizer+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGestureRecognizer+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22BC18FAD890003784D9 /* UIPopoverController+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPopoverController+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22BD18FAD890003784D9 /* UIView+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22BE18FAD890003784D9 /* UIWebView+BlocksKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+BlocksKit.h"; sourceTree = "<group>"; };
-		55CF22BF18FAD890003784D9 /* libBlocksKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBlocksKit.a; sourceTree = "<group>"; };
 		55EC233E18F09340008F5A02 /* BSImageSelectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSImageSelectionController.h; sourceTree = "<group>"; };
 		55EC233F18F09340008F5A02 /* BSImageSelectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSImageSelectionController.m; sourceTree = "<group>"; };
 		55EC234118F0A321008F5A02 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -128,11 +81,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55CF22C118FAD8B0003784D9 /* MessageUI.framework in Frameworks */,
 				55C3BE6718EF632D00E601DE /* CoreGraphics.framework in Frameworks */,
 				55C3BE6918EF632D00E601DE /* UIKit.framework in Frameworks */,
 				55C3BE6518EF632D00E601DE /* Foundation.framework in Frameworks */,
-				55CF22C218FADACC003784D9 /* libBlocksKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +138,6 @@
 		55C3BE6A18EF632D00E601DE /* MultipleImagePicker */ = {
 			isa = PBXGroup;
 			children = (
-				55CF226418FAD724003784D9 /* Libs */,
 				55EC233918EF6AEB008F5A02 /* Model */,
 				55EC233A18EF6AEB008F5A02 /* View */,
 				55EC233718EF6AEB008F5A02 /* Controller */,
@@ -222,66 +172,6 @@
 				55C3BE8618EF632D00E601DE /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		55CF226418FAD724003784D9 /* Libs */ = {
-			isa = PBXGroup;
-			children = (
-				55CF229218FAD890003784D9 /* BlocksKit */,
-				55CF22BF18FAD890003784D9 /* libBlocksKit.a */,
-			);
-			path = Libs;
-			sourceTree = "<group>";
-		};
-		55CF229218FAD890003784D9 /* BlocksKit */ = {
-			isa = PBXGroup;
-			children = (
-				55CF229318FAD890003784D9 /* A2BlockDelegate.h */,
-				55CF229418FAD890003784D9 /* A2BlockInvocation.h */,
-				55CF229518FAD890003784D9 /* A2DynamicDelegate.h */,
-				55CF229618FAD890003784D9 /* BKGlobals.h */,
-				55CF229718FAD890003784D9 /* BKMacros.h */,
-				55CF229818FAD890003784D9 /* BlocksKit.h */,
-				55CF229918FAD890003784D9 /* ffi.h */,
-				55CF229A18FAD890003784D9 /* ffi_armv7.h */,
-				55CF229B18FAD890003784D9 /* ffi_common.h */,
-				55CF229C18FAD890003784D9 /* ffi_i386.h */,
-				55CF229D18FAD890003784D9 /* fficonfig.h */,
-				55CF229E18FAD890003784D9 /* fficonfig_armv7.h */,
-				55CF229F18FAD890003784D9 /* fficonfig_i386.h */,
-				55CF22A018FAD890003784D9 /* ffitarget.h */,
-				55CF22A118FAD890003784D9 /* ffitarget_armv7.h */,
-				55CF22A218FAD890003784D9 /* ffitarget_i386.h */,
-				55CF22A318FAD890003784D9 /* MFMailComposeViewController+BlocksKit.h */,
-				55CF22A418FAD890003784D9 /* MFMessageComposeViewController+BlocksKit.h */,
-				55CF22A518FAD890003784D9 /* NSArray+BlocksKit.h */,
-				55CF22A618FAD890003784D9 /* NSCache+BlocksKit.h */,
-				55CF22A718FAD890003784D9 /* NSDictionary+BlocksKit.h */,
-				55CF22A818FAD890003784D9 /* NSIndexSet+BlocksKit.h */,
-				55CF22A918FAD890003784D9 /* NSInvocation+BlocksKit.h */,
-				55CF22AA18FAD890003784D9 /* NSMutableArray+BlocksKit.h */,
-				55CF22AB18FAD890003784D9 /* NSMutableDictionary+BlocksKit.h */,
-				55CF22AC18FAD890003784D9 /* NSMutableIndexSet+BlocksKit.h */,
-				55CF22AD18FAD890003784D9 /* NSMutableOrderedSet+BlocksKit.h */,
-				55CF22AE18FAD890003784D9 /* NSMutableSet+BlocksKit.h */,
-				55CF22AF18FAD890003784D9 /* NSObject+A2DynamicDelegate.h */,
-				55CF22B018FAD890003784D9 /* NSObject+AssociatedObjects.h */,
-				55CF22B118FAD890003784D9 /* NSObject+BlockObservation.h */,
-				55CF22B218FAD890003784D9 /* NSObject+BlocksKit.h */,
-				55CF22B318FAD890003784D9 /* NSOrderedSet+BlocksKit.h */,
-				55CF22B418FAD890003784D9 /* NSSet+BlocksKit.h */,
-				55CF22B518FAD890003784D9 /* NSTimer+BlocksKit.h */,
-				55CF22B618FAD890003784D9 /* NSURLConnection+BlocksKit.h */,
-				55CF22B718FAD890003784D9 /* UIActionSheet+BlocksKit.h */,
-				55CF22B818FAD890003784D9 /* UIAlertView+BlocksKit.h */,
-				55CF22B918FAD890003784D9 /* UIBarButtonItem+BlocksKit.h */,
-				55CF22BA18FAD890003784D9 /* UIControl+BlocksKit.h */,
-				55CF22BB18FAD890003784D9 /* UIGestureRecognizer+BlocksKit.h */,
-				55CF22BC18FAD890003784D9 /* UIPopoverController+BlocksKit.h */,
-				55CF22BD18FAD890003784D9 /* UIView+BlocksKit.h */,
-				55CF22BE18FAD890003784D9 /* UIWebView+BlocksKit.h */,
-			);
-			path = BlocksKit;
 			sourceTree = "<group>";
 		};
 		55EC233718EF6AEB008F5A02 /* Controller */ = {

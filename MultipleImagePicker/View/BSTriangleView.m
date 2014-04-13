@@ -31,7 +31,7 @@
     [path addLineToPoint:CGPointMake( ceil((currentFrame.size.width/2.0) + (_pointerSize.width/2.0)), _pointerSize.height)];
     [path closePath];
     [self.color setFill];
-    [path fillWithBlendMode:kCGBlendModeNormal alpha:0.15];
+    [path fill];
 }
 
 @end

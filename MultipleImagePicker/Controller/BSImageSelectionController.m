@@ -38,6 +38,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (void)doneButtonPressed:(id)sender;
 - (void)albumButtonPressed:(id)sender;
 
+- (void)cellLongPressed:(UIGestureRecognizer *)recognizer;
+
 - (void)registerCellIdentifiers;
 
 @end
@@ -117,21 +119,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     BSPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:indexPath];
     
     if(![(BSImagePickerController *)self.navigationController disablePreview]) {
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
-            if(sender.state == UIGestureRecognizerStateBegan) {
-                [sender setEnabled:NO];
-                [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                                     options:0
-                                                  usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                                                      if(result) {
-                                                          UIImage *image = [UIImage imageWithCGImage:[[result defaultRepresentation] fullScreenImage]];
-                                                          [self.navigationController pushViewController:self.imagePreviewController animated:YES];
-                                                          [self.imagePreviewController.imageView setImage:image];
-                                                      }
-                                                  }];
-                [sender setEnabled:YES];
-            }
-        }];
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cellLongPressed:)];
         [longPress setMinimumPressDuration:1.0];
         
         [cell addGestureRecognizer:longPress];
@@ -141,6 +129,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                          options:0
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                           if(result) {
+                                              [cell setAsset:result];
                                               [cell.imageView setImage:[UIImage imageWithCGImage:result.aspectRatioThumbnail]];
                                           }
                                       }];
@@ -336,6 +325,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     if(!_speechBubbleView) {
         _speechBubbleView = [[BSSpeechBubbleView alloc] initWithFrame:CGRectMake(0, 0, 240, 320)];
         [_speechBubbleView.contentView addSubview:self.albumTableView];
+        [_speechBubbleView setBackgroundColor:[UIColor lightGrayColor]];
     }
     
     return _speechBubbleView;
@@ -416,6 +406,21 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                      } completion:^(BOOL finished) {
 //                         [self.speechBubbleView removeFromSuperview];
                      }];
+}
+
+- (void)cellLongPressed:(UIGestureRecognizer *)recognizer
+{
+    BSPhotoCell *cell = (BSPhotoCell *)recognizer.view;
+    
+    if(recognizer.state == UIGestureRecognizerStateBegan) {
+        [recognizer setEnabled:NO];
+        
+        UIImage *image = [UIImage imageWithCGImage:[[cell.asset defaultRepresentation] fullScreenImage]];
+        [self.navigationController pushViewController:self.imagePreviewController animated:YES];
+        [self.imagePreviewController.imageView setImage:image];
+        [recognizer setEnabled:YES];
+    }
+    
 }
 
 #pragma mark - Something

@@ -18,6 +18,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+        [self setTitle:NSLocalizedString(@"Preview", @"Preview navigation title")];
         [self.view setBackgroundColor:[UIColor whiteColor]];
         [self.view addSubview:self.imageView];
     }
