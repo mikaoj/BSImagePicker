@@ -116,6 +116,27 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     BSPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:indexPath];
     
+    if(![(BSImagePickerController *)self.navigationController disablePreview]) {
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithHandler:^(UIGestureRecognizer *sender, UIGestureRecognizerState state, CGPoint location) {
+            if(sender.state == UIGestureRecognizerStateBegan) {
+                [sender setEnabled:NO];
+                [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
+                                                     options:0
+                                                  usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                                                      if(result) {
+                                                          UIImage *image = [UIImage imageWithCGImage:[[result defaultRepresentation] fullScreenImage]];
+                                                          [self.navigationController pushViewController:self.imagePreviewController animated:YES];
+                                                          [self.imagePreviewController.imageView setImage:image];
+                                                      }
+                                                  }];
+                [sender setEnabled:YES];
+            }
+        }];
+        [longPress setMinimumPressDuration:1.0];
+        
+        [cell addGestureRecognizer:longPress];
+    }
+    
     [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
                                          options:0
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
