@@ -82,7 +82,7 @@
 - (BSCheckmarkView *)checkmarkView
 {
     if(!_checkmarkView) {
-        _checkmarkView = [[BSCheckmarkView alloc] initWithFrame:CGRectMake(self.imageView.frame.size.width-30, self.imageView.frame.size.height-30, 30, 30)];
+        _checkmarkView = [[BSCheckmarkView alloc] initWithFrame:CGRectMake(self.imageView.frame.size.width-25, self.imageView.frame.size.height-25, 25, 25)];
         [_checkmarkView setBackgroundColor:[UIColor clearColor]];
     }
     
