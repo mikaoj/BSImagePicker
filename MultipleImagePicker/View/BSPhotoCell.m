@@ -7,10 +7,12 @@
 //
 
 #import "BSPhotoCell.h"
+#import "BSCheckmarkView.h"
 
 @interface BSPhotoCell ()
 
 @property (nonatomic, strong) UIView *selectionView;
+@property (nonatomic, strong) BSCheckmarkView *checkmarkView;
 
 @end
 
@@ -20,11 +22,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        _imageView = [[UIImageView alloc] initWithFrame:self.contentView.frame];
-        [_imageView setContentMode:UIViewContentModeScaleAspectFill];
-        [_imageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
-        [_imageView setClipsToBounds:YES];
-        [self.contentView addSubview:_imageView];
+        [self.contentView addSubview:self.imageView];
+        [self.contentView addSubview:self.checkmarkView];
     }
     return self;
 }
@@ -37,23 +36,37 @@
     NSLog(@"Selected!");
     
     if(previous != selected) {
+        [self.checkmarkView setChecked:selected];
+        
         if(selected) {
-            [self.selectionView setFrame:CGRectMake(self.contentView.center.x, self.contentView.center.y, 1, 1)];
-            [self.contentView addSubview:self.selectionView];
+            [self.selectionView setFrame:CGRectMake(self.imageView.center.x, self.imageView.center.y, 1, 1)];
+            [self.imageView addSubview:self.selectionView];
             
             [UIView animateWithDuration:0.1
                              animations:^{
-                                 [self.selectionView setFrame:self.contentView.frame];
+                                 [self.selectionView setFrame:self.imageView.frame];
                              }];
         } else {
             [UIView animateWithDuration:0.1
                              animations:^{
-                                 [self.selectionView setFrame:CGRectMake(self.contentView.center.x, self.contentView.center.y, 1, 1)];
+                                 [self.selectionView setFrame:CGRectMake(self.imageView.center.x, self.imageView.center.y, 1, 1)];
                              } completion:^(BOOL finished) {
                                  [self.selectionView removeFromSuperview];
                              }];
         }
     }
+}
+
+- (UIImageView *)imageView
+{
+    if(!_imageView) {
+        _imageView = [[UIImageView alloc] initWithFrame:self.contentView.frame];
+        [_imageView setContentMode:UIViewContentModeScaleAspectFill];
+        [_imageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+        [_imageView setClipsToBounds:YES];
+    }
+    
+    return _imageView;
 }
 
 - (UIView *)selectionView
@@ -64,6 +77,16 @@
     }
     
     return _selectionView;
+}
+
+- (BSCheckmarkView *)checkmarkView
+{
+    if(!_checkmarkView) {
+        _checkmarkView = [[BSCheckmarkView alloc] initWithFrame:CGRectMake(self.imageView.frame.size.width-30, self.imageView.frame.size.height-30, 30, 30)];
+        [_checkmarkView setBackgroundColor:[UIColor clearColor]];
+    }
+    
+    return _checkmarkView;
 }
 
 @end

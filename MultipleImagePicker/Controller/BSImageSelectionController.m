@@ -358,7 +358,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)doneButtonPressed:(id)sender
+- (void)doneButtonPressed:(id)sender    
 {
     if(self.doneBlock) {
         self.doneBlock();
