@@ -31,6 +31,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 @property (nonatomic, strong) UITableView *albumTableView;
 @property (nonatomic, strong) BSSpeechBubbleView *speechBubbleView;
 @property (nonatomic, strong) BSImagePreviewController *imagePreviewController;
+@property (nonatomic, strong, readonly) BSImagePickerController *navigationController;
 
 @property (nonatomic, strong) UIBarButtonItem *cancelButton;
 @property (nonatomic, strong) UIButton *albumButton;
@@ -69,9 +70,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        //Default to shitloads of images
-        _maximumNumberOfImages = NSUIntegerMax;
-        
         //Add subviews
         [self.view addSubview:self.collectionView];
         
@@ -122,14 +120,22 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.selectedAlbum numberOfAssets];
+    __block NSInteger numberOfItems = 0;
+    
+    [self.selectedAlbum enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+        if([[result valueForProperty:@"ALAssetPropertyType"] isEqualToString:@"ALAssetTypePhoto"]) {
+            ++numberOfItems;
+        }
+    }];
+    
+    return numberOfItems;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     BSPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:indexPath];
     
-    if(![(BSImagePickerController *)self.navigationController disablePreview]) {
+    if(![self.navigationController previewDisabled]) {
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cellLongPressed:)];
         [longPress setMinimumPressDuration:1.0];
         
@@ -152,15 +158,14 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Should select");
     [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
                                          options:0
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                           if(result) {
                                               [self.photos addObject:result];
                                               
-                                              if(self.selectionBlock) {
-                                                  self.selectionBlock();
+                                              if(self.navigationController.toggleBlock) {
+                                                  self.navigationController.toggleBlock(nil, YES);
                                               }
                                           }
                                       }];
@@ -170,15 +175,14 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"Should deselect");
     [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
                                          options:0
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                           if(result) {
                                               [self.photos removeObject:result];
                                               
-                                              if(self.unselectionBlock) {
-                                                  self.unselectionBlock();
+                                              if(self.navigationController.toggleBlock) {
+                                                  self.navigationController.toggleBlock(nil, NO);
                                               }
                                           }
                                       }];
@@ -396,8 +400,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)cancelButtonPressed:(id)sender
 {
-    if(self.cancelBlock) {
-        self.cancelBlock();
+    if(self.navigationController.finishBlock) {
+        self.navigationController.finishBlock(nil, YES);
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -405,8 +409,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)doneButtonPressed:(id)sender    
 {
-    if(self.doneBlock) {
-        self.doneBlock();
+    if(self.navigationController.finishBlock) {
+        self.navigationController.finishBlock(nil, NO);
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -428,18 +432,13 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     if(recognizer.state == UIGestureRecognizerStateBegan) {
         [recognizer setEnabled:NO];
         
+        //TODO: DON'T DO THAT HERE
         [self.navigationController setDelegate:self];
         
         UIImage *image = [UIImage imageWithCGImage:[[cell.asset defaultRepresentation] fullScreenImage]];
         [self.navigationController pushViewController:self.imagePreviewController animated:YES];
         [self.imagePreviewController.imageView setImage:image];
         [recognizer setEnabled:YES];
-        
-        if(self.navigationController.delegate == self) {
-            NSLog(@"Self!");
-        } else if(self.navigationController.delegate == nil) {
-            NSLog(@"Nil!");
-        }
     }
     
 }
@@ -489,9 +488,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                          frame.size.width = width;
                          frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
                          [self.speechBubbleView setFrame:frame];
-                     } completion:^(BOOL finished) {
-                         //                         [self.speechBubbleView removeFromSuperview];
-                     }];
+                     } completion:nil];
 }
 
 - (void)hideAlbumView
@@ -507,6 +504,11 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                      } completion:^(BOOL finished) {
                          [self.speechBubbleView removeFromSuperview];
                      }];
+}
+
+- (BSImagePickerController *)navigationController
+{
+    return (BSImagePickerController *)[super navigationController];
 }
 
 @end

@@ -33,7 +33,6 @@
     BOOL previous = self.selected;
     
     [super setSelected:selected];
-    NSLog(@"Selected!");
     
     if(previous != selected) {
         [self.checkmarkView setChecked:selected];

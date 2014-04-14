@@ -7,10 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIViewController+MultipleImagePicker.h"
 
 @interface BSImagePickerController : UINavigationController
 
-@property (nonatomic, assign) BOOL disablePreview;
+//Defaults to NSUIntegerMax (i.e shitloads of images)
+@property (nonatomic, assign) NSUInteger maximumNumberOfImages;
+
+@property (nonatomic, copy) BSImageToggleBlock toggleBlock;
+@property (nonatomic, copy) BSImageSelectionFinishedBlock finishBlock;
+
+@property (nonatomic, assign) BOOL previewDisabled;
 @property (nonatomic, assign) BOOL disableEdit;
 
 @end

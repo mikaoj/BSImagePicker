@@ -10,12 +10,4 @@
 
 @interface BSImageSelectionController : UIViewController
 
-//Defaults to NSUIntegerMax (i.e shitloads of images)
-@property (nonatomic, assign) NSUInteger maximumNumberOfImages;
-
-@property (nonatomic, copy) void (^selectionBlock)(void);
-@property (nonatomic, copy) void (^unselectionBlock)(void);
-@property (nonatomic, copy) void (^doneBlock)(void);
-@property (nonatomic, copy) void (^cancelBlock)(void);
-
 @end
