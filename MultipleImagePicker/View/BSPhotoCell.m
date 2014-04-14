@@ -31,13 +31,28 @@
 
 - (void)setSelected:(BOOL)selected
 {
+    BOOL previous = self.selected;
+    
     [super setSelected:selected];
     NSLog(@"Selected!");
     
-    if(selected) {
-        [self addSubview:self.selectionView];
-    } else {
-        [self.selectionView removeFromSuperview];
+    if(previous != selected) {
+        if(selected) {
+            [self.selectionView setFrame:CGRectMake(self.contentView.center.x, self.contentView.center.y, 1, 1)];
+            [self.contentView addSubview:self.selectionView];
+            
+            [UIView animateWithDuration:0.1
+                             animations:^{
+                                 [self.selectionView setFrame:self.contentView.frame];
+                             }];
+        } else {
+            [UIView animateWithDuration:0.1
+                             animations:^{
+                                 [self.selectionView setFrame:CGRectMake(self.contentView.center.x, self.contentView.center.y, 1, 1)];
+                             } completion:^(BOOL finished) {
+                                 [self.selectionView removeFromSuperview];
+                             }];
+        }
     }
 }
 
