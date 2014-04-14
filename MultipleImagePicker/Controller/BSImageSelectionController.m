@@ -13,11 +13,13 @@
 #import "BSPhotoCell.h"
 #import "BSImagePreviewController.h"
 #import "BSImagePickerController.h"
+#import "BSZoomOutAnimator.h"
+#import "BSZoomInAnimator.h"
 
 static NSString *kPhotoCellIdentifier = @"photoCellIdentifier";
 static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
-@interface BSImageSelectionController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIToolbarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface BSImageSelectionController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIToolbarDelegate, UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate>
 
 + (ALAssetsLibrary *)defaultAssetsLibrary;
 
@@ -33,6 +35,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 @property (nonatomic, strong) UIBarButtonItem *cancelButton;
 @property (nonatomic, strong) UIButton *albumButton;
 @property (nonatomic, strong) UIBarButtonItem *doneButton;
+
+@property (nonatomic, strong) BSZoomInAnimator *zoomInAnimator;
+@property (nonatomic, strong) BSZoomOutAnimator *zoomOutAnimator;
 
 - (void)cancelButtonPressed:(id)sender;
 - (void)doneButtonPressed:(id)sender;
@@ -92,6 +97,10 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         [self.navigationItem setRightBarButtonItem:self.doneButton];
         [self.navigationItem setTitleView:self.albumButton];
         
+        //Set navigation controller delegate
+        [self.navigationController setDelegate:self];
+        
+        //Register cell identifiers
         [self registerCellIdentifiers];
     }
     return self;
@@ -259,6 +268,24 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     [self hideAlbumView];
 }
 
+#pragma mark - UINavigationControllerDelegate
+
+- (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                   animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                fromViewController:(UIViewController *)fromVC
+                                                  toViewController:(UIViewController *)toVC
+{
+    id <UIViewControllerAnimatedTransitioning> animator = nil;
+    
+    if(operation == UINavigationControllerOperationPop) {
+        animator = self.zoomOutAnimator;
+    } else if(operation == UINavigationControllerOperationPush) {
+        animator = self.zoomInAnimator;
+    }
+    
+    return animator;
+}
+
 #pragma mark - Lazy load views
 
 - (UICollectionView *)collectionView
@@ -347,6 +374,24 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     return _imagePreviewController;
 }
 
+- (BSZoomInAnimator *)zoomInAnimator
+{
+    if(!_zoomInAnimator) {
+        _zoomInAnimator = [[BSZoomInAnimator alloc] init];
+    }
+    
+    return _zoomInAnimator;
+}
+
+- (BSZoomOutAnimator *)zoomOutAnimator
+{
+    if(!_zoomOutAnimator) {
+        _zoomOutAnimator = [[BSZoomOutAnimator alloc] init];
+    }
+    
+    return _zoomOutAnimator;
+}
+
 #pragma mark - Button actions
 
 - (void)cancelButtonPressed:(id)sender
@@ -383,10 +428,18 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     if(recognizer.state == UIGestureRecognizerStateBegan) {
         [recognizer setEnabled:NO];
         
+        [self.navigationController setDelegate:self];
+        
         UIImage *image = [UIImage imageWithCGImage:[[cell.asset defaultRepresentation] fullScreenImage]];
         [self.navigationController pushViewController:self.imagePreviewController animated:YES];
         [self.imagePreviewController.imageView setImage:image];
         [recognizer setEnabled:YES];
+        
+        if(self.navigationController.delegate == self) {
+            NSLog(@"Self!");
+        } else if(self.navigationController.delegate == nil) {
+            NSLog(@"Nil!");
+        }
     }
     
 }

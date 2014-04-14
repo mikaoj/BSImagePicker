@@ -10,6 +10,8 @@
 		558315E618F8192F00B54FE6 /* BSAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558315E518F8192F00B54FE6 /* BSAlbumCell.m */; };
 		558315E918F8436E00B54FE6 /* BSPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558315E818F8436E00B54FE6 /* BSPhotoCell.m */; };
 		55A11ED718FC440D00F28CA5 /* BSCheckmarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11ED618FC440D00F28CA5 /* BSCheckmarkView.m */; };
+		55A11EDA18FC4CFD00F28CA5 /* BSZoomOutAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11ED918FC4CFD00F28CA5 /* BSZoomOutAnimator.m */; };
+		55A11EDD18FC4FC400F28CA5 /* BSZoomInAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EDC18FC4FC400F28CA5 /* BSZoomInAnimator.m */; };
 		55A4258618FA8E4E00EF7E8F /* BSImagePreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A4258518FA8E4E00EF7E8F /* BSImagePreviewController.m */; };
 		55A4258918FA8E6F00EF7E8F /* BSImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A4258818FA8E6F00EF7E8F /* BSImagePickerController.m */; };
 		55C3BE6518EF632D00E601DE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C3BE6418EF632D00E601DE /* Foundation.framework */; };
@@ -49,6 +51,10 @@
 		558315E818F8436E00B54FE6 /* BSPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPhotoCell.m; sourceTree = "<group>"; };
 		55A11ED518FC440D00F28CA5 /* BSCheckmarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCheckmarkView.h; sourceTree = "<group>"; };
 		55A11ED618FC440D00F28CA5 /* BSCheckmarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCheckmarkView.m; sourceTree = "<group>"; };
+		55A11ED818FC4CFD00F28CA5 /* BSZoomOutAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSZoomOutAnimator.h; sourceTree = "<group>"; };
+		55A11ED918FC4CFD00F28CA5 /* BSZoomOutAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSZoomOutAnimator.m; sourceTree = "<group>"; };
+		55A11EDB18FC4FC400F28CA5 /* BSZoomInAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSZoomInAnimator.h; sourceTree = "<group>"; };
+		55A11EDC18FC4FC400F28CA5 /* BSZoomInAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSZoomInAnimator.m; sourceTree = "<group>"; };
 		55A4258418FA8E4E00EF7E8F /* BSImagePreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSImagePreviewController.h; sourceTree = "<group>"; };
 		55A4258518FA8E4E00EF7E8F /* BSImagePreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSImagePreviewController.m; sourceTree = "<group>"; };
 		55A4258718FA8E6F00EF7E8F /* BSImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSImagePickerController.h; sourceTree = "<group>"; };
@@ -222,6 +228,10 @@
 				558315E818F8436E00B54FE6 /* BSPhotoCell.m */,
 				55A11ED518FC440D00F28CA5 /* BSCheckmarkView.h */,
 				55A11ED618FC440D00F28CA5 /* BSCheckmarkView.m */,
+				55A11ED818FC4CFD00F28CA5 /* BSZoomOutAnimator.h */,
+				55A11ED918FC4CFD00F28CA5 /* BSZoomOutAnimator.m */,
+				55A11EDB18FC4FC400F28CA5 /* BSZoomInAnimator.h */,
+				55A11EDC18FC4FC400F28CA5 /* BSZoomInAnimator.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -326,6 +336,8 @@
 				558315E618F8192F00B54FE6 /* BSAlbumCell.m in Sources */,
 				55A4258918FA8E6F00EF7E8F /* BSImagePickerController.m in Sources */,
 				55C3BE7518EF632D00E601DE /* BSAppDelegate.m in Sources */,
+				55A11EDA18FC4CFD00F28CA5 /* BSZoomOutAnimator.m in Sources */,
+				55A11EDD18FC4FC400F28CA5 /* BSZoomInAnimator.m in Sources */,
 				55A4258618FA8E4E00EF7E8F /* BSImagePreviewController.m in Sources */,
 				558315E918F8436E00B54FE6 /* BSPhotoCell.m in Sources */,
 				55EC234018F09340008F5A02 /* BSImageSelectionController.m in Sources */,
