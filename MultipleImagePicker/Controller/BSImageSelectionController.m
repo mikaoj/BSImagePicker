@@ -41,6 +41,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (void)cellLongPressed:(UIGestureRecognizer *)recognizer;
 
 - (void)registerCellIdentifiers;
+- (void)showAlbumView;
+- (void)hideAlbumView;
 
 @end
 
@@ -141,6 +143,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"Should select");
     [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
                                          options:0
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
@@ -158,6 +161,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"Should deselect");
     [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
                                          options:0
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
@@ -252,17 +256,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     ALAssetsGroup *group = [self.photoAlbums objectAtIndex:indexPath.row];
     [self setSelectedAlbum:group];
     
-    [UIView animateWithDuration:0.2
-                     animations:^{
-                         CGRect frame = self.speechBubbleView.frame;
-                         frame.size.height = 7.0;
-                         frame.size.width = 14.0;
-                         frame.origin.y = [[UIApplication sharedApplication] statusBarFrame].size.height + 10;
-                         frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
-                         [self.speechBubbleView setFrame:frame];
-                     } completion:^(BOOL finished) {
-                         [self.speechBubbleView removeFromSuperview];
-                     }];
+    [self hideAlbumView];
 }
 
 #pragma mark - Lazy load views
@@ -375,37 +369,11 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)albumButtonPressed:(id)sender
 {
-    [self.view addSubview:self.speechBubbleView];
-    [self.albumTableView reloadData];
-    
-    CGFloat tableViewHeight = MIN(self.albumTableView.contentSize.height, 160);
-    CGRect frame = CGRectMake(0, 0, 240, tableViewHeight+7);
-    
-    //Remember old values
-    CGFloat height = frame.size.height;
-    CGFloat width = frame.size.width;
-    
-    //Set new frame
-    frame.size.height = 0.0;
-    frame.size.width = 0.0;
-    frame.origin.y = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height;
-    frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
-    [self.speechBubbleView setFrame:frame];
-    
-    [UIView animateWithDuration:0.7
-                          delay:0.0
-         usingSpringWithDamping:0.7
-          initialSpringVelocity:0
-                        options:0
-                     animations:^{
-                         CGRect frame = self.speechBubbleView.frame;
-                         frame.size.height = height;
-                         frame.size.width = width;
-                         frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
-                         [self.speechBubbleView setFrame:frame];
-                     } completion:^(BOOL finished) {
-//                         [self.speechBubbleView removeFromSuperview];
-                     }];
+    if([self.speechBubbleView isDescendantOfView:self.view]) {
+        [self hideAlbumView];
+    } else {
+        [self showAlbumView];
+    }
 }
 
 - (void)cellLongPressed:(UIGestureRecognizer *)recognizer
@@ -436,6 +404,56 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     [self.collectionView registerClass:[BSPhotoCell class] forCellWithReuseIdentifier:kPhotoCellIdentifier];
     [self.albumTableView registerClass:[BSAlbumCell class] forCellReuseIdentifier:kAlbumCellIdentifier];
+}
+
+- (void)showAlbumView
+{
+    [self.view addSubview:self.speechBubbleView];
+    [self.albumTableView reloadData];
+    
+    CGFloat tableViewHeight = MIN(self.albumTableView.contentSize.height, 160);
+    CGRect frame = CGRectMake(0, 0, 240, tableViewHeight+7);
+    
+    //Remember old values
+    CGFloat height = frame.size.height;
+    CGFloat width = frame.size.width;
+    
+    //Set new frame
+    frame.size.height = 0.0;
+    frame.size.width = 0.0;
+    frame.origin.y = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height;
+    frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
+    [self.speechBubbleView setFrame:frame];
+    
+    [UIView animateWithDuration:0.7
+                          delay:0.0
+         usingSpringWithDamping:0.7
+          initialSpringVelocity:0
+                        options:0
+                     animations:^{
+                         CGRect frame = self.speechBubbleView.frame;
+                         frame.size.height = height;
+                         frame.size.width = width;
+                         frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
+                         [self.speechBubbleView setFrame:frame];
+                     } completion:^(BOOL finished) {
+                         //                         [self.speechBubbleView removeFromSuperview];
+                     }];
+}
+
+- (void)hideAlbumView
+{
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                         CGRect frame = self.speechBubbleView.frame;
+                         frame.size.height = 7.0;
+                         frame.size.width = 14.0;
+                         frame.origin.y = [[UIApplication sharedApplication] statusBarFrame].size.height + 10;
+                         frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
+                         [self.speechBubbleView setFrame:frame];
+                     } completion:^(BOOL finished) {
+                         [self.speechBubbleView removeFromSuperview];
+                     }];
 }
 
 @end
