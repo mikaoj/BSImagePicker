@@ -33,7 +33,7 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// Color Declarations
-    UIColor* checkmarkBlue2 = [UIColor colorWithRed: 0.078 green: 0.435 blue: 0.875 alpha: 1];
+    UIColor* checkmarkBlue2 = self.tintColor;
     
     //// Shadow Declarations
     UIColor* shadow2 = [UIColor blackColor];
