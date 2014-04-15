@@ -139,10 +139,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     BSPhotoCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:indexPath];
     
     if(![self.navigationController previewDisabled]) {
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(cellLongPressed:)];
-        [longPress setMinimumPressDuration:1.0];
-        
-        [cell addGestureRecognizer:longPress];
+        [cell.longPressRecognizer addTarget:self action:@selector(cellLongPressed:)];
     }
     
     [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
@@ -150,7 +147,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                           if(result) {
                                               [cell setAsset:result];
-                                              [cell.imageView setImage:[UIImage imageWithCGImage:result.aspectRatioThumbnail]];
+                                              [cell.imageView setImage:[UIImage imageWithCGImage:result.thumbnail]];
                                           }
                                       }];
     
@@ -161,34 +158,50 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                         options:0
-                                      usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                                          if(result) {
-                                              [self.selectedPhotos addObject:result];
-                                              
-                                              if(self.navigationController.toggleBlock) {
-                                                  self.navigationController.toggleBlock([NSDictionary dictionaryWithAsset:result], YES);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
+                                             options:0
+                                          usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                                              if(result) {
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      [self.selectedPhotos addObject:result];
+                                                  });
+                                                  
+                                                  if(self.navigationController.toggleBlock) {
+                                                      NSDictionary *info = [NSDictionary dictionaryWithAsset:result];
+                                                      
+                                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                                          self.navigationController.toggleBlock(info, YES);
+                                                      });
+                                                  }
                                               }
-                                          }
-                                      }];
+                                          }];
+    });
     
     return YES;
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                         options:0
-                                      usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                                          if(result) {
-                                              [self.selectedPhotos removeObject:result];
-                                              
-                                              if(self.navigationController.toggleBlock) {
-                                                  self.navigationController.toggleBlock([NSDictionary dictionaryWithAsset:result], NO);
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
+                                             options:0
+                                          usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                                              if(result) {
+                                                  dispatch_async(dispatch_get_main_queue(), ^{
+                                                      [self.selectedPhotos removeObject:result];
+                                                  });
+                                                  
+                                                  if(self.navigationController.toggleBlock) {
+                                                      NSDictionary *info = [NSDictionary dictionaryWithAsset:result];
+                                                      
+                                                      dispatch_async(dispatch_get_main_queue(), ^{
+                                                          self.navigationController.toggleBlock(info, NO);
+                                                      });
+                                                  }
                                               }
-                                          }
-                                      }];
+                                          }];
+    });
     
     return YES;
 }
@@ -207,7 +220,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                               //
                                               if(result) {
                                                   //Get thumbnail size
-                                                  CGSize thumbnailSize = CGSizeMake(CGImageGetWidth(result.aspectRatioThumbnail), CGImageGetHeight(result.aspectRatioThumbnail));
+                                                  CGSize thumbnailSize = CGSizeMake(CGImageGetWidth(result.thumbnail), CGImageGetHeight(result.thumbnail));
                                                   
                                                   //We want 3 images in each row. So width should be viewWidth-(4*LEFT/RIGHT_INSET)/3
                                                   //4*10 is edgeinset
