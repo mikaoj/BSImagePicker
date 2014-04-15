@@ -213,7 +213,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                                   //4*10 is edgeinset
                                                   //Height should be adapted so we maintain the aspect ratio of thumbnail
                                                   //original height / original width x new width
-                                                  CGSize itemSize = CGSizeMake((collectionView.bounds.size.width - (4*5.0))/3.0, 100);
+                                                  CGSize itemSize = CGSizeMake((collectionView.bounds.size.width - (4*2.0))/3.0, 100);
                                                   size = CGSizeMake(itemSize.width, thumbnailSize.height / thumbnailSize.width * itemSize.width);
                                               }
                                           }];
@@ -226,7 +226,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     //top, left, bottom, right
-    return UIEdgeInsetsMake(5.0, 5.0, 5.0, 5.0);
+    return UIEdgeInsetsMake(2.0, 2.0, 2.0, 2.0);
 }
 
 #pragma mark - UIToolbarDelegate
@@ -304,8 +304,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     if(!_collectionView) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-        [flowLayout setMinimumInteritemSpacing:5.0];
-        [flowLayout setMinimumLineSpacing:5.0];
+        [flowLayout setMinimumInteritemSpacing:2.0];
+        [flowLayout setMinimumLineSpacing:2.0];
         _collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:flowLayout];
         [_collectionView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
         [_collectionView setBackgroundColor:[UIColor whiteColor]];
