@@ -35,27 +35,32 @@
     [super setSelected:selected];
     
     if(previous != selected) {
-        [self.checkmarkView setChecked:selected];
-        [self setTransform:CGAffineTransformMakeScale(0.9, 0.9)];
-        
-        if(selected) {
-            [self.selectionView setFrame:CGRectMake(self.imageView.center.x, self.imageView.center.y, 1, 1)];
-            [self.imageView addSubview:self.selectionView];
-            
-            [UIView animateWithDuration:0.1
-                             animations:^{
-                                 [self setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
-                                 [self.selectionView setFrame:self.imageView.frame];
-                             }];
-        } else {
-            [UIView animateWithDuration:0.1
-                             animations:^{
-                                 [self setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+        [UIView animateWithDuration:0.05
+                              delay:0.0
+                            options:0
+                         animations:^{
+                             [self setTransform:CGAffineTransformMakeScale(0.95, 0.95)];
+                             [self.checkmarkView setChecked:selected];
+                         } completion:^(BOOL finished) {
+                             if(selected) {
                                  [self.selectionView setFrame:CGRectMake(self.imageView.center.x, self.imageView.center.y, 1, 1)];
-                             } completion:^(BOOL finished) {
-                                 [self.selectionView removeFromSuperview];
-                             }];
-        }
+                                 [self.imageView addSubview:self.selectionView];
+                                 
+                                 [UIView animateWithDuration:0.1
+                                                  animations:^{
+                                                      [self setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+                                                      [self.selectionView setFrame:self.imageView.frame];
+                                                  }];
+                             } else {
+                                 [UIView animateWithDuration:0.1
+                                                  animations:^{
+                                                      [self setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+                                                      [self.selectionView setFrame:CGRectMake(self.imageView.center.x, self.imageView.center.y, 1, 1)];
+                                                  } completion:^(BOOL finished) {
+                                                      [self.selectionView removeFromSuperview];
+                                                  }];
+                             }
+                         }];
     }
 }
 
