@@ -263,10 +263,21 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
     
-    [cell.imageView setImage:[UIImage imageWithCGImage:group.posterImage scale:1.0 orientation:UIImageOrientationUp]];
+    [cell.imageView setImage:[UIImage imageWithCGImage:group.posterImage]];
     [cell.textLabel setText:[group valueForProperty:ALAssetsGroupPropertyName]];
     [cell setBackgroundColor:[UIColor clearColor]];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    
+    [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+        if(result) {
+            if(index == 1) {
+                [cell.secondImageView setImage:[UIImage imageWithCGImage:result.thumbnail]];
+            } else if(index == 2) {
+                [cell.thirdImageView setImage:[UIImage imageWithCGImage:result.thumbnail]];
+                *stop = YES;
+            }
+        }
+    }];
     
     return cell;
 }

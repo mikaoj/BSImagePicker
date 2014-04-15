@@ -10,4 +10,7 @@
 
 @interface BSAlbumCell : UITableViewCell
 
+@property (nonatomic, strong) UIImageView *secondImageView;
+@property (nonatomic, strong) UIImageView *thirdImageView;
+
 @end
