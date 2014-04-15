@@ -26,7 +26,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 @property (nonatomic, strong) NSMutableArray *photoAlbums; //Contains ALAssetsGroup
 @property (nonatomic, strong) ALAssetsGroup *selectedAlbum;
-@property (nonatomic, strong) NSMutableArray *photos;
+@property (nonatomic, strong) NSMutableArray *selectedPhotos;
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UITableView *albumTableView;
@@ -77,7 +77,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         
         //Setup album/photo arrays
         _photoAlbums = [[NSMutableArray alloc] init];
-        _photos = [[NSMutableArray alloc] init];
+        _selectedPhotos = [[NSMutableArray alloc] init];
         
         //Find all albums
         [[BSImageSelectionController defaultAssetsLibrary] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
@@ -166,7 +166,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                          options:0
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                           if(result) {
-                                              [self.photos addObject:result];
+                                              [self.selectedPhotos addObject:result];
                                               
                                               if(self.navigationController.toggleBlock) {
                                                   self.navigationController.toggleBlock([NSDictionary dictionaryWithAsset:result], YES);
@@ -183,7 +183,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                          options:0
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                           if(result) {
-                                              [self.photos removeObject:result];
+                                              [self.selectedPhotos removeObject:result];
                                               
                                               if(self.navigationController.toggleBlock) {
                                                   self.navigationController.toggleBlock([NSDictionary dictionaryWithAsset:result], NO);
@@ -415,7 +415,10 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         self.navigationController.finishBlock(nil, YES);
     }
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self.selectedPhotos removeAllObjects];
+        [self.collectionView reloadData];
+    }];
 }
 
 - (void)doneButtonPressed:(id)sender    
@@ -424,7 +427,10 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         self.navigationController.finishBlock(nil, NO);
     }
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self.selectedPhotos removeAllObjects];
+        [self.collectionView reloadData];
+    }];
 }
 
 - (void)albumButtonPressed:(id)sender
