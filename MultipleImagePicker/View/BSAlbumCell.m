@@ -23,6 +23,7 @@
     [super layoutSubviews];
     
     [self.imageView setFrame:CGRectMake(4, 4, self.imageView.frame.size.width, self.contentView.frame.size.height-4)];
+    [self.textLabel setFrame:CGRectMake(self.imageView.frame.origin.x + self.imageView.frame.size.width + 8, self.textLabel.frame.origin.y, self.textLabel.frame.size.width, self.textLabel.frame.size.height)];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
