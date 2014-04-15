@@ -14,7 +14,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setBackgroundColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:0.8]];
+        [self setBackgroundColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:0.95]];
         
         // Create a mask layer and the frame to determine what will be visible in the view.
         CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
