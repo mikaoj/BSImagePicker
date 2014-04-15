@@ -46,7 +46,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)cellLongPressed:(UIGestureRecognizer *)recognizer;
 
-- (void)registerCellIdentifiers;
+- (void)registerCollectionViewCellIdentifiers;
+- (void)registerTableViewCellIdentifiers;
 - (void)showAlbumView;
 - (void)hideAlbumView;
 
@@ -77,6 +78,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         _photoAlbums = [[NSMutableArray alloc] init];
         _photos = [[NSMutableArray alloc] init];
         
+        //Find all albums
         [[BSImageSelectionController defaultAssetsLibrary] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
             if(group) {
                 //Default to select saved photos album
@@ -87,8 +89,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                     [self.photoAlbums addObject:group];
                 }
             }
-        } failureBlock:^(NSError *error) {
-        }];
+        } failureBlock:nil];
         
         //Navigation bar buttons
         [self.navigationItem setLeftBarButtonItem:self.cancelButton];
@@ -97,11 +98,13 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         
         //Set navigation controller delegate
         [self.navigationController setDelegate:self];
-        
-        //Register cell identifiers
-        [self registerCellIdentifiers];
     }
     return self;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
 }
 
 #pragma mark - UIViewController
@@ -306,6 +309,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         [_collectionView setAlwaysBounceVertical:YES];
         [_collectionView setDelegate:self];
         [_collectionView setDataSource:self];
+        [self registerCollectionViewCellIdentifiers];
     }
     
     return _collectionView;
@@ -364,6 +368,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         [_albumTableView setBackgroundColor:[UIColor clearColor]];
         [_albumTableView setDelegate:self];
         [_albumTableView setDataSource:self];
+        [self registerTableViewCellIdentifiers];
     }
     
     return _albumTableView;
@@ -394,6 +399,11 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     }
     
     return _zoomOutAnimator;
+}
+
+- (BSImagePickerController *)navigationController
+{
+    return (BSImagePickerController *)[super navigationController];
 }
 
 #pragma mark - Button actions
@@ -452,9 +462,13 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     [self.collectionView reloadData];
 }
 
-- (void)registerCellIdentifiers
+- (void)registerCollectionViewCellIdentifiers
 {
     [self.collectionView registerClass:[BSPhotoCell class] forCellWithReuseIdentifier:kPhotoCellIdentifier];
+}
+
+- (void)registerTableViewCellIdentifiers
+{
     [self.albumTableView registerClass:[BSAlbumCell class] forCellReuseIdentifier:kAlbumCellIdentifier];
 }
 
@@ -504,11 +518,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                      } completion:^(BOOL finished) {
                          [self.speechBubbleView removeFromSuperview];
                      }];
-}
-
-- (BSImagePickerController *)navigationController
-{
-    return (BSImagePickerController *)[super navigationController];
 }
 
 @end
