@@ -15,6 +15,7 @@
 #import "BSImagePickerController.h"
 #import "BSZoomOutAnimator.h"
 #import "BSZoomInAnimator.h"
+#import "NSDictionary+ALAsset.h"
 
 static NSString *kPhotoCellIdentifier = @"photoCellIdentifier";
 static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
@@ -168,7 +169,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                               [self.photos addObject:result];
                                               
                                               if(self.navigationController.toggleBlock) {
-                                                  self.navigationController.toggleBlock(nil, YES);
+                                                  self.navigationController.toggleBlock([NSDictionary dictionaryWithAsset:result], YES);
                                               }
                                           }
                                       }];
@@ -185,7 +186,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                               [self.photos removeObject:result];
                                               
                                               if(self.navigationController.toggleBlock) {
-                                                  self.navigationController.toggleBlock(nil, NO);
+                                                  self.navigationController.toggleBlock([NSDictionary dictionaryWithAsset:result], NO);
                                               }
                                           }
                                       }];
