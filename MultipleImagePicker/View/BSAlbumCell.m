@@ -18,6 +18,13 @@
     return self;
 }
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    [self.imageView setFrame:CGRectMake(4, 4, self.imageView.frame.size.width, self.contentView.frame.size.height-4)];
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
