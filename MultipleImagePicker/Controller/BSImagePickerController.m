@@ -11,6 +11,8 @@
 
 @interface BSImagePickerController ()
 
+@property (nonatomic, strong) BSImageSelectionController *imagePicker;
+
 @end
 
 @implementation BSImagePickerController
@@ -22,11 +24,27 @@
         //Default to shitloads of images
         _maximumNumberOfImages = NSUIntegerMax;
         
-        BSImageSelectionController *imagePicker = [[BSImageSelectionController alloc] init];
-        
-        [self pushViewController:imagePicker animated:NO];
+        [self pushViewController:self.imagePicker animated:NO];
     }
     return self;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [self setImagePicker:nil];
+    
+    [super didReceiveMemoryWarning];
+}
+
+#pragma mark - Lazy load
+
+- (BSImageSelectionController *)imagePicker
+{
+    if(!_imagePicker) {
+        _imagePicker = [[BSImageSelectionController alloc] init];
+    }
+    
+    return _imagePicker;
 }
 
 @end
