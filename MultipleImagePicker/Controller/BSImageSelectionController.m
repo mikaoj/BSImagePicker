@@ -248,6 +248,11 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     return [self.photoAlbums count];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60.0;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BSAlbumCell *cell = [[BSAlbumCell alloc] init];
@@ -352,7 +357,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (BSSpeechBubbleView *)speechBubbleView
 {
     if(!_speechBubbleView) {
-        _speechBubbleView = [[BSSpeechBubbleView alloc] initWithFrame:CGRectMake(0, 0, 240, 320)];
+        _speechBubbleView = [[BSSpeechBubbleView alloc] initWithFrame:CGRectMake(0, 0, 300, 320)];
         [_speechBubbleView.contentView addSubview:self.albumTableView];
     }
     
@@ -482,8 +487,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     [self.view addSubview:self.speechBubbleView];
     [self.albumTableView reloadData];
     
-    CGFloat tableViewHeight = MIN(self.albumTableView.contentSize.height, 160);
-    CGRect frame = CGRectMake(0, 0, 240, tableViewHeight+7);
+    CGFloat tableViewHeight = MIN(self.albumTableView.contentSize.height, 240);
+    CGRect frame = CGRectMake(0, 0, self.speechBubbleView.frame.size.width, tableViewHeight+7);
     
     //Remember old values
     CGFloat height = frame.size.height;
@@ -512,6 +517,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)hideAlbumView
 {
+    __block CGRect origRect = self.speechBubbleView.frame;
+    
+    [self.albumTableView reloadData];
     [UIView animateWithDuration:0.2
                      animations:^{
                          CGRect frame = self.speechBubbleView.frame;
@@ -522,6 +530,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                          [self.speechBubbleView setFrame:frame];
                      } completion:^(BOOL finished) {
                          [self.speechBubbleView removeFromSuperview];
+                         [self.speechBubbleView setFrame:origRect];
                      }];
 }
 

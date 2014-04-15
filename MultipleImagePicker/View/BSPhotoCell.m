@@ -80,7 +80,7 @@
 {
     if(!_selectionView) {
         _selectionView = [[UIView alloc] initWithFrame:self.contentView.frame];
-        [_selectionView setBackgroundColor:[UIColor colorWithWhite:0.7 alpha:0.5]];
+        [_selectionView setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.3]];
     }
     
     return _selectionView;
