@@ -41,8 +41,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 @property (nonatomic, strong) BSZoomInAnimator *zoomInAnimator;
 @property (nonatomic, strong) BSZoomOutAnimator *zoomOutAnimator;
 
-- (void)cancelButtonPressed:(id)sender;
-- (void)doneButtonPressed:(id)sender;
+- (void)finishButtonPressed:(id)sender;
 - (void)albumButtonPressed:(id)sender;
 
 - (void)cellLongPressed:(UIGestureRecognizer *)recognizer;
@@ -321,7 +320,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     if(!_cancelButton) {
         _cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                                       target:self
-                                                                      action:@selector(cancelButtonPressed:)];
+                                                                      action:@selector(finishButtonPressed:)];
     }
     
     return _cancelButton;
@@ -332,7 +331,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     if(!_doneButton) {
         _doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                     target:self
-                                                                    action:@selector(doneButtonPressed:)];
+                                                                    action:@selector(finishButtonPressed:)];
     }
     
     return _doneButton;
@@ -409,22 +408,10 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 #pragma mark - Button actions
 
-- (void)cancelButtonPressed:(id)sender
+- (void)finishButtonPressed:(id)sender
 {
     if(self.navigationController.finishBlock) {
-        self.navigationController.finishBlock(nil, YES);
-    }
-    
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self.selectedPhotos removeAllObjects];
-        [self.collectionView reloadData];
-    }];
-}
-
-- (void)doneButtonPressed:(id)sender    
-{
-    if(self.navigationController.finishBlock) {
-        self.navigationController.finishBlock(nil, NO);
+        self.navigationController.finishBlock(nil, sender == self.cancelButton);
     }
     
     [self dismissViewControllerAnimated:YES completion:^{
