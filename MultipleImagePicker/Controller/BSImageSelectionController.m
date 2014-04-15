@@ -411,11 +411,22 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (void)finishButtonPressed:(id)sender
 {
     if(self.navigationController.finishBlock) {
-        self.navigationController.finishBlock(nil, sender == self.cancelButton);
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSMutableArray *infos = [[NSMutableArray alloc] init];
+            for(ALAsset *asset in self.selectedPhotos) {
+                [infos addObject:[NSDictionary dictionaryWithAsset:asset]];
+            }
+            [self.selectedPhotos removeAllObjects];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.navigationController.finishBlock([infos copy], sender == self.cancelButton);
+            });
+        });
+    } else {
+        [self.selectedPhotos removeAllObjects];
     }
     
     [self dismissViewControllerAnimated:YES completion:^{
-        [self.selectedPhotos removeAllObjects];
         [self.collectionView reloadData];
     }];
 }
