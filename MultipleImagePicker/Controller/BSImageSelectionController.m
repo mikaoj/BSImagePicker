@@ -255,7 +255,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BSAlbumCell *cell = [[BSAlbumCell alloc] init];
+    BSAlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:kAlbumCellIdentifier forIndexPath:indexPath];
     
     ALAssetsGroup *group = [self.photoAlbums objectAtIndex:indexPath.row];
 
@@ -369,7 +369,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     if(!_albumTableView) {
         _albumTableView = [[UITableView alloc] init];
         [_albumTableView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-        [_albumTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        [_albumTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
         [_albumTableView setBackgroundColor:[UIColor clearColor]];
         [_albumTableView setDelegate:self];
         [_albumTableView setDataSource:self];
