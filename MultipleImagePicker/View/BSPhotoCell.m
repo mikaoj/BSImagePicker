@@ -36,6 +36,7 @@
     
     if(previous != selected) {
         [self.checkmarkView setChecked:selected];
+        [self setTransform:CGAffineTransformMakeScale(0.9, 0.9)];
         
         if(selected) {
             [self.selectionView setFrame:CGRectMake(self.imageView.center.x, self.imageView.center.y, 1, 1)];
@@ -43,11 +44,13 @@
             
             [UIView animateWithDuration:0.1
                              animations:^{
+                                 [self setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
                                  [self.selectionView setFrame:self.imageView.frame];
                              }];
         } else {
             [UIView animateWithDuration:0.1
                              animations:^{
+                                 [self setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
                                  [self.selectionView setFrame:CGRectMake(self.imageView.center.x, self.imageView.center.y, 1, 1)];
                              } completion:^(BOOL finished) {
                                  [self.selectionView removeFromSuperview];
