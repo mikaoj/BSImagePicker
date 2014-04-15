@@ -10,7 +10,8 @@
 
 @interface BSTriangleView : UIView
 
+- (id)initWithFrame:(CGRect)frame andPointerSize:(CGSize)pointerSize;
+
 @property (nonatomic, assign) CGSize pointerSize;
-@property (nonatomic, strong) UIColor *color;
 
 @end

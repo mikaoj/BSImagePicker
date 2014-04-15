@@ -10,28 +10,31 @@
 
 @implementation BSTriangleView
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame andPointerSize:(CGSize)pointerSize
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setBackgroundColor:[UIColor clearColor]];
-        [self setColor:[UIColor blackColor]];
+        [self setBackgroundColor:[UIColor colorWithRed:0.8 green:0.8 blue:0.8 alpha:0.8]];
+        
+        // Create a mask layer and the frame to determine what will be visible in the view.
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+
+        UIBezierPath *path = [UIBezierPath bezierPath];
+        [path moveToPoint:CGPointMake( ceil((frame.size.width/2.0) - (pointerSize.width/2.0)), pointerSize.height)];
+        [path addLineToPoint:CGPointMake( ceil(frame.size.width / 2.0), 0)];
+        [path addLineToPoint:CGPointMake( ceil((frame.size.width/2.0) + (pointerSize.width/2.0)), pointerSize.height)];
+        [path closePath];
+        
+        // Set the path to the mask layer.
+        [maskLayer setPath:path.CGPath];
+        
+        // Set the mask of the view.
+        [self.layer setMask:maskLayer];
+        
+        [self setPointerSize:pointerSize];
     }
     
     return self;
-}
-
-- (void)drawRect:(CGRect)rect
-{
-    CGRect currentFrame = self.bounds;
-    
-    UIBezierPath *path = [UIBezierPath bezierPath];
-    [path moveToPoint:CGPointMake( ceil((currentFrame.size.width/2.0) - (_pointerSize.width/2.0)), _pointerSize.height)];
-    [path addLineToPoint:CGPointMake( ceil(currentFrame.size.width / 2.0), 0)];
-    [path addLineToPoint:CGPointMake( ceil((currentFrame.size.width/2.0) + (_pointerSize.width/2.0)), _pointerSize.height)];
-    [path closePath];
-    [self.color setFill];
-    [path fill];
 }
 
 @end

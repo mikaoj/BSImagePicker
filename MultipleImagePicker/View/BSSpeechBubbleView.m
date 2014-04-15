@@ -14,12 +14,9 @@
 
 @property (nonatomic, strong) BSTriangleView *triangle;
 
-
 @end
 
 @implementation BSSpeechBubbleView
-
-
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -48,20 +45,11 @@
 - (BSTriangleView *)triangle
 {
     if(!_triangle) {
-        _triangle = [[BSTriangleView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 7)];
+        _triangle = [[BSTriangleView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 7) andPointerSize:CGSizeMake(24, 7)];
         [_triangle setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-        [_triangle setPointerSize:CGSizeMake(24, 7)];
-        [_triangle setColor:self.contentView.backgroundColor];
     }
     
     return _triangle;
-}
-
-- (void)setBackgroundColor:(UIColor *)backgroundColor
-{
-    [self.contentView setBackgroundColor:backgroundColor];
-    [self.triangle setColor:backgroundColor];
-    [self.triangle setNeedsDisplay];
 }
 
 - (UIColor *)backgroundColor

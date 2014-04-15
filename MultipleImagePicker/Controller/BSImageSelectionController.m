@@ -354,7 +354,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     if(!_speechBubbleView) {
         _speechBubbleView = [[BSSpeechBubbleView alloc] initWithFrame:CGRectMake(0, 0, 240, 320)];
         [_speechBubbleView.contentView addSubview:self.albumTableView];
-        [_speechBubbleView setBackgroundColor:[UIColor lightGrayColor]];
     }
     
     return _speechBubbleView;
@@ -365,6 +364,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     if(!_albumTableView) {
         _albumTableView = [[UITableView alloc] init];
         [_albumTableView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
+        [_albumTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
         [_albumTableView setBackgroundColor:[UIColor clearColor]];
         [_albumTableView setDelegate:self];
         [_albumTableView setDataSource:self];
