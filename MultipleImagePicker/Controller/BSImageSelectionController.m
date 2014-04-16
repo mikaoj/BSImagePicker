@@ -24,9 +24,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 + (ALAssetsLibrary *)defaultAssetsLibrary;
 
-@property (nonatomic, strong) NSMutableArray *photoAlbums; //Contains ALAssetsGroup
+@property (nonatomic, strong) NSMutableArray *photoAlbums; //Contains ALAssetsGroups
 @property (nonatomic, strong) ALAssetsGroup *selectedAlbum;
-@property (nonatomic, strong) NSMutableArray *selectedPhotos;
+@property (nonatomic, strong) NSMutableArray *selectedPhotos; //Contains ALAssets
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UITableView *albumTableView;
@@ -74,6 +74,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         //Add subviews
         [self.view addSubview:self.collectionView];
         
+        //TODO: Lazy load?
         //Setup album/photo arrays
         _photoAlbums = [[NSMutableArray alloc] init];
         _selectedPhotos = [[NSMutableArray alloc] init];
@@ -445,9 +446,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
             for(ALAsset *asset in self.selectedPhotos) {
                 [infos addObject:[NSDictionary dictionaryWithAsset:asset]];
             }
-            [self.selectedPhotos removeAllObjects];
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self.selectedPhotos removeAllObjects];
                 self.navigationController.finishBlock([infos copy], sender == self.cancelButton);
             });
         });
@@ -493,6 +494,10 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     _selectedAlbum = selectedAlbum;
     [self.albumButton setTitle:[_selectedAlbum valueForProperty:ALAssetsGroupPropertyName] forState:UIControlStateNormal];
+    
+    //Clear arrays
+    [self.selectedPhotos removeAllObjects];
+    
     [self.collectionView reloadData];
 }
 
