@@ -127,6 +127,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    [self.navigationController setDelegate:self];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -470,12 +472,10 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     if(recognizer.state == UIGestureRecognizerStateBegan) {
         [recognizer setEnabled:NO];
         
-        //TODO: DON'T DO THAT HERE
-        [self.navigationController setDelegate:self];
-        
         UIImage *image = [UIImage imageWithCGImage:[[cell.asset defaultRepresentation] fullScreenImage]];
-        [self.navigationController pushViewController:self.imagePreviewController animated:YES];
         [self.imagePreviewController.imageView setImage:image];
+        [self.navigationController pushViewController:self.imagePreviewController animated:YES];
+        
         [recognizer setEnabled:YES];
     }
     
