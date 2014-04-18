@@ -179,6 +179,11 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                          options:0
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                           if(result) {
+                                              //Enable done button
+                                              if([self.selectedPhotos count] == 0) {
+                                                  [self.doneButton setEnabled:YES];
+                                              }
+                                              
                                               NSDictionary *info = [NSDictionary dictionaryWithAsset:result];
                                               [self.selectedPhotos setObject:info forKey:result.defaultRepresentation.url.absoluteString];
                                               
@@ -202,6 +207,11 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                               }
                                               
                                               [self.selectedPhotos removeObjectForKey:result.defaultRepresentation.url.absoluteString];
+                                              
+                                              //Disable done button
+                                              if([self.selectedPhotos count] == 0) {
+                                                  [self.doneButton setEnabled:NO];
+                                              }
                                           }
                                       }];
     
@@ -490,6 +500,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     
     //Clear arrays
     [self.selectedPhotos removeAllObjects];
+    
+    //Disable done button
+    [self.doneButton setEnabled:NO];
     
     [self.collectionView reloadData];
 }
