@@ -48,7 +48,6 @@
 		556E0D0F1901781B006F8F73 /* BSImageSelectionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 55EC233E18F09340008F5A02 /* BSImageSelectionController.h */; };
 		556E0D101901781B006F8F73 /* BSImagePreviewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A4258418FA8E4E00EF7E8F /* BSImagePreviewController.h */; };
 		556E0D111901781B006F8F73 /* BSImagePickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A4258718FA8E6F00EF7E8F /* BSImagePickerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		556E0D12190179E3006F8F73 /* BSImagePickerController.h in Resources */ = {isa = PBXBuildFile; fileRef = 55A4258718FA8E6F00EF7E8F /* BSImagePickerController.h */; };
 		558315E618F8192F00B54FE6 /* BSAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558315E518F8192F00B54FE6 /* BSAlbumCell.m */; };
 		558315E918F8436E00B54FE6 /* BSPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558315E818F8436E00B54FE6 /* BSPhotoCell.m */; };
 		55A11ED718FC440D00F28CA5 /* BSCheckmarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11ED618FC440D00F28CA5 /* BSCheckmarkView.m */; };
@@ -453,7 +452,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				556E0D12190179E3006F8F73 /* BSImagePickerController.h in Resources */,
 				556E0CE919017470006F8F73 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

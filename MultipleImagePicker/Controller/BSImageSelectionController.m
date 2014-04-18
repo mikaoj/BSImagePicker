@@ -578,7 +578,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                          CGRect frame = self.speechBubbleView.frame;
                          frame.size.height = 7.0;
                          frame.size.width = 14.0;
-                         frame.origin.y = [[UIApplication sharedApplication] statusBarFrame].size.height + 10;
                          frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
                          [self.speechBubbleView setFrame:frame];
                          
