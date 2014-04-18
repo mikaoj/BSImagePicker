@@ -25,13 +25,30 @@
 
 @interface BSImagePickerController : UINavigationController
 
-//Defaults to NSUIntegerMax (i.e shitloads of images)
+/**
+ *  Defaults to NSUIntegerMax (i.e shitloads of images)
+ */
 @property (nonatomic, assign) NSUInteger maximumNumberOfImages;
 
+/**
+ *  Block that gets called on select/deselect
+ */
 @property (nonatomic, copy) BSImageToggleBlock toggleBlock;
+
+/**
+ *  Block that gets called on cancel/done
+ */
 @property (nonatomic, copy) BSImageSelectionFinishedBlock finishBlock;
 
+/**
+ *  Set to YES to disable preview on long press
+ */
 @property (nonatomic, assign) BOOL previewDisabled;
+
+/**
+ *  Set to YES to disable edit mode in preview.
+ *  This isn't supported yet. Placeholder for future feature :)
+ */
 @property (nonatomic, assign) BOOL disableEdit;
 
 @end

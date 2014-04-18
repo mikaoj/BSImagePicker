@@ -26,10 +26,12 @@
 @interface NSDictionary (ALAsset)
 
 /**
- Creates a dictionary compatible with the imagePickerController:didFinishPickingMediaWithInfo: info dictionary.
- @param asset An ALAsset object to create the dictionary from
- @return imagePickerController:didFinishPickingMediaWithInfo: compatible dictionary.
- */
+*  Creates a dictionary compatible with the imagePickerController:didFinishPickingMediaWithInfo: info dictionary.
+*
+*  @param asset asset An ALAsset object to create the dictionary from
+*
+*  @return imagePickerController:didFinishPickingMediaWithInfo: compatible dictionary.
+*/
 + (NSDictionary *)dictionaryWithAsset:(ALAsset *)asset;
 
 @end

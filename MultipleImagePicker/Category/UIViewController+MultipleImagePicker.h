@@ -28,6 +28,15 @@ typedef void (^BSImageSelectionFinishedBlock)(NSArray *infoArray, BOOL canceled)
 @class BSImagePickerController;
 @interface UIViewController (MultipleImagePicker)
 
+/**
+ *  Present image picker controller (wrapper around presentViewController)
+ *
+ *  @param viewControllerToPresent A BSImagePickerController to present
+ *  @param flag                    Present with animation or not
+ *  @param completion              Presention completion handler or nil
+ *  @param toggle                  Image toggle handler block (select/deselect) or nil
+ *  @param finish                  Image picker finish (cancel/done) or nil
+ */
 - (void)presentImagePickerController:(BSImagePickerController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion toggle:(BSImageToggleBlock)toggle finish:(BSImageSelectionFinishedBlock)finish;
 
 @end
