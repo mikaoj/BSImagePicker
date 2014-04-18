@@ -47,6 +47,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 @property (nonatomic, strong) BSSpeechBubbleView *speechBubbleView;
 @property (nonatomic, strong) BSImagePreviewController *imagePreviewController;
 @property (nonatomic, strong, readonly) BSImagePickerController *navigationController;
+@property (nonatomic, strong) UIView *coverView;
 
 @property (nonatomic, strong) UIBarButtonItem *cancelButton;
 @property (nonatomic, strong) UIButton *albumButton;
@@ -415,6 +416,19 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     return _albumTableView;
 }
 
+- (UIView *)coverView
+{
+    if(!_coverView) {
+        _coverView = [[UIView alloc] initWithFrame:self.navigationController.view.frame];
+        
+        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideAlbumView)];
+        [recognizer setNumberOfTapsRequired:1];
+        [_coverView addGestureRecognizer:recognizer];
+    }
+    
+    return _coverView;
+}
+
 - (BSImagePreviewController *)imagePreviewController
 {
     if(!_imagePreviewController) {
@@ -468,7 +482,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)albumButtonPressed:(id)sender
 {
-    if([self.speechBubbleView isDescendantOfView:self.view]) {
+    if([self.speechBubbleView isDescendantOfView:self.navigationController.view]) {
         [self hideAlbumView];
     } else {
         [self showAlbumView];
@@ -519,7 +533,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)showAlbumView
 {
-    [self.view addSubview:self.speechBubbleView];
+    [self.navigationController.view addSubview:self.coverView];
+    
+    [self.navigationController.view addSubview:self.speechBubbleView];
     [self.albumTableView reloadData];
     
     CGFloat tableViewHeight = MIN(self.albumTableView.contentSize.height, 240);
@@ -547,6 +563,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                          frame.size.width = width;
                          frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
                          [self.speechBubbleView setFrame:frame];
+                         
+                         [self.coverView setBackgroundColor:[UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5]];
                      } completion:nil];
 }
 
@@ -563,9 +581,12 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                          frame.origin.y = [[UIApplication sharedApplication] statusBarFrame].size.height + 10;
                          frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
                          [self.speechBubbleView setFrame:frame];
+                         
+                         [self.coverView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0]];
                      } completion:^(BOOL finished) {
                          [self.speechBubbleView removeFromSuperview];
                          [self.speechBubbleView setFrame:origRect];
+                         [self.coverView removeFromSuperview];
                      }];
 }
 
