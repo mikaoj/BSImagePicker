@@ -40,7 +40,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 @property (nonatomic, strong) NSMutableArray *photoAlbums; //Contains ALAssetsGroups
 @property (nonatomic, strong) ALAssetsGroup *selectedAlbum;
-@property (nonatomic, strong) NSMutableArray *selectedPhotos; //Contains ALAssets
+@property (nonatomic, strong) NSMutableDictionary *selectedPhotos; //Key is alasset url, value is nsdictionary
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UITableView *albumTableView;
@@ -91,7 +91,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         //TODO: Lazy load?
         //Setup album/photo arrays
         _photoAlbums = [[NSMutableArray alloc] init];
-        _selectedPhotos = [[NSMutableArray alloc] init];
+        _selectedPhotos = [[NSMutableDictionary alloc] init];
         
         //Find all albums
         [[BSImageSelectionController defaultAssetsLibrary] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
@@ -173,50 +173,35 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                             options:0
-                                          usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                                              if(result) {
-                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                      [self.selectedPhotos addObject:result];
-                                                  });
-                                                  
-                                                  if(self.navigationController.toggleBlock) {
-                                                      NSDictionary *info = [NSDictionary dictionaryWithAsset:result];
-                                                      
-                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                          self.navigationController.toggleBlock(info, YES);
-                                                      });
-                                                  }
+    [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
+                                         options:0
+                                      usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                                          if(result) {
+                                              NSDictionary *info = [NSDictionary dictionaryWithAsset:result];
+                                              [self.selectedPhotos setObject:info forKey:result.defaultRepresentation.url.absoluteString];
+                                              
+                                              if(self.navigationController.toggleBlock) {
+                                                  self.navigationController.toggleBlock(info, YES);
                                               }
-                                          }];
-    });
+                                          }
+                                      }];
     
     return YES;
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                             options:0
-                                          usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                                              if(result) {
-                                                  dispatch_async(dispatch_get_main_queue(), ^{
-                                                      [self.selectedPhotos removeObject:result];
-                                                  });
-                                                  
-                                                  if(self.navigationController.toggleBlock) {
-                                                      NSDictionary *info = [NSDictionary dictionaryWithAsset:result];
-                                                      
-                                                      dispatch_async(dispatch_get_main_queue(), ^{
-                                                          self.navigationController.toggleBlock(info, NO);
-                                                      });
-                                                  }
+    [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
+                                         options:0
+                                      usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                                          if(result) {
+                                              if(self.navigationController.toggleBlock) {
+                                                  self.navigationController.toggleBlock([self.selectedPhotos objectForKey:result.defaultRepresentation.url.absoluteString], NO);
                                               }
-                                          }];
-    });
+                                              
+                                              [self.selectedPhotos removeObjectForKey:result.defaultRepresentation.url.absoluteString];
+                                          }
+                                      }];
     
     return YES;
 }
@@ -286,7 +271,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     BSAlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:kAlbumCellIdentifier forIndexPath:indexPath];
     
     ALAssetsGroup *group = [self.photoAlbums objectAtIndex:indexPath.row];
-
+    
     if([group isEqual:self.selectedAlbum]) {
         [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     }
@@ -455,20 +440,14 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (void)finishButtonPressed:(id)sender
 {
     if(self.navigationController.finishBlock) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSMutableArray *infos = [[NSMutableArray alloc] init];
-            for(ALAsset *asset in self.selectedPhotos) {
-                [infos addObject:[NSDictionary dictionaryWithAsset:asset]];
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.selectedPhotos removeAllObjects];
-                self.navigationController.finishBlock([infos copy], sender == self.cancelButton);
-            });
-        });
-    } else {
-        [self.selectedPhotos removeAllObjects];
+        NSMutableArray *infos = [[NSMutableArray alloc] init];
+        for(NSDictionary *info in self.selectedPhotos.allValues) {
+            [infos addObject:info];
+        }
+        self.navigationController.finishBlock([infos copy], sender == self.cancelButton);
     }
+    
+    [self.selectedPhotos removeAllObjects];
     
     [self dismissViewControllerAnimated:YES completion:^{
         [self.collectionView reloadData];
