@@ -24,7 +24,7 @@
 
 @implementation BSCheckmarkView
 
-- (void) drawRect:(CGRect)rect
+- (void)drawRect:(CGRect)rect
 {
     [super drawRect:rect];
     
@@ -33,13 +33,16 @@
     }
 }
 
-- (void) setChecked:(BOOL)checked
+- (void)setChecked:(BOOL)checked
 {
-    _checked = checked;
-    [self setNeedsDisplay];
+    //Only redraw if needed
+    if(checked != _checked) {
+        _checked = checked;
+        [self setNeedsDisplay];
+    }
 }
 
-- (void) drawRectChecked: (CGRect) rect
+- (void)drawRectChecked:(CGRect)rect
 {
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
