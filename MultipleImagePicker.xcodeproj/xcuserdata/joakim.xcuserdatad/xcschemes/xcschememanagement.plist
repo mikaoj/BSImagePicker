@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>BSImagePickerController.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>BuildFramework.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>MultipleImagePicker.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +22,16 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>556E0CE019017470006F8F73</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>556E0D001901764D006F8F73</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>55C3BE6018EF632D00E601DE</key>
 		<dict>
 			<key>primary</key>

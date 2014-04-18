@@ -130,3 +130,6 @@ xcuserdata
 
 # App code
 .idea
+
+# Build folder
+Products
