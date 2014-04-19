@@ -1,11 +1,23 @@
-# Showcase
+![alt text](https://bitbucket.org/backslashed/bsimagepicker/downloads/demo.gif "Demo gif")
+
 A mix between the native iOS 7 gallery and facebooks image picker.
-![alt text](/path/img.jpg "Title")
 # Note
-This is still in alpha stage. There are known bugs and stuff that needs to be implemented for "production" use. See TODO section.
+This is still in pre-alpha stage. There are known bugs and features that needs to be implemented for "production" use. See TODO section.
 # Install
-### Framework
-Download the framework INSERT LINK and drop into your project.
+### Download framework
+[Download the framework](https://bitbucket.org/backslashed/bsimagepicker/downloads/BSImagePickerController.framework.zip "framework") and drop into your project.
+### Or build it yourself
+* Clone project
+```shell
+git clone git@bitbucket.org:backslashed/bsimagepicker.git
+```
+* Build framework
+```shell
+cd bsimagepicker
+xcodebuild  -target BuildFramework
+open -a Finder Products/
+```
+* Drag & Drop framework into your project
 # Use
 Import header
 ```objc
@@ -32,11 +44,11 @@ Present the image picker from a view controller
                             }];
 ```
 # TODO's
-* Handle rotation
-* iPad
-* Edit
-* Movies
-* Performance
-* Customization
+* Handle rotation - rotating the device will mess things up.
+* iPad - not tested on the iPad
+* Edit - support for editing images in the preview view
+* Movies - for now only images are supported. Add support for movies as well
+* Performance - probably needs some tweaking to make it fly :)
+* Customization - support for customization, sizes, colors, etc
 # License
 MIT License
