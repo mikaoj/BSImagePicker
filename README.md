@@ -56,7 +56,7 @@ Present the image picker from a view controller
                              }];
 ```
 # TODO's
-* iPad - not tested on the iPad
+* iPad - not tested on an iPad, probably needs some tweaking
 * Edit - support for editing images in the preview view
 * Movies - for now only images are supported. Add support for movies as well
 * Performance - probably needs some tweaking to make it fly :)
