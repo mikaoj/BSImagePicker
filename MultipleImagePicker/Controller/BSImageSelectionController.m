@@ -407,6 +407,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     if(!_speechBubbleView) {
         _speechBubbleView = [[BSSpeechBubbleView alloc] initWithFrame:CGRectMake(0, 0, 300, 320)];
+        [_speechBubbleView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
         [_speechBubbleView.contentView addSubview:self.albumTableView];
     }
     
@@ -432,6 +433,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     if(!_coverView) {
         _coverView = [[UIView alloc] initWithFrame:self.navigationController.view.frame];
+        [_coverView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
         
         UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideAlbumView)];
         [recognizer setNumberOfTapsRequired:1];
