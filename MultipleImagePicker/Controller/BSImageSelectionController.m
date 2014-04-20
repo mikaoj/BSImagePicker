@@ -244,7 +244,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                                   //4*2.0 is edgeinset
                                                   //Height should be adapted so we maintain the aspect ratio of thumbnail
                                                   //original height / original width x new width
-                                                  CGSize itemSize = CGSizeMake((collectionView.bounds.size.width - (4*2.0))/3.0, 100);
+                                                  CGSize itemSize = CGSizeMake((320.0 - (4*2.0))/3.0, 100);
                                                   size = CGSizeMake(itemSize.width, thumbnailSize.height / thumbnailSize.width * itemSize.width);
                                               }
                                           }];
