@@ -19,10 +19,6 @@ xcodebuild  -target BuildFramework
 open -a Finder Products/
 ```
 * Drag & Drop framework into your project
-### Cocoapods
-INSERT COCOAPODS DESCRIPTION HERE
-### Source
-INSERT DESCRIPTION HERE
 # Use
 Import header
 ```objc
@@ -43,7 +39,6 @@ Present the image picker from a view controller
                             }
                              reset:^(NSArray *infoArray, BSImageReset reset) {
                                  switch (reset) {
-									 //Selection gets reset after these actions
                                      case BSImageResetCancel:
                                          NSLog(@"Image picker canceled");
                                          break;
@@ -56,10 +51,17 @@ Present the image picker from a view controller
                                  }
                              }];
 ```
-toggle get called with a UIImagePickerController compatible dictionary and a BOOL indicating if it was selected or deslected.
-reset gets called whenever the image selection gets cleared. This happens when user press cancel, done or changes album. It will have an array of dictionaries (if any) and a value indicating which action caused the reset.
+* Toggle get called with a UIImagePickerController compatible dictionary and a BOOL indicating if it was selected or deslected.
+* Reset gets called whenever the image selection gets cleared. This happens when user press cancel, done or changes album. It will have an array of dictionaries (if any) and a value indicating which action caused the reset.
 
-Blocks are allways called on the main thread.
+Blocks are always called on the main thread.
+
+### Customization
+A BSImagePickerController has a few properties you can set:
+* You can disable previews by setting previewDisabled to YES.
+* Set maximumNumberOfImages to a value to limit selection to a certain number of images.
+* Set itemSize to change the size of photos and albums.
+* Tint color will change colors on buttons and album and photo checkmark.
 # TODO's
 * Edit - support for editing images in the preview view
 * Movies - for now only images are supported. Add support for movies as well
