@@ -176,25 +176,30 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                         options:0
-                                      usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                                          if(result) {
-                                              //Enable done button
-                                              if([self.selectedPhotos count] == 0) {
-                                                  [self.doneButton setEnabled:YES];
+    BOOL allow = NO;
+    if([self.selectedPhotos count] < self.navigationController.maximumNumberOfImages) {
+        [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
+                                             options:0
+                                          usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                                              if(result) {
+                                                  //Enable done button
+                                                  if([self.selectedPhotos count] == 0) {
+                                                      [self.doneButton setEnabled:YES];
+                                                  }
+                                                  
+                                                  NSDictionary *info = [NSDictionary dictionaryWithAsset:result];
+                                                  [self.selectedPhotos setObject:info forKey:result.defaultRepresentation.url.absoluteString];
+                                                  
+                                                  if(self.navigationController.toggleBlock) {
+                                                      self.navigationController.toggleBlock(info, YES);
+                                                  }
                                               }
-                                              
-                                              NSDictionary *info = [NSDictionary dictionaryWithAsset:result];
-                                              [self.selectedPhotos setObject:info forKey:result.defaultRepresentation.url.absoluteString];
-                                              
-                                              if(self.navigationController.toggleBlock) {
-                                                  self.navigationController.toggleBlock(info, YES);
-                                              }
-                                          }
-                                      }];
+                                          }];
+        
+        allow = YES;
+    }
     
-    return YES;
+    return allow;
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -236,7 +241,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                                   CGSize thumbnailSize = CGSizeMake(CGImageGetWidth(result.thumbnail), CGImageGetHeight(result.thumbnail));
                                                   
                                                   //We want 3 images in each row. So width should be viewWidth-(4*LEFT/RIGHT_INSET)/3
-                                                  //4*10 is edgeinset
+                                                  //4*2.0 is edgeinset
                                                   //Height should be adapted so we maintain the aspect ratio of thumbnail
                                                   //original height / original width x new width
                                                   CGSize itemSize = CGSizeMake((collectionView.bounds.size.width - (4*2.0))/3.0, 100);
