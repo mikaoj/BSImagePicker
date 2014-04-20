@@ -350,7 +350,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         [flowLayout setMinimumLineSpacing:2.0];
         _collectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:flowLayout];
         [_collectionView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-        [_collectionView setBackgroundColor:[UIColor whiteColor]];
+        [_collectionView setBackgroundColor:[UIColor clearColor]];
         [_collectionView setAllowsMultipleSelection:YES];
         [_collectionView setScrollEnabled:YES];
         [_collectionView setAlwaysBounceVertical:YES];
