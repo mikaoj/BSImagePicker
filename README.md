@@ -18,6 +18,10 @@ xcodebuild  -target BuildFramework
 open -a Finder Products/
 ```
 * Drag & Drop framework into your project
+### Cocoapods
+INSERT COCOAPODS DESCRIPTION HERE
+### Source
+INSERT DESCRIPTION HERE
 # Use
 Import header
 ```objc
@@ -29,19 +33,27 @@ Present the image picker from a view controller
 [self presentImagePickerController:anImagePicker
                           animated:YES
                         completion:nil
-                            toggle:^(NSDictionary *info, BOOL selected) {
-                                if(selected) {
-                                    NSLog(@"Handle selection");
+                            toggle:^(NSDictionary *info, BOOL select) {
+                                if(select) {
+                                    NSLog(@"Image selected");
                                 } else {
-                                    NSLog(@"Handle deselection");
+                                    NSLog(@"Image deselected");
                                 }
-                            } finish:^(NSArray *infoArray, BOOL canceled) {
-                                if(canceled) {
-                                    NSLog(@"Handle canceled");
-                                } else {
-                                    NSLog(@"Handle done");
-                                }
-                            }];
+                            }
+                             reset:^(NSArray *infoArray, BSImageReset reset) {
+                                 switch (reset) {
+									 //Selection gets reset after these actions
+                                     case BSImageResetCancel:
+                                         NSLog(@"Image picker canceled");
+                                         break;
+                                     case BSImageResetAlbum:
+                                         NSLog(@"Image picker changed album");
+                                         break;
+                                     case BSImageResetDone:
+                                         NSLog(@"Image picker done");
+                                         break;
+                                 }
+                             }];
 ```
 # TODO's
 * Handle rotation - rotating the device will mess things up.
