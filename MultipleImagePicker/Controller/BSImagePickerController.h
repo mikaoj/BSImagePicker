@@ -38,7 +38,7 @@
 /**
  *  Block that gets called on cancel/done
  */
-@property (nonatomic, copy) BSImageSelectionFinishedBlock finishBlock;
+@property (nonatomic, copy) BSImageResetBlock resetBlock;
 
 /**
  *  Set to YES to disable preview on long press

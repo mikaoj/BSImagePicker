@@ -44,13 +44,13 @@
     UIButton *pressMe2 = [[UIButton alloc] initWithFrame:CGRectMake(50, 200, 200, 35)];
     [pressMe2 setTitle:@"UIImagePicker" forState:UIControlStateNormal];
     [pressMe2 setTitleColor:viewController.view.tintColor forState:UIControlStateNormal];
-    [pressMe2 addTarget:self action:@selector(doTheUgly:) forControlEvents:UIControlEventTouchUpInside];
+    [pressMe2 addTarget:self action:@selector(doUIImagePicker:) forControlEvents:UIControlEventTouchUpInside];
     [viewController.view addSubview:pressMe2];
     
     UIButton *pressMe = [[UIButton alloc] initWithFrame:CGRectMake(50, 300, 200, 35)];
     [pressMe setTitle:@"BSImagePicker" forState:UIControlStateNormal];
     [pressMe setTitleColor:viewController.view.tintColor forState:UIControlStateNormal];
-    [pressMe addTarget:self action:@selector(doTheMagic:) forControlEvents:UIControlEventTouchUpInside];
+    [pressMe addTarget:self action:@selector(doBSImagePicker:) forControlEvents:UIControlEventTouchUpInside];
     [viewController.view addSubview:pressMe];
     
     
@@ -70,64 +70,38 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-
-
-
-- (void)doTheUgly:(id)sender
+- (void)doUIImagePicker:(id)sender
 {
     [self.oldImagePicker setDelegate:self];
     
     [self.window.rootViewController presentViewController:self.oldImagePicker animated:YES completion:nil];
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-- (void)doTheMagic:(id)sender
+- (void)doBSImagePicker:(id)sender
 {
     [self.window.rootViewController presentImagePickerController:self.imagePicker
                                                         animated:YES
                                                       completion:nil
-                                                          toggle:^(NSDictionary *info, BOOL selected) {
-                                                              if(selected) {
-                                                                  NSLog(@"Do logic here for selecting image");
+                                                          toggle:^(NSDictionary *info, BOOL select) {
+                                                              if(select) {
+                                                                  NSLog(@"Image selected");
                                                               } else {
-                                                                  NSLog(@"Do logic here for deselecting image");
+                                                                  NSLog(@"Image deselected");
                                                               }
                                                           }
-                                                          finish:^(NSArray *infoArray, BOOL canceled) {
-                                                              if(canceled) {
-                                                                  NSLog(@"Do logic here for picker cancel");
-                                                              } else {
-                                                                  NSLog(@"Do logic here for picker done");
-                                                              }
-                                                          }];
+                                                           reset:^(NSArray *infoArray, BSImageReset reset) {
+                                                               switch (reset) {
+                                                                   case BSImageResetCancel:
+                                                                       NSLog(@"Image picker canceled");
+                                                                       break;
+                                                                   case BSImageResetAlbum:
+                                                                       NSLog(@"Image picker changed album");
+                                                                       break;
+                                                                   case BSImageResetDone:
+                                                                       NSLog(@"Image picker done");
+                                                                       break;
+                                                               }
+                                                           }];
 }
 
 

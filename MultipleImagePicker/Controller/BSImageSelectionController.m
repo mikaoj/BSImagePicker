@@ -312,7 +312,19 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ALAssetsGroup *group = [self.photoAlbums objectAtIndex:indexPath.row];
-    [self setSelectedAlbum:group];
+    
+    if(![group isEqual:self.selectedAlbum]) {
+        if(self.navigationController.resetBlock) {
+            NSMutableArray *infos = [[NSMutableArray alloc] init];
+            for(NSDictionary *info in self.selectedPhotos.allValues) {
+                [infos addObject:info];
+            }
+            
+            self.navigationController.resetBlock([infos copy], BSImageResetAlbum);
+        }
+        
+        [self setSelectedAlbum:group];
+    }
     
     [self hideAlbumView];
 }
@@ -465,12 +477,13 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)finishButtonPressed:(id)sender
 {
-    if(self.navigationController.finishBlock) {
+    if(self.navigationController.resetBlock) {
         NSMutableArray *infos = [[NSMutableArray alloc] init];
         for(NSDictionary *info in self.selectedPhotos.allValues) {
             [infos addObject:info];
         }
-        self.navigationController.finishBlock([infos copy], sender == self.cancelButton);
+        // Call reset block with array and corresponding action (cancel or done since this method is shared with cancel and done buttons)
+        self.navigationController.resetBlock([infos copy], ( (sender == self.cancelButton) ? BSImageResetCancel:BSImageResetDone ));
     }
     
     [self.selectedPhotos removeAllObjects];

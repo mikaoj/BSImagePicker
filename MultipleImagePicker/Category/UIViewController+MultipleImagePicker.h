@@ -22,8 +22,14 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^BSImageToggleBlock)(NSDictionary *info, BOOL selected);
-typedef void (^BSImageSelectionFinishedBlock)(NSArray *infoArray, BOOL canceled);
+typedef NS_ENUM(NSInteger, BSImageReset) {
+    BSImageResetCancel,
+    BSImageResetAlbum,
+    BSImageResetDone
+};
+
+typedef void (^BSImageToggleBlock)(NSDictionary *info, BOOL select);
+typedef void (^BSImageResetBlock)(NSArray *infoArray, BSImageReset reset);
 
 @class BSImagePickerController;
 @interface UIViewController (MultipleImagePicker)
@@ -35,8 +41,9 @@ typedef void (^BSImageSelectionFinishedBlock)(NSArray *infoArray, BOOL canceled)
  *  @param flag                    Present with animation or not
  *  @param completion              Presention completion handler or nil
  *  @param toggle                  Image toggle handler block (select/deselect) or nil
- *  @param finish                  Image picker finish (cancel/done) or nil
+ *  @param reset                   Image reset handler block (cancel/album change/done) or nil
+ *  @discussion Blocks will allways be called on the main thread
  */
-- (void)presentImagePickerController:(BSImagePickerController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion toggle:(BSImageToggleBlock)toggle finish:(BSImageSelectionFinishedBlock)finish;
+- (void)presentImagePickerController:(BSImagePickerController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion toggle:(BSImageToggleBlock)toggle reset:(BSImageResetBlock)reset;
 
 @end

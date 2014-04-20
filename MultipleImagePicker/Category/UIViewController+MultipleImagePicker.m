@@ -25,11 +25,11 @@
 
 @implementation UIViewController (MultipleImagePicker)
 
-- (void)presentImagePickerController:(BSImagePickerController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion toggle:(BSImageToggleBlock)toggle finish:(BSImageSelectionFinishedBlock)finish
+- (void)presentImagePickerController:(BSImagePickerController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion toggle:(BSImageToggleBlock)toggle reset:(BSImageResetBlock)reset
 {
     if([viewControllerToPresent isKindOfClass:[BSImagePickerController class]]) {
         [viewControllerToPresent setToggleBlock:toggle];
-        [viewControllerToPresent setFinishBlock:finish];
+        [viewControllerToPresent setResetBlock:reset];
     }
     
     [self presentViewController:viewControllerToPresent animated:flag completion:completion];
