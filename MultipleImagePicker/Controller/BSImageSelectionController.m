@@ -119,14 +119,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                 }
             }
         } failureBlock:nil];
-        
-        //Navigation bar buttons
-        [self.navigationItem setLeftBarButtonItem:self.cancelButton];
-        [self.navigationItem setRightBarButtonItem:self.doneButton];
-        [self.navigationItem setTitleView:self.albumButton];
-        
-        //Set navigation controller delegate
-        [self.navigationController setDelegate:self];
     }
     return self;
 }
@@ -138,10 +130,16 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 #pragma mark - UIViewController
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
+    [super viewWillAppear:animated];
     
+    //Navigation bar buttons
+    [self.navigationItem setLeftBarButtonItem:self.cancelButton];
+    [self.navigationItem setRightBarButtonItem:self.doneButton];
+    [self.navigationItem setTitleView:self.albumButton];
+    
+    //Set navigation controller delegate (needed for the custom animation when going to preview)
     [self.navigationController setDelegate:self];
 }
 
@@ -391,7 +389,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     if(!_albumButton) {
         _albumButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_albumButton setFrame:CGRectMake(0, 0, 200, 35)];
-        [_albumButton setTitleColor:self.view.tintColor forState:UIControlStateNormal];
+        [_albumButton setTitleColor:self.navigationController.view.tintColor forState:UIControlStateNormal];
         [_albumButton addTarget:self action:@selector(albumButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
     
