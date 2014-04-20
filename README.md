@@ -57,7 +57,6 @@ Present the image picker from a view controller
 Blocks are always called on the main thread.
 
 ### Customization
-A BSImagePickerController has a few properties you can set:
 * You can disable previews by setting previewDisabled to YES.
 * Set maximumNumberOfImages to a value to limit selection to a certain number of images.
 * Set itemSize to change the size of photos and albums.
