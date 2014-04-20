@@ -42,6 +42,7 @@
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
         toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
         toViewController.view.alpha = 1;
+        fromViewController.view.alpha = 0;
     } completion:^(BOOL finished) {
         fromViewController.view.transform = CGAffineTransformIdentity;
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
