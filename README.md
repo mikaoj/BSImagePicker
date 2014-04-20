@@ -2,7 +2,8 @@
 
 A mix between the native iOS 7 gallery and facebooks image picker.
 # Note
-This is still in pre-alpha stage. There are known bugs and features that needs to be implemented for "production" use. See TODO section.
+This is still in alpha stage. It is untested and hanvn't been battle-proven yet, so be warned if you intend to use it in "production".
+See TODO section for planned features and stuff that needs to be done.
 # Install
 ### Download framework
 [Download the framework](https://bitbucket.org/backslashed/bsimagepicker/downloads/BSImagePickerController.framework.zip "framework") and drop into your project.
@@ -55,12 +56,14 @@ Present the image picker from a view controller
                                  }
                              }];
 ```
+toggle get called with a UIImagePickerController compatible dictionary and a BOOL indicating if it was selected or deslected.
+reset gets called whenever the image selection gets cleared. This happens when user press cancel, done or changes album. It will have an array of dictionaries (if any) and a value indicating which action caused the reset.
+
+Blocks are allways called on the main thread.
 # TODO's
-* iPad - not tested on an iPad, probably needs some tweaking
 * Edit - support for editing images in the preview view
 * Movies - for now only images are supported. Add support for movies as well
 * Performance - probably needs some tweaking to make it fly :)
-* Customization - support for customization, sizes, colors, etc
 # License
 The MIT License (MIT)
 

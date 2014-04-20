@@ -101,6 +101,19 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                 if([[group valueForProperty:ALAssetsGroupPropertyType] isEqual:[NSNumber numberWithInteger:ALAssetsGroupSavedPhotos]]) {
                     [self.photoAlbums insertObject:group atIndex:0];
                     [self setSelectedAlbum:group];
+                    
+                    //Set default item size if no size already given.
+                    if(CGSizeEqualToSize(self.navigationController.itemSize, CGSizeZero)) {
+                        //Get thumbnail size
+                        CGSize thumbnailSize = CGSizeMake(CGImageGetWidth(group.posterImage), CGImageGetHeight(group.posterImage));
+                        
+                        //We want 3 images in each row. So width should be viewWidth-(4*LEFT/RIGHT_INSET)/3
+                        //4*2.0 is edgeinset
+                        //Height should be adapted so we maintain the aspect ratio of thumbnail
+                        //original height / original width * new width
+                        CGSize itemSize = CGSizeMake((320.0 - (4*2.0))/3.0, 100);
+                        [self.navigationController setItemSize:CGSizeMake(itemSize.width, thumbnailSize.height / thumbnailSize.width * itemSize.width)];
+                    }
                 } else {
                     [self.photoAlbums addObject:group];
                 }
@@ -228,30 +241,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    static CGSize size;
-    
-    static dispatch_once_t predicate = 0;
-    dispatch_once(&predicate, ^{
-        [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                             options:0
-                                          usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                                              //
-                                              if(result) {
-                                                  //Get thumbnail size
-                                                  CGSize thumbnailSize = CGSizeMake(CGImageGetWidth(result.thumbnail), CGImageGetHeight(result.thumbnail));
-                                                  
-                                                  //We want 3 images in each row. So width should be viewWidth-(4*LEFT/RIGHT_INSET)/3
-                                                  //4*2.0 is edgeinset
-                                                  //Height should be adapted so we maintain the aspect ratio of thumbnail
-                                                  //original height / original width x new width
-                                                  CGSize itemSize = CGSizeMake((320.0 - (4*2.0))/3.0, 100);
-                                                  size = CGSizeMake(itemSize.width, thumbnailSize.height / thumbnailSize.width * itemSize.width);
-                                              }
-                                          }];
-    });
-    
-    
-    return size;
+    return self.navigationController.itemSize;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
@@ -281,7 +271,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 90.0;
+    return self.navigationController.itemSize.height;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

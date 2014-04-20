@@ -51,4 +51,9 @@
  */
 @property (nonatomic, assign) BOOL disableEdit;
 
+/**
+ *  Set this to customize the size of items (photos and albums)
+ */
+@property (nonatomic, assign) CGSize itemSize;
+
 @end
