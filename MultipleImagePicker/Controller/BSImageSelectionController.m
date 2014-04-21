@@ -134,6 +134,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     [super viewWillAppear:animated];
     
+    //Set speechbubble color to match tab bar color
+    [self.speechBubbleView setBackgroundColor:self.navigationController.navigationBar.barTintColor];
+    
     //Navigation bar buttons
     [self.navigationItem setLeftBarButtonItem:self.cancelButton];
     [self.navigationItem setRightBarButtonItem:self.doneButton];
@@ -280,6 +283,12 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     
     if([group isEqual:self.selectedAlbum]) {
         [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
+    
+    //Set text color to match navigation bar color
+    UIColor *textColor = [self.navigationController.navigationBar.titleTextAttributes objectForKey:NSForegroundColorAttributeName];
+    if(textColor) {
+        [cell.textLabel setTextColor:textColor];
     }
     
     [cell.imageView setImage:[UIImage imageWithCGImage:group.posterImage]];

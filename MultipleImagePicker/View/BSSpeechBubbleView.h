@@ -24,6 +24,6 @@
 
 @interface BSSpeechBubbleView : UIView
 
-@property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, strong) UIToolbar *contentView;
 
 @end
