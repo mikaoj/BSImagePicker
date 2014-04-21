@@ -70,7 +70,7 @@ Example
 [anImagePicker.view setBackgroundColor:[UIColor blackColor]];
 [anImagePicker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 ```
-![alt text](https://bitbucket.org/backslashed/bsimagepicker/downloads/color_demo1.png_ "Color demo gif")![alt text](https://bitbucket.org/backslashed/bsimagepicker/downloads/color_demo2.png_ "Color demo gif")![alt text](https://bitbucket.org/backslashed/bsimagepicker/downloads/color_demo3.png_ "Color demo gif")
+![alt text](https://bitbucket.org/backslashed/bsimagepicker/downloads/color_demo1.png "Color demo gif")![alt text](https://bitbucket.org/backslashed/bsimagepicker/downloads/color_demo2.png "Color demo gif")![alt text](https://bitbucket.org/backslashed/bsimagepicker/downloads/color_demo3.png "Color demo gif")
 # TODO's
 * Edit - support for editing images in the preview view
 * Movies - for now only images are supported. Add support for movies as well
