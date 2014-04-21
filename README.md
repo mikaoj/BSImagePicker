@@ -60,7 +60,17 @@ Blocks are always called on the main thread.
 * You can disable previews by setting previewDisabled to YES.
 * Set maximumNumberOfImages to a value to limit selection to a certain number of images.
 * Set itemSize to change the size of photos and albums.
-* Tint color will change colors on buttons and album and photo checkmark.
+* Tint color will change colors on buttons, album checkmark and photo checkmark.
+* Navigation bar tint color will also affect the album view.
+* Navigation bar foreground color will also affect text color in album cells.
+Example
+```objc
+[anImagePicker.view setTintColor:[UIColor redColor]];
+[anImagePicker.navigationBar setBarTintColor:[UIColor blackColor]];
+[anImagePicker.view setBackgroundColor:[UIColor blackColor]];
+[anImagePicker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+```
+![alt text](https://bitbucket.org/backslashed/bsimagepicker/downloads/color_demo1.png_ "Color demo gif")![alt text](https://bitbucket.org/backslashed/bsimagepicker/downloads/color_demo2.png_ "Color demo gif")![alt text](https://bitbucket.org/backslashed/bsimagepicker/downloads/color_demo3.png_ "Color demo gif")
 # TODO's
 * Edit - support for editing images in the preview view
 * Movies - for now only images are supported. Add support for movies as well
