@@ -5,6 +5,7 @@ A mix between the native iOS 7 gallery and facebooks image picker.
 This is still in alpha stage. It is untested and hanvn't been battle-proven yet, so be warned if you intend to use it in "production".
 See TODO section for planned features and stuff that needs to be done.
 # Install
+## Framework
 ### Download framework
 [Download the framework](https://bitbucket.org/backslashed/bsimagepicker/downloads/BSImagePickerController.framework.zip "framework") and drop into your project.
 ### Or build it yourself
@@ -19,6 +20,8 @@ xcodebuild  -target BuildFramework
 open -a Finder Products/
 ```
 * Drag & Drop framework into your project
+## Other
+TODO: Add description for other ways to install. git clone/submodule, cocoapod, what more?
 # Use
 Import header
 ```objc
