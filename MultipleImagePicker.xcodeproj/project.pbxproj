@@ -48,7 +48,6 @@
 		556E0D0F1901781B006F8F73 /* BSImageSelectionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 55EC233E18F09340008F5A02 /* BSImageSelectionController.h */; };
 		556E0D101901781B006F8F73 /* BSImagePreviewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A4258418FA8E4E00EF7E8F /* BSImagePreviewController.h */; };
 		556E0D111901781B006F8F73 /* BSImagePickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A4258718FA8E6F00EF7E8F /* BSImagePickerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		556E0D59190410EF006F8F73 /* UIColor+Invert.m in Sources */ = {isa = PBXBuildFile; fileRef = 556E0D58190410EF006F8F73 /* UIColor+Invert.m */; };
 		558315E618F8192F00B54FE6 /* BSAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558315E518F8192F00B54FE6 /* BSAlbumCell.m */; };
 		558315E918F8436E00B54FE6 /* BSPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558315E818F8436E00B54FE6 /* BSPhotoCell.m */; };
 		55A11ED718FC440D00F28CA5 /* BSCheckmarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11ED618FC440D00F28CA5 /* BSCheckmarkView.m */; };
@@ -95,8 +94,6 @@
 		556E0CE619017470006F8F73 /* BSImagePickerController-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BSImagePickerController-Info.plist"; sourceTree = "<group>"; };
 		556E0CE819017470006F8F73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		556E0CEA19017470006F8F73 /* BSImagePickerController-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BSImagePickerController-Prefix.pch"; sourceTree = "<group>"; };
-		556E0D57190410EF006F8F73 /* UIColor+Invert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Invert.h"; sourceTree = "<group>"; };
-		556E0D58190410EF006F8F73 /* UIColor+Invert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Invert.m"; sourceTree = "<group>"; };
 		558315E418F8192F00B54FE6 /* BSAlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAlbumCell.h; sourceTree = "<group>"; };
 		558315E518F8192F00B54FE6 /* BSAlbumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAlbumCell.m; sourceTree = "<group>"; };
 		558315E718F8436E00B54FE6 /* BSPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPhotoCell.h; sourceTree = "<group>"; };
@@ -204,8 +201,6 @@
 				55A11EE318FD28F500F28CA5 /* NSDictionary+ALAsset.m */,
 				55A11EE518FE75B300F28CA5 /* ALAsset+Equal.h */,
 				55A11EE618FE75B300F28CA5 /* ALAsset+Equal.m */,
-				556E0D57190410EF006F8F73 /* UIColor+Invert.h */,
-				556E0D58190410EF006F8F73 /* UIColor+Invert.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -532,7 +527,6 @@
 				55A4258618FA8E4E00EF7E8F /* BSImagePreviewController.m in Sources */,
 				558315E918F8436E00B54FE6 /* BSPhotoCell.m in Sources */,
 				55EC234018F09340008F5A02 /* BSImageSelectionController.m in Sources */,
-				556E0D59190410EF006F8F73 /* UIColor+Invert.m in Sources */,
 				55A11EE718FE75B300F28CA5 /* ALAsset+Equal.m in Sources */,
 				55A11ED718FC440D00F28CA5 /* BSCheckmarkView.m in Sources */,
 				55EC234518F1DB6A008F5A02 /* BSSpeechBubbleView.m in Sources */,

@@ -27,6 +27,7 @@
 @interface BSAppDelegate () <UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) BSImagePickerController *imagePicker;
+@property (nonatomic, strong) BSImagePickerController *darkImagePicker;
 @property (nonatomic, strong) UIImagePickerController *oldImagePicker;
 
 @end
@@ -35,26 +36,42 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
     UIViewController *viewController = [[UIViewController alloc] init];
     
-    UIButton *pressMe2 = [[UIButton alloc] initWithFrame:CGRectMake(50, 200, 200, 35)];
+    UIButton *pressMe2 = [[UIButton alloc] initWithFrame:CGRectMake(50, 100, 200, 35)];
     [pressMe2 setTitle:@"UIImagePicker" forState:UIControlStateNormal];
     [pressMe2 setTitleColor:viewController.view.tintColor forState:UIControlStateNormal];
     [pressMe2 addTarget:self action:@selector(doUIImagePicker:) forControlEvents:UIControlEventTouchUpInside];
     [viewController.view addSubview:pressMe2];
     
-    UIButton *pressMe = [[UIButton alloc] initWithFrame:CGRectMake(50, 300, 200, 35)];
+    UIButton *pressMe3 = [[UIButton alloc] initWithFrame:CGRectMake(50, 300, 200, 35)];
+    [pressMe3 setTitle:@"BSImagePicker Dark" forState:UIControlStateNormal];
+    [pressMe3 setTitleColor:viewController.view.tintColor forState:UIControlStateNormal];
+    [pressMe3 addTarget:self action:@selector(doBSImagePicker:) forControlEvents:UIControlEventTouchUpInside];
+    [pressMe3 setTag:2];
+    [viewController.view addSubview:pressMe3];
+    
+    UIButton *pressMe = [[UIButton alloc] initWithFrame:CGRectMake(50, 200, 200, 35)];
     [pressMe setTitle:@"BSImagePicker" forState:UIControlStateNormal];
     [pressMe setTitleColor:viewController.view.tintColor forState:UIControlStateNormal];
     [pressMe addTarget:self action:@selector(doBSImagePicker:) forControlEvents:UIControlEventTouchUpInside];
+    [pressMe setTag:1];
     [viewController.view addSubview:pressMe];
     
-    
     [self setImagePicker:[[BSImagePickerController alloc] init]];
+    
+    [self setDarkImagePicker:[[BSImagePickerController alloc] init]];
+    [self.darkImagePicker.view setTintColor:[UIColor redColor]];
+    [self.darkImagePicker.navigationBar setBarTintColor:[UIColor blackColor]];
+    [self.darkImagePicker.view setBackgroundColor:[UIColor blackColor]];
+    [self.darkImagePicker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    
     [self setOldImagePicker:[[UIImagePickerController alloc] init]];
     [self.window setRootViewController:viewController];
     
@@ -79,7 +96,15 @@
 
 - (void)doBSImagePicker:(id)sender
 {
-    [self.window.rootViewController presentImagePickerController:self.imagePicker
+    BSImagePickerController *imagePicker = nil;
+    
+    if([sender tag] == 1) {
+        imagePicker = self.imagePicker;
+    } else {
+        imagePicker = self.darkImagePicker;
+    }
+    
+    [self.window.rootViewController presentImagePickerController:imagePicker
                                                         animated:YES
                                                       completion:nil
                                                           toggle:^(NSDictionary *info, BOOL select) {
@@ -109,7 +134,10 @@
 
 
 
-
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
 
 
 
