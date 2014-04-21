@@ -1,4 +1,4 @@
-![alt text](https://bitbucket.org/backslashed/bsimagepicker/downloads/demo.gif "Demo gif")
+![alt text](https://cloud.githubusercontent.com/assets/4034956/2754014/8dde8a08-c948-11e3-8a48-2e8be82d63b1.gif "Demo gif")
 
 A mix between the native iOS 7 gallery and facebooks image picker.
 # Note
@@ -7,7 +7,7 @@ See TODO section for planned features and stuff that needs to be done.
 # Install
 ## Framework
 ### Download framework
-[Download the framework](https://bitbucket.org/backslashed/bsimagepicker/downloads/BSImagePickerController.framework.zip "framework") and drop into your project.
+[Download the framework](https://github.com/mikaoj/BSImagePicker/releases/download/v0.1-alpha/BSImagePickerController.framework.zip "framework") and drop into your project.
 ### Or build it yourself
 * Clone project
 ```shell
@@ -73,7 +73,7 @@ Blocks are always called on the main thread.
 [anImagePicker.view setBackgroundColor:[UIColor blackColor]];
 [anImagePicker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 ```
-![alt text](https://bitbucket.org/backslashed/bsimagepicker/downloads/color_demo1.png "Color demo gif")![alt text](https://bitbucket.org/backslashed/bsimagepicker/downloads/color_demo2.png "Color demo gif")![alt text](https://bitbucket.org/backslashed/bsimagepicker/downloads/color_demo3.png "Color demo gif")
+![alt text](https://cloud.githubusercontent.com/assets/4034956/2754017/9733c9ec-c948-11e3-932c-f2642526ae3c.png "Color demo gif")![alt text](https://cloud.githubusercontent.com/assets/4034956/2754018/9733d41e-c948-11e3-9cf5-a4b0cb0c8d9e.png "Color demo gif")![alt text](https://cloud.githubusercontent.com/assets/4034956/2754019/97341cf8-c948-11e3-8578-d876d1f3db0c.png "Color demo gif")
 # TODO's
 * Edit - support for editing images in the preview view
 * Movies - for now only images are supported. Add support for movies as well
