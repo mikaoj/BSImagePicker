@@ -20,8 +20,7 @@ xcodebuild  -target BuildFramework
 open -a Finder Products/
 ```
 * Drag & Drop framework into your project
-## Other
-TODO: Add description for other ways to install. git clone/submodule, cocoapod, what more?
+
 # Use
 Import header
 ```objc
