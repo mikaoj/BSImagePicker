@@ -63,7 +63,7 @@ Blocks are always called on the main thread.
 * Tint color will change colors on buttons, album checkmark and photo checkmark.
 * Navigation bar tint color will also affect the album view.
 * Navigation bar foreground color will also affect text color in album cells.
-Example
+##### Example
 ```objc
 [anImagePicker.view setTintColor:[UIColor redColor]];
 [anImagePicker.navigationBar setBarTintColor:[UIColor blackColor]];
