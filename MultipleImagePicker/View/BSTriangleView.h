@@ -22,7 +22,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BSTriangleView : UIView
+@interface BSTriangleView : UIToolbar
 
 - (id)initWithFrame:(CGRect)frame andPointerSize:(CGSize)pointerSize;
 
