@@ -77,6 +77,7 @@ Blocks are always called on the main thread.
 * Edit - support for editing images in the preview view
 * Movies - for now only images are supported. Add support for movies as well
 * Performance - probably needs some tweaking to make it fly :)
+
 # License
 The MIT License (MIT)
 
