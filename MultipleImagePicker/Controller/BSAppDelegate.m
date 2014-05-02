@@ -107,14 +107,14 @@
     [self.window.rootViewController presentImagePickerController:imagePicker
                                                         animated:YES
                                                       completion:nil
-                                                          toggle:^(NSDictionary *info, BOOL select) {
+                                                          toggle:^(ALAsset *asset, BOOL select) {
                                                               if(select) {
                                                                   NSLog(@"Image selected");
                                                               } else {
                                                                   NSLog(@"Image deselected");
                                                               }
                                                           }
-                                                           reset:^(NSArray *infoArray, BSImageReset reset) {
+                                                           reset:^(NSArray *assets, BSImageReset reset) {
                                                                switch (reset) {
                                                                    case BSImageResetCancel:
                                                                        NSLog(@"Image picker canceled");

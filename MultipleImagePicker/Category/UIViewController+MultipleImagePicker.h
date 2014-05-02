@@ -22,14 +22,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class ALAsset;
 typedef NS_ENUM(NSInteger, BSImageReset) {
     BSImageResetCancel,
     BSImageResetAlbum,
     BSImageResetDone
 };
 
-typedef void (^BSImageToggleBlock)(NSDictionary *info, BOOL select);
-typedef void (^BSImageResetBlock)(NSArray *infoArray, BSImageReset reset);
+typedef void (^BSImageToggleBlock)(ALAsset *asset, BOOL select);
+typedef void (^BSImageResetBlock)(NSArray *assets, BSImageReset reset);
 
 @class BSImagePickerController;
 @interface UIViewController (MultipleImagePicker)

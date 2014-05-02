@@ -29,7 +29,6 @@
 #import "BSImagePickerController.h"
 #import "BSZoomOutAnimator.h"
 #import "BSZoomInAnimator.h"
-#import "NSDictionary+ALAsset.h"
 
 static NSString *kPhotoCellIdentifier = @"photoCellIdentifier";
 static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
@@ -40,7 +39,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 @property (nonatomic, strong) NSMutableArray *photoAlbums; //Contains ALAssetsGroups
 @property (nonatomic, strong) ALAssetsGroup *selectedAlbum;
-@property (nonatomic, strong) NSMutableDictionary *selectedPhotos; //Key is alasset url, value is nsdictionary
+@property (nonatomic, strong) NSMutableArray *selectedPhotos; //Contains ALAssets
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) UITableView *albumTableView;
@@ -92,7 +91,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         //TODO: Lazy load?
         //Setup album/photo arrays
         _photoAlbums = [[NSMutableArray alloc] init];
-        _selectedPhotos = [[NSMutableDictionary alloc] init];
+        _selectedPhotos = [[NSMutableArray alloc] init];
         
         //Find all albums
         [[BSImageSelectionController defaultAssetsLibrary] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
@@ -200,12 +199,11 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                                   if([self.selectedPhotos count] == 0) {
                                                       [self.doneButton setEnabled:YES];
                                                   }
-                                                  
-                                                  NSDictionary *info = [NSDictionary dictionaryWithAsset:result];
-                                                  [self.selectedPhotos setObject:info forKey:result.defaultRepresentation.url.absoluteString];
+
+                                                  [self.selectedPhotos addObject:result];
                                                   
                                                   if(self.navigationController.toggleBlock) {
-                                                      self.navigationController.toggleBlock(info, YES);
+                                                      self.navigationController.toggleBlock(result, YES);
                                                   }
                                               }
                                           }];
@@ -223,10 +221,10 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                           if(result) {
                                               if(self.navigationController.toggleBlock) {
-                                                  self.navigationController.toggleBlock([self.selectedPhotos objectForKey:result.defaultRepresentation.url.absoluteString], NO);
+                                                  self.navigationController.toggleBlock(result, NO);
                                               }
                                               
-                                              [self.selectedPhotos removeObjectForKey:result.defaultRepresentation.url.absoluteString];
+                                              [self.selectedPhotos removeObject:result];
                                               
                                               //Disable done button
                                               if([self.selectedPhotos count] == 0) {
@@ -317,12 +315,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     
     if(![group isEqual:self.selectedAlbum]) {
         if(self.navigationController.resetBlock) {
-            NSMutableArray *infos = [[NSMutableArray alloc] init];
-            for(NSDictionary *info in self.selectedPhotos.allValues) {
-                [infos addObject:info];
-            }
-            
-            self.navigationController.resetBlock([infos copy], BSImageResetAlbum);
+            self.navigationController.resetBlock([self.selectedPhotos copy], BSImageResetAlbum);
         }
         
         [self setSelectedAlbum:group];
@@ -482,12 +475,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (void)finishButtonPressed:(id)sender
 {
     if(self.navigationController.resetBlock) {
-        NSMutableArray *infos = [[NSMutableArray alloc] init];
-        for(NSDictionary *info in self.selectedPhotos.allValues) {
-            [infos addObject:info];
-        }
         // Call reset block with array and corresponding action (cancel or done since this method is shared with cancel and done buttons)
-        self.navigationController.resetBlock([infos copy], ( (sender == self.cancelButton) ? BSImageResetCancel:BSImageResetDone ));
+        self.navigationController.resetBlock([self.selectedPhotos copy], ( (sender == self.cancelButton) ? BSImageResetCancel:BSImageResetDone ));
     }
     
     [self.selectedPhotos removeAllObjects];
