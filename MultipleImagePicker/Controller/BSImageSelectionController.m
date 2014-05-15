@@ -150,6 +150,16 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     } else {
         [self.doneButton setEnabled:NO];
     }
+    
+    //Keep selection
+    //This is quite heavy, so only do it if we are being presented and we should keep selection
+    if([self.navigationController isBeingPresented] && self.navigationController.keepSelection) {
+        [self.selectedAlbum enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+            if([self.selectedPhotos containsObject:result]) {
+                [self.collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+            }
+        }];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -186,10 +196,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                           if(result) {
                                               [cell setAsset:result];
                                               [cell.imageView setImage:[UIImage imageWithCGImage:result.thumbnail]];
-                                              
-                                              if([self.selectedPhotos containsObject:result]) {
-                                                  [cell setSelected:YES];
-                                              }
                                           }
                                       }];
     
@@ -491,7 +497,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     }
     
     //Should we keep the images or not?
-    if(!self.navigationController.keepSelectionOnCLose) {
+    if(!self.navigationController.keepSelection) {
         [self.selectedPhotos removeAllObjects];
     }
     

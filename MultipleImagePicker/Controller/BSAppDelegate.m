@@ -65,6 +65,7 @@
     [viewController.view addSubview:pressMe];
     
     [self setImagePicker:[[BSImagePickerController alloc] init]];
+    [self.imagePicker setKeepSelection:YES];
     
     [self setDarkImagePicker:[[BSImagePickerController alloc] init]];
     [self.darkImagePicker.view setTintColor:[UIColor redColor]];

@@ -59,6 +59,6 @@
 /**
  * Set this to yes to keep selection after close
  */
-@property (nonatomic, assign) BOOL keepSelectionOnCLose;
+@property (nonatomic, assign) BOOL keepSelection;
 
 @end
