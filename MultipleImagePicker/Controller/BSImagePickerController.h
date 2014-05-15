@@ -56,4 +56,9 @@
  */
 @property (nonatomic, assign) CGSize itemSize;
 
+/**
+ * Set this to yes to keep selection after close
+ */
+@property (nonatomic, assign) BOOL keepSelectionOnCLose;
+
 @end

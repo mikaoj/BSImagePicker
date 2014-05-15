@@ -143,6 +143,13 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     
     //Set navigation controller delegate (needed for the custom animation when going to preview)
     [self.navigationController setDelegate:self];
+    
+    //Enable/disable done button
+    if([self.selectedPhotos count] > 0) {
+        [self.doneButton setEnabled:YES];
+    } else {
+        [self.doneButton setEnabled:NO];
+    }
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -179,6 +186,10 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                           if(result) {
                                               [cell setAsset:result];
                                               [cell.imageView setImage:[UIImage imageWithCGImage:result.thumbnail]];
+                                              
+                                              if([self.selectedPhotos containsObject:result]) {
+                                                  [cell setSelected:YES];
+                                              }
                                           }
                                       }];
     
@@ -479,7 +490,10 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         self.navigationController.resetBlock([self.selectedPhotos copy], ( (sender == self.cancelButton) ? BSImageResetCancel:BSImageResetDone ));
     }
     
-    [self.selectedPhotos removeAllObjects];
+    //Should we keep the images or not?
+    if(!self.navigationController.keepSelectionOnCLose) {
+        [self.selectedPhotos removeAllObjects];
+    }
     
     [self dismissViewControllerAnimated:YES completion:^{
         [self.collectionView reloadData];
@@ -508,7 +522,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         
         [recognizer setEnabled:YES];
     }
-    
 }
 
 #pragma mark - Something
