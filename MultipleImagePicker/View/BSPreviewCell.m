@@ -22,7 +22,7 @@
 
 #import "BSPreviewCell.h"
 
-@interface BSPreviewCell ()
+@interface BSPreviewCell () <UIScrollViewDelegate>
 
 @end
 
@@ -32,7 +32,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self addSubview:self.imageView];
+        [self addSubview:self.scrollView];
     }
     return self;
 }
@@ -47,6 +47,24 @@
     }
     
     return _imageView;
+}
+
+- (UIScrollView *)scrollView
+{
+    if(!_scrollView) {
+        _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+        [_scrollView setMinimumZoomScale:1.0];
+        [_scrollView setMaximumZoomScale:3.0];
+        [_scrollView setDelegate:self];
+        [_scrollView addSubview:self.imageView];
+    }
+    
+    return _scrollView;
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.imageView;
 }
 
 @end

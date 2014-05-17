@@ -76,6 +76,9 @@ static NSString *kPreviewCellIdentifier = @"PreviewCellIdentifier";
 {
     BSPreviewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kPreviewCellIdentifier forIndexPath:indexPath];
     
+    //Reset zoom
+    [cell.scrollView setZoomScale:1.0];
+    
     [self.photos enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
                                   options:0
                                usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
