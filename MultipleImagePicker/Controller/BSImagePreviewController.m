@@ -21,8 +21,16 @@
 // SOFTWARE.
 
 #import "BSImagePreviewController.h"
+#import "BSPreviewCell.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
-@interface BSImagePreviewController ()
+static NSString *kPreviewCellIdentifier = @"PreviewCellIdentifier";
+
+@interface BSImagePreviewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+
+@property (nonatomic, strong) UICollectionView *collectionView;
+
+- (void)registerCollectionViewCellIdentifiers;
 
 @end
 
@@ -33,20 +41,95 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self setTitle:NSLocalizedString(@"Preview", @"Preview navigation title")];
-        [self.view addSubview:self.imageView];
+        [self setAutomaticallyAdjustsScrollViewInsets:NO];
+        
+        [self.view addSubview:self.collectionView];
     }
     return self;
 }
 
-- (UIImageView *)imageView
+- (void)viewWillAppear:(BOOL)animated
 {
-    if(!_imageView) {
-        _imageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-        [_imageView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-        [_imageView setContentMode:UIViewContentModeScaleAspectFit];
+    [super viewWillAppear:animated];
+    
+    //Scroll to the correct image
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentAssetIndex inSection:0]
+                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                        animated:NO];
+}
+
+
+
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.photos.numberOfAssets;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    BSPreviewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kPreviewCellIdentifier forIndexPath:indexPath];
+    
+    [self.photos enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
+                                  options:0
+                               usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                                   if(result) {
+                                       [cell.imageView setImage:[UIImage imageWithCGImage:result.defaultRepresentation.fullScreenImage]];
+                                   }
+                               }];
+    
+    return cell;
+}
+
+#pragma mark - UICollectionViewDelegateFlowLayout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return self.view.bounds.size;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsZero;
+}
+
+#pragma mark - Lazy load
+
+- (UICollectionView *)collectionView
+{
+    if(!_collectionView) {
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        [flowLayout setMinimumInteritemSpacing:0.0];
+        [flowLayout setMinimumLineSpacing:0.0];
+        [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+        
+        _collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
+        [_collectionView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
+        [_collectionView setBackgroundColor:[UIColor clearColor]];
+        [_collectionView setShowsHorizontalScrollIndicator:NO];
+        [_collectionView setShowsVerticalScrollIndicator:NO];
+        [_collectionView setPagingEnabled:YES];
+        [_collectionView setAlwaysBounceHorizontal:YES];
+        [_collectionView setDelegate:self];
+        [_collectionView setDataSource:self];
+        
+        [self registerCollectionViewCellIdentifiers];
     }
     
-    return _imageView;
+    return _collectionView;
+}
+
+#pragma mark - Private
+
+- (void)registerCollectionViewCellIdentifiers
+{
+    [self.collectionView registerClass:[BSPreviewCell class] forCellWithReuseIdentifier:kPreviewCellIdentifier];
 }
 
 @end

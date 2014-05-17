@@ -26,7 +26,7 @@
 @interface BSPhotoCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) ALAsset *asset;
+@property (nonatomic, assign) NSUInteger assetIndex;
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressRecognizer;
 
 @end

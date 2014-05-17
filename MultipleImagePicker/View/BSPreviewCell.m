@@ -20,12 +20,33 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "BSPreviewCell.h"
 
-@class ALAssetsGroup;
-@interface BSImagePreviewController : UIViewController
+@interface BSPreviewCell ()
 
-@property (nonatomic, assign) NSUInteger currentAssetIndex;
-@property (nonatomic, weak) ALAssetsGroup *photos;
+@end
+
+@implementation BSPreviewCell
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self addSubview:self.imageView];
+    }
+    return self;
+}
+
+- (UIImageView *)imageView
+{
+    if(!_imageView) {
+        _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        [_imageView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
+        [_imageView setContentMode:UIViewContentModeScaleAspectFill];
+        [_imageView setClipsToBounds:YES];
+    }
+    
+    return _imageView;
+}
 
 @end

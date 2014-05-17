@@ -22,10 +22,8 @@
 
 #import <UIKit/UIKit.h>
 
-@class ALAssetsGroup;
-@interface BSImagePreviewController : UIViewController
+@interface BSPreviewCell : UICollectionViewCell
 
-@property (nonatomic, assign) NSUInteger currentAssetIndex;
-@property (nonatomic, weak) ALAssetsGroup *photos;
+@property (nonatomic, strong) UIImageView *imageView;
 
 @end
