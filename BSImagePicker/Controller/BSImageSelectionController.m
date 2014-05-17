@@ -184,7 +184,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                                          options:0
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                           if(result) {
-                                              [cell setAsset:result];
+                                              [cell setAssetIndex:index];
                                               [cell.imageView setImage:[UIImage imageWithCGImage:result.thumbnail]];
                                               
                                               if([self.selectedPhotos containsObject:result]) {
@@ -517,8 +517,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     if(recognizer.state == UIGestureRecognizerStateBegan) {
         [recognizer setEnabled:NO];
         
-        UIImage *image = [UIImage imageWithCGImage:[[cell.asset defaultRepresentation] fullScreenImage]];
-        [self.imagePreviewController.imageView setImage:image];
+        [self.imagePreviewController setPhotos:self.selectedAlbum];
+        [self.imagePreviewController setCurrentAssetIndex:cell.assetIndex];
+        
         [self.navigationController pushViewController:self.imagePreviewController animated:YES];
         
         [recognizer setEnabled:YES];

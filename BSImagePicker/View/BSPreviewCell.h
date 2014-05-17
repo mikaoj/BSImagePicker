@@ -20,33 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import "BSImagePreviewController.h"
+#import <UIKit/UIKit.h>
 
-@interface BSImagePreviewController ()
+@interface BSPreviewCell : UICollectionViewCell
 
-@end
-
-@implementation BSImagePreviewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        [self setTitle:NSLocalizedString(@"Preview", @"Preview navigation title")];
-        [self.view addSubview:self.imageView];
-    }
-    return self;
-}
-
-- (UIImageView *)imageView
-{
-    if(!_imageView) {
-        _imageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-        [_imageView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-        [_imageView setContentMode:UIViewContentModeScaleAspectFit];
-    }
-    
-    return _imageView;
-}
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UIScrollView *scrollView;
 
 @end

@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		556522E71926D42900492DCD /* BSPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 556522E61926D42900492DCD /* BSPreviewCell.m */; };
 		556E0CE919017470006F8F73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 556E0CE719017470006F8F73 /* InfoPlist.strings */; };
 		556E0CF0190174E6006F8F73 /* UIViewController+MultipleImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE018FC952D00F28CA5 /* UIViewController+MultipleImagePicker.m */; };
 		556E0CF2190174E6006F8F73 /* ALAsset+Equal.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE618FE75B300F28CA5 /* ALAsset+Equal.m */; };
@@ -86,6 +87,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		556522E51926D42900492DCD /* BSPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPreviewCell.h; sourceTree = "<group>"; };
+		556522E61926D42900492DCD /* BSPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPreviewCell.m; sourceTree = "<group>"; };
 		556E0CE119017470006F8F73 /* BSImagePickerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BSImagePickerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		556E0CE219017470006F8F73 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		556E0CE619017470006F8F73 /* BSImagePickerController-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BSImagePickerController-Info.plist"; sourceTree = "<group>"; };
@@ -109,20 +112,20 @@
 		55A4258518FA8E4E00EF7E8F /* BSImagePreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSImagePreviewController.m; sourceTree = "<group>"; };
 		55A4258718FA8E6F00EF7E8F /* BSImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSImagePickerController.h; sourceTree = "<group>"; };
 		55A4258818FA8E6F00EF7E8F /* BSImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSImagePickerController.m; sourceTree = "<group>"; };
-		55C3BE6118EF632D00E601DE /* MultipleImagePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultipleImagePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		55C3BE6118EF632D00E601DE /* BSImagePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BSImagePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C3BE6418EF632D00E601DE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		55C3BE6618EF632D00E601DE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		55C3BE6818EF632D00E601DE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		55C3BE6C18EF632D00E601DE /* MultipleImagePicker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MultipleImagePicker-Info.plist"; sourceTree = "<group>"; };
+		55C3BE6C18EF632D00E601DE /* BSImagePicker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BSImagePicker-Info.plist"; sourceTree = "<group>"; };
 		55C3BE6E18EF632D00E601DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55C3BE7018EF632D00E601DE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		55C3BE7218EF632D00E601DE /* MultipleImagePicker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MultipleImagePicker-Prefix.pch"; sourceTree = "<group>"; };
+		55C3BE7218EF632D00E601DE /* BSImagePicker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BSImagePicker-Prefix.pch"; sourceTree = "<group>"; };
 		55C3BE7318EF632D00E601DE /* BSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSAppDelegate.h; sourceTree = "<group>"; };
 		55C3BE7418EF632D00E601DE /* BSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BSAppDelegate.m; sourceTree = "<group>"; };
 		55C3BE7618EF632D00E601DE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Supporting Files/Images.xcassets"; sourceTree = "<group>"; };
-		55C3BE7C18EF632D00E601DE /* MultipleImagePickerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultipleImagePickerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		55C3BE7C18EF632D00E601DE /* BSImagePickerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BSImagePickerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C3BE7D18EF632D00E601DE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		55C3BE8518EF632D00E601DE /* MultipleImagePickerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MultipleImagePickerTests-Info.plist"; sourceTree = "<group>"; };
+		55C3BE8518EF632D00E601DE /* BSImagePickerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BSImagePickerTests-Info.plist"; sourceTree = "<group>"; };
 		55C3BE8718EF632D00E601DE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55C3BE8918EF632D00E601DE /* MultipleImagePickerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultipleImagePickerTests.m; sourceTree = "<group>"; };
 		55CF229018FAD757003784D9 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -201,8 +204,8 @@
 		55C3BE5818EF632D00E601DE = {
 			isa = PBXGroup;
 			children = (
-				55C3BE6A18EF632D00E601DE /* MultipleImagePicker */,
-				55C3BE8318EF632D00E601DE /* MultipleImagePickerTests */,
+				55C3BE6A18EF632D00E601DE /* BSImagePicker */,
+				55C3BE8318EF632D00E601DE /* BSImagePickerTests */,
 				556E0CE419017470006F8F73 /* BSImagePickerController */,
 				55C3BE6318EF632D00E601DE /* Frameworks */,
 				55C3BE6218EF632D00E601DE /* Products */,
@@ -212,8 +215,8 @@
 		55C3BE6218EF632D00E601DE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				55C3BE6118EF632D00E601DE /* MultipleImagePicker.app */,
-				55C3BE7C18EF632D00E601DE /* MultipleImagePickerTests.xctest */,
+				55C3BE6118EF632D00E601DE /* BSImagePicker.app */,
+				55C3BE7C18EF632D00E601DE /* BSImagePickerTests.xctest */,
 				556E0CE119017470006F8F73 /* BSImagePickerController.framework */,
 			);
 			name = Products;
@@ -233,7 +236,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		55C3BE6A18EF632D00E601DE /* MultipleImagePicker */ = {
+		55C3BE6A18EF632D00E601DE /* BSImagePicker */ = {
 			isa = PBXGroup;
 			children = (
 				55A11EDE18FC94ED00F28CA5 /* Category */,
@@ -243,7 +246,7 @@
 				55EC233818EF6AEB008F5A02 /* Misc */,
 				55C3BE6B18EF632D00E601DE /* Supporting Files */,
 			);
-			path = MultipleImagePicker;
+			path = BSImagePicker;
 			sourceTree = "<group>";
 		};
 		55C3BE6B18EF632D00E601DE /* Supporting Files */ = {
@@ -255,19 +258,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		55C3BE8318EF632D00E601DE /* MultipleImagePickerTests */ = {
+		55C3BE8318EF632D00E601DE /* BSImagePickerTests */ = {
 			isa = PBXGroup;
 			children = (
 				55C3BE8918EF632D00E601DE /* MultipleImagePickerTests.m */,
 				55C3BE8418EF632D00E601DE /* Supporting Files */,
 			);
-			path = MultipleImagePickerTests;
+			path = BSImagePickerTests;
 			sourceTree = "<group>";
 		};
 		55C3BE8418EF632D00E601DE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				55C3BE8518EF632D00E601DE /* MultipleImagePickerTests-Info.plist */,
+				55C3BE8518EF632D00E601DE /* BSImagePickerTests-Info.plist */,
 				55C3BE8618EF632D00E601DE /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -295,9 +298,9 @@
 		55EC233818EF6AEB008F5A02 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				55C3BE6C18EF632D00E601DE /* MultipleImagePicker-Info.plist */,
+				55C3BE6C18EF632D00E601DE /* BSImagePicker-Info.plist */,
 				55C3BE7018EF632D00E601DE /* main.m */,
-				55C3BE7218EF632D00E601DE /* MultipleImagePicker-Prefix.pch */,
+				55C3BE7218EF632D00E601DE /* BSImagePicker-Prefix.pch */,
 			);
 			path = Misc;
 			sourceTree = "<group>";
@@ -322,6 +325,8 @@
 				558315E818F8436E00B54FE6 /* BSPhotoCell.m */,
 				55A11ED518FC440D00F28CA5 /* BSCheckmarkView.h */,
 				55A11ED618FC440D00F28CA5 /* BSCheckmarkView.m */,
+				556522E51926D42900492DCD /* BSPreviewCell.h */,
+				556522E61926D42900492DCD /* BSPreviewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -369,9 +374,9 @@
 			productReference = 556E0CE119017470006F8F73 /* BSImagePickerController.framework */;
 			productType = "com.apple.product-type.bundle";
 		};
-		55C3BE6018EF632D00E601DE /* MultipleImagePicker */ = {
+		55C3BE6018EF632D00E601DE /* BSImagePicker */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55C3BE8D18EF632D00E601DE /* Build configuration list for PBXNativeTarget "MultipleImagePicker" */;
+			buildConfigurationList = 55C3BE8D18EF632D00E601DE /* Build configuration list for PBXNativeTarget "BSImagePicker" */;
 			buildPhases = (
 				55C3BE5D18EF632D00E601DE /* Sources */,
 				55C3BE5E18EF632D00E601DE /* Frameworks */,
@@ -381,14 +386,14 @@
 			);
 			dependencies = (
 			);
-			name = MultipleImagePicker;
+			name = BSImagePicker;
 			productName = MultipleImagePicker;
-			productReference = 55C3BE6118EF632D00E601DE /* MultipleImagePicker.app */;
+			productReference = 55C3BE6118EF632D00E601DE /* BSImagePicker.app */;
 			productType = "com.apple.product-type.application";
 		};
-		55C3BE7B18EF632D00E601DE /* MultipleImagePickerTests */ = {
+		55C3BE7B18EF632D00E601DE /* BSImagePickerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55C3BE9018EF632D00E601DE /* Build configuration list for PBXNativeTarget "MultipleImagePickerTests" */;
+			buildConfigurationList = 55C3BE9018EF632D00E601DE /* Build configuration list for PBXNativeTarget "BSImagePickerTests" */;
 			buildPhases = (
 				55C3BE7818EF632D00E601DE /* Sources */,
 				55C3BE7918EF632D00E601DE /* Frameworks */,
@@ -399,9 +404,9 @@
 			dependencies = (
 				55C3BE8218EF632D00E601DE /* PBXTargetDependency */,
 			);
-			name = MultipleImagePickerTests;
+			name = BSImagePickerTests;
 			productName = MultipleImagePickerTests;
-			productReference = 55C3BE7C18EF632D00E601DE /* MultipleImagePickerTests.xctest */;
+			productReference = 55C3BE7C18EF632D00E601DE /* BSImagePickerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -419,7 +424,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 55C3BE5C18EF632D00E601DE /* Build configuration list for PBXProject "MultipleImagePicker" */;
+			buildConfigurationList = 55C3BE5C18EF632D00E601DE /* Build configuration list for PBXProject "BSImagePicker" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -431,8 +436,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				55C3BE6018EF632D00E601DE /* MultipleImagePicker */,
-				55C3BE7B18EF632D00E601DE /* MultipleImagePickerTests */,
+				55C3BE6018EF632D00E601DE /* BSImagePicker */,
+				55C3BE7B18EF632D00E601DE /* BSImagePickerTests */,
 				556E0CE019017470006F8F73 /* BSImagePickerController */,
 				556E0D001901764D006F8F73 /* BuildFramework */,
 			);
@@ -513,6 +518,7 @@
 				55C3BE7518EF632D00E601DE /* BSAppDelegate.m in Sources */,
 				55A11EDA18FC4CFD00F28CA5 /* BSZoomOutAnimator.m in Sources */,
 				55A11EE118FC952D00F28CA5 /* UIViewController+MultipleImagePicker.m in Sources */,
+				556522E71926D42900492DCD /* BSPreviewCell.m in Sources */,
 				55A11EDD18FC4FC400F28CA5 /* BSZoomInAnimator.m in Sources */,
 				55A4258618FA8E4E00EF7E8F /* BSImagePreviewController.m in Sources */,
 				558315E918F8436E00B54FE6 /* BSPhotoCell.m in Sources */,
@@ -537,7 +543,7 @@
 /* Begin PBXTargetDependency section */
 		55C3BE8218EF632D00E601DE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 55C3BE6018EF632D00E601DE /* MultipleImagePicker */;
+			target = 55C3BE6018EF632D00E601DE /* BSImagePicker */;
 			targetProxy = 55C3BE8118EF632D00E601DE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -708,11 +714,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MultipleImagePicker/Misc/MultipleImagePicker-Prefix.pch";
-				INFOPLIST_FILE = "MultipleImagePicker/Misc/MultipleImagePicker-Info.plist";
+				GCC_PREFIX_HEADER = "BSImagePicker/Misc/BSImagePicker-Prefix.pch";
+				INFOPLIST_FILE = "BSImagePicker/Misc/BSImagePicker-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = BSImagePicker;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -725,11 +731,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MultipleImagePicker/Misc/MultipleImagePicker-Prefix.pch";
-				INFOPLIST_FILE = "MultipleImagePicker/Misc/MultipleImagePicker-Info.plist";
+				GCC_PREFIX_HEADER = "BSImagePicker/Misc/BSImagePicker-Prefix.pch";
+				INFOPLIST_FILE = "BSImagePicker/Misc/BSImagePicker-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = BSImagePicker;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -750,12 +756,12 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "MultipleImagePickerTests/MultipleImagePickerTests-Info.plist";
+				INFOPLIST_FILE = "MultipleImagePickerTests/BSImagePickerTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MultipleImagePicker/Libs/BlocksKit",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = BSImagePickerTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -772,12 +778,12 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MultipleImagePicker/Misc/MultipleImagePicker-Prefix.pch";
-				INFOPLIST_FILE = "MultipleImagePickerTests/MultipleImagePickerTests-Info.plist";
+				INFOPLIST_FILE = "MultipleImagePickerTests/BSImagePickerTests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MultipleImagePicker/Libs/BlocksKit",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = BSImagePickerTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -804,7 +810,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55C3BE5C18EF632D00E601DE /* Build configuration list for PBXProject "MultipleImagePicker" */ = {
+		55C3BE5C18EF632D00E601DE /* Build configuration list for PBXProject "BSImagePicker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55C3BE8B18EF632D00E601DE /* Debug */,
@@ -813,7 +819,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55C3BE8D18EF632D00E601DE /* Build configuration list for PBXNativeTarget "MultipleImagePicker" */ = {
+		55C3BE8D18EF632D00E601DE /* Build configuration list for PBXNativeTarget "BSImagePicker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55C3BE8E18EF632D00E601DE /* Debug */,
@@ -822,7 +828,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55C3BE9018EF632D00E601DE /* Build configuration list for PBXNativeTarget "MultipleImagePickerTests" */ = {
+		55C3BE9018EF632D00E601DE /* Build configuration list for PBXNativeTarget "BSImagePickerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55C3BE9118EF632D00E601DE /* Debug */,

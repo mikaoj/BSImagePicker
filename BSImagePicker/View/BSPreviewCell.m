@@ -20,13 +20,51 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "BSPreviewCell.h"
 
-@class ALAsset;
-@interface BSPhotoCell : UICollectionViewCell
+@interface BSPreviewCell () <UIScrollViewDelegate>
 
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) ALAsset *asset;
-@property (nonatomic, strong) UILongPressGestureRecognizer *longPressRecognizer;
+@end
+
+@implementation BSPreviewCell
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self addSubview:self.scrollView];
+    }
+    return self;
+}
+
+- (UIImageView *)imageView
+{
+    if(!_imageView) {
+        _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        [_imageView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
+        [_imageView setContentMode:UIViewContentModeScaleAspectFill];
+        [_imageView setClipsToBounds:YES];
+    }
+    
+    return _imageView;
+}
+
+- (UIScrollView *)scrollView
+{
+    if(!_scrollView) {
+        _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+        [_scrollView setMinimumZoomScale:1.0];
+        [_scrollView setMaximumZoomScale:3.0];
+        [_scrollView setDelegate:self];
+        [_scrollView addSubview:self.imageView];
+    }
+    
+    return _scrollView;
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.imageView;
+}
 
 @end

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>52EAB33A-D4B8-4805-8EED-99956BC92025</string>
+	<key>IDESourceControlProjectName</key>
+	<string>MultipleImagePicker</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3DC0F6DD-BC5C-46F5-9A37-FECD8B9F1B11</key>
+		<string>ssh://github.com/mikaoj/BSImagePicker.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>MultipleImagePicker.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3DC0F6DD-BC5C-46F5-9A37-FECD8B9F1B11</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/mikaoj/BSImagePicker.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3DC0F6DD-BC5C-46F5-9A37-FECD8B9F1B11</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3DC0F6DD-BC5C-46F5-9A37-FECD8B9F1B11</string>
+			<key>IDESourceControlWCCName</key>
+			<string>MultipleImagePicker</string>
+		</dict>
+	</array>
+</dict>
+</plist>

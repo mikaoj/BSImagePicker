@@ -1,10 +1,17 @@
 ![alt text](https://cloud.githubusercontent.com/assets/4034956/2754014/8dde8a08-c948-11e3-8a48-2e8be82d63b1.gif "Demo gif")
 
 A mix between the native iOS 7 gallery and facebooks image picker.
-# Note
-This is still in alpha stage. It is untested and hanvn't been battle-proven yet, so be warned if you intend to use it in "production".
-See TODO section for planned features and stuff that needs to be done.
+
 # Install
+## Pod
+Put the following line into your Podfile
+```shell
+pod 'BSImagePicker', '~> 0.1'
+```
+And then run
+```shell
+pod install
+```
 ## Framework
 ### Download framework
 [Download the framework](https://github.com/mikaoj/BSImagePicker/releases/download/v0.1-alpha/BSImagePickerController.framework.zip "framework") and drop into your project.
@@ -32,14 +39,14 @@ Present the image picker from a view controller
 [self presentImagePickerController:anImagePicker
                           animated:YES
                         completion:nil
-                            toggle:^(NSDictionary *info, BOOL select) {
+                            toggle:^(ALAsset *asset, BOOL select) {
                                 if(select) {
                                     NSLog(@"Image selected");
                                 } else {
                                     NSLog(@"Image deselected");
                                 }
                             }
-                             reset:^(NSArray *infoArray, BSImageReset reset) {
+                             reset:^(NSArray *assets, BSImageReset reset) {
                                  switch (reset) {
                                      case BSImageResetCancel:
                                          NSLog(@"Image picker canceled");
@@ -53,13 +60,14 @@ Present the image picker from a view controller
                                  }
                              }];
 ```
-* Toggle get called with a UIImagePickerController compatible dictionary and a BOOL indicating if it was selected or deslected.
+* Toggle get called with an ALAsset and a BOOL indicating if it was selected or deselected.
 * Reset gets called whenever the image selection gets cleared. This happens when user press cancel, done or changes album. It will have an array of dictionaries (if any) and a value indicating which action caused the reset.
 
 Blocks are always called on the main thread.
 
-### Customization
+### Customization (view BSImagePickerController.h to see all properties you can set)
 * You can disable previews by setting previewDisabled to YES.
+* Setting keepSelection to YES will keep your image selection after dismissing the controller.
 * Set maximumNumberOfImages to a value to limit selection to a certain number of images.
 * Set itemSize to change the size of photos and albums.
 * Tint color will change colors on buttons, album checkmark and photo checkmark.
@@ -77,7 +85,6 @@ Blocks are always called on the main thread.
 # TODO's
 * Edit - support for editing images in the preview view
 * Movies - for now only images are supported. Add support for movies as well
-* Performance - probably needs some tweaking to make it fly :)
 
 # License
 The MIT License (MIT)
