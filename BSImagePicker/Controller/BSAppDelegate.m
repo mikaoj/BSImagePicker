@@ -24,7 +24,7 @@
 #import "BSImageSelectionController.h"
 #import "BSImagePickerController.h"
 
-@interface BSAppDelegate () <UIImagePickerControllerDelegate>
+@interface BSAppDelegate () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (nonatomic, strong) BSImagePickerController *imagePicker;
 @property (nonatomic, strong) BSImagePickerController *darkImagePicker;
