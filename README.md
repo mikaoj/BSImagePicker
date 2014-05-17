@@ -1,10 +1,17 @@
 ![alt text](https://cloud.githubusercontent.com/assets/4034956/2754014/8dde8a08-c948-11e3-8a48-2e8be82d63b1.gif "Demo gif")
 
 A mix between the native iOS 7 gallery and facebooks image picker.
-# Note
-This is still in alpha stage. It is untested and hanvn't been battle-proven yet, so be warned if you intend to use it in "production".
-See TODO section for planned features and stuff that needs to be done.
+
 # Install
+## Pod
+Put the following line into your Podfile
+```shell
+pod 'BSImagePicker', '~> 0.1'
+```
+And then run
+```shell
+pod install
+```
 ## Framework
 ### Download framework
 [Download the framework](https://github.com/mikaoj/BSImagePicker/releases/download/v0.1-alpha/BSImagePickerController.framework.zip "framework") and drop into your project.
@@ -78,7 +85,6 @@ Blocks are always called on the main thread.
 # TODO's
 * Edit - support for editing images in the preview view
 * Movies - for now only images are supported. Add support for movies as well
-* Performance - probably needs some tweaking to make it fly :)
 
 # License
 The MIT License (MIT)
