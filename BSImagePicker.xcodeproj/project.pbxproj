@@ -204,8 +204,8 @@
 		55C3BE5818EF632D00E601DE = {
 			isa = PBXGroup;
 			children = (
-				55C3BE6A18EF632D00E601DE /* MultipleImagePicker */,
-				55C3BE8318EF632D00E601DE /* MultipleImagePickerTests */,
+				55C3BE6A18EF632D00E601DE /* BSImagePicker */,
+				55C3BE8318EF632D00E601DE /* BSImagePickerTests */,
 				556E0CE419017470006F8F73 /* BSImagePickerController */,
 				55C3BE6318EF632D00E601DE /* Frameworks */,
 				55C3BE6218EF632D00E601DE /* Products */,
@@ -236,7 +236,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		55C3BE6A18EF632D00E601DE /* MultipleImagePicker */ = {
+		55C3BE6A18EF632D00E601DE /* BSImagePicker */ = {
 			isa = PBXGroup;
 			children = (
 				55A11EDE18FC94ED00F28CA5 /* Category */,
@@ -246,7 +246,7 @@
 				55EC233818EF6AEB008F5A02 /* Misc */,
 				55C3BE6B18EF632D00E601DE /* Supporting Files */,
 			);
-			path = MultipleImagePicker;
+			path = BSImagePicker;
 			sourceTree = "<group>";
 		};
 		55C3BE6B18EF632D00E601DE /* Supporting Files */ = {
@@ -258,13 +258,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		55C3BE8318EF632D00E601DE /* MultipleImagePickerTests */ = {
+		55C3BE8318EF632D00E601DE /* BSImagePickerTests */ = {
 			isa = PBXGroup;
 			children = (
 				55C3BE8918EF632D00E601DE /* MultipleImagePickerTests.m */,
 				55C3BE8418EF632D00E601DE /* Supporting Files */,
 			);
-			path = MultipleImagePickerTests;
+			path = BSImagePickerTests;
 			sourceTree = "<group>";
 		};
 		55C3BE8418EF632D00E601DE /* Supporting Files */ = {
@@ -714,8 +714,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MultipleImagePicker/Misc/BSImagePicker-Prefix.pch";
-				INFOPLIST_FILE = "MultipleImagePicker/Misc/BSImagePicker-Info.plist";
+				GCC_PREFIX_HEADER = "BSImagePicker/Misc/BSImagePicker-Prefix.pch";
+				INFOPLIST_FILE = "BSImagePicker/Misc/BSImagePicker-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = BSImagePicker;
@@ -731,8 +731,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MultipleImagePicker/Misc/BSImagePicker-Prefix.pch";
-				INFOPLIST_FILE = "MultipleImagePicker/Misc/BSImagePicker-Info.plist";
+				GCC_PREFIX_HEADER = "BSImagePicker/Misc/BSImagePicker-Prefix.pch";
+				INFOPLIST_FILE = "BSImagePicker/Misc/BSImagePicker-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = BSImagePicker;
