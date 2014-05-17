@@ -89,7 +89,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "BSImagePicker"
+  s.source_files  = "BSImagePicker/{Category,View,Model,Controller}/*.{h,m}"
   # s.exclude_files = "Classes/Exclude"
 
   s.public_header_files = "BSImagePicker/Controller/BSImagePickerController.h, BSImagePicker/Category/UIViewController+MultipleImagePicker.h"
@@ -128,7 +128,7 @@ Pod::Spec.new do |s|
   #  where they will only apply to your library. If you depend on other Podspecs
   #  you can include multiple dependencies to ensure it works.
 
-  # s.requires_arc = true
+  s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # s.dependency "JSONKit", "~> 1.4"
