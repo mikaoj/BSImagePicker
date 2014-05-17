@@ -87,7 +87,7 @@ Pod::Spec.new do |s|
   s.source_files  = "BSImagePicker/{Category,View,Model,Controller}/*.{h,m}"
   # s.exclude_files = "Classes/Exclude"
 
-  s.public_header_files = "BSImagePicker/Controller/BSImagePickerController.h, BSImagePicker/Category/UIViewController+MultipleImagePicker.h"
+  s.public_header_files = "BSImagePicker/Controller/BSImagePickerController.h", "BSImagePicker/Category/UIViewController+MultipleImagePicker.h"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
