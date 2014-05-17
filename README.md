@@ -4,13 +4,9 @@ A mix between the native iOS 7 gallery and facebooks image picker.
 
 # Install
 ## Pod
-Put the following line into your Podfile
+Put this into your Podfile:
 ```shell
 pod 'BSImagePicker', '~> 0.1'
-```
-And then run
-```shell
-pod install
 ```
 ## Framework
 ### Download framework
