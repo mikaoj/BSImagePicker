@@ -346,6 +346,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     id <UIViewControllerAnimatedTransitioning> animator = nil;
     
     if(operation == UINavigationControllerOperationPop) {
+        //Selection may have changed so reload collection view
+        [self.collectionView reloadData];
+        
         animator = self.zoomOutAnimator;
     } else if(operation == UINavigationControllerOperationPush) {
         animator = self.zoomInAnimator;
@@ -519,6 +522,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         
         [self.imagePreviewController setPhotos:self.selectedAlbum];
         [self.imagePreviewController setCurrentAssetIndex:cell.assetIndex];
+        [self.imagePreviewController setSelectedPhotos:self.selectedPhotos];
         
         [self.navigationController pushViewController:self.imagePreviewController animated:YES];
         

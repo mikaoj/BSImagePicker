@@ -27,5 +27,6 @@
 
 @property (nonatomic, assign) NSUInteger currentAssetIndex;
 @property (nonatomic, weak) ALAssetsGroup *photos;
+@property (nonatomic, weak) NSMutableArray *selectedPhotos;
 
 @end
