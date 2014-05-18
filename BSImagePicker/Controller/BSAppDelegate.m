@@ -118,9 +118,6 @@
                                                                    case BSImageResetCancel:
                                                                        NSLog(@"Image picker canceled");
                                                                        break;
-                                                                   case BSImageResetAlbum:
-                                                                       NSLog(@"Image picker changed album");
-                                                                       break;
                                                                    case BSImageResetDone:
                                                                        NSLog(@"Image picker done");
                                                                        break;
