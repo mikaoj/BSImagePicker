@@ -47,9 +47,6 @@ Present the image picker from a view controller
                                      case BSImageResetCancel:
                                          NSLog(@"Image picker canceled");
                                          break;
-                                     case BSImageResetAlbum:
-                                         NSLog(@"Image picker changed album");
-                                         break;
                                      case BSImageResetDone:
                                          NSLog(@"Image picker done");
                                          break;
@@ -57,7 +54,7 @@ Present the image picker from a view controller
                              }];
 ```
 * Toggle get called with an ALAsset and a BOOL indicating if it was selected or deselected.
-* Reset gets called whenever the image selection gets cleared. This happens when user presses cancel, done or changes album. It will have an array of ALAssets (if any) and a value indicating which action caused the reset.
+* Reset gets called whenever the image selection gets cleared. This happens when user presses cancel or done. It will have an array of ALAssets (if any) and a value indicating which action caused the reset.
 
 Blocks are always called on the main thread.
 

@@ -325,11 +325,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     ALAssetsGroup *group = [self.photoAlbums objectAtIndex:indexPath.row];
     
-    if(![group isEqual:self.selectedAlbum]) {
-        if(self.navigationController.resetBlock) {
-            self.navigationController.resetBlock([self.selectedPhotos copy], BSImageResetAlbum);
-        }
-        
+    if(![group isEqual:self.selectedAlbum]) {        
         [self setSelectedAlbum:group];
     }
     
@@ -536,12 +532,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     _selectedAlbum = selectedAlbum;
     [self.albumButton setTitle:[_selectedAlbum valueForProperty:ALAssetsGroupPropertyName] forState:UIControlStateNormal];
-    
-    //Clear arrays
-    [self.selectedPhotos removeAllObjects];
-    
-    //Disable done button
-    [self.doneButton setEnabled:NO];
     
     [self.collectionView reloadData];
 }

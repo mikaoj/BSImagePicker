@@ -25,7 +25,6 @@
 @class ALAsset;
 typedef NS_ENUM(NSInteger, BSImageReset) {
     BSImageResetCancel,
-    BSImageResetAlbum,
     BSImageResetDone
 };
 
