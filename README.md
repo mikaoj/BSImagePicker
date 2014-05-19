@@ -48,7 +48,7 @@ Present the image picker from a view controller
                                 NSLog(@"User finished :)!");
                             }];
 ```
-All blocks are optional and can be nil, so you could for an istance just handle the finish case if you wanted.
+All blocks are optional and can be nil, so you could for an instance just handle the finish case if you wanted. Why the toggle block then? Well, in my case I use it for starting image upload to give the apperance of a faster upload (many times it has already finished when user presses done.
 * Toggle get called with an ALAsset and a BOOL indicating if it was selected or deselected.
 * cancel gets called when the user cancels. It will have an array of ALAssets (if any).
 * finish gets called when the user finishes. It will have an array of ALAssets (if any).
