@@ -88,10 +88,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         //Add subviews
         [self.view addSubview:self.collectionView];
         
-        //TODO: Lazy load?
         //Setup album/photo arrays
-        _photoAlbums = [[NSMutableArray alloc] init];
-        _selectedPhotos = [[NSMutableArray alloc] init];
+        [self setPhotoAlbums:[[NSMutableArray alloc] init]];
+        [self setSelectedPhotos:[[NSMutableArray alloc] init]];
         
         //Find all albums
         [[BSImageSelectionController defaultAssetsLibrary] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
