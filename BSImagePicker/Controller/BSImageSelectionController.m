@@ -122,11 +122,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark - UIViewController
 
 - (void)viewWillAppear:(BOOL)animated
