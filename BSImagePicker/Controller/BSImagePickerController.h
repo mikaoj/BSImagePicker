@@ -36,9 +36,14 @@
 @property (nonatomic, copy) BSImageToggleBlock toggleBlock;
 
 /**
- *  Block that gets called on cancel/done
+ *  Block that gets called on cancel
  */
-@property (nonatomic, copy) BSImageResetBlock resetBlock;
+@property (nonatomic, copy) BSImageGroupBlock cancelBlock;
+
+/**
+ *  Block that gets called on finish
+ */
+@property (nonatomic, copy) BSImageGroupBlock finishBlock;
 
 /**
  *  Set to YES to disable preview on long press

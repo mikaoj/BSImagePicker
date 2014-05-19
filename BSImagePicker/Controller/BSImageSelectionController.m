@@ -88,10 +88,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         //Add subviews
         [self.view addSubview:self.collectionView];
         
-        //TODO: Lazy load?
         //Setup album/photo arrays
-        _photoAlbums = [[NSMutableArray alloc] init];
-        _selectedPhotos = [[NSMutableArray alloc] init];
+        [self setPhotoAlbums:[[NSMutableArray alloc] init]];
+        [self setSelectedPhotos:[[NSMutableArray alloc] init]];
         
         //Find all albums
         [[BSImageSelectionController defaultAssetsLibrary] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
@@ -120,11 +119,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         } failureBlock:nil];
     }
     return self;
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
 }
 
 #pragma mark - UIViewController
@@ -485,9 +479,15 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)finishButtonPressed:(id)sender
 {
-    if(self.navigationController.resetBlock) {
-        // Call reset block with array and corresponding action (cancel or done since this method is shared with cancel and done buttons)
-        self.navigationController.resetBlock([self.selectedPhotos copy], ( (sender == self.cancelButton) ? BSImageResetCancel:BSImageResetDone ));
+    //Cancel or finish? Call correct block!
+    if(sender == self.cancelButton) {
+        if(self.navigationController.cancelBlock) {
+            self.navigationController.cancelBlock([self.selectedPhotos copy]);
+        }
+    } else {
+        if(self.navigationController.finishBlock) {
+            self.navigationController.finishBlock([self.selectedPhotos copy]);
+        }
     }
     
     //Should we keep the images or not?
