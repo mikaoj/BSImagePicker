@@ -42,19 +42,16 @@ Present the image picker from a view controller
                                     NSLog(@"Image deselected");
                                 }
                             }
-                             reset:^(NSArray *assets, BSImageReset reset) {
-                                 switch (reset) {
-                                     case BSImageResetCancel:
-                                         NSLog(@"Image picker canceled");
-                                         break;
-                                     case BSImageResetDone:
-                                         NSLog(@"Image picker done");
-                                         break;
-                                 }
-                             }];
+                            cancel:^(NSArray *assets) {
+                                NSLog(@"User canceled...!");
+                            } finish:^(NSArray *assets) {
+                                NSLog(@"User finished :)!");
+                            }];
 ```
+All blocks are optional and can be nil, so you could for an istance just handle the finish case if you wanted.
 * Toggle get called with an ALAsset and a BOOL indicating if it was selected or deselected.
-* Reset gets called whenever the image selection gets cleared. This happens when user presses cancel or done. It will have an array of ALAssets (if any) and a value indicating which action caused the reset.
+* cancel gets called when the user cancels. It will have an array of ALAssets (if any).
+* finish gets called when the user finishes. It will have an array of ALAssets (if any).
 
 Blocks are always called on the main thread.
 
