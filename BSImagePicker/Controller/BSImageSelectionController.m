@@ -485,9 +485,15 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)finishButtonPressed:(id)sender
 {
-    if(self.navigationController.resetBlock) {
-        // Call reset block with array and corresponding action (cancel or done since this method is shared with cancel and done buttons)
-        self.navigationController.resetBlock([self.selectedPhotos copy], ( (sender == self.cancelButton) ? BSImageResetCancel:BSImageResetDone ));
+    //Cancel or finish? Call correct block!
+    if(sender == self.cancelButton) {
+        if(self.navigationController.cancelBlock) {
+            self.navigationController.cancelBlock([self.selectedPhotos copy]);
+        }
+    } else {
+        if(self.navigationController.finishBlock) {
+            self.navigationController.finishBlock([self.selectedPhotos copy]);
+        }
     }
     
     //Should we keep the images or not?
