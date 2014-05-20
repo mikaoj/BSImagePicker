@@ -1,4 +1,4 @@
-![alt text](https://cloud.githubusercontent.com/assets/4034956/2754014/8dde8a08-c948-11e3-8a48-2e8be82d63b1.gif "Demo gif")
+![alt text](https://cloud.githubusercontent.com/assets/4034956/3030005/c0e4cc28-e03b-11e3-91d4-3e60fce5db4d.gif "Demo gif")
 
 A mix between the native iOS 7 gallery and facebooks image picker.
 
@@ -10,7 +10,7 @@ pod 'BSImagePicker', '~> 0.1'
 ```
 ## Framework
 ### Download framework
-[Download the framework](https://github.com/mikaoj/BSImagePicker/releases/download/0.1/BSImagePickerController.framework.zip "framework") and drop into your project.
+[Download the framework](https://github.com/mikaoj/BSImagePicker/releases/download/0.2/BSImagePickerController.framework.zip "framework") and drop into your project.
 ### Or build it yourself
 * Clone project
 ```shell
@@ -65,13 +65,13 @@ Blocks are always called on the main thread.
 * Navigation bar foreground color will also affect text color in album cells.
 
 ##### Example
+This will give you a dark picker
 ```objc
 [anImagePicker.view setTintColor:[UIColor redColor]];
 [anImagePicker.navigationBar setBarTintColor:[UIColor blackColor]];
 [anImagePicker.view setBackgroundColor:[UIColor blackColor]];
 [anImagePicker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 ```
-![alt text](https://cloud.githubusercontent.com/assets/4034956/2754017/9733c9ec-c948-11e3-932c-f2642526ae3c.png "Color demo gif")![alt text](https://cloud.githubusercontent.com/assets/4034956/2754018/9733d41e-c948-11e3-9cf5-a4b0cb0c8d9e.png "Color demo gif")![alt text](https://cloud.githubusercontent.com/assets/4034956/2754019/97341cf8-c948-11e3-8578-d876d1f3db0c.png "Color demo gif")
 # TODO's
 * Edit - support for editing images in the preview view
 * Movies - for now only images are supported. Add support for movies as well
