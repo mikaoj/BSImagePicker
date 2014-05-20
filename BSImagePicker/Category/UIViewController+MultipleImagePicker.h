@@ -23,14 +23,9 @@
 #import <UIKit/UIKit.h>
 
 @class ALAsset;
-typedef NS_ENUM(NSInteger, BSImageReset) {
-    BSImageResetCancel,
-    BSImageResetAlbum,
-    BSImageResetDone
-};
 
 typedef void (^BSImageToggleBlock)(ALAsset *asset, BOOL select);
-typedef void (^BSImageResetBlock)(NSArray *assets, BSImageReset reset);
+typedef void (^BSImageGroupBlock)(NSArray *assets);
 
 @class BSImagePickerController;
 @interface UIViewController (MultipleImagePicker)
@@ -42,9 +37,15 @@ typedef void (^BSImageResetBlock)(NSArray *assets, BSImageReset reset);
  *  @param flag                    Present with animation or not
  *  @param completion              Presention completion handler or nil
  *  @param toggle                  Image toggle handler block (select/deselect) or nil
- *  @param reset                   Image reset handler block (cancel/album change/done) or nil
- *  @discussion Blocks will allways be called on the main thread
+ *  @param cancelBlock             Block that gets called when user cancels, contains assets that was selected when user canceled. Can be nil
+ *  @param finishBlock             Block that gets called when user finishes, contains asset that was selected when user finished. Can be nil
+*  @discussion Blocks will allways be called on the main thread
  */
-- (void)presentImagePickerController:(BSImagePickerController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion toggle:(BSImageToggleBlock)toggle reset:(BSImageResetBlock)reset;
+- (void)presentImagePickerController:(BSImagePickerController *)viewControllerToPresent
+                            animated:(BOOL)flag
+                          completion:(void (^)(void))completion
+                              toggle:(BSImageToggleBlock)toggleBlock
+                              cancel:(BSImageGroupBlock)cancelBlock
+                              finish:(BSImageGroupBlock)finishBlock;
 
 @end

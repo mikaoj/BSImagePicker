@@ -88,10 +88,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         //Add subviews
         [self.view addSubview:self.collectionView];
         
-        //TODO: Lazy load?
         //Setup album/photo arrays
-        _photoAlbums = [[NSMutableArray alloc] init];
-        _selectedPhotos = [[NSMutableArray alloc] init];
+        [self setPhotoAlbums:[[NSMutableArray alloc] init]];
+        [self setSelectedPhotos:[[NSMutableArray alloc] init]];
         
         //Find all albums
         [[BSImageSelectionController defaultAssetsLibrary] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
@@ -122,19 +121,11 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark - UIViewController
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    //Set speechbubble color to match tab bar color
-    [self.speechBubbleView setBackgroundColor:self.navigationController.navigationBar.barTintColor];
     
     //Navigation bar buttons
     [self.navigationItem setLeftBarButtonItem:self.cancelButton];
@@ -325,11 +316,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     ALAssetsGroup *group = [self.photoAlbums objectAtIndex:indexPath.row];
     
-    if(![group isEqual:self.selectedAlbum]) {
-        if(self.navigationController.resetBlock) {
-            self.navigationController.resetBlock([self.selectedPhotos copy], BSImageResetAlbum);
-        }
-        
+    if(![group isEqual:self.selectedAlbum]) {        
         [self setSelectedAlbum:group];
     }
     
@@ -346,6 +333,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     id <UIViewControllerAnimatedTransitioning> animator = nil;
     
     if(operation == UINavigationControllerOperationPop) {
+        //Selection may have changed so reload collection view
+        [self.collectionView reloadData];
+        
         animator = self.zoomOutAnimator;
     } else if(operation == UINavigationControllerOperationPush) {
         animator = self.zoomInAnimator;
@@ -418,6 +408,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         [_speechBubbleView.contentView addSubview:self.albumTableView];
     }
     
+    //Set speechbubble color to match tab bar color
+    [_speechBubbleView setBackgroundColor:self.navigationController.navigationBar.barTintColor];
+    
     return _speechBubbleView;
 }
 
@@ -486,9 +479,15 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)finishButtonPressed:(id)sender
 {
-    if(self.navigationController.resetBlock) {
-        // Call reset block with array and corresponding action (cancel or done since this method is shared with cancel and done buttons)
-        self.navigationController.resetBlock([self.selectedPhotos copy], ( (sender == self.cancelButton) ? BSImageResetCancel:BSImageResetDone ));
+    //Cancel or finish? Call correct block!
+    if(sender == self.cancelButton) {
+        if(self.navigationController.cancelBlock) {
+            self.navigationController.cancelBlock([self.selectedPhotos copy]);
+        }
+    } else {
+        if(self.navigationController.finishBlock) {
+            self.navigationController.finishBlock([self.selectedPhotos copy]);
+        }
     }
     
     //Should we keep the images or not?
@@ -519,6 +518,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         
         [self.imagePreviewController setPhotos:self.selectedAlbum];
         [self.imagePreviewController setCurrentAssetIndex:cell.assetIndex];
+        [self.imagePreviewController setSelectedPhotos:self.selectedPhotos];
         
         [self.navigationController pushViewController:self.imagePreviewController animated:YES];
         
@@ -532,12 +532,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     _selectedAlbum = selectedAlbum;
     [self.albumButton setTitle:[_selectedAlbum valueForProperty:ALAssetsGroupPropertyName] forState:UIControlStateNormal];
-    
-    //Clear arrays
-    [self.selectedPhotos removeAllObjects];
-    
-    //Disable done button
-    [self.doneButton setEnabled:NO];
     
     [self.collectionView reloadData];
 }
@@ -569,7 +563,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     //Set new frame
     frame.size.height = 0.0;
     frame.size.width = 0.0;
-    frame.origin.y = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height;
+    frame.origin.y = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height/2.0;
     frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
     [self.speechBubbleView setFrame:frame];
     
@@ -582,6 +576,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                          CGRect frame = self.speechBubbleView.frame;
                          frame.size.height = height;
                          frame.size.width = width;
+                         frame.origin.y = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height;
                          frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
                          [self.speechBubbleView setFrame:frame];
                          
@@ -591,21 +586,16 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)hideAlbumView
 {
-    __block CGRect origRect = self.speechBubbleView.frame;
+    __block CGAffineTransform origTransForm = self.speechBubbleView.transform;
     
     [self.albumTableView reloadData];
     [UIView animateWithDuration:0.2
                      animations:^{
-                         CGRect frame = self.speechBubbleView.frame;
-                         frame.size.height = 7.0;
-                         frame.size.width = 14.0;
-                         frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
-                         [self.speechBubbleView setFrame:frame];
-                         
+                         [self.speechBubbleView setTransform:CGAffineTransformConcat(CGAffineTransformMakeScale(0.1, 0.1), CGAffineTransformMakeTranslation(0, -(self.speechBubbleView.frame.size.height/2.0)))];
                          [self.coverView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0]];
                      } completion:^(BOOL finished) {
                          [self.speechBubbleView removeFromSuperview];
-                         [self.speechBubbleView setFrame:origRect];
+                         [self.speechBubbleView setTransform:origTransForm];
                          [self.coverView removeFromSuperview];
                      }];
 }

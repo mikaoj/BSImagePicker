@@ -42,22 +42,16 @@ Present the image picker from a view controller
                                     NSLog(@"Image deselected");
                                 }
                             }
-                             reset:^(NSArray *assets, BSImageReset reset) {
-                                 switch (reset) {
-                                     case BSImageResetCancel:
-                                         NSLog(@"Image picker canceled");
-                                         break;
-                                     case BSImageResetAlbum:
-                                         NSLog(@"Image picker changed album");
-                                         break;
-                                     case BSImageResetDone:
-                                         NSLog(@"Image picker done");
-                                         break;
-                                 }
-                             }];
+                            cancel:^(NSArray *assets) {
+                                NSLog(@"User canceled...!");
+                            } finish:^(NSArray *assets) {
+                                NSLog(@"User finished :)!");
+                            }];
 ```
+All blocks are optional and can be nil, so you could for an instance just handle the finish case if you wanted. Why the toggle block then? Well, in my case I use it for starting image upload to give the apperance of a faster upload (many times it has already finished when user presses done.
 * Toggle get called with an ALAsset and a BOOL indicating if it was selected or deselected.
-* Reset gets called whenever the image selection gets cleared. This happens when user presses cancel, done or changes album. It will have an array of ALAssets (if any) and a value indicating which action caused the reset.
+* cancel gets called when the user cancels. It will have an array of ALAssets (if any).
+* finish gets called when the user finishes. It will have an array of ALAssets (if any).
 
 Blocks are always called on the main thread.
 
