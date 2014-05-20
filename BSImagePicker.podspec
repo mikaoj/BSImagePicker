@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
                    DESC
   s.homepage     = "https://github.com/mikaoj/BSImagePicker"
   s.license      = "MIT"
-  s.author             = { "Joakim Gyllstrom" => "joakim@backslashed.se" }
+  s.author             = { "Joakim Gyllström" => "joakim@backslashed.se" }
   s.platform     = :ios, "7.0"
   s.source       = { :git => "https://github.com/mikaoj/BSImagePicker.git", :tag => "0.2" }
   s.source_files  = "BSImagePicker/{Category,View,Model,Controller}/*.{h,m}"
