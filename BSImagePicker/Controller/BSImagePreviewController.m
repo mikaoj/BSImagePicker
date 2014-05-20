@@ -57,6 +57,8 @@ static NSString *kPreviewCellIdentifier = @"PreviewCellIdentifier";
 {
     [super viewWillAppear:animated];
     
+    [self.collectionView reloadData];
+    
     //Scroll to the correct image
     [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentAssetIndex inSection:0]
                                 atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
