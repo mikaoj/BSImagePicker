@@ -127,9 +127,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     [super viewWillAppear:animated];
     
-    //Set speechbubble color to match tab bar color
-    [self.speechBubbleView setBackgroundColor:self.navigationController.navigationBar.barTintColor];
-    
     //Navigation bar buttons
     [self.navigationItem setLeftBarButtonItem:self.cancelButton];
     [self.navigationItem setRightBarButtonItem:self.doneButton];
@@ -411,6 +408,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         [_speechBubbleView.contentView addSubview:self.albumTableView];
     }
     
+    //Set speechbubble color to match tab bar color
+    [_speechBubbleView setBackgroundColor:self.navigationController.navigationBar.barTintColor];
+    
     return _speechBubbleView;
 }
 
@@ -585,21 +585,16 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)hideAlbumView
 {
-    __block CGRect origRect = self.speechBubbleView.frame;
+    __block CGAffineTransform origTransForm = self.speechBubbleView.transform;
     
     [self.albumTableView reloadData];
     [UIView animateWithDuration:0.2
                      animations:^{
-                         CGRect frame = self.speechBubbleView.frame;
-                         frame.size.height = 7.0;
-                         frame.size.width = 14.0;
-                         frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
-                         [self.speechBubbleView setFrame:frame];
-                         
+                         [self.speechBubbleView setTransform:CGAffineTransformConcat(CGAffineTransformMakeScale(0.1, 0.1), CGAffineTransformMakeTranslation(0, -50))];
                          [self.coverView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0]];
                      } completion:^(BOOL finished) {
                          [self.speechBubbleView removeFromSuperview];
-                         [self.speechBubbleView setFrame:origRect];
+                         [self.speechBubbleView setTransform:origTransForm];
                          [self.coverView removeFromSuperview];
                      }];
 }
