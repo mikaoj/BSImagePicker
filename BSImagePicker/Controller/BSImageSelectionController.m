@@ -563,7 +563,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     //Set new frame
     frame.size.height = 0.0;
     frame.size.width = 0.0;
-    frame.origin.y = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height;
+    frame.origin.y = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height/2.0;
     frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
     [self.speechBubbleView setFrame:frame];
     
@@ -576,6 +576,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                          CGRect frame = self.speechBubbleView.frame;
                          frame.size.height = height;
                          frame.size.width = width;
+                         frame.origin.y = self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height;
                          frame.origin.x = (self.view.frame.size.width - frame.size.width)/2.0;
                          [self.speechBubbleView setFrame:frame];
                          
@@ -590,7 +591,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     [self.albumTableView reloadData];
     [UIView animateWithDuration:0.2
                      animations:^{
-                         [self.speechBubbleView setTransform:CGAffineTransformConcat(CGAffineTransformMakeScale(0.1, 0.1), CGAffineTransformMakeTranslation(0, -50))];
+                         [self.speechBubbleView setTransform:CGAffineTransformConcat(CGAffineTransformMakeScale(0.1, 0.1), CGAffineTransformMakeTranslation(0, -(self.speechBubbleView.frame.size.height/2.0)))];
                          [self.coverView setBackgroundColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0]];
                      } completion:^(BOOL finished) {
                          [self.speechBubbleView removeFromSuperview];
