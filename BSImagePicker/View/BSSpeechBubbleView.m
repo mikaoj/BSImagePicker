@@ -45,7 +45,7 @@
         [self addSubview:self.triangle];
         
         [self.layer setCornerRadius:4.0];
-        [self setClipsToBounds:YES];
+        [self setClipsToBounds:NO];
     }
     return self;
 }
