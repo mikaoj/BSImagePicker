@@ -432,7 +432,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (UIView *)coverView
 {
     if(!_coverView) {
-        _coverView = [[UIView alloc] initWithFrame:self.navigationController.view.frame];
+        _coverView = [[UIView alloc] initWithFrame:self.navigationController.view.bounds];
         [_coverView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
         
         UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideAlbumView)];
