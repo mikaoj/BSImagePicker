@@ -71,6 +71,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)reloadPhotosAndScrollToTop;
 
+- (void)recievedAssetsNotification:(NSNotification *)notification;
+
 @end
 
 @implementation BSImageSelectionController
@@ -123,6 +125,15 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     } else {
         [self.doneButton setEnabled:NO];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recievedAssetsNotification:) name:ALAssetsLibraryChangedNotification  object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -626,6 +637,31 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     }
 }
 
+- (void)recievedAssetsNotification:(NSNotification *)notification
+{
+    NSSet *updatedAssets = [notification.userInfo objectForKey:ALAssetLibraryUpdatedAssetsKey];
+    NSSet *insertedAssetGroups = [notification.userInfo objectForKey:ALAssetLibraryInsertedAssetGroupsKey];
+    NSSet *updatedAssetGroups = [notification.userInfo objectForKey:ALAssetLibraryUpdatedAssetGroupsKey];
+    NSSet *deletedAssetGroups = [notification.userInfo objectForKey:ALAssetLibraryDeletedAssetGroupsKey];
+    
+    if([updatedAssets isKindOfClass:[NSSet class]] && [updatedAssets count] > 0) {
+        //This is what we should do:
+        //Loop through all assets of selected album to see if they match.
+        //If so find out which index path they have
+        //Add indexpath to array
+        //Update indexpaths in collectionview
+        //But fuck that, lets keep it simple and see how that plays out
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+        });
+    }
+    
+    if( ([insertedAssetGroups isKindOfClass:[NSSet class]] && [insertedAssetGroups count] > 0)
+       || ([updatedAssetGroups isKindOfClass:[NSSet class]] && [updatedAssetGroups count] > 0)
+       || ([deletedAssetGroups isKindOfClass:[NSSet class]] && [deletedAssetGroups count] > 0)) {
+        [self setupAlbums];
+    }
+}
 
 - (void)reloadPhotosAndScrollToTop
 {
