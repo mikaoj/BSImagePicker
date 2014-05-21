@@ -172,7 +172,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     }
     
     [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                         options:0
+                                         options:NSEnumerationReverse
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                           if(result) {
                                               [cell setAssetIndex:index];
@@ -195,7 +195,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     BOOL allow = NO;
     if([self.selectedPhotos count] < self.navigationController.maximumNumberOfImages) {
         [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                             options:0
+                                             options:NSEnumerationReverse
                                           usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                               if(result) {
                                                   //Enable done button
@@ -220,7 +220,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                         options:0
+                                         options:NSEnumerationReverse
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                           if(result) {
                                               if(self.navigationController.toggleBlock) {
