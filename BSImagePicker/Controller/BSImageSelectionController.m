@@ -542,9 +542,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (void)showAlbumView
 {
     [self.navigationController.view addSubview:self.coverView];
-    
     [self.navigationController.view addSubview:self.speechBubbleView];
-    [self.albumTableView reloadData];
     
     CGFloat tableViewHeight = MIN(self.albumTableView.contentSize.height, 240);
     CGRect frame = CGRectMake(0, 0, self.speechBubbleView.frame.size.width, tableViewHeight+7);
@@ -610,6 +608,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                     [self setupItemSizeForAssetsGroup:group];
                     [self setSelectedAlbum:group];
                     
+                    [self.albumTableView reloadData];
                     [self reloadPhotosAndScrollToTop];
                 }
             } else {
