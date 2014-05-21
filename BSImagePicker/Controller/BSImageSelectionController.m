@@ -55,6 +55,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 @property (nonatomic, strong) BSZoomInAnimator *zoomInAnimator;
 @property (nonatomic, strong) BSZoomOutAnimator *zoomOutAnimator;
 
+- (void)setupAlbums;
+- (void)setupItemSizeForAssetsGroup:(ALAssetsGroup *)group;
+
 - (void)finishButtonPressed:(id)sender;
 - (void)albumButtonPressed:(id)sender;
 
@@ -62,8 +65,11 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)registerCollectionViewCellIdentifiers;
 - (void)registerTableViewCellIdentifiers;
+
 - (void)showAlbumView;
 - (void)hideAlbumView;
+
+- (void)reloadPhotosAndScrollToTop;
 
 @end
 
@@ -92,31 +98,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         [self setPhotoAlbums:[[NSMutableArray alloc] init]];
         [self setSelectedPhotos:[[NSMutableArray alloc] init]];
         
-        //Find all albums
-        [[BSImageSelectionController defaultAssetsLibrary] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-            if(group) {
-                //Default to select saved photos album
-                if([[group valueForProperty:ALAssetsGroupPropertyType] isEqual:[NSNumber numberWithInteger:ALAssetsGroupSavedPhotos]]) {
-                    [self.photoAlbums insertObject:group atIndex:0];
-                    [self setSelectedAlbum:group];
-                    
-                    //Set default item size if no size already given.
-                    if(CGSizeEqualToSize(self.navigationController.itemSize, CGSizeZero)) {
-                        //Get thumbnail size
-                        CGSize thumbnailSize = CGSizeMake(CGImageGetWidth(group.posterImage), CGImageGetHeight(group.posterImage));
-                        
-                        //We want 3 images in each row. So width should be viewWidth-(4*LEFT/RIGHT_INSET)/3
-                        //4*2.0 is edgeinset
-                        //Height should be adapted so we maintain the aspect ratio of thumbnail
-                        //original height / original width * new width
-                        CGSize itemSize = CGSizeMake((320.0 - (4*2.0))/3.0, 100);
-                        [self.navigationController setItemSize:CGSizeMake(itemSize.width, thumbnailSize.height / thumbnailSize.width * itemSize.width)];
-                    }
-                } else {
-                    [self.photoAlbums addObject:group];
-                }
-            }
-        } failureBlock:nil];
+        [self setupAlbums];
     }
     return self;
 }
@@ -318,6 +300,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     
     if(![group isEqual:self.selectedAlbum]) {        
         [self setSelectedAlbum:group];
+        
+        [self reloadPhotosAndScrollToTop];
     }
     
     [self hideAlbumView];
@@ -532,8 +516,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     _selectedAlbum = selectedAlbum;
     [self.albumButton setTitle:[_selectedAlbum valueForProperty:ALAssetsGroupPropertyName] forState:UIControlStateNormal];
-    
-    [self.collectionView reloadData];
 }
 
 - (void)registerCollectionViewCellIdentifiers
@@ -598,6 +580,63 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                          [self.speechBubbleView setTransform:origTransForm];
                          [self.coverView removeFromSuperview];
                      }];
+}
+
+- (void)setupAlbums
+{
+    //Clear previous albums
+    [self.photoAlbums removeAllObjects];
+    
+    //Find all albums
+    [[BSImageSelectionController defaultAssetsLibrary] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        if(group) {
+            //Default to select saved photos album
+            if([[group valueForProperty:ALAssetsGroupPropertyType] isEqual:[NSNumber numberWithInteger:ALAssetsGroupSavedPhotos]]) {
+                [self.photoAlbums insertObject:group atIndex:0];
+                
+                //Set it to be the selected album if we have no album selected
+                if(!self.selectedAlbum) {
+                    [self setupItemSizeForAssetsGroup:group];
+                    [self setSelectedAlbum:group];
+                    
+                    [self reloadPhotosAndScrollToTop];
+                }
+            } else {
+                [self.photoAlbums addObject:group];
+            }
+        } else {
+            [self.albumTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    } failureBlock:nil];
+}
+
+- (void)setupItemSizeForAssetsGroup:(ALAssetsGroup *)group
+{
+    //Set default item size if no size already given.
+    if(CGSizeEqualToSize(self.navigationController.itemSize, CGSizeZero)) {
+        //Get thumbnail size
+        CGSize thumbnailSize = CGSizeMake(CGImageGetWidth(group.posterImage), CGImageGetHeight(group.posterImage));
+        
+        //We want 3 images in each row. So width should be viewWidth-(4*LEFT/RIGHT_INSET)/3
+        //4*2.0 is edgeinset
+        //Height should be adapted so we maintain the aspect ratio of thumbnail
+        //original height / original width * new width
+        CGSize itemSize = CGSizeMake((320.0 - (4*2.0))/3.0, 100);
+        [self.navigationController setItemSize:CGSizeMake(itemSize.width, thumbnailSize.height / thumbnailSize.width * itemSize.width)];
+    }
+}
+
+
+- (void)reloadPhotosAndScrollToTop
+{
+    [self.collectionView performBatchUpdates:^{
+        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+        if(self.selectedAlbum.numberOfAssets > 0) {
+            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
+                                        atScrollPosition:UICollectionViewScrollPositionTop
+                                                animated:YES];
+        }
+    } completion:nil];
 }
 
 @end
