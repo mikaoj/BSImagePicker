@@ -29,4 +29,6 @@
 @property (nonatomic, assign) NSUInteger assetIndex;
 @property (nonatomic, strong) UILongPressGestureRecognizer *longPressRecognizer;
 
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
+
 @end

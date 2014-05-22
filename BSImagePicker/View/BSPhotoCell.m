@@ -46,12 +46,17 @@
 
 - (void)setSelected:(BOOL)selected
 {
+    [self setSelected:selected animated:YES];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
     BOOL previous = self.selected;
     
     [super setSelected:selected];
     
     if(previous != selected) {
-        [UIView animateWithDuration:0.05
+        [UIView animateWithDuration:(animated)?0.05:0
                               delay:0.0
                             options:0
                          animations:^{
@@ -62,13 +67,13 @@
                                  [self.selectionView setFrame:CGRectMake(self.imageView.center.x, self.imageView.center.y, 1, 1)];
                                  [self.imageView addSubview:self.selectionView];
                                  
-                                 [UIView animateWithDuration:0.1
+                                 [UIView animateWithDuration:(animated)?0.1:0
                                                   animations:^{
                                                       [self setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
                                                       [self.selectionView setFrame:self.imageView.frame];
                                                   }];
                              } else {
-                                 [UIView animateWithDuration:0.1
+                                 [UIView animateWithDuration:(animated)?0.1:0
                                                   animations:^{
                                                       [self setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
                                                       [self.selectionView setFrame:CGRectMake(self.imageView.center.x, self.imageView.center.y, 1, 1)];

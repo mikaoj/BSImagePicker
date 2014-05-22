@@ -184,6 +184,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     
     if([self.selectedPhotos containsObject:asset]) {
         [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+        [cell setSelected:YES animated:YES];
     }
     
     return cell;
