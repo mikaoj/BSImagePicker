@@ -101,7 +101,7 @@ static NSString *kPreviewCellIdentifier = @"PreviewCellIdentifier";
                                   options:0
                                usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                    if(result) {
-                                       [cell.imageView setImage:[UIImage imageWithCGImage:result.defaultRepresentation.fullScreenImage]];
+                                       [cell.imageView setImage:[UIImage imageWithCGImage:result.defaultRepresentation.fullResolutionImage]];
                                    }
                                }];
     
