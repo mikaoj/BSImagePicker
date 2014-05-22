@@ -681,7 +681,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     if( ([insertedAssetGroups isKindOfClass:[NSSet class]] && [insertedAssetGroups count] > 0)
        || ([updatedAssetGroups isKindOfClass:[NSSet class]] && [updatedAssetGroups count] > 0)
        || ([deletedAssetGroups isKindOfClass:[NSSet class]] && [deletedAssetGroups count] > 0)) {
-        [self setupAlbums];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setupAlbums];
+        });
     }
 }
 
