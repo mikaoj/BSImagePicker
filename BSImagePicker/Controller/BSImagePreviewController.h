@@ -26,7 +26,7 @@
 @interface BSImagePreviewController : UIViewController
 
 @property (nonatomic, assign) NSUInteger currentAssetIndex;
-@property (nonatomic, weak) ALAssetsGroup *photos;
+@property (nonatomic, weak) NSArray *photos;
 @property (nonatomic, weak) NSMutableArray *selectedPhotos;
 
 @end

@@ -37,8 +37,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 + (ALAssetsLibrary *)defaultAssetsLibrary;
 
-@property (nonatomic, strong) NSMutableArray *photoAlbums; //Contains ALAssetsGroups
+@property (nonatomic, strong) NSArray *albums; //Contains ALAssetsGroups
 @property (nonatomic, strong) ALAssetsGroup *selectedAlbum;
+@property (nonatomic, strong) NSArray *photos;
 @property (nonatomic, strong) NSMutableArray *selectedPhotos; //Contains ALAssets
 
 @property (nonatomic, strong) UICollectionView *collectionView;
@@ -56,6 +57,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 @property (nonatomic, strong) BSZoomOutAnimator *zoomOutAnimator;
 
 - (void)setupAlbums;
+- (void)setupPhotos;
 - (void)setupItemSizeForAssetsGroup:(ALAssetsGroup *)group;
 
 - (void)finishButtonPressed:(id)sender;
@@ -96,8 +98,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         //Add subviews
         [self.view addSubview:self.collectionView];
         
-        //Setup album/photo arrays
-        [self setPhotoAlbums:[[NSMutableArray alloc] init]];
+        //Setup selected photos array
         [self setSelectedPhotos:[[NSMutableArray alloc] init]];
         
         [self setupAlbums];
@@ -166,15 +167,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    __block NSInteger numberOfItems = 0;
-    
-    [self.selectedAlbum enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-        if([[result valueForProperty:@"ALAssetPropertyType"] isEqualToString:@"ALAssetTypePhoto"]) {
-            ++numberOfItems;
-        }
-    }];
-    
-    return numberOfItems;
+    return [self.photos count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -185,19 +178,14 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         [cell.longPressRecognizer addTarget:self action:@selector(cellLongPressed:)];
     }
     
-    [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                         options:NSEnumerationReverse
-                                      usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                                          if(result) {
-                                              [cell setAssetIndex:index];
-                                              [cell.imageView setImage:[UIImage imageWithCGImage:result.thumbnail]];
-                                              
-                                              if([self.selectedPhotos containsObject:result]) {
-                                                  [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-                                                  [cell setSelected:YES];
-                                              }
-                                          }
-                                      }];
+    ALAsset *asset = [self.photos objectAtIndex:indexPath.row];
+    [cell setAssetIndex:indexPath.row];
+    [cell.imageView setImage:[UIImage imageWithCGImage:asset.thumbnail]];
+    
+    if([self.selectedPhotos containsObject:asset]) {
+        [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+        [cell setSelected:YES animated:YES];
+    }
     
     return cell;
 }
@@ -206,26 +194,21 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    BOOL allow = NO;
-    if([self.selectedPhotos count] < self.navigationController.maximumNumberOfImages) {
-        [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                             options:NSEnumerationReverse
-                                          usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                                              if(result) {
-                                                  //Enable done button
-                                                  if([self.selectedPhotos count] == 0) {
-                                                      [self.doneButton setEnabled:YES];
-                                                  }
-
-                                                  [self.selectedPhotos addObject:result];
-                                                  
-                                                  if(self.navigationController.toggleBlock) {
-                                                      self.navigationController.toggleBlock(result, YES);
-                                                  }
-                                              }
-                                          }];
+    BOOL allow = [self.selectedPhotos count] < self.navigationController.maximumNumberOfImages;
+    
+    if(allow) {
+        ALAsset *asset = [self.photos objectAtIndex:indexPath.row];
         
-        allow = YES;
+        //Enable done button
+        if([self.selectedPhotos count] == 0) {
+            [self.doneButton setEnabled:YES];
+        }
+        
+        [self.selectedPhotos addObject:asset];
+        
+        if(self.navigationController.toggleBlock) {
+            self.navigationController.toggleBlock(asset, YES);
+        }
     }
     
     return allow;
@@ -233,22 +216,18 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                         options:NSEnumerationReverse
-                                      usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                                          if(result) {
-                                              if(self.navigationController.toggleBlock) {
-                                                  self.navigationController.toggleBlock(result, NO);
-                                              }
-                                              
-                                              [self.selectedPhotos removeObject:result];
-                                              
-                                              //Disable done button
-                                              if([self.selectedPhotos count] == 0) {
-                                                  [self.doneButton setEnabled:NO];
-                                              }
-                                          }
-                                      }];
+    ALAsset *asset = [self.photos objectAtIndex:indexPath.row];
+    
+    if(self.navigationController.toggleBlock) {
+        self.navigationController.toggleBlock(asset, NO);
+    }
+    
+    [self.selectedPhotos removeObject:asset];
+    
+    //Disable done button
+    if([self.selectedPhotos count] == 0) {
+        [self.doneButton setEnabled:NO];
+    }
     
     return YES;
 }
@@ -282,7 +261,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.photoAlbums count];
+    return [self.albums count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -294,7 +273,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     BSAlbumCell *cell = [tableView dequeueReusableCellWithIdentifier:kAlbumCellIdentifier forIndexPath:indexPath];
     
-    ALAssetsGroup *group = [self.photoAlbums objectAtIndex:indexPath.row];
+    ALAssetsGroup *group = [self.albums objectAtIndex:indexPath.row];
     
     if([group isEqual:self.selectedAlbum]) {
         [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
@@ -311,16 +290,17 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     [cell setBackgroundColor:[UIColor clearColor]];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
-    [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-        if(result) {
-            if(index == 1) {
-                [cell.secondImageView setImage:[UIImage imageWithCGImage:result.thumbnail]];
-            } else if(index == 2) {
-                [cell.thirdImageView setImage:[UIImage imageWithCGImage:result.thumbnail]];
-                *stop = YES;
-            }
-        }
-    }];
+    [group enumerateAssetsWithOptions:NSEnumerationReverse
+                           usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                               if(result) {
+                                   if(index == 1) {
+                                       [cell.secondImageView setImage:[UIImage imageWithCGImage:result.thumbnail]];
+                                   } else if(index == 2) {
+                                       [cell.thirdImageView setImage:[UIImage imageWithCGImage:result.thumbnail]];
+                                       *stop = YES;
+                                   }
+                               }
+                           }];
     
     return cell;
 }
@@ -328,12 +308,11 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ALAssetsGroup *group = [self.photoAlbums objectAtIndex:indexPath.row];
+    ALAssetsGroup *group = [self.albums objectAtIndex:indexPath.row];
     
     if(![group isEqual:self.selectedAlbum]) {        
         [self setSelectedAlbum:group];
-        
-        [self reloadPhotosAndScrollToTop];
+        [self setupPhotos];
     }
     
     [self hideAlbumView];
@@ -534,7 +513,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     if(recognizer.state == UIGestureRecognizerStateBegan) {
         [recognizer setEnabled:NO];
         
-        [self.imagePreviewController setPhotos:self.selectedAlbum];
+        [self.imagePreviewController setPhotos:self.photos];
         [self.imagePreviewController setCurrentAssetIndex:cell.assetIndex];
         [self.imagePreviewController setSelectedPhotos:self.selectedPhotos];
         
@@ -616,31 +595,49 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)setupAlbums
 {
-    //Clear previous albums
-    [self.photoAlbums removeAllObjects];
+    NSMutableArray *mutableAlbums = [[NSMutableArray alloc] init];
+    __block BOOL reloadPhotos = NO;
     
     //Find all albums
     [[BSImageSelectionController defaultAssetsLibrary] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         if(group) {
             //Default to select saved photos album
             if([[group valueForProperty:ALAssetsGroupPropertyType] isEqual:[NSNumber numberWithInteger:ALAssetsGroupSavedPhotos]]) {
-                [self.photoAlbums insertObject:group atIndex:0];
+                [mutableAlbums insertObject:group atIndex:0];
                 
                 //Set it to be the selected album if we have no album selected
                 if(!self.selectedAlbum) {
                     [self setupItemSizeForAssetsGroup:group];
                     [self setSelectedAlbum:group];
                     
-                    [self.albumTableView reloadData];
-                    [self reloadPhotosAndScrollToTop];
+                    reloadPhotos = YES;
                 }
             } else {
-                [self.photoAlbums addObject:group];
+                [mutableAlbums addObject:group];
             }
         } else {
+            if(reloadPhotos) {
+                [self setupPhotos];
+            }
+            [self setAlbums:[mutableAlbums copy]];
             [self.albumTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
     } failureBlock:nil];
+}
+
+- (void)setupPhotos
+{
+    NSMutableArray *mutablePhotos = [[NSMutableArray alloc] initWithCapacity:self.selectedAlbum.numberOfAssets];
+    
+    [self.selectedAlbum enumerateAssetsWithOptions:NSEnumerationReverse
+                                        usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+                                            if([[result valueForProperty:@"ALAssetPropertyType"] isEqualToString:@"ALAssetTypePhoto"]) {
+                                                [mutablePhotos addObject:result];
+                                            } else if(result == nil) {
+                                                [self setPhotos:[mutablePhotos copy]];
+                                                [self reloadPhotosAndScrollToTop];
+                                            }
+                                        }];
 }
 
 - (void)setupItemSizeForAssetsGroup:(ALAssetsGroup *)group

@@ -87,7 +87,7 @@ static NSString *kPreviewCellIdentifier = @"PreviewCellIdentifier";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.photos.numberOfAssets;
+    return [self.photos count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -97,13 +97,8 @@ static NSString *kPreviewCellIdentifier = @"PreviewCellIdentifier";
     //Reset zoom
     [cell.scrollView setZoomScale:1.0];
     
-    [self.photos enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                  options:0
-                               usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                                   if(result) {
-                                       [cell.imageView setImage:[UIImage imageWithCGImage:result.defaultRepresentation.fullResolutionImage]];
-                                   }
-                               }];
+    ALAsset *asset = [self.photos objectAtIndex:indexPath.row];
+    [cell.imageView setImage:[UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage]];
     
     return cell;
 }
@@ -188,42 +183,34 @@ static NSString *kPreviewCellIdentifier = @"PreviewCellIdentifier";
 
 - (void)toggleSelectionButtonPressed:(UIBarButtonItem *)sender
 {
-    [self.photos enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:self.currentAssetIndex]
-                                         options:0
-                                      usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                                          if(result) {
-                                              if([sender isEqual:self.selectButton]) {
-                                                  [self.selectedPhotos addObject:result];
-                                                  
-                                                  if(self.navigationController.toggleBlock) {
-                                                      self.navigationController.toggleBlock(result, YES);
-                                                  }
-                                              } else {
-                                                  [self.selectedPhotos removeObject:result];
-                                                  
-                                                  if(self.navigationController.toggleBlock) {
-                                                      self.navigationController.toggleBlock(result, NO);
-                                                  }
-                                              }
-                                              
-                                              [self setupRightButton];
-                                          }
-                                      }];
+    ALAsset *asset = [self.photos objectAtIndex:self.currentAssetIndex];
+    
+    if([sender isEqual:self.selectButton]) {
+        [self.selectedPhotos addObject:asset];
+        
+        if(self.navigationController.toggleBlock) {
+            self.navigationController.toggleBlock(asset, YES);
+        }
+    } else {
+        [self.selectedPhotos removeObject:asset];
+        
+        if(self.navigationController.toggleBlock) {
+            self.navigationController.toggleBlock(asset, NO);
+        }
+    }
+    
+    [self setupRightButton];
 }
 
 - (void)setupRightButton
 {
-    [self.photos enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:self.currentAssetIndex]
-                                  options:0
-                               usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                                   if(result) {
-                                       if([self.selectedPhotos containsObject:result]) {
-                                           [self.navigationItem setRightBarButtonItem:self.deselectButton];
-                                       } else {
-                                           [self.navigationItem setRightBarButtonItem:self.selectButton];
-                                       }
-                                   }
-                               }];
+    ALAsset *asset = [self.photos objectAtIndex:self.currentAssetIndex];
+    
+    if([self.selectedPhotos containsObject:asset]) {
+        [self.navigationItem setRightBarButtonItem:self.deselectButton];
+    } else {
+        [self.navigationItem setRightBarButtonItem:self.selectButton];
+    }
 }
 
 - (BSImagePickerController *)navigationController
