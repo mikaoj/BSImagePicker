@@ -6,7 +6,7 @@ A mix between the native iOS 7 gallery and facebooks image picker.
 ## Pod
 Put this into your Podfile:
 ```shell
-pod 'BSImagePicker', '~> 0.2'
+pod 'BSImagePicker', '~> 0.3'
 ```
 ## Framework
 ### Download framework
@@ -55,7 +55,7 @@ All blocks are optional and can be nil, so you could for an instance just handle
 
 Blocks are always called on the main thread.
 
-### Customization (view BSImagePickerController.h to see all properties you can set)
+### Customization (see BSImagePickerController.h)
 * You can disable previews by setting previewDisabled to YES.
 * Setting keepSelection to YES will keep your image selection after dismissing the controller.
 * Set maximumNumberOfImages to a value to limit selection to a certain number of images.
@@ -72,29 +72,6 @@ This will give you a dark picker
 [anImagePicker.view setBackgroundColor:[UIColor blackColor]];
 [anImagePicker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 ```
-# TODO's
-* Edit - support for editing images in the preview view
-* Movies - for now only images are supported. Add support for movies as well
 
 # License
-The MIT License (MIT)
-
-Copyright (c) 2014 Joakim Gyllström
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+MIT License (see LICENSE file)

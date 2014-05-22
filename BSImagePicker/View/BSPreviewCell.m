@@ -32,6 +32,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
         [self addSubview:self.scrollView];
     }
     return self;
@@ -53,6 +54,7 @@
 {
     if(!_scrollView) {
         _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+        [_scrollView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
         [_scrollView setMinimumZoomScale:1.0];
         [_scrollView setMaximumZoomScale:3.0];
         [_scrollView setDelegate:self];

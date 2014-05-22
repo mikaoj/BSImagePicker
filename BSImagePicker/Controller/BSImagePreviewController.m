@@ -67,6 +67,17 @@ static NSString *kPreviewCellIdentifier = @"PreviewCellIdentifier";
     [self setupRightButton];
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self.collectionView reloadData];
+    
+    //Scroll to the correct image
+    [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentAssetIndex inSection:0]
+                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                        animated:NO];
+}
+
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -90,7 +101,7 @@ static NSString *kPreviewCellIdentifier = @"PreviewCellIdentifier";
                                   options:0
                                usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                    if(result) {
-                                       [cell.imageView setImage:[UIImage imageWithCGImage:result.defaultRepresentation.fullScreenImage]];
+                                       [cell.imageView setImage:[UIImage imageWithCGImage:result.defaultRepresentation.fullResolutionImage]];
                                    }
                                }];
     
@@ -101,7 +112,7 @@ static NSString *kPreviewCellIdentifier = @"PreviewCellIdentifier";
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.view.bounds.size;
+    return self.collectionView.bounds.size;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section

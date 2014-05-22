@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		5509A3FE192E90F4006E4DA1 /* BSPreviewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 556522E51926D42900492DCD /* BSPreviewCell.h */; };
+		5509A3FF192E90F9006E4DA1 /* BSPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 556522E61926D42900492DCD /* BSPreviewCell.m */; };
 		556522E71926D42900492DCD /* BSPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 556522E61926D42900492DCD /* BSPreviewCell.m */; };
 		556E0CE919017470006F8F73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 556E0CE719017470006F8F73 /* InfoPlist.strings */; };
 		556E0CF0190174E6006F8F73 /* UIViewController+MultipleImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE018FC952D00F28CA5 /* UIViewController+MultipleImagePicker.m */; };
@@ -347,6 +349,7 @@
 				556E0D0B1901781B006F8F73 /* BSPhotoCell.h in Headers */,
 				556E0D0C1901781B006F8F73 /* BSCheckmarkView.h in Headers */,
 				556E0D0D1901781B006F8F73 /* BSZoomOutAnimator.h in Headers */,
+				5509A3FE192E90F4006E4DA1 /* BSPreviewCell.h in Headers */,
 				556E0D0E1901781B006F8F73 /* BSZoomInAnimator.h in Headers */,
 				556E0D0F1901781B006F8F73 /* BSImageSelectionController.h in Headers */,
 				556E0D101901781B006F8F73 /* BSImagePreviewController.h in Headers */,
@@ -495,6 +498,7 @@
 			files = (
 				556E0CF0190174E6006F8F73 /* UIViewController+MultipleImagePicker.m in Sources */,
 				556E0CF2190174E6006F8F73 /* ALAsset+Equal.m in Sources */,
+				5509A3FF192E90F9006E4DA1 /* BSPreviewCell.m in Sources */,
 				556E0CF3190174E6006F8F73 /* BSSpeechBubbleView.m in Sources */,
 				556E0CF4190174E6006F8F73 /* BSTriangleView.m in Sources */,
 				556E0CF5190174E6006F8F73 /* BSAlbumCell.m in Sources */,

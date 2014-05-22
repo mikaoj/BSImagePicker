@@ -55,6 +55,9 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 @property (nonatomic, strong) BSZoomInAnimator *zoomInAnimator;
 @property (nonatomic, strong) BSZoomOutAnimator *zoomOutAnimator;
 
+- (void)setupAlbums;
+- (void)setupItemSizeForAssetsGroup:(ALAssetsGroup *)group;
+
 - (void)finishButtonPressed:(id)sender;
 - (void)albumButtonPressed:(id)sender;
 
@@ -62,8 +65,13 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 
 - (void)registerCollectionViewCellIdentifiers;
 - (void)registerTableViewCellIdentifiers;
+
 - (void)showAlbumView;
 - (void)hideAlbumView;
+
+- (void)reloadPhotosAndScrollToTop;
+
+- (void)recievedAssetsNotification:(NSNotification *)notification;
 
 @end
 
@@ -92,33 +100,30 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         [self setPhotoAlbums:[[NSMutableArray alloc] init]];
         [self setSelectedPhotos:[[NSMutableArray alloc] init]];
         
-        //Find all albums
-        [[BSImageSelectionController defaultAssetsLibrary] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-            if(group) {
-                //Default to select saved photos album
-                if([[group valueForProperty:ALAssetsGroupPropertyType] isEqual:[NSNumber numberWithInteger:ALAssetsGroupSavedPhotos]]) {
-                    [self.photoAlbums insertObject:group atIndex:0];
-                    [self setSelectedAlbum:group];
-                    
-                    //Set default item size if no size already given.
-                    if(CGSizeEqualToSize(self.navigationController.itemSize, CGSizeZero)) {
-                        //Get thumbnail size
-                        CGSize thumbnailSize = CGSizeMake(CGImageGetWidth(group.posterImage), CGImageGetHeight(group.posterImage));
-                        
-                        //We want 3 images in each row. So width should be viewWidth-(4*LEFT/RIGHT_INSET)/3
-                        //4*2.0 is edgeinset
-                        //Height should be adapted so we maintain the aspect ratio of thumbnail
-                        //original height / original width * new width
-                        CGSize itemSize = CGSizeMake((320.0 - (4*2.0))/3.0, 100);
-                        [self.navigationController setItemSize:CGSizeMake(itemSize.width, thumbnailSize.height / thumbnailSize.width * itemSize.width)];
-                    }
-                } else {
-                    [self.photoAlbums addObject:group];
-                }
-            }
-        } failureBlock:nil];
+        [self setupAlbums];
     }
     return self;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    
+    //Release these if they aren't visible
+    if(![self.speechBubbleView isDescendantOfView:self.navigationController.view]) {
+        [self setSpeechBubbleView:nil];
+        [self setAlbumTableView:nil];
+        [self setCoverView:nil];
+    }
+    
+    //Release preview controller if we aren't previewing
+    if(![self.navigationController.viewControllers containsObject:self.imagePreviewController]) {
+        [self setImagePreviewController:nil];
+    }
+    
+    //These can be released at any time
+    [self setZoomInAnimator:nil];
+    [self setZoomOutAnimator:nil];
 }
 
 #pragma mark - UIViewController
@@ -141,6 +146,15 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     } else {
         [self.doneButton setEnabled:NO];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recievedAssetsNotification:) name:ALAssetsLibraryChangedNotification  object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -172,7 +186,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     }
     
     [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                         options:0
+                                         options:NSEnumerationReverse
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                           if(result) {
                                               [cell setAssetIndex:index];
@@ -195,7 +209,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     BOOL allow = NO;
     if([self.selectedPhotos count] < self.navigationController.maximumNumberOfImages) {
         [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                             options:0
+                                             options:NSEnumerationReverse
                                           usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                               if(result) {
                                                   //Enable done button
@@ -220,7 +234,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.selectedAlbum enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:indexPath.row]
-                                         options:0
+                                         options:NSEnumerationReverse
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                           if(result) {
                                               if(self.navigationController.toggleBlock) {
@@ -318,6 +332,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     
     if(![group isEqual:self.selectedAlbum]) {        
         [self setSelectedAlbum:group];
+        
+        [self reloadPhotosAndScrollToTop];
     }
     
     [self hideAlbumView];
@@ -424,6 +440,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         [_albumTableView setDelegate:self];
         [_albumTableView setDataSource:self];
         [self registerTableViewCellIdentifiers];
+        
+        [_albumTableView reloadData];
     }
     
     return _albumTableView;
@@ -432,7 +450,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (UIView *)coverView
 {
     if(!_coverView) {
-        _coverView = [[UIView alloc] initWithFrame:self.navigationController.view.frame];
+        _coverView = [[UIView alloc] initWithFrame:self.navigationController.view.bounds];
         [_coverView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
         
         UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideAlbumView)];
@@ -532,8 +550,6 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 {
     _selectedAlbum = selectedAlbum;
     [self.albumButton setTitle:[_selectedAlbum valueForProperty:ALAssetsGroupPropertyName] forState:UIControlStateNormal];
-    
-    [self.collectionView reloadData];
 }
 
 - (void)registerCollectionViewCellIdentifiers
@@ -549,9 +565,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
 - (void)showAlbumView
 {
     [self.navigationController.view addSubview:self.coverView];
-    
     [self.navigationController.view addSubview:self.speechBubbleView];
-    [self.albumTableView reloadData];
     
     CGFloat tableViewHeight = MIN(self.albumTableView.contentSize.height, 240);
     CGRect frame = CGRectMake(0, 0, self.speechBubbleView.frame.size.width, tableViewHeight+7);
@@ -598,6 +612,91 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
                          [self.speechBubbleView setTransform:origTransForm];
                          [self.coverView removeFromSuperview];
                      }];
+}
+
+- (void)setupAlbums
+{
+    //Clear previous albums
+    [self.photoAlbums removeAllObjects];
+    
+    //Find all albums
+    [[BSImageSelectionController defaultAssetsLibrary] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+        if(group) {
+            //Default to select saved photos album
+            if([[group valueForProperty:ALAssetsGroupPropertyType] isEqual:[NSNumber numberWithInteger:ALAssetsGroupSavedPhotos]]) {
+                [self.photoAlbums insertObject:group atIndex:0];
+                
+                //Set it to be the selected album if we have no album selected
+                if(!self.selectedAlbum) {
+                    [self setupItemSizeForAssetsGroup:group];
+                    [self setSelectedAlbum:group];
+                    
+                    [self.albumTableView reloadData];
+                    [self reloadPhotosAndScrollToTop];
+                }
+            } else {
+                [self.photoAlbums addObject:group];
+            }
+        } else {
+            [self.albumTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    } failureBlock:nil];
+}
+
+- (void)setupItemSizeForAssetsGroup:(ALAssetsGroup *)group
+{
+    //Set default item size if no size already given.
+    if(CGSizeEqualToSize(self.navigationController.itemSize, CGSizeZero)) {
+        //Get thumbnail size
+        CGSize thumbnailSize = CGSizeMake(CGImageGetWidth(group.posterImage), CGImageGetHeight(group.posterImage));
+        
+        //We want 3 images in each row. So width should be viewWidth-(4*LEFT/RIGHT_INSET)/3
+        //4*2.0 is edgeinset
+        //Height should be adapted so we maintain the aspect ratio of thumbnail
+        //original height / original width * new width
+        CGSize itemSize = CGSizeMake((320.0 - (4*2.0))/3.0, 100);
+        [self.navigationController setItemSize:CGSizeMake(itemSize.width, thumbnailSize.height / thumbnailSize.width * itemSize.width)];
+    }
+}
+
+- (void)recievedAssetsNotification:(NSNotification *)notification
+{
+    NSSet *updatedAssets = [notification.userInfo objectForKey:ALAssetLibraryUpdatedAssetsKey];
+    NSSet *insertedAssetGroups = [notification.userInfo objectForKey:ALAssetLibraryInsertedAssetGroupsKey];
+    NSSet *updatedAssetGroups = [notification.userInfo objectForKey:ALAssetLibraryUpdatedAssetGroupsKey];
+    NSSet *deletedAssetGroups = [notification.userInfo objectForKey:ALAssetLibraryDeletedAssetGroupsKey];
+    
+    if([updatedAssets isKindOfClass:[NSSet class]] && [updatedAssets count] > 0) {
+        //This is what we should do:
+        //Loop through all assets of selected album to see if they match.
+        //If so find out which index path they have
+        //Add indexpath to array
+        //Update indexpaths in collectionview
+        //But fuck that, lets keep it simple and see how that plays out
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+        });
+    }
+    
+    if( ([insertedAssetGroups isKindOfClass:[NSSet class]] && [insertedAssetGroups count] > 0)
+       || ([updatedAssetGroups isKindOfClass:[NSSet class]] && [updatedAssetGroups count] > 0)
+       || ([deletedAssetGroups isKindOfClass:[NSSet class]] && [deletedAssetGroups count] > 0)) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setupAlbums];
+        });
+    }
+}
+
+- (void)reloadPhotosAndScrollToTop
+{
+    [self.collectionView performBatchUpdates:^{
+        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+        if(self.selectedAlbum.numberOfAssets > 0) {
+            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
+                                        atScrollPosition:UICollectionViewScrollPositionTop
+                                                animated:YES];
+        }
+    } completion:nil];
 }
 
 @end
