@@ -45,13 +45,6 @@
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [self setImagePicker:nil];
-    
-    [super didReceiveMemoryWarning];
-}
-
 #pragma mark - Lazy load
 
 - (BSImageSelectionController *)imagePicker
