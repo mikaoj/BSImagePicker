@@ -10,7 +10,7 @@ pod 'BSImagePicker', '~> 0.3'
 ```
 ## Framework
 ### Download framework
-[Download the framework](https://github.com/mikaoj/BSImagePicker/releases/download/0.2/BSImagePickerController.framework.zip "framework") and drop into your project.
+[Download the framework](https://github.com/mikaoj/BSImagePicker/releases/download/0.3/BSImagePickerController.framework.zip "framework") and drop into your project.
 ### Or build it yourself
 * Clone project
 ```shell
