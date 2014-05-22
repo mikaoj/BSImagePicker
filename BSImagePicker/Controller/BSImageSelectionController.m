@@ -105,6 +105,27 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     return self;
 }
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    
+    //Release these if they aren't visible
+    if(![self.speechBubbleView isDescendantOfView:self.navigationController.view]) {
+        [self setSpeechBubbleView:nil];
+        [self setAlbumTableView:nil];
+        [self setCoverView:nil];
+    }
+    
+    //Release preview controller if we aren't previewing
+    if(![self.navigationController.viewControllers containsObject:self.imagePreviewController]) {
+        [self setImagePreviewController:nil];
+    }
+    
+    //These can be released at any time
+    [self setZoomInAnimator:nil];
+    [self setZoomOutAnimator:nil];
+}
+
 #pragma mark - UIViewController
 
 - (void)viewWillAppear:(BOOL)animated
@@ -419,6 +440,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         [_albumTableView setDelegate:self];
         [_albumTableView setDataSource:self];
         [self registerTableViewCellIdentifiers];
+        
+        [_albumTableView reloadData];
     }
     
     return _albumTableView;
