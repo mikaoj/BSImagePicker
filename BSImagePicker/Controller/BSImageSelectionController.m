@@ -409,8 +409,10 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     }
     
     //Set speechbubble color to match tab bar color
-    [_speechBubbleView setBackgroundColor:self.navigationController.navigationBar.barTintColor];
-    
+    if(!self.navigationController.albumTintColor) {
+        [_speechBubbleView setBackgroundColor:self.navigationController.navigationBar.barTintColor];
+    }
+
     return _speechBubbleView;
 }
 

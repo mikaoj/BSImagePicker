@@ -66,4 +66,9 @@
  */
 @property (nonatomic, assign) BOOL keepSelection;
 
+/**
+ * Background tint color for the album view. If nil it will match the navigationbar color.
+ */
+@property (nonatomic, strong) UIColor *albumTintColor;
+
 @end
