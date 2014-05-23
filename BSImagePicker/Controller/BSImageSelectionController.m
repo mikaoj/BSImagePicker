@@ -290,14 +290,19 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     [cell setBackgroundColor:[UIColor clearColor]];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
+    //Reset
+    [cell.secondImageView setImage:nil];
+    [cell.thirdImageView setImage:nil];
+    
+    //Set new thumbs
     [group enumerateAssetsWithOptions:NSEnumerationReverse
                            usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                                if(result) {
                                    if(index == 1) {
                                        [cell.secondImageView setImage:[UIImage imageWithCGImage:result.thumbnail]];
+                                       *stop = YES;
                                    } else if(index == 2) {
                                        [cell.thirdImageView setImage:[UIImage imageWithCGImage:result.thumbnail]];
-                                       *stop = YES;
                                    }
                                }
                            }];
