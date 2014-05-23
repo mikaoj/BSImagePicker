@@ -98,7 +98,7 @@ static NSString *kPreviewCellIdentifier = @"PreviewCellIdentifier";
     [cell.scrollView setZoomScale:1.0];
     
     ALAsset *asset = [self.photos objectAtIndex:indexPath.row];
-    [cell.imageView setImage:[UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage]];
+    [cell.imageView setImage:[UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage scale:asset.defaultRepresentation.scale orientation:(UIImageOrientation)asset.defaultRepresentation.orientation]];
     
     return cell;
 }
