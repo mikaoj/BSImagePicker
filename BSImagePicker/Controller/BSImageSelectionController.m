@@ -179,7 +179,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     }
     
     ALAsset *asset = [self.photos objectAtIndex:indexPath.row];
-    [cell setAssetIndex:indexPath.row];
+//    [cell setAssetIndex:indexPath.row];
     [cell.imageView setImage:[UIImage imageWithCGImage:asset.thumbnail]];
     
     if([self.selectedPhotos containsObject:asset]) {
@@ -521,7 +521,7 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
         [recognizer setEnabled:NO];
         
         [self.imagePreviewController setPhotos:self.photos];
-        [self.imagePreviewController setCurrentAssetIndex:cell.assetIndex];
+//        [self.imagePreviewController setCurrentAssetIndex:cell.assetIndex];
         [self.imagePreviewController setSelectedPhotos:self.selectedPhotos];
         
         [self.navigationController pushViewController:self.imagePreviewController animated:YES];

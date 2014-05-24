@@ -22,10 +22,12 @@
 
 #import "BSImagePickerController.h"
 #import "BSImageSelectionController.h"
+#import "BSNewPhotosController.h"
 
 @interface BSImagePickerController ()
 
 @property (nonatomic, strong) BSImageSelectionController *imagePicker;
+@property (nonatomic, strong) BSNewPhotosController *newImagePicker;
 
 @end
 
@@ -40,7 +42,8 @@
         
         [self.view setBackgroundColor:[UIColor whiteColor]];
         
-        [self pushViewController:self.imagePicker animated:NO];
+//        [self pushViewController:self.imagePicker animated:NO];
+        [self pushViewController:self.newImagePicker animated:NO];
     }
     return self;
 }
@@ -54,6 +57,14 @@
     }
     
     return _imagePicker;
+}
+
+- (BSNewPhotosController *)newImagePicker {
+    if(!_newImagePicker) {
+        _newImagePicker = [[BSNewPhotosController alloc] init];
+    }
+    
+    return _newImagePicker;
 }
 
 @end

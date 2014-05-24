@@ -20,14 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "BSItemsModel.h"
 
-@class ALAsset;
-@interface BSPhotoCell : UICollectionViewCell
+@protocol BSTableViewCellFactory <NSObject>
 
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UILongPressGestureRecognizer *longPressRecognizer;
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
++ (void)registerCellIdentifiersForTableView:(UITableView *)aTableView;
++ (CGFloat)heightAtIndexPath:(NSIndexPath *)anIndexPath forModel:(id<BSItemsModel>)aModel;
+- (UITableViewCell *)cellAtIndexPath:(NSIndexPath *)anIndexPath forTableView:(UITableView *)aTableView withModel:(id<BSItemsModel>)aModel;
 
 @end

@@ -25,6 +25,4 @@
 
 @interface BSCheckmarkView : UIView
 
-@property (nonatomic, assign) BOOL checked;
-
 @end

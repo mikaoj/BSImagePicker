@@ -20,14 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <UIKit/UIKit.h>
+@protocol BSItemsModel <NSObject>
 
-@class ALAsset;
-@interface BSPhotoCell : UICollectionViewCell
-
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UILongPressGestureRecognizer *longPressRecognizer;
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
+- (NSUInteger)numberOfSections;
+- (NSUInteger)numberOfItemsInSection:(NSUInteger)aSection;
+- (id)itemAtIndexPath:(NSIndexPath *)anIndexPath;
 
 @end

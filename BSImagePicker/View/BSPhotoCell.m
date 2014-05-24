@@ -37,7 +37,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self.contentView addSubview:self.imageView];
-        [self.contentView addSubview:self.checkmarkView];
         
         [self addGestureRecognizer:self.longPressRecognizer];
     }
@@ -61,9 +60,9 @@
                             options:0
                          animations:^{
                              [self setTransform:CGAffineTransformMakeScale(0.95, 0.95)];
-                             [self.checkmarkView setChecked:selected];
                          } completion:^(BOOL finished) {
                              if(selected) {
+                                 [self.contentView addSubview:self.checkmarkView];
                                  [self.selectionView setFrame:CGRectMake(self.imageView.center.x, self.imageView.center.y, 1, 1)];
                                  [self.imageView addSubview:self.selectionView];
                                  
@@ -73,6 +72,7 @@
                                                       [self.selectionView setFrame:self.imageView.frame];
                                                   }];
                              } else {
+                                 [self.checkmarkView removeFromSuperview];
                                  [UIView animateWithDuration:(animated)?0.1:0
                                                   animations:^{
                                                       [self setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
