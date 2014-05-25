@@ -16,7 +16,7 @@ static NSString *kPreviewCellIdentifier =           @"previewCellIdentifier";
 @implementation BSPreviewCollectionViewCellFactory
 
 + (void)registerCellIdentifiersForCollectionView:(UICollectionView *)aCollectionView {
-    [aCollectionView registerClass:[UITableViewCell class] forCellWithReuseIdentifier:kUnknownCellIdentifier];
+    [aCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kUnknownCellIdentifier];
     [aCollectionView registerClass:[BSPreviewCell class] forCellWithReuseIdentifier:kPreviewCellIdentifier];
 }
 

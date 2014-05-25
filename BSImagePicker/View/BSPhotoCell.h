@@ -26,7 +26,6 @@
 @interface BSPhotoCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UILongPressGestureRecognizer *longPressRecognizer;
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 

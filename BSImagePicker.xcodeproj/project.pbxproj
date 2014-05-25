@@ -27,7 +27,6 @@
 		5509A415192F9C76006E4DA1 /* BSTableViewCellFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5509A412192F9B27006E4DA1 /* BSTableViewCellFactory.h */; };
 		5509A416192F9C7A006E4DA1 /* BSCollectionViewCellFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 5509A413192F9C18006E4DA1 /* BSCollectionViewCellFactory.h */; };
 		5509A41C192F9F4D006E4DA1 /* BSAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5509A41B192F9F4D006E4DA1 /* BSAssetModel.m */; };
-		5509A41F192FA118006E4DA1 /* BSTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5509A41E192FA118006E4DA1 /* BSTableController.m */; };
 		5509A423192FA2FD006E4DA1 /* BSAlbumTableViewCellFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5509A422192FA2FD006E4DA1 /* BSAlbumTableViewCellFactory.m */; };
 		5509A42619300E38006E4DA1 /* BSCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5509A42519300E38006E4DA1 /* BSCollectionController.m */; };
 		5509A42919301069006E4DA1 /* BSPhotoCollectionViewCellFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5509A42819301069006E4DA1 /* BSPhotoCollectionViewCellFactory.m */; };
@@ -107,8 +106,6 @@
 		5509A413192F9C18006E4DA1 /* BSCollectionViewCellFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSCollectionViewCellFactory.h; sourceTree = "<group>"; };
 		5509A41A192F9F4D006E4DA1 /* BSAssetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAssetModel.h; sourceTree = "<group>"; };
 		5509A41B192F9F4D006E4DA1 /* BSAssetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAssetModel.m; sourceTree = "<group>"; };
-		5509A41D192FA118006E4DA1 /* BSTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTableController.h; sourceTree = "<group>"; };
-		5509A41E192FA118006E4DA1 /* BSTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTableController.m; sourceTree = "<group>"; };
 		5509A421192FA2FD006E4DA1 /* BSAlbumTableViewCellFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSAlbumTableViewCellFactory.h; sourceTree = "<group>"; };
 		5509A422192FA2FD006E4DA1 /* BSAlbumTableViewCellFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAlbumTableViewCellFactory.m; sourceTree = "<group>"; };
 		5509A42419300E38006E4DA1 /* BSCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCollectionController.h; sourceTree = "<group>"; };
@@ -366,8 +363,6 @@
 				55A4258518FA8E4E00EF7E8F /* BSImagePreviewController.m */,
 				55A4258718FA8E6F00EF7E8F /* BSImagePickerController.h */,
 				55A4258818FA8E6F00EF7E8F /* BSImagePickerController.m */,
-				5509A41D192FA118006E4DA1 /* BSTableController.h */,
-				5509A41E192FA118006E4DA1 /* BSTableController.m */,
 				5509A42419300E38006E4DA1 /* BSCollectionController.h */,
 				5509A42519300E38006E4DA1 /* BSCollectionController.m */,
 				5598297A1931393200D68BD5 /* BSNewPreviewController.h */,
@@ -614,7 +609,6 @@
 				55A11EE118FC952D00F28CA5 /* UIViewController+MultipleImagePicker.m in Sources */,
 				556522E71926D42900492DCD /* BSPreviewCell.m in Sources */,
 				5509A42D193010BC006E4DA1 /* BSPreviewCollectionViewCellFactory.m in Sources */,
-				5509A41F192FA118006E4DA1 /* BSTableController.m in Sources */,
 				55A11EDD18FC4FC400F28CA5 /* BSZoomInAnimator.m in Sources */,
 				55A4258618FA8E4E00EF7E8F /* BSImagePreviewController.m in Sources */,
 				558315E918F8436E00B54FE6 /* BSPhotoCell.m in Sources */,

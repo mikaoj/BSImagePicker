@@ -37,8 +37,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self.contentView addSubview:self.imageView];
-        
-        [self addGestureRecognizer:self.longPressRecognizer];
     }
     return self;
 }
@@ -115,16 +113,6 @@
     }
     
     return _checkmarkView;
-}
-
-- (UILongPressGestureRecognizer *)longPressRecognizer
-{
-    if(!_longPressRecognizer) {
-        _longPressRecognizer = [[UILongPressGestureRecognizer alloc] init];
-        [_longPressRecognizer setMinimumPressDuration:1.0];
-    }
-    
-    return _longPressRecognizer;
 }
 
 @end

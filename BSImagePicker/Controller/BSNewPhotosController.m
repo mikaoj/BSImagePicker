@@ -18,6 +18,7 @@
 #import "BSTableViewCellFactory.h"
 #import "BSPhotoCollectionViewCellFactory.h"
 #import "BSAlbumTableViewCellFactory.h"
+#import "BSImagePickerSettings.h"
 
 #import <AssetsLibrary/AssetsLibrary.h>
 
@@ -35,7 +36,6 @@
 @property (nonatomic, strong) UITableView *albumTableView;
 @property (nonatomic, strong) BSSpeechBubbleView *speechBubbleView;
 @property (nonatomic, strong) BSNewPreviewController *imagePreviewController;
-@property (nonatomic, strong, readonly) BSImagePickerController *navigationController;
 @property (nonatomic, strong) UIView *coverView;
 
 @property (nonatomic, strong) UIBarButtonItem *cancelButton;
@@ -48,7 +48,7 @@
 - (void)finishButtonPressed:(id)sender;
 - (void)albumButtonPressed:(id)sender;
 
-- (void)cellLongPressed:(UIGestureRecognizer *)recognizer;
+- (void)itemLongPressed:(UIGestureRecognizer *)recognizer;
 
 - (void)showAlbumView;
 - (void)hideAlbumView;
@@ -67,11 +67,16 @@
         
         [self.collectionViewFlowLayout setMinimumInteritemSpacing:2.0];
         [self.collectionViewFlowLayout setMinimumLineSpacing:2.0];
+        [self.collectionViewFlowLayout setSectionInset:UIEdgeInsetsMake(2.0, 2.0, 2.0, 2.0)];
         
         [self setCellFactory:[[BSPhotoCollectionViewCellFactory alloc] init]];
         [self setAlbumCellFactory:[[BSAlbumTableViewCellFactory alloc] init]];
         [self setModel:self.assetsModel];
         [self setAlbumsModel:self.assetsGroupModel];
+        
+        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(itemLongPressed:)];
+        [recognizer setMinimumPressDuration:1.0];
+        [self.collectionView addGestureRecognizer:recognizer];
     }
     return self;
 }
@@ -142,12 +147,71 @@
     }
 }
 
-#pragma mark - UICollectionViewFlowLayoutDelegate
+#pragma mark - UICollectionViewDelegate
 
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    //top, left, bottom, right
-    return UIEdgeInsetsMake(2.0, 2.0, 2.0, 2.0);
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    BOOL allow = [self.selectedPhotos count] < [[BSImagePickerSettings sharedSetting] maximumNumberOfImages];
+    
+    if(allow) {
+        ALAsset *asset = [self.model itemAtIndexPath:indexPath];
+        
+        //Enable done button
+        if([self.selectedPhotos count] == 0) {
+            [self.doneButton setEnabled:YES];
+        }
+        
+        [self.selectedPhotos addObject:asset];
+        
+        if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
+            BSImageToggleBlock block = [[BSImagePickerSettings sharedSetting] toggleBlock];
+            block(asset, YES);
+        }
+    }
+    
+    return allow;
 }
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ALAsset *asset = [self.model itemAtIndexPath:indexPath];
+    
+    if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
+        BSImageToggleBlock block = [[BSImagePickerSettings sharedSetting] toggleBlock];
+        block(asset, NO);
+    }
+    
+    [self.selectedPhotos removeObject:asset];
+    
+    //Disable done button
+    if([self.selectedPhotos count] == 0) {
+        [self.doneButton setEnabled:NO];
+    }
+    
+    return YES;
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+- (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                   animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                fromViewController:(UIViewController *)fromVC
+                                                  toViewController:(UIViewController *)toVC
+{
+    id <UIViewControllerAnimatedTransitioning> animator = nil;
+    
+    if(operation == UINavigationControllerOperationPop) {
+        //Selection may have changed so reload collection view
+        [self.collectionView reloadData];
+        
+        animator = self.zoomOutAnimator;
+    } else if(operation == UINavigationControllerOperationPush) {
+        animator = self.zoomInAnimator;
+    }
+    
+    return animator;
+}
+
 
 #pragma mark - Table view data source
 
@@ -167,19 +231,23 @@
 
 - (void)finishButtonPressed:(id)sender
 {
+    BSImageGroupBlock block;
+    
     //Cancel or finish? Call correct block!
     if(sender == self.cancelButton) {
-        if(self.navigationController.cancelBlock) {
-            self.navigationController.cancelBlock([self.selectedPhotos copy]);
+        if([[BSImagePickerSettings sharedSetting] cancelBlock]) {
+            block = [[BSImagePickerSettings sharedSetting] cancelBlock];
+            block([self.selectedPhotos copy]);
         }
     } else {
-        if(self.navigationController.finishBlock) {
-            self.navigationController.finishBlock([self.selectedPhotos copy]);
+        if([[BSImagePickerSettings sharedSetting] finishBlock]) {
+            block  = [[BSImagePickerSettings sharedSetting] finishBlock];
+            block([self.selectedPhotos copy]);
         }
     }
     
     //Should we keep the images or not?
-    if(!self.navigationController.keepSelection) {
+    if(![[BSImagePickerSettings sharedSetting] keepSelection]) {
         [self.selectedPhotos removeAllObjects];
     }
     
@@ -261,18 +329,18 @@
 
 #pragma mark - GestureRecognizer
 
-- (void)cellLongPressed:(UIGestureRecognizer *)recognizer
+- (void)itemLongPressed:(UIGestureRecognizer *)recognizer
 {
     if(recognizer.state == UIGestureRecognizerStateBegan) {
         [recognizer setEnabled:NO];
         
-        CGPoint location = [recognizer locationInView:self.albumTableView];
-        NSIndexPath *indexPath = [self.albumTableView indexPathForRowAtPoint:location];
+        CGPoint location = [recognizer locationInView:self.collectionView];
+        NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:location];
         
-//        [self.imagePreviewController setPhotos:self.photos];
-        //        [self.imagePreviewController setCurrentAssetIndex:cell.assetIndex];
-//        [self.imagePreviewController setSelectedPhotos:self.selectedPhotos];
-        
+        [self.imagePreviewController setModel:self.model];
+        [self.imagePreviewController.collectionView scrollToItemAtIndexPath:indexPath
+                                                           atScrollPosition:UICollectionViewScrollPositionNone
+                                                                   animated:NO];
         [self.navigationController pushViewController:self.imagePreviewController animated:YES];
         
         [recognizer setEnabled:YES];
@@ -343,7 +411,7 @@
     }
     
     //Set speechbubble color to match tab bar color
-    if(!self.navigationController.albumTintColor) {
+    if(![[BSImagePickerSettings sharedSetting] albumTintColor]) {
         [_speechBubbleView setBackgroundColor:self.navigationController.navigationBar.barTintColor];
     }
     
@@ -359,8 +427,6 @@
         [_albumTableView setBackgroundColor:[UIColor clearColor]];;
         [_albumTableView setDelegate:self];
         [_albumTableView setDataSource:self];
-        
-//        [[self.tableViewCellFactory class] registerCellIdentifiersForTableView:_albumTableView];
         
         [_albumTableView reloadData];
     }

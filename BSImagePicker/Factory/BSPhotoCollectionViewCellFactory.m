@@ -8,6 +8,7 @@
 
 #import "BSPhotoCollectionViewCellFactory.h"
 #import "BSPhotoCell.h"
+#import "BSImagePickerSettings.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 static NSString *kUnknownCellIdentifier =           @"unknownCellIdentifier";
@@ -45,8 +46,6 @@ static NSString *kPhotoCellIdentifier =             @"photoCellIdentifier";
     
     if([asset isKindOfClass:[ALAsset class]]) {
         BSPhotoCell *photoCell = [aCollectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:anIndexPath];
-        
-//        [photoCell setAssetIndex:anIndexPath.row];
         [photoCell.imageView setImage:[UIImage imageWithCGImage:asset.thumbnail]];
         
         cell = photoCell;

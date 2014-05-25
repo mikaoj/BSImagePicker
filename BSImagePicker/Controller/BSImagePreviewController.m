@@ -183,23 +183,23 @@ static NSString *kPreviewCellIdentifier = @"PreviewCellIdentifier";
 
 - (void)toggleSelectionButtonPressed:(UIBarButtonItem *)sender
 {
-    ALAsset *asset = [self.photos objectAtIndex:self.currentAssetIndex];
-    
-    if([sender isEqual:self.selectButton]) {
-        [self.selectedPhotos addObject:asset];
-        
-        if(self.navigationController.toggleBlock) {
-            self.navigationController.toggleBlock(asset, YES);
-        }
-    } else {
-        [self.selectedPhotos removeObject:asset];
-        
-        if(self.navigationController.toggleBlock) {
-            self.navigationController.toggleBlock(asset, NO);
-        }
-    }
-    
-    [self setupRightButton];
+//    ALAsset *asset = [self.photos objectAtIndex:self.currentAssetIndex];
+//    
+//    if([sender isEqual:self.selectButton]) {
+//        [self.selectedPhotos addObject:asset];
+//        
+//        if(self.navigationController.toggleBlock) {
+//            self.navigationController.toggleBlock(asset, YES);
+//        }
+//    } else {
+//        [self.selectedPhotos removeObject:asset];
+//        
+//        if(self.navigationController.toggleBlock) {
+//            self.navigationController.toggleBlock(asset, NO);
+//        }
+//    }
+//    
+//    [self setupRightButton];
 }
 
 - (void)setupRightButton

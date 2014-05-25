@@ -37,15 +37,16 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        //Default to shitloads of images
-        _maximumNumberOfImages = NSUIntegerMax;
-        
         [self.view setBackgroundColor:[UIColor whiteColor]];
         
 //        [self pushViewController:self.imagePicker animated:NO];
         [self pushViewController:self.newImagePicker animated:NO];
     }
     return self;
+}
+
+- (BSImagePickerSettings *)settings {
+    return [BSImagePickerSettings sharedSetting];
 }
 
 #pragma mark - Lazy load

@@ -20,4 +20,13 @@
     return sharedSettings;
 }
 
+- (id)init {
+    if(self = [super init]) {
+        //Default to shitloads of images
+        _maximumNumberOfImages = NSUIntegerMax;
+    }
+    
+    return self;
+}
+
 @end

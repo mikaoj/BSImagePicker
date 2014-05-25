@@ -33,9 +33,9 @@
                               finish:(BSImageGroupBlock)finishBlock
 {
     if([viewControllerToPresent isKindOfClass:[BSImagePickerController class]]) {
-        [viewControllerToPresent setToggleBlock:toggleBlock];
-        [viewControllerToPresent setCancelBlock:cancelBlock];
-        [viewControllerToPresent setFinishBlock:finishBlock];
+        [viewControllerToPresent.settings setToggleBlock:toggleBlock];
+        [viewControllerToPresent.settings setCancelBlock:cancelBlock];
+        [viewControllerToPresent.settings setFinishBlock:finishBlock];
     }
     
     [self presentViewController:viewControllerToPresent animated:flag completion:completion];

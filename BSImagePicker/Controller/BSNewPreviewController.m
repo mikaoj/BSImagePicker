@@ -7,8 +7,13 @@
 //
 
 #import "BSNewPreviewController.h"
+#import "BSPreviewCollectionViewCellFactory.h"
 
 @interface BSNewPreviewController ()
+
+@property (nonatomic, strong) UIBarButtonItem *toggleButton;
+
+- (void)toggleButtonPressed:(UIBarButtonItem *)sender;
 
 @end
 
@@ -18,7 +23,18 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        [self.collectionViewFlowLayout setMinimumInteritemSpacing:0.0];
+        [self.collectionViewFlowLayout setMinimumLineSpacing:0.0];
+        [self.collectionViewFlowLayout setSectionInset:UIEdgeInsetsZero];
+        [self.collectionViewFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+        
+        [self.collectionView setBackgroundColor:[UIColor clearColor]];
+        [self.collectionView setShowsHorizontalScrollIndicator:NO];
+        [self.collectionView setShowsVerticalScrollIndicator:NO];
+        [self.collectionView setPagingEnabled:YES];
+        [self.collectionView setAlwaysBounceHorizontal:YES];
+        
+        [self setCellFactory:[[BSPreviewCollectionViewCellFactory alloc] init]];
     }
     return self;
 }
