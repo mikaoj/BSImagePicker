@@ -54,7 +54,7 @@
 		558315E918F8436E00B54FE6 /* BSPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558315E818F8436E00B54FE6 /* BSPhotoCell.m */; };
 		5598296E1930ECDF00D68BD5 /* BSAssetsGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5598296D1930ECDF00D68BD5 /* BSAssetsGroupModel.m */; };
 		5598297C1931393200D68BD5 /* BSPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5598297B1931393200D68BD5 /* BSPreviewController.m */; };
-		5598297F1931396000D68BD5 /* BSNewPhotosController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5598297E1931396000D68BD5 /* BSNewPhotosController.m */; };
+		5598297F1931396000D68BD5 /* BSPhotosController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5598297E1931396000D68BD5 /* BSPhotosController.m */; };
 		559829841931625B00D68BD5 /* BSImagePickerSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 559829831931625B00D68BD5 /* BSImagePickerSettings.m */; };
 		55A11ED718FC440D00F28CA5 /* BSCheckmarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11ED618FC440D00F28CA5 /* BSCheckmarkView.m */; };
 		55A11EDA18FC4CFD00F28CA5 /* BSZoomOutAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11ED918FC4CFD00F28CA5 /* BSZoomOutAnimator.m */; };
@@ -119,7 +119,7 @@
 		5598297A1931393200D68BD5 /* BSPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPreviewController.h; sourceTree = "<group>"; };
 		5598297B1931393200D68BD5 /* BSPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPreviewController.m; sourceTree = "<group>"; };
 		5598297D1931396000D68BD5 /* BSPhotosController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPhotosController.h; sourceTree = "<group>"; };
-		5598297E1931396000D68BD5 /* BSNewPhotosController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSNewPhotosController.m; sourceTree = "<group>"; };
+		5598297E1931396000D68BD5 /* BSPhotosController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPhotosController.m; sourceTree = "<group>"; };
 		559829801931507700D68BD5 /* BSItemsModelDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSItemsModelDelegate.h; sourceTree = "<group>"; };
 		559829821931625B00D68BD5 /* BSImagePickerSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSImagePickerSettings.h; sourceTree = "<group>"; };
 		559829831931625B00D68BD5 /* BSImagePickerSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSImagePickerSettings.m; sourceTree = "<group>"; };
@@ -349,7 +349,7 @@
 				5598297A1931393200D68BD5 /* BSPreviewController.h */,
 				5598297B1931393200D68BD5 /* BSPreviewController.m */,
 				5598297D1931396000D68BD5 /* BSPhotosController.h */,
-				5598297E1931396000D68BD5 /* BSNewPhotosController.m */,
+				5598297E1931396000D68BD5 /* BSPhotosController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -591,7 +591,7 @@
 				5509A41C192F9F4D006E4DA1 /* BSAssetModel.m in Sources */,
 				55EC234518F1DB6A008F5A02 /* BSSpeechBubbleView.m in Sources */,
 				5509A42619300E38006E4DA1 /* BSCollectionController.m in Sources */,
-				5598297F1931396000D68BD5 /* BSNewPhotosController.m in Sources */,
+				5598297F1931396000D68BD5 /* BSPhotosController.m in Sources */,
 				55EC235118F2F873008F5A02 /* BSTriangleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

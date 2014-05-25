@@ -8,7 +8,6 @@
 
 #import "BSPhotoCollectionViewCellFactory.h"
 #import "BSPhotoCell.h"
-#import "BSImagePickerSettings.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 static NSString *kUnknownCellIdentifier =           @"unknownCellIdentifier";

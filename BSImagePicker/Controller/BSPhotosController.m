@@ -14,7 +14,6 @@
 #import "BSImagePickerController.h"
 #import "BSZoomOutAnimator.h"
 #import "BSZoomInAnimator.h"
-#import "BSItemsModelDelegate.h"
 #import "BSTableViewCellFactory.h"
 #import "BSPhotoCollectionViewCellFactory.h"
 #import "BSAlbumTableViewCellFactory.h"
