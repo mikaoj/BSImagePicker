@@ -8,6 +8,9 @@
 
 #import "BSCollectionController.h"
 
-@interface BSNewPreviewController : BSCollectionController
+@interface BSPreviewController : BSCollectionController
+
+@property (nonatomic, strong) NSIndexPath *currentIndexPath;
+@property (nonatomic, weak) NSMutableArray *selectedPhotos;
 
 @end

@@ -10,7 +10,7 @@
 #import "BSAssetModel.h"
 #import "BSAssetsGroupModel.h"
 #import "BSSpeechBubbleView.h"
-#import "BSNewPreviewController.h"
+#import "BSPreviewController.h"
 #import "BSImagePickerController.h"
 #import "BSZoomOutAnimator.h"
 #import "BSZoomInAnimator.h"
@@ -35,7 +35,7 @@
 
 @property (nonatomic, strong) UITableView *albumTableView;
 @property (nonatomic, strong) BSSpeechBubbleView *speechBubbleView;
-@property (nonatomic, strong) BSNewPreviewController *imagePreviewController;
+@property (nonatomic, strong) BSPreviewController *imagePreviewController;
 @property (nonatomic, strong) UIView *coverView;
 
 @property (nonatomic, strong) UIBarButtonItem *cancelButton;
@@ -338,9 +338,7 @@
         NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:location];
         
         [self.imagePreviewController setModel:self.model];
-        [self.imagePreviewController.collectionView scrollToItemAtIndexPath:indexPath
-                                                           atScrollPosition:UICollectionViewScrollPositionNone
-                                                                   animated:NO];
+        [self.imagePreviewController setCurrentIndexPath:indexPath];
         [self.navigationController pushViewController:self.imagePreviewController animated:YES];
         
         [recognizer setEnabled:YES];
@@ -448,10 +446,10 @@
     return _coverView;
 }
 
-- (BSNewPreviewController *)imagePreviewController
+- (BSPreviewController *)imagePreviewController
 {
     if(!_imagePreviewController) {
-        _imagePreviewController = [[BSNewPreviewController alloc] init];
+        _imagePreviewController = [[BSPreviewController alloc] init];
     }
     
     return _imagePreviewController;
@@ -473,11 +471,6 @@
     }
     
     return _zoomOutAnimator;
-}
-
-- (BSImagePickerController *)navigationController
-{
-    return (BSImagePickerController *)[super navigationController];
 }
 
 @end
