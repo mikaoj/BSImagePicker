@@ -29,9 +29,6 @@
 @property (nonatomic, strong) BSAssetModel *assetsModel;
 @property (nonatomic, strong) BSAssetsGroupModel *assetsGroupModel;
 
-@property (nonatomic, strong) NSMutableArray *selectedPhotos;
-@property (nonatomic, strong) ALAssetsGroup *selectedAlbum;
-
 @property (nonatomic, strong) UITableView *albumTableView;
 @property (nonatomic, strong) BSSpeechBubbleView *speechBubbleView;
 @property (nonatomic, strong) BSPreviewController *imagePreviewController;
@@ -109,7 +106,7 @@
     [self.navigationController setDelegate:self];
     
     //Enable/disable done button
-    if([self.selectedPhotos count] > 0) {
+    if([self.collectionView.indexPathsForSelectedItems count] > 0) {
         [self.doneButton setEnabled:YES];
     } else {
         [self.doneButton setEnabled:NO];
@@ -126,12 +123,14 @@
     if(aModel == self.albumsModel) {
         [self.albumTableView reloadData];
         
+        ALAssetsGroup *assetsGroup = [self.albumsModel itemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        
+        [self.albumButton setTitle:[assetsGroup valueForProperty:ALAssetsGroupPropertyName] forState:UIControlStateNormal];
+        
         //If no selected album, select the first one
-        if(!self.selectedAlbum) {
-            [self setSelectedAlbum:[self.albumsModel itemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]]];
-            [self.albumTableView setRowHeight:[[self.albumCellFactory class] heightAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] forModel:self.albumsModel]];
-            [self.albumButton setTitle:[_selectedAlbum valueForProperty:ALAssetsGroupPropertyName] forState:UIControlStateNormal];
-            [self.assetsModel setAssetGroup:self.selectedAlbum];
+        if(!self.albumTableView.indexPathForSelectedRow) {
+            [self.assetsModel setAssetGroup:assetsGroup];
+            [self.albumTableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
         }
     } else {
         [self.collectionView reloadData];
@@ -141,41 +140,37 @@
 #pragma mark - UICollectionViewDelegate
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    BOOL allow = [self.selectedPhotos count] < [[BSImagePickerSettings sharedSetting] maximumNumberOfImages];
-    
-    if(allow) {
-        ALAsset *asset = [self.model itemAtIndexPath:indexPath];
-        
-        //Enable done button
-        if([self.selectedPhotos count] == 0) {
-            [self.doneButton setEnabled:YES];
-        }
-        
-        [self.selectedPhotos addObject:asset];
-        
-        if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
-            [BSImagePickerSettings sharedSetting].toggleBlock(asset, YES);
-        }
-    }
-    
-    return allow;
+    return [self.collectionView.indexPathsForSelectedItems count] < [[BSImagePickerSettings sharedSetting] maximumNumberOfImages];
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     ALAsset *asset = [self.model itemAtIndexPath:indexPath];
+    
+    //Disable done button
+    if([self.collectionView.indexPathsForSelectedItems count] == 0) {
+        [self.doneButton setEnabled:NO];
+    }
     
     if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
         [BSImagePickerSettings sharedSetting].toggleBlock(asset, NO);
     }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    ALAsset *asset = [self.model itemAtIndexPath:indexPath];
     
-    [self.selectedPhotos removeObject:asset];
-    
-    //Disable done button
-    if([self.selectedPhotos count] == 0) {
-        [self.doneButton setEnabled:NO];
+    //Enable done button
+    if([self.collectionView.indexPathsForSelectedItems count] > 0) {
+        [self.doneButton setEnabled:YES];
     }
     
-    return YES;
+    if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
+        [BSImagePickerSettings sharedSetting].toggleBlock(asset, YES);
+    }
 }
 
 #pragma mark - UINavigationControllerDelegate
@@ -213,23 +208,37 @@
     return [self.albumCellFactory cellAtIndexPath:indexPath forTableView:tableView withModel:self.albumsModel];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [[self.albumCellFactory class] heightAtIndexPath:indexPath forModel:self.albumsModel];
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    ALAssetsGroup *assetsGroup = [self.albumsModel itemAtIndexPath:indexPath];
+    
+    [self.assetsModel setAssetGroup:assetsGroup];
+    
+    [self hideAlbumView];
+}
+
 #pragma mark - Button actions
 
 - (void)finishButtonPressed:(id)sender {
     //Cancel or finish? Call correct block!
     if(sender == self.cancelButton) {
         if([[BSImagePickerSettings sharedSetting] cancelBlock]) {
-            [BSImagePickerSettings sharedSetting].cancelBlock([self.selectedPhotos copy]);
+//            [BSImagePickerSettings sharedSetting].cancelBlock([self.selectedPhotos copy]);
         }
     } else {
         if([[BSImagePickerSettings sharedSetting] finishBlock]) {
-            [BSImagePickerSettings sharedSetting].finishBlock([self.selectedPhotos copy]);
+//            [BSImagePickerSettings sharedSetting].finishBlock([self.selectedPhotos copy]);
         }
     }
     
     //Should we keep the images or not?
     if(![[BSImagePickerSettings sharedSetting] keepSelection]) {
-        [self.selectedPhotos removeAllObjects];
+//        [self.selectedPhotos removeAllObjects];
     }
     
     [self dismissViewControllerAnimated:YES completion:^{
@@ -285,7 +294,6 @@
 - (void)hideAlbumView {
     __block CGAffineTransform origTransForm = self.speechBubbleView.transform;
     
-    [self.albumTableView reloadData];
     [UIView animateWithDuration:0.2
                      animations:^{
                          [self.speechBubbleView setTransform:CGAffineTransformConcat(CGAffineTransformMakeScale(0.1, 0.1), CGAffineTransformMakeTranslation(0, -(self.speechBubbleView.frame.size.height/2.0)))];
@@ -315,7 +323,6 @@
         NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:location];
         
         [self.imagePreviewController setModel:self.model];
-        [self.imagePreviewController setCurrentIndexPath:indexPath];
         [self.navigationController pushViewController:self.imagePreviewController animated:YES];
         
         [recognizer setEnabled:YES];
@@ -395,6 +402,8 @@
         [_albumTableView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
         [_albumTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
         [_albumTableView setBackgroundColor:[UIColor clearColor]];;
+        [_albumTableView setAllowsSelection:YES];
+        [_albumTableView setAllowsMultipleSelection:NO];
         [_albumTableView setDelegate:self];
         [_albumTableView setDataSource:self];
         

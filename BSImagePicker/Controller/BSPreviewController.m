@@ -37,25 +37,19 @@
     [super viewWillAppear:animated];
     
     //Scroll to the correct image
-    [self.collectionView scrollToItemAtIndexPath:self.currentIndexPath
-                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-                                        animated:NO];
+//    [self.collectionView scrollToItemAtIndexPath:self.currentIndexPath
+//                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+//                                        animated:NO];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    [self.collectionView reloadData];
+//    [self.collectionView reloadData];
     
     //Scroll to the correct image
-    [self.collectionView scrollToItemAtIndexPath:self.currentIndexPath
-                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-                                        animated:NO];
-}
-
-#pragma mark - UIScrollViewDelegate
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [self setCurrentIndexPath:[NSIndexPath indexPathForItem:(scrollView.contentOffset.x / scrollView.frame.size.width) inSection:0]];
+//    [self.collectionView scrollToItemAtIndexPath:self.currentIndexPath
+//                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+//                                        animated:NO];
 }
 
 @end
