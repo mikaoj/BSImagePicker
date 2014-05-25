@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Joakim Gyllström. All rights reserved.
 //
 
-#import "BSNewPhotosController.h"
+#import "BSPhotosController.h"
 #import "BSAssetModel.h"
 #import "BSAssetsGroupModel.h"
 #import "BSSpeechBubbleView.h"
@@ -22,7 +22,7 @@
 
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface BSNewPhotosController () <UINavigationControllerDelegate, BSItemsModelDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface BSPhotosController () <UINavigationControllerDelegate, BSItemsModelDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) id<BSItemsModel> albumsModel;
 @property (nonatomic, strong) id<BSTableViewCellFactory> albumCellFactory;
@@ -55,7 +55,7 @@
 
 @end
 
-@implementation BSNewPhotosController
+@implementation BSPhotosController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
