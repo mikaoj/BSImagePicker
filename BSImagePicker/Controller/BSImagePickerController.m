@@ -67,4 +67,78 @@
     return _newImagePicker;
 }
 
+#pragma mark - Settings forward
+
+- (NSUInteger)maximumNumberOfImages {
+    return [[BSImagePickerSettings sharedSetting] maximumNumberOfImages];
+}
+
+- (void)setMaximumNumberOfImages:(NSUInteger)maximumNumberOfImages {
+    [[BSImagePickerSettings sharedSetting] setMaximumNumberOfImages:maximumNumberOfImages];
+}
+
+- (BSImageToggleBlock)toggleBlock {
+    return [[BSImagePickerSettings sharedSetting] toggleBlock];
+}
+
+- (void)setToggleBlock:(BSImageToggleBlock)toggleBlock {
+    [[BSImagePickerSettings sharedSetting] setToggleBlock:toggleBlock];
+}
+
+- (BSImageGroupBlock)cancelBlock {
+    return [[BSImagePickerSettings sharedSetting] cancelBlock];
+}
+
+- (void)setCancelBlock:(BSImageGroupBlock)cancelBlock {
+    [[BSImagePickerSettings sharedSetting] setCancelBlock:cancelBlock];
+}
+
+- (BSImageGroupBlock)finishBlock {
+    return [[BSImagePickerSettings sharedSetting] finishBlock];
+}
+
+- (void)setFinishBlock:(BSImageGroupBlock)finishBlock {
+    [[BSImagePickerSettings sharedSetting] setFinishBlock:finishBlock];
+}
+
+- (BOOL)previewDisabled {
+    return [[BSImagePickerSettings sharedSetting] previewDisabled];
+}
+
+- (void)setPreviewDisabled:(BOOL)previewDisabled {
+    [[BSImagePickerSettings sharedSetting] setPreviewDisabled:previewDisabled];
+}
+
+- (BOOL)disableEdit {
+    return [[BSImagePickerSettings sharedSetting] disableEdit];
+}
+
+- (void)setDisableEdit:(BOOL)disableEdit {
+    [[BSImagePickerSettings sharedSetting] setDisableEdit:disableEdit];
+}
+
+- (CGSize)itemSize {
+    return [[BSImagePickerSettings sharedSetting] itemSize];
+}
+
+- (void)setItemSize:(CGSize)itemSize {
+    [[BSImagePickerSettings sharedSetting] setItemSize:itemSize];
+}
+
+- (BOOL)keepSelection {
+    return [[BSImagePickerSettings sharedSetting] keepSelection];
+}
+
+- (void)setKeepSelection:(BOOL)keepSelection {
+    [[BSImagePickerSettings sharedSetting] setKeepSelection:keepSelection];
+}
+
+- (UIColor *)albumTintColor {
+    return [[BSImagePickerSettings sharedSetting] albumTintColor];
+}
+
+- (void)setAlbumTintColor:(UIColor *)albumTintColor {
+    [[BSImagePickerSettings sharedSetting] setAlbumTintColor:albumTintColor];
+}
+
 @end
