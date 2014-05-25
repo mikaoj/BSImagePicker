@@ -7,7 +7,8 @@
 //
 
 #import "BSCollectionViewCellFactory.h"
+#import "BSPhotoCollectionViewCellFactory.h"
 
-@interface BSPreviewCollectionViewCellFactory : NSObject <BSCollectionViewCellFactory>
+@interface BSPreviewCollectionViewCellFactory : BSPhotoCollectionViewCellFactory
 
 @end

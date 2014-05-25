@@ -21,12 +21,11 @@
 // SOFTWARE.
 
 #import "BSImagePickerController.h"
-#import "BSImageSelectionController.h"
 #import "BSNewPhotosController.h"
+#import "BSImagePickerSettings.h"
 
 @interface BSImagePickerController ()
 
-@property (nonatomic, strong) BSImageSelectionController *imagePicker;
 @property (nonatomic, strong) BSNewPhotosController *newImagePicker;
 
 @end
@@ -37,27 +36,12 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self.view setBackgroundColor:[UIColor whiteColor]];
-        
-//        [self pushViewController:self.imagePicker animated:NO];
         [self pushViewController:self.newImagePicker animated:NO];
     }
     return self;
 }
 
-- (BSImagePickerSettings *)settings {
-    return [BSImagePickerSettings sharedSetting];
-}
-
 #pragma mark - Lazy load
-
-- (BSImageSelectionController *)imagePicker
-{
-    if(!_imagePicker) {
-        _imagePicker = [[BSImageSelectionController alloc] init];
-    }
-    
-    return _imagePicker;
-}
 
 - (BSNewPhotosController *)newImagePicker {
     if(!_newImagePicker) {

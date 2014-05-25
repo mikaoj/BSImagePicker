@@ -21,7 +21,6 @@
 // SOFTWARE.
 
 #import "BSAppDelegate.h"
-#import "BSImageSelectionController.h"
 #import "BSImagePickerController.h"
 
 @interface BSAppDelegate () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>

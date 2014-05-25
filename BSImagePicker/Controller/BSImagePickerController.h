@@ -20,12 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import "BSImagePickerSettings.h"
 #import "UIViewController+MultipleImagePicker.h"
 
 @interface BSImagePickerController : UINavigationController
-
-@property (nonatomic, strong) BSImagePickerSettings *settings;
 
 /**
  *  Defaults to NSUIntegerMax (i.e shitloads of images)
