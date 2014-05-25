@@ -57,8 +57,7 @@
 
 @implementation BSNewPhotosController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         [self.collectionView setBackgroundColor:[UIColor clearColor]];
         [self.collectionView setAllowsMultipleSelection:YES];
@@ -81,8 +80,7 @@
     return self;
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
     //Release these if they aren't visible
@@ -104,8 +102,7 @@
 
 #pragma mark - UIViewController
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     //Navigation bar buttons
@@ -124,8 +121,7 @@
     }
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 }
 
@@ -149,8 +145,7 @@
 
 #pragma mark - UICollectionViewDelegate
 
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     BOOL allow = [self.selectedPhotos count] < [[BSImagePickerSettings sharedSetting] maximumNumberOfImages];
     
     if(allow) {
@@ -171,8 +166,7 @@
     return allow;
 }
 
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     ALAsset *asset = [self.model itemAtIndexPath:indexPath];
     
     if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
@@ -194,8 +188,7 @@
 - (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
                                    animationControllerForOperation:(UINavigationControllerOperation)operation
                                                 fromViewController:(UIViewController *)fromVC
-                                                  toViewController:(UIViewController *)toVC
-{
+                                                  toViewController:(UIViewController *)toVC {
     id <UIViewControllerAnimatedTransitioning> animator = nil;
     
     if(operation == UINavigationControllerOperationPop) {
@@ -227,10 +220,7 @@
 
 #pragma mark - Button actions
 
-- (void)finishButtonPressed:(id)sender
-{
-    BSImageGroupBlock block;
-    
+- (void)finishButtonPressed:(id)sender {
     //Cancel or finish? Call correct block!
     if(sender == self.cancelButton) {
         if([[BSImagePickerSettings sharedSetting] cancelBlock]) {
@@ -252,8 +242,7 @@
     }];
 }
 
-- (void)albumButtonPressed:(id)sender
-{
+- (void)albumButtonPressed:(id)sender {
     if([self.speechBubbleView isDescendantOfView:self.navigationController.view]) {
         [self hideAlbumView];
     } else {
@@ -263,8 +252,7 @@
 
 #pragma mark - Show and hide album view
 
-- (void)showAlbumView
-{
+- (void)showAlbumView {
     [self.navigationController.view addSubview:self.coverView];
     [self.navigationController.view addSubview:self.speechBubbleView];
     
@@ -299,8 +287,7 @@
                      } completion:nil];
 }
 
-- (void)hideAlbumView
-{
+- (void)hideAlbumView {
     __block CGAffineTransform origTransForm = self.speechBubbleView.transform;
     
     [self.albumTableView reloadData];
@@ -325,8 +312,7 @@
 
 #pragma mark - GestureRecognizer
 
-- (void)itemLongPressed:(UIGestureRecognizer *)recognizer
-{
+- (void)itemLongPressed:(UIGestureRecognizer *)recognizer {
     if(recognizer.state == UIGestureRecognizerStateBegan) {
         [recognizer setEnabled:NO];
         
@@ -362,8 +348,7 @@
     return _assetsGroupModel;
 }
 
-- (UIBarButtonItem *)cancelButton
-{
+- (UIBarButtonItem *)cancelButton {
     if(!_cancelButton) {
         _cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                                                                       target:self
@@ -373,8 +358,7 @@
     return _cancelButton;
 }
 
-- (UIBarButtonItem *)doneButton
-{
+- (UIBarButtonItem *)doneButton {
     if(!_doneButton) {
         _doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                     target:self
@@ -384,8 +368,7 @@
     return _doneButton;
 }
 
-- (UIButton *)albumButton
-{
+- (UIButton *)albumButton {
     if(!_albumButton) {
         _albumButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_albumButton setFrame:CGRectMake(0, 0, 200, 35)];
@@ -396,8 +379,7 @@
     return _albumButton;
 }
 
-- (BSSpeechBubbleView *)speechBubbleView
-{
+- (BSSpeechBubbleView *)speechBubbleView {
     if(!_speechBubbleView) {
         _speechBubbleView = [[BSSpeechBubbleView alloc] initWithFrame:CGRectMake(0, 0, 300, 320)];
         [_speechBubbleView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
@@ -412,8 +394,7 @@
     return _speechBubbleView;
 }
 
-- (UITableView *)albumTableView
-{
+- (UITableView *)albumTableView {
     if(!_albumTableView) {
         _albumTableView = [[UITableView alloc] init];
         [_albumTableView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
@@ -428,8 +409,7 @@
     return _albumTableView;
 }
 
-- (UIView *)coverView
-{
+- (UIView *)coverView {
     if(!_coverView) {
         _coverView = [[UIView alloc] initWithFrame:self.navigationController.view.bounds];
         [_coverView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
@@ -442,8 +422,7 @@
     return _coverView;
 }
 
-- (BSPreviewController *)imagePreviewController
-{
+- (BSPreviewController *)imagePreviewController {
     if(!_imagePreviewController) {
         _imagePreviewController = [[BSPreviewController alloc] init];
     }
@@ -451,8 +430,7 @@
     return _imagePreviewController;
 }
 
-- (BSZoomInAnimator *)zoomInAnimator
-{
+- (BSZoomInAnimator *)zoomInAnimator {
     if(!_zoomInAnimator) {
         _zoomInAnimator = [[BSZoomInAnimator alloc] init];
     }
@@ -460,8 +438,7 @@
     return _zoomInAnimator;
 }
 
-- (BSZoomOutAnimator *)zoomOutAnimator
-{
+- (BSZoomOutAnimator *)zoomOutAnimator {
     if(!_zoomOutAnimator) {
         _zoomOutAnimator = [[BSZoomOutAnimator alloc] init];
     }

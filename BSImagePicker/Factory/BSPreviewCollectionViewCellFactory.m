@@ -7,7 +7,7 @@
 //
 
 #import "BSPreviewCollectionViewCellFactory.h"
-#import "BSPreviewCell.h"
+#import "BSPhotoCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 static NSString *kUnknownCellIdentifier =           @"unknownCellIdentifier";
@@ -17,7 +17,7 @@ static NSString *kPreviewCellIdentifier =           @"previewCellIdentifier";
 
 + (void)registerCellIdentifiersForCollectionView:(UICollectionView *)aCollectionView {
     [aCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kUnknownCellIdentifier];
-    [aCollectionView registerClass:[BSPreviewCell class] forCellWithReuseIdentifier:kPreviewCellIdentifier];
+    [aCollectionView registerClass:[BSPhotoCell class] forCellWithReuseIdentifier:kPreviewCellIdentifier];
 }
 
 + (CGSize)sizeAtIndexPath:(NSIndexPath *)anIndexPath forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
@@ -29,10 +29,7 @@ static NSString *kPreviewCellIdentifier =           @"previewCellIdentifier";
     ALAsset *asset = [aModel itemAtIndexPath:anIndexPath];
     
     if([asset isKindOfClass:[ALAsset class]]) {
-        BSPreviewCell *previewCell = [aCollectionView dequeueReusableCellWithReuseIdentifier:kPreviewCellIdentifier forIndexPath:anIndexPath];
-        
-        //Reset zoom
-        [previewCell.scrollView setZoomScale:1.0];
+        BSPhotoCell *previewCell = [aCollectionView dequeueReusableCellWithReuseIdentifier:kPreviewCellIdentifier forIndexPath:anIndexPath];
         
         [previewCell.imageView setImage:[UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage scale:asset.defaultRepresentation.scale orientation:(UIImageOrientation)asset.defaultRepresentation.orientation]];
         
