@@ -18,6 +18,18 @@ static NSString *kPreviewCellIdentifier =           @"previewCellIdentifier";
     return aCollectionView.bounds.size;
 }
 
++ (UIEdgeInsets)edgeInsetAtSection:(NSUInteger)aSection forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
+    return UIEdgeInsetsZero;
+}
+
++ (CGFloat)minimumLineSpacingAtSection:(NSUInteger)aSection forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
+    return 0.0;
+}
+
++ (CGFloat)minimumItemSpacingAtSection:(NSUInteger)aSection forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
+    return 0.0;
+}
+
 - (UICollectionViewCell *)cellAtIndexPath:(NSIndexPath *)anIndexPath forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
     
     BSPhotoCell *cell = (BSPhotoCell *)[super cellAtIndexPath:anIndexPath forCollectionView:aCollectionView withModel:aModel];

@@ -40,6 +40,18 @@ static NSString *kPhotoCellIdentifier =             @"photoCellIdentifier";
     return itemSize;
 }
 
++ (UIEdgeInsets)edgeInsetAtSection:(NSUInteger)aSection forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
+    return UIEdgeInsetsMake(2.0, 2.0, 2.0, 2.0);
+}
+
++ (CGFloat)minimumLineSpacingAtSection:(NSUInteger)aSection forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
+    return 2.0;
+}
+
++ (CGFloat)minimumItemSpacingAtSection:(NSUInteger)aSection forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
+    return 2.0;
+}
+
 - (UICollectionViewCell *)cellAtIndexPath:(NSIndexPath *)anIndexPath forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
     UICollectionViewCell *cell = nil;
     ALAsset *asset = [aModel itemAtIndexPath:anIndexPath];

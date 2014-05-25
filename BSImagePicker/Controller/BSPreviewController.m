@@ -33,9 +33,6 @@ typedef NS_ENUM(NSInteger, BSToggleButtonAction) {
     if (self) {
         [self setAutomaticallyAdjustsScrollViewInsets:NO];
         
-        [self.collectionViewFlowLayout setMinimumInteritemSpacing:0.0];
-        [self.collectionViewFlowLayout setMinimumLineSpacing:0.0];
-        [self.collectionViewFlowLayout setSectionInset:UIEdgeInsetsZero];
         [self.collectionViewFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
         
         [self.collectionView setBackgroundColor:[UIColor clearColor]];

@@ -73,6 +73,18 @@
     return itemSize;
 }
 
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
+    return [[self.cellFactory class] edgeInsetAtSection:section forCollectionView:collectionView withModel:self.model];
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return [[self.cellFactory class] minimumLineSpacingAtSection:section forCollectionView:collectionView withModel:self.model];
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return [[self.cellFactory class] minimumItemSpacingAtSection:section forCollectionView:collectionView withModel:self.model];
+}
+
 #pragma mark - Lazy load
 
 - (UICollectionViewFlowLayout *)collectionViewFlowLayout {

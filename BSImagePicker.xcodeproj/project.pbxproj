@@ -118,7 +118,7 @@
 		5598296D1930ECDF00D68BD5 /* BSAssetsGroupModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSAssetsGroupModel.m; sourceTree = "<group>"; };
 		5598297A1931393200D68BD5 /* BSPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPreviewController.h; sourceTree = "<group>"; };
 		5598297B1931393200D68BD5 /* BSPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPreviewController.m; sourceTree = "<group>"; };
-		5598297D1931396000D68BD5 /* BSNewPhotosController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSNewPhotosController.h; sourceTree = "<group>"; };
+		5598297D1931396000D68BD5 /* BSPhotosController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPhotosController.h; sourceTree = "<group>"; };
 		5598297E1931396000D68BD5 /* BSNewPhotosController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSNewPhotosController.m; sourceTree = "<group>"; };
 		559829801931507700D68BD5 /* BSItemsModelDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSItemsModelDelegate.h; sourceTree = "<group>"; };
 		559829821931625B00D68BD5 /* BSImagePickerSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSImagePickerSettings.h; sourceTree = "<group>"; };
@@ -348,7 +348,7 @@
 				5509A42519300E38006E4DA1 /* BSCollectionController.m */,
 				5598297A1931393200D68BD5 /* BSPreviewController.h */,
 				5598297B1931393200D68BD5 /* BSPreviewController.m */,
-				5598297D1931396000D68BD5 /* BSNewPhotosController.h */,
+				5598297D1931396000D68BD5 /* BSPhotosController.h */,
 				5598297E1931396000D68BD5 /* BSNewPhotosController.m */,
 			);
 			path = Controller;

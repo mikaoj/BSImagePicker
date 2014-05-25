@@ -64,10 +64,6 @@
         [self.collectionView setScrollEnabled:YES];
         [self.collectionView setAlwaysBounceVertical:YES];
         
-        [self.collectionViewFlowLayout setMinimumInteritemSpacing:2.0];
-        [self.collectionViewFlowLayout setMinimumLineSpacing:2.0];
-        [self.collectionViewFlowLayout setSectionInset:UIEdgeInsetsMake(2.0, 2.0, 2.0, 2.0)];
-        
         [self setCellFactory:[[BSPhotoCollectionViewCellFactory alloc] init]];
         [self setAlbumCellFactory:[[BSAlbumTableViewCellFactory alloc] init]];
         [self setModel:self.assetsModel];

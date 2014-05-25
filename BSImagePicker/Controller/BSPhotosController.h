@@ -8,6 +8,6 @@
 
 #import "BSCollectionController.h"
 
-@interface BSNewPhotosController : BSCollectionController
+@interface BSPhotosController : BSCollectionController
 
 @end

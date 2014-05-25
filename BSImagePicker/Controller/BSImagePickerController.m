@@ -21,12 +21,12 @@
 // SOFTWARE.
 
 #import "BSImagePickerController.h"
-#import "BSNewPhotosController.h"
+#import "BSPhotosController.h"
 #import "BSImagePickerSettings.h"
 
 @interface BSImagePickerController ()
 
-@property (nonatomic, strong) BSNewPhotosController *newImagePicker;
+@property (nonatomic, strong) BSPhotosController *newImagePicker;
 
 @end
 
@@ -43,9 +43,9 @@
 
 #pragma mark - Lazy load
 
-- (BSNewPhotosController *)newImagePicker {
+- (BSPhotosController *)newImagePicker {
     if(!_newImagePicker) {
-        _newImagePicker = [[BSNewPhotosController alloc] init];
+        _newImagePicker = [[BSPhotosController alloc] init];
     }
     
     return _newImagePicker;
