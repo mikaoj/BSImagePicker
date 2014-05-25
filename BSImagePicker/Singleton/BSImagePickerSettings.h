@@ -10,7 +10,7 @@
 
 @interface BSImagePickerSettings : NSObject
 
-+ (id)sharedSetting;
++ (instancetype)sharedSetting;
 
 /**
  *  Defaults to NSUIntegerMax (i.e shitloads of images)

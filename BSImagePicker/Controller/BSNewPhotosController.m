@@ -164,8 +164,7 @@
         [self.selectedPhotos addObject:asset];
         
         if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
-            BSImageToggleBlock block = [[BSImagePickerSettings sharedSetting] toggleBlock];
-            block(asset, YES);
+            [BSImagePickerSettings sharedSetting].toggleBlock(asset, YES);
         }
     }
     
@@ -177,8 +176,7 @@
     ALAsset *asset = [self.model itemAtIndexPath:indexPath];
     
     if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
-        BSImageToggleBlock block = [[BSImagePickerSettings sharedSetting] toggleBlock];
-        block(asset, NO);
+        [BSImagePickerSettings sharedSetting].toggleBlock(asset, NO);
     }
     
     [self.selectedPhotos removeObject:asset];
@@ -236,13 +234,11 @@
     //Cancel or finish? Call correct block!
     if(sender == self.cancelButton) {
         if([[BSImagePickerSettings sharedSetting] cancelBlock]) {
-            block = [[BSImagePickerSettings sharedSetting] cancelBlock];
-            block([self.selectedPhotos copy]);
+            [BSImagePickerSettings sharedSetting].cancelBlock([self.selectedPhotos copy]);
         }
     } else {
         if([[BSImagePickerSettings sharedSetting] finishBlock]) {
-            block  = [[BSImagePickerSettings sharedSetting] finishBlock];
-            block([self.selectedPhotos copy]);
+            [BSImagePickerSettings sharedSetting].finishBlock([self.selectedPhotos copy]);
         }
     }
     

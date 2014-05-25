@@ -10,7 +10,7 @@
 
 @implementation BSImagePickerSettings
 
-+ (id)sharedSetting {
++ (instancetype)sharedSetting {
     static BSImagePickerSettings *sharedSettings = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

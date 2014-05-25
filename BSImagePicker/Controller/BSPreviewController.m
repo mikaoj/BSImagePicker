@@ -101,15 +101,13 @@ typedef NS_ENUM(NSInteger, BSToggleButtonAction) {
         [self.selectedPhotos addObject:asset];
 
         if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
-            BSImageToggleBlock block = [[BSImagePickerSettings sharedSetting] toggleBlock];
-            block(asset, YES);
+            [BSImagePickerSettings sharedSetting].toggleBlock(asset, YES);
         }
     } else {
         [self.selectedPhotos removeObject:asset];
 
         if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
-            BSImageToggleBlock block = [[BSImagePickerSettings sharedSetting] toggleBlock];
-            block(asset, NO);
+            [BSImagePickerSettings sharedSetting].toggleBlock(asset, NO);
         }
     }
 
