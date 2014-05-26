@@ -26,7 +26,7 @@
 
 @interface BSImagePickerController ()
 
-@property (nonatomic, strong) BSPhotosController *newImagePicker;
+@property (nonatomic, strong) BSPhotosController *imagePicker;
 
 @end
 
@@ -36,19 +36,19 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         [self.view setBackgroundColor:[UIColor whiteColor]];
-        [self pushViewController:self.newImagePicker animated:NO];
+        [self pushViewController:self.imagePicker animated:NO];
     }
     return self;
 }
 
 #pragma mark - Lazy load
 
-- (BSPhotosController *)newImagePicker {
-    if(!_newImagePicker) {
-        _newImagePicker = [[BSPhotosController alloc] init];
+- (BSPhotosController *)imagePicker {
+    if(!_imagePicker) {
+        _imagePicker = [[BSPhotosController alloc] init];
     }
     
-    return _newImagePicker;
+    return _imagePicker;
 }
 
 #pragma mark - Settings forward
