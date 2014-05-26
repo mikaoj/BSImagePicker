@@ -23,7 +23,6 @@
 
 @interface BSPhotosController () <UINavigationControllerDelegate, BSItemsModelDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, strong) id<BSItemsModel> albumsModel;
 @property (nonatomic, strong) id<BSTableViewCellFactory> albumCellFactory;
 
 @property (nonatomic, strong) BSAssetModel *assetsModel;
@@ -49,6 +48,8 @@
 - (void)showAlbumView;
 - (void)hideAlbumView;
 
+- (NSArray *)selectedPhotos;
+
 @end
 
 @implementation BSPhotosController
@@ -63,7 +64,6 @@
         [self setCellFactory:[[BSPhotoCollectionViewCellFactory alloc] init]];
         [self setAlbumCellFactory:[[BSAlbumTableViewCellFactory alloc] init]];
         [self setModel:self.assetsModel];
-        [self setAlbumsModel:self.assetsGroupModel];
         
         UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(itemLongPressed:)];
         [recognizer setMinimumPressDuration:1.0];
@@ -120,10 +120,11 @@
 #pragma mark - BSItemsModelDelegate
 
 - (void)didUpdateModel:(id<BSItemsModel>)aModel {
-    if(aModel == self.albumsModel) {
+    if(aModel == self.assetsGroupModel) {
+        NSLog(@"Reload table view");
         [self.albumTableView reloadData];
         
-        ALAssetsGroup *assetsGroup = [self.albumsModel itemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        ALAssetsGroup *assetsGroup = [self.assetsGroupModel itemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
         
         [self.albumButton setTitle:[assetsGroup valueForProperty:ALAssetsGroupPropertyName] forState:UIControlStateNormal];
         
@@ -133,7 +134,8 @@
             [self.albumTableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
         }
     } else {
-        [self.collectionView reloadData];
+        NSLog(@"Reload collection view");
+        [self.collectionView  reloadSections:[NSIndexSet indexSetWithIndex:0]];
     }
 }
 
@@ -182,9 +184,6 @@
     id <UIViewControllerAnimatedTransitioning> animator = nil;
     
     if(operation == UINavigationControllerOperationPop) {
-        //Selection may have changed so reload collection view
-        [self.collectionView reloadData];
-        
         animator = self.zoomOutAnimator;
     } else if(operation == UINavigationControllerOperationPush) {
         animator = self.zoomInAnimator;
@@ -197,27 +196,30 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.albumsModel numberOfSections];
+    return [self.assetsGroupModel numberOfSections];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.albumsModel numberOfItemsInSection:section];
+    return [self.assetsGroupModel numberOfItemsInSection:section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.albumCellFactory cellAtIndexPath:indexPath forTableView:tableView withModel:self.albumsModel];
+    return [self.albumCellFactory cellAtIndexPath:indexPath forTableView:tableView withModel:self.assetsGroupModel];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [[self.albumCellFactory class] heightAtIndexPath:indexPath forModel:self.albumsModel];
+    return [[self.albumCellFactory class] heightAtIndexPath:indexPath forModel:self.assetsGroupModel];
 }
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ALAssetsGroup *assetsGroup = [self.albumsModel itemAtIndexPath:indexPath];
-    
-    [self.assetsModel setAssetGroup:assetsGroup];
+    ALAssetsGroup *assetsGroup = [self.assetsGroupModel itemAtIndexPath:indexPath];
+
+    //Only set if we have choosen a new group
+    if(![self.assetsModel.assetGroup isEqual:assetsGroup]) {
+        [self.assetsModel setAssetGroup:assetsGroup];
+    }
     
     [self hideAlbumView];
 }
@@ -228,22 +230,15 @@
     //Cancel or finish? Call correct block!
     if(sender == self.cancelButton) {
         if([[BSImagePickerSettings sharedSetting] cancelBlock]) {
-//            [BSImagePickerSettings sharedSetting].cancelBlock([self.selectedPhotos copy]);
+            [BSImagePickerSettings sharedSetting].cancelBlock([self selectedPhotos]);
         }
     } else {
         if([[BSImagePickerSettings sharedSetting] finishBlock]) {
-//            [BSImagePickerSettings sharedSetting].finishBlock([self.selectedPhotos copy]);
+            [BSImagePickerSettings sharedSetting].finishBlock([self selectedPhotos]);
         }
     }
-    
-    //Should we keep the images or not?
-    if(![[BSImagePickerSettings sharedSetting] keepSelection]) {
-//        [self.selectedPhotos removeAllObjects];
-    }
-    
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self.collectionView reloadData];
-    }];
+
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)albumButtonPressed:(id)sender {
@@ -305,6 +300,18 @@
                      }];
 }
 
+#pragma mark - Get selected photos
+
+- (NSArray *)selectedPhotos {
+    NSMutableArray *selectedPhotos = [[NSMutableArray alloc] initWithCapacity:[self.collectionView.indexPathsForSelectedItems count]];
+    
+    for(NSIndexPath *indexPath in self.collectionView.indexPathsForSelectedItems) {
+        [selectedPhotos addObject:[self.assetsModel itemAtIndexPath:indexPath]];
+    }
+    
+    return [selectedPhotos copy];
+}
+
 #pragma mark - Factory setter
 
 - (void)setAlbumCellFactory:(id<BSTableViewCellFactory>)albumCellFactory {
@@ -316,7 +323,7 @@
 #pragma mark - GestureRecognizer
 
 - (void)itemLongPressed:(UIGestureRecognizer *)recognizer {
-    if(recognizer.state == UIGestureRecognizerStateBegan) {
+    if(recognizer.state == UIGestureRecognizerStateBegan && ![[BSImagePickerSettings sharedSetting] previewDisabled]) {
         [recognizer setEnabled:NO];
         
         CGPoint location = [recognizer locationInView:self.collectionView];
