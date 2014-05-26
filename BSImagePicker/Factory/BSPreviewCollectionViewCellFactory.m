@@ -10,8 +10,6 @@
 #import "BSPhotoCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-static NSString *kPreviewCellIdentifier =           @"previewCellIdentifier";
-
 @implementation BSPreviewCollectionViewCellFactory
 
 + (CGSize)sizeAtIndexPath:(NSIndexPath *)anIndexPath forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {

@@ -25,31 +25,13 @@
         [self.collectionView setBackgroundColor:[UIColor clearColor]];
         [self.collectionView setShowsHorizontalScrollIndicator:NO];
         [self.collectionView setShowsVerticalScrollIndicator:NO];
+        [self.collectionView setAllowsMultipleSelection:YES];
         [self.collectionView setPagingEnabled:YES];
         [self.collectionView setAlwaysBounceHorizontal:YES];
         
         [self setCellFactory:[[BSPreviewCollectionViewCellFactory alloc] init]];
     }
     return self;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    //Scroll to the correct image
-//    [self.collectionView scrollToItemAtIndexPath:self.currentIndexPath
-//                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-//                                        animated:NO];
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-//    [self.collectionView reloadData];
-    
-    //Scroll to the correct image
-//    [self.collectionView scrollToItemAtIndexPath:self.currentIndexPath
-//                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
-//                                        animated:NO];
 }
 
 @end
