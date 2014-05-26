@@ -10,4 +10,6 @@
 
 @interface BSPreviewController : BSCollectionController
 
+@property (nonatomic, strong) NSIndexPath *scrollToPath;
+
 @end

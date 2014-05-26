@@ -330,6 +330,7 @@
         NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:location];
         
         [self.imagePreviewController setModel:self.model];
+        [self.imagePreviewController setScrollToPath:indexPath];
         [self.navigationController pushViewController:self.imagePreviewController animated:YES];
         
         [recognizer setEnabled:YES];
