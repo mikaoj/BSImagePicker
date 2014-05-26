@@ -14,5 +14,6 @@
 @property (nonatomic, strong) id<BSItemsModel> model;
 @property (nonatomic, strong) id<BSCollectionViewCellFactory> cellFactory;
 @property (nonatomic, strong) UICollectionViewFlowLayout *collectionViewFlowLayout;
+@property (nonatomic, strong) NSMutableArray *selectedItems;
 
 @end

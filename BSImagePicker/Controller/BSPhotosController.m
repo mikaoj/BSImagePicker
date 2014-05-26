@@ -139,42 +139,6 @@
     }
 }
 
-#pragma mark - UICollectionViewDelegate
-
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.collectionView.indexPathsForSelectedItems count] < [[BSImagePickerSettings sharedSetting] maximumNumberOfImages];
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    ALAsset *asset = [self.model itemAtIndexPath:indexPath];
-    
-    //Disable done button
-    if([self.collectionView.indexPathsForSelectedItems count] == 0) {
-        [self.doneButton setEnabled:NO];
-    }
-    
-    if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
-        [BSImagePickerSettings sharedSetting].toggleBlock(asset, NO);
-    }
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    ALAsset *asset = [self.model itemAtIndexPath:indexPath];
-    
-    //Enable done button
-    if([self.collectionView.indexPathsForSelectedItems count] > 0) {
-        [self.doneButton setEnabled:YES];
-    }
-    
-    if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
-        [BSImagePickerSettings sharedSetting].toggleBlock(asset, YES);
-    }
-}
-
 #pragma mark - UINavigationControllerDelegate
 
 - (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
