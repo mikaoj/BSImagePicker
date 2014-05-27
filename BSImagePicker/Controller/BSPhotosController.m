@@ -14,11 +14,30 @@
 #import "BSCollectionViewCellFactory.h"
 #import "BSPhotosController+Actions.h"
 #import "BSTableViewCellFactory.h"
+#import "BSPhotosController+UICollectionViewDataSource.h"
+#import "BSPhotosController+UICollectionViewDelegate.h"
+#import "BSPhotosController+UITableViewDataSource.h"
+#import "BSPhotosController+UITableViewDelegate.h"
 
 @implementation BSPhotosController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        //Setup models
+        [self setCollectionModel:self.assetsModel];
+        [self setTableModel:self.assetsGroupModel];
+        
+        //Setup collection view
+        [self setCollectionView:self.photosCollectionView];
+        [self.view addSubview:self.collectionView];
+        
+        //Setup table view
+        [self setTableView:self.albumTableView];
+        
+        //Set factories
+        [self setTableCellFactory:self.albumCellFactory];
+        [self setCollectionCellFactory:self.photoCellFactory];
+        
         UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(itemLongPressed:)];
         [recognizer setMinimumPressDuration:1.0];
         [self.collectionView addGestureRecognizer:recognizer];
@@ -51,6 +70,27 @@
     } else {
         [self.doneButton setEnabled:NO];
     }
+}
+
+#pragma mark - Setters
+
+- (void)setTableCellFactory:(id<BSTableViewCellFactory>)tableCellFactory {
+    _tableCellFactory = tableCellFactory;
+    
+    [[_tableCellFactory class] registerCellIdentifiersForTableView:self.tableView];
+}
+
+- (void)setCollectionCellFactory:(id<BSCollectionViewCellFactory>)collectionCellFactory {
+    _collectionCellFactory = collectionCellFactory;
+    
+    [[_collectionCellFactory class] registerCellIdentifiersForCollectionView:self.photosCollectionView];
+}
+
+- (void)setCollectionView:(UICollectionView *)collectionView {
+    _collectionView = collectionView;
+    
+    [_collectionView setDelegate:self];
+    [_collectionView setDataSource:self];
 }
 
 @end
