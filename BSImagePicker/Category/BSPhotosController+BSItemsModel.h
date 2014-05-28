@@ -5,6 +5,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BSPhotosController.h"
+#import "BSItemsModelDelegate.h"
 
-@interface BSPhotosController (UICollectionViewDataSource) <UICollectionViewDataSource>
+@interface BSPhotosController (BSItemsModel) <BSItemsModelDelegate>
 @end

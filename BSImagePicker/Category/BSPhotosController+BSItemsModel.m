@@ -4,11 +4,11 @@
 //
 
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "BSPhotosController+BSItemsModelDelegate.h"
+#import "BSPhotosController+BSItemsModel.h"
 #import "BSPhotosController+Properties.h"
 #import "BSAssetModel.h"
 
-@implementation BSPhotosController (BSItemsModelDelegate)
+@implementation BSPhotosController (BSItemsModel)
 
 - (void)didUpdateModel:(id<BSItemsModel>)aModel {
     if(aModel == self.tableModel) {

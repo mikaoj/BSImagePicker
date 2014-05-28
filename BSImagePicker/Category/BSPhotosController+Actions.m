@@ -7,6 +7,7 @@
 #import "BSPhotosController+Properties.h"
 #import "BSImagePickerSettings.h"
 #import "BSSpeechBubbleView.h"
+#import "BSPhotoCollectionViewCellFactory.h"
 
 
 @implementation BSPhotosController (Actions)

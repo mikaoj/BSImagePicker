@@ -32,7 +32,7 @@ static NSString *kPhotoCellIdentifier =             @"photoCellIdentifier";
         //4*2.0 is edgeinset
         //Height should be adapted so we maintain the aspect ratio of thumbnail
         //original height / original width * new width
-        itemSize = CGSizeMake((320.0 - (4*2.0))/3.0, 100);
+        itemSize = CGSizeMake((aCollectionView.bounds.size.width - (4*2.0))/3.0, 100);
         itemSize = CGSizeMake(itemSize.width, thumbnailSize.height / thumbnailSize.width * itemSize.width);
     }
     

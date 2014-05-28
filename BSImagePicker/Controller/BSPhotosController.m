@@ -11,18 +11,15 @@
 #import "BSPreviewCollectionViewCellFactory.h"
 #import "BSAssetsGroupModel.h"
 #import "BSAssetModel.h"
-#import "BSCollectionViewCellFactory.h"
-#import "BSPhotosController+Actions.h"
-#import "BSTableViewCellFactory.h"
-#import "BSPhotosController+UICollectionViewDataSource.h"
-#import "BSPhotosController+UICollectionViewDelegate.h"
-#import "BSPhotosController+UITableViewDataSource.h"
-#import "BSPhotosController+UITableViewDelegate.h"
+#import "BSPhotosController+UICollectionView.h"
+#import "BSPhotosController+UITableView.h"
 
 @implementation BSPhotosController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        [self setAutomaticallyAdjustsScrollViewInsets:NO];
+
         //Setup models
         [self setCollectionModel:self.assetsModel];
         [self setTableModel:self.assetsGroupModel];
@@ -37,10 +34,6 @@
         //Set factories
         [self setTableCellFactory:self.albumCellFactory];
         [self setCollectionCellFactory:self.photoCellFactory];
-        
-        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(itemLongPressed:)];
-        [recognizer setMinimumPressDuration:1.0];
-        [self.collectionView addGestureRecognizer:recognizer];
     }
     return self;
 }
@@ -72,6 +65,12 @@
     }
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+
+[self.collectionView.collectionViewLayout invalidateLayout];
+}
+
 #pragma mark - Setters
 
 - (void)setTableCellFactory:(id<BSTableViewCellFactory>)tableCellFactory {
@@ -83,7 +82,7 @@
 - (void)setCollectionCellFactory:(id<BSCollectionViewCellFactory>)collectionCellFactory {
     _collectionCellFactory = collectionCellFactory;
     
-    [[_collectionCellFactory class] registerCellIdentifiersForCollectionView:self.photosCollectionView];
+    [[_collectionCellFactory class] registerCellIdentifiersForCollectionView:self.collectionView];
 }
 
 - (void)setCollectionView:(UICollectionView *)collectionView {

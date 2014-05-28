@@ -12,13 +12,10 @@
 #import "BSAlbumTableViewCellFactory.h"
 #import "BSSpeechBubbleView.h"
 #import "BSPhotosController+Actions.h"
-#import "BSPhotosController+BSItemsModelDelegate.h"
+#import "BSPhotosController+BSItemsModel.h"
 #import "BSImagePickerSettings.h"
-#import "BSPhotosController+UICollectionViewDataSource.h"
-#import "BSPhotosController+UICollectionViewFlowLayoutDelegate.h"
-#import "BSPhotosController+UITableViewDataSource.h"
-#import "BSPhotosController+UITableViewDelegate.h"
-
+#import "BSPhotosController+UICollectionView.h"
+#import "BSPhotosController+UITableView.h"
 
 @implementation BSPhotosController (Properties)
 
@@ -119,8 +116,8 @@
 
 - (UICollectionView *)photosCollectionView {
     if(!_photosCollectionView) {
-        [self.collectionViewFlowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-        _photosCollectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.collectionViewFlowLayout];
+        _photosCollectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:self.collectionViewFlowLayout];
+        [_photosCollectionView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
         [_photosCollectionView setBackgroundColor:[UIColor clearColor]];
         [_photosCollectionView setAllowsMultipleSelection:YES];
         [_photosCollectionView setScrollEnabled:YES];
@@ -128,6 +125,11 @@
 
         [_photosCollectionView setDelegate:self];
         [_photosCollectionView setDataSource:self];
+
+        UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                                 action:@selector(itemLongPressed:)];
+        [recognizer setMinimumPressDuration:0.5];
+        [_photosCollectionView addGestureRecognizer:recognizer];
     }
 
     return _photosCollectionView;
@@ -135,9 +137,7 @@
 
 - (UICollectionView *)previewCollectionView {
     if(!_previewCollectionView) {
-        [self.collectionViewFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-
-        _previewCollectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.collectionViewFlowLayout];
+        _previewCollectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:self.collectionViewFlowLayout];
         [_previewCollectionView setBackgroundColor:[UIColor clearColor]];
         [_previewCollectionView setShowsHorizontalScrollIndicator:NO];
         [_previewCollectionView setShowsVerticalScrollIndicator:NO];
