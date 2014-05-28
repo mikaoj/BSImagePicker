@@ -115,7 +115,10 @@
 
 - (UICollectionView *)photosCollectionView {
     if(!_photosCollectionView) {
-        _photosCollectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:self.collectionViewFlowLayout];
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
+
+        _photosCollectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
         [_photosCollectionView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
         [_photosCollectionView setBackgroundColor:[UIColor clearColor]];
         [_photosCollectionView setAllowsMultipleSelection:YES];
@@ -134,23 +137,6 @@
     return _photosCollectionView;
 }
 
-- (UICollectionView *)previewCollectionView {
-    if(!_previewCollectionView) {
-        _previewCollectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:self.collectionViewFlowLayout];
-        [_previewCollectionView setBackgroundColor:[UIColor clearColor]];
-        [_previewCollectionView setShowsHorizontalScrollIndicator:NO];
-        [_previewCollectionView setShowsVerticalScrollIndicator:NO];
-        [_previewCollectionView setAllowsMultipleSelection:YES];
-        [_previewCollectionView setPagingEnabled:YES];
-        [_previewCollectionView setAlwaysBounceHorizontal:YES];
-
-        [_previewCollectionView setDelegate:self];
-        [_previewCollectionView setDataSource:self];
-    }
-
-    return _previewCollectionView;
-}
-
 - (BSPhotoCollectionViewCellFactory *)photoCellFactory {
     if(!_photoCellFactory) {
         _photoCellFactory = [[BSPhotoCollectionViewCellFactory alloc] init];
@@ -159,28 +145,12 @@
     return _photoCellFactory;
 }
 
-- (BSPreviewCollectionViewCellFactory *)previewCellFactory {
-    if(!_previewCellFactory) {
-        _previewCellFactory = [[BSPreviewCollectionViewCellFactory alloc] init];
-    }
-
-    return _previewCellFactory;
-}
-
 - (BSAlbumTableViewCellFactory *)albumCellFactory {
     if(!_albumCellFactory) {
         _albumCellFactory = [[BSAlbumTableViewCellFactory alloc] init];
     }
     
     return _albumCellFactory;
-}
-
-- (UICollectionViewFlowLayout *)collectionViewFlowLayout {
-    if(!_collectionViewFlowLayout) {
-        _collectionViewFlowLayout = [[UICollectionViewFlowLayout alloc] init];
-    }
-    
-    return _collectionViewFlowLayout;
 }
 
 @end

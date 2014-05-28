@@ -10,9 +10,9 @@
 
 @interface BSCollectionController : UIViewController
 
-@property (nonatomic, weak) UICollectionView *collectionView;
-@property (nonatomic, weak) id<BSItemsModel> collectionModel;
-@property (nonatomic, weak) id<BSCollectionViewCellFactory> collectionCellFactory;
+@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) id<BSItemsModel> collectionModel;
+@property (nonatomic, strong) id<BSCollectionViewCellFactory> collectionCellFactory;
 
 @property (nonatomic, strong) NSMutableArray *selectedItems;
 

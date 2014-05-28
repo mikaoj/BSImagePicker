@@ -19,7 +19,6 @@
 @property (nonatomic, readonly) BSAssetsGroupModel *assetsGroupModel;
 
 @property (nonatomic, readonly) BSPhotoCollectionViewCellFactory *photoCellFactory;
-@property (nonatomic, readonly) BSPreviewCollectionViewCellFactory *previewCellFactory;
 @property (nonatomic, readonly) BSAlbumTableViewCellFactory *albumCellFactory;
 
 @property (nonatomic, readonly) UITableView *albumTableView;
@@ -27,7 +26,6 @@
 @property (nonatomic, readonly) UIView *coverView;
 
 @property (nonatomic, readonly) UICollectionView *photosCollectionView;
-@property (nonatomic, readonly) UICollectionView *previewCollectionView;
 @property (nonatomic, readonly) UICollectionViewFlowLayout *collectionViewFlowLayout;
 
 @property (nonatomic, readonly) UIBarButtonItem *cancelButton;

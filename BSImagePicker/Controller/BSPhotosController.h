@@ -12,7 +12,7 @@
 
 @interface BSPhotosController : BSCollectionController {
     id _assetsModel, _assetsGroupModel, _cancelButton, _doneButton, _albumButton, _speechBubbleView,
-            _albumTableView, _coverView, _photosCollectionView, _previewCollectionView, _photoCellFactory, _previewCellFactory, _selectedItems, _collectionViewFlowLayout, _albumCellFactory;
+            _albumTableView, _coverView, _photosCollectionView, _photoCellFactory, _selectedItems, _collectionViewFlowLayout, _albumCellFactory;
 }
 
 @property (nonatomic, weak) UITableView *tableView;

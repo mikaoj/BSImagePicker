@@ -5,5 +5,11 @@
 
 #import "BSCollectionController.h"
 
+@class BSPreviewCollectionViewCellFactory;
+
 @interface BSPreviewController : BSCollectionController
+
+@property (nonatomic, strong) BSPreviewCollectionViewCellFactory *previewCellFactory;
+@property (nonatomic, strong) UICollectionView *previewCollectionView;
+
 @end
