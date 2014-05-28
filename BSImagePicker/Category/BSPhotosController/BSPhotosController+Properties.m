@@ -14,7 +14,6 @@
 #import "BSPhotosController+Actions.h"
 #import "BSPhotosController+BSItemsModel.h"
 #import "BSImagePickerSettings.h"
-#import "BSPhotosController+UICollectionView.h"
 #import "BSPhotosController+UITableView.h"
 
 @implementation BSPhotosController (Properties)
@@ -182,14 +181,6 @@
     }
     
     return _collectionViewFlowLayout;
-}
-
-- (NSMutableArray *)selectedItems {
-    if(!_selectedItems) {
-        _selectedItems = [[NSMutableArray alloc] init];
-    }
-
-    return _selectedItems;
 }
 
 @end

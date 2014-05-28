@@ -15,8 +15,6 @@
 
 @interface BSPhotosController (Properties)
 
-@property (nonatomic, readonly) NSMutableArray *selectedItems;
-
 @property (nonatomic, readonly) BSAssetModel *assetsModel;
 @property (nonatomic, readonly) BSAssetsGroupModel *assetsGroupModel;
 

@@ -3,7 +3,7 @@
 // Copyright (c) 2014 Joakim Gyllström. All rights reserved.
 //
 
-#import "BSPhotosController+UICollectionView.h"
+#import "BSCollectionController+UICollectionView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "BSPhotoCell.h"
 #import "BSItemsModel.h"
@@ -11,7 +11,7 @@
 #import "BSCollectionViewCellFactory.h"
 #import "BSImagePickerSettings.h"
 
-@implementation BSPhotosController (UICollectionView)
+@implementation BSCollectionController (UICollectionView)
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     NSInteger items = 0;

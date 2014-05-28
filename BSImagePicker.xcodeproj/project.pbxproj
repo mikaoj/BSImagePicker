@@ -71,14 +71,14 @@
 		55EC234518F1DB6A008F5A02 /* BSSpeechBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EC234418F1DB6A008F5A02 /* BSSpeechBubbleView.m */; };
 		55EC235118F2F873008F5A02 /* BSTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EC235018F2F873008F5A02 /* BSTriangleView.m */; };
 		BB2B929FDF16F341870E5B2A /* BSPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B980BF19D6B2C0E05F297 /* BSPreviewController.m */; };
-		BB2B9326101E4699CF53BEE1 /* BSPhotosController+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B95F41BA23666C8704B41 /* BSPhotosController+Properties.m */; };
-		BB2B93AAFDF15915FB799E41 /* BSPhotosController+UITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B95A5FC58502002C08170 /* BSPhotosController+UITableView.m */; };
+		BB2B93DC4B697E92438D302A /* BSCollectionController+UICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B9E700546299C74447B70 /* BSCollectionController+UICollectionView.m */; };
 		BB2B94E7BAF0BCCEEFAB30A3 /* BSCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B95CED0C53BD14DE767C7 /* BSCollectionController.m */; };
-		BB2B95AB4D61FE320B07FDD9 /* BSPhotosController+UICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B9DE52D35EFC74CBD579B /* BSPhotosController+UICollectionView.m */; };
+		BB2B9726523A57B047F419A1 /* BSPhotosController+BSItemsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B9233DF13BD7F719BC475 /* BSPhotosController+BSItemsModel.m */; };
 		BB2B992598FC83C26F7BCF0F /* ALAssetsGroup+Equal.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B9751359F9EC1A401B326 /* ALAssetsGroup+Equal.m */; };
+		BB2B992E6CA8A1A44054E161 /* BSPhotosController+Actions.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B929354F80AA90706CAF1 /* BSPhotosController+Actions.m */; };
+		BB2B9AE7469076085D5B1689 /* BSPhotosController+UITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B91B1B9E49BA2649C2CC4 /* BSPhotosController+UITableView.m */; };
 		BB2B9B4E9F4BC435FF833E97 /* BSPhotosController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B98057AD855E4FEC3A858 /* BSPhotosController.m */; };
-		BB2B9C2266D9E71C6974BF8B /* BSPhotosController+Actions.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B9C3EC2690008F89E56AE /* BSPhotosController+Actions.m */; };
-		BB2B9CF517919008EC28B856 /* BSPhotosController+BSItemsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B987E00A1132B4FF77AFF /* BSPhotosController+BSItemsModel.m */; };
+		BB2B9F14F8076AA93D03546E /* BSPhotosController+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B9B0CEBAE29D685FAA2F2 /* BSPhotosController+Properties.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,23 +148,23 @@
 		55EC234F18F2F873008F5A02 /* BSTriangleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTriangleView.h; sourceTree = "<group>"; };
 		55EC235018F2F873008F5A02 /* BSTriangleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTriangleView.m; sourceTree = "<group>"; };
 		BB2B90F9017BDA73DC835324 /* BSPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPreviewController.h; sourceTree = "<group>"; };
-		BB2B910D76B5D8E1E76FFF54 /* BSPhotosController+BSItemsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSPhotosController+BSItemsModel.h"; sourceTree = "<group>"; };
 		BB2B912024F6ABA0C6B81DEF /* BSCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCollectionController.h; sourceTree = "<group>"; };
-		BB2B93E7BE16B363EC8B3245 /* BSPhotosController+UICollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSPhotosController+UICollectionView.h"; sourceTree = "<group>"; };
-		BB2B95A5FC58502002C08170 /* BSPhotosController+UITableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSPhotosController+UITableView.m"; sourceTree = "<group>"; };
+		BB2B91B1B9E49BA2649C2CC4 /* BSPhotosController+UITableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSPhotosController+UITableView.m"; sourceTree = "<group>"; };
+		BB2B9233DF13BD7F719BC475 /* BSPhotosController+BSItemsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "BSPhotosController+BSItemsModel.m"; path = "../BSCollectionController/BSPhotosController+BSItemsModel.m"; sourceTree = "<group>"; };
+		BB2B929354F80AA90706CAF1 /* BSPhotosController+Actions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSPhotosController+Actions.m"; sourceTree = "<group>"; };
 		BB2B95CED0C53BD14DE767C7 /* BSCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCollectionController.m; sourceTree = "<group>"; };
-		BB2B95F41BA23666C8704B41 /* BSPhotosController+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSPhotosController+Properties.m"; sourceTree = "<group>"; };
-		BB2B96B95B887A4E555C0D84 /* BSPhotosController+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSPhotosController+Properties.h"; sourceTree = "<group>"; };
 		BB2B9751359F9EC1A401B326 /* ALAssetsGroup+Equal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsGroup+Equal.m"; sourceTree = "<group>"; };
+		BB2B977CA5245E3C60FCCCF2 /* BSPhotosController+BSItemsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BSPhotosController+BSItemsModel.h"; path = "../BSCollectionController/BSPhotosController+BSItemsModel.h"; sourceTree = "<group>"; };
 		BB2B98057AD855E4FEC3A858 /* BSPhotosController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPhotosController.m; sourceTree = "<group>"; };
 		BB2B980BF19D6B2C0E05F297 /* BSPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPreviewController.m; sourceTree = "<group>"; };
-		BB2B987E00A1132B4FF77AFF /* BSPhotosController+BSItemsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSPhotosController+BSItemsModel.m"; sourceTree = "<group>"; };
+		BB2B9AB2ABDBBEC2EACB342C /* BSPhotosController+Actions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSPhotosController+Actions.h"; sourceTree = "<group>"; };
 		BB2B9AFB1E146FCDEF4CB3CF /* ALAssetsGroup+Equal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsGroup+Equal.h"; sourceTree = "<group>"; };
-		BB2B9C3EC2690008F89E56AE /* BSPhotosController+Actions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSPhotosController+Actions.m"; sourceTree = "<group>"; };
-		BB2B9DE52D35EFC74CBD579B /* BSPhotosController+UICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSPhotosController+UICollectionView.m"; sourceTree = "<group>"; };
-		BB2B9EC1C2D514B136687C3D /* BSPhotosController+UITableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSPhotosController+UITableView.h"; sourceTree = "<group>"; };
+		BB2B9B0CEBAE29D685FAA2F2 /* BSPhotosController+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSPhotosController+Properties.m"; sourceTree = "<group>"; };
+		BB2B9B57F530FD9EA5747130 /* BSPhotosController+UITableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSPhotosController+UITableView.h"; sourceTree = "<group>"; };
+		BB2B9CB8369F9514C3638381 /* BSPhotosController+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSPhotosController+Properties.h"; sourceTree = "<group>"; };
+		BB2B9E700546299C74447B70 /* BSCollectionController+UICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSCollectionController+UICollectionView.m"; sourceTree = "<group>"; };
+		BB2B9F6CE1322BBD50645B6D /* BSCollectionController+UICollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSCollectionController+UICollectionView.h"; sourceTree = "<group>"; };
 		BB2B9F7114419CA3D5B3BE3E /* BSPhotosController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPhotosController.h; sourceTree = "<group>"; };
-		BB2B9FB6A2CF2B55A2B46977 /* BSPhotosController+Actions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSPhotosController+Actions.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,16 +261,8 @@
 				55A11EE618FE75B300F28CA5 /* ALAsset+Equal.m */,
 				BB2B9751359F9EC1A401B326 /* ALAssetsGroup+Equal.m */,
 				BB2B9AFB1E146FCDEF4CB3CF /* ALAssetsGroup+Equal.h */,
-				BB2B9DE52D35EFC74CBD579B /* BSPhotosController+UICollectionView.m */,
-				BB2B93E7BE16B363EC8B3245 /* BSPhotosController+UICollectionView.h */,
-				BB2B95A5FC58502002C08170 /* BSPhotosController+UITableView.m */,
-				BB2B9EC1C2D514B136687C3D /* BSPhotosController+UITableView.h */,
-				BB2B987E00A1132B4FF77AFF /* BSPhotosController+BSItemsModel.m */,
-				BB2B910D76B5D8E1E76FFF54 /* BSPhotosController+BSItemsModel.h */,
-				BB2B95F41BA23666C8704B41 /* BSPhotosController+Properties.m */,
-				BB2B96B95B887A4E555C0D84 /* BSPhotosController+Properties.h */,
-				BB2B9C3EC2690008F89E56AE /* BSPhotosController+Actions.m */,
-				BB2B9FB6A2CF2B55A2B46977 /* BSPhotosController+Actions.h */,
+				BB2B95610ABCEF708B82FD10 /* BSPhotosController */,
+				BB2B98487096DCF720E55BB5 /* BSCollectionController */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -406,6 +398,30 @@
 				55A11ED618FC440D00F28CA5 /* BSCheckmarkView.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		BB2B95610ABCEF708B82FD10 /* BSPhotosController */ = {
+			isa = PBXGroup;
+			children = (
+				BB2B977CA5245E3C60FCCCF2 /* BSPhotosController+BSItemsModel.h */,
+				BB2B9233DF13BD7F719BC475 /* BSPhotosController+BSItemsModel.m */,
+				BB2B9B57F530FD9EA5747130 /* BSPhotosController+UITableView.h */,
+				BB2B9B0CEBAE29D685FAA2F2 /* BSPhotosController+Properties.m */,
+				BB2B9AB2ABDBBEC2EACB342C /* BSPhotosController+Actions.h */,
+				BB2B91B1B9E49BA2649C2CC4 /* BSPhotosController+UITableView.m */,
+				BB2B9CB8369F9514C3638381 /* BSPhotosController+Properties.h */,
+				BB2B929354F80AA90706CAF1 /* BSPhotosController+Actions.m */,
+			);
+			path = BSPhotosController;
+			sourceTree = "<group>";
+		};
+		BB2B98487096DCF720E55BB5 /* BSCollectionController */ = {
+			isa = PBXGroup;
+			children = (
+				BB2B9E700546299C74447B70 /* BSCollectionController+UICollectionView.m */,
+				BB2B9F6CE1322BBD50645B6D /* BSCollectionController+UICollectionView.h */,
+			);
+			path = BSCollectionController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -601,14 +617,14 @@
 				55EC234518F1DB6A008F5A02 /* BSSpeechBubbleView.m in Sources */,
 				55EC235118F2F873008F5A02 /* BSTriangleView.m in Sources */,
 				BB2B992598FC83C26F7BCF0F /* ALAssetsGroup+Equal.m in Sources */,
-				BB2B95AB4D61FE320B07FDD9 /* BSPhotosController+UICollectionView.m in Sources */,
-				BB2B93AAFDF15915FB799E41 /* BSPhotosController+UITableView.m in Sources */,
-				BB2B9CF517919008EC28B856 /* BSPhotosController+BSItemsModel.m in Sources */,
-				BB2B9326101E4699CF53BEE1 /* BSPhotosController+Properties.m in Sources */,
 				BB2B9B4E9F4BC435FF833E97 /* BSPhotosController.m in Sources */,
-				BB2B9C2266D9E71C6974BF8B /* BSPhotosController+Actions.m in Sources */,
 				BB2B94E7BAF0BCCEEFAB30A3 /* BSCollectionController.m in Sources */,
 				BB2B929FDF16F341870E5B2A /* BSPreviewController.m in Sources */,
+				BB2B93DC4B697E92438D302A /* BSCollectionController+UICollectionView.m in Sources */,
+				BB2B9726523A57B047F419A1 /* BSPhotosController+BSItemsModel.m in Sources */,
+				BB2B9F14F8076AA93D03546E /* BSPhotosController+Properties.m in Sources */,
+				BB2B9AE7469076085D5B1689 /* BSPhotosController+UITableView.m in Sources */,
+				BB2B992E6CA8A1A44054E161 /* BSPhotosController+Actions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,7 +11,6 @@
 #import "BSPreviewCollectionViewCellFactory.h"
 #import "BSAssetsGroupModel.h"
 #import "BSAssetModel.h"
-#import "BSPhotosController+UICollectionView.h"
 #import "BSPhotosController+UITableView.h"
 
 @implementation BSPhotosController
@@ -77,19 +76,6 @@
     _tableCellFactory = tableCellFactory;
     
     [[_tableCellFactory class] registerCellIdentifiersForTableView:self.tableView];
-}
-
-- (void)setCollectionCellFactory:(id<BSCollectionViewCellFactory>)collectionCellFactory {
-    _collectionCellFactory = collectionCellFactory;
-    
-    [[_collectionCellFactory class] registerCellIdentifiersForCollectionView:self.collectionView];
-}
-
-- (void)setCollectionView:(UICollectionView *)collectionView {
-    _collectionView = collectionView;
-    
-    [_collectionView setDelegate:self];
-    [_collectionView setDataSource:self];
 }
 
 @end
