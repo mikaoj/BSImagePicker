@@ -10,13 +10,11 @@
 #import "BSPhotoCell.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-static NSString *kUnknownCellIdentifier =           @"unknownCellIdentifier";
 static NSString *kPhotoCellIdentifier =             @"photoCellIdentifier";
 
 @implementation BSPhotoCollectionViewCellFactory
 
 + (void)registerCellIdentifiersForCollectionView:(UICollectionView *)aCollectionView {
-    [aCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kUnknownCellIdentifier];
     [aCollectionView registerClass:[BSPhotoCell class] forCellWithReuseIdentifier:kPhotoCellIdentifier];
 }
 
@@ -52,20 +50,14 @@ static NSString *kPhotoCellIdentifier =             @"photoCellIdentifier";
 }
 
 - (UICollectionViewCell *)cellAtIndexPath:(NSIndexPath *)anIndexPath forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
-    UICollectionViewCell *cell = nil;
+    BSPhotoCell *photoCell = [aCollectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:anIndexPath];
     ALAsset *asset = [aModel itemAtIndexPath:anIndexPath];
     
     if([asset isKindOfClass:[ALAsset class]]) {
-        BSPhotoCell *photoCell = [aCollectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:anIndexPath];
         [photoCell.imageView setImage:[UIImage imageWithCGImage:asset.thumbnail]];
-        
-        cell = photoCell;
-    } else {
-        cell = [aCollectionView dequeueReusableCellWithReuseIdentifier:kUnknownCellIdentifier forIndexPath:anIndexPath];
-        //TODO ADD SOME DEBUG INFO. THIS SHOULD NEVER HAPPEN
     }
     
-    return cell;
+    return photoCell;
 }
 
 @end

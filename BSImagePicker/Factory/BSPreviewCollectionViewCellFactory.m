@@ -8,6 +8,7 @@
 
 #import "BSPreviewCollectionViewCellFactory.h"
 #import "BSPhotoCell.h"
+#import "BSCheckmarkView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 static NSString *kPhotoCellIdentifier =             @"previewCellIdentifier";
@@ -40,6 +41,8 @@ static NSString *kPhotoCellIdentifier =             @"previewCellIdentifier";
     ALAsset *asset = [aModel itemAtIndexPath:anIndexPath];
     
     if([asset isKindOfClass:[ALAsset class]]) {
+        [cell.fadedCoverView setHidden:YES];
+        [cell.checkmarkView setHidden:YES];
         [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
         [cell.imageView setImage:[UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage scale:asset.defaultRepresentation.scale orientation:(UIImageOrientation)asset.defaultRepresentation.orientation]];
     }
