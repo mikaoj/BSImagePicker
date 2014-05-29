@@ -157,6 +157,8 @@
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
 
         [self.zoomInAnimator setAnimateToRect:cell.frame];
+        [self.previewController setCollectionModel:self.collectionModel];
+        [self.previewController setSelectedItems:self.selectedItems];
         [self.previewController setOnViewWillAppearScrollToPath:indexPath];
         [self.navigationController pushViewController:self.previewController animated:YES];
 
@@ -172,6 +174,7 @@
                                                  toViewController:(UIViewController *)toVC
 {
     if(operation == UINavigationControllerOperationPop) {
+        [self.collectionView reloadData];
         return self.zoomOutAnimator;
     } else {
         return self.zoomInAnimator;

@@ -48,11 +48,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
-    BOOL previous = self.selected;
-    
     [super setSelected:selected];
-    
-    if(previous != selected) {
         [UIView animateWithDuration:(animated)?0.05:0
                               delay:0.0
                             options:0
@@ -80,7 +76,6 @@
                                                   }];
                              }
                          }];
-    }
 }
 
 - (UIImageView *)imageView
