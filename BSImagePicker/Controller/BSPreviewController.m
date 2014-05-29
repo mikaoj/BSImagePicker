@@ -3,15 +3,16 @@
 // Copyright (c) 2014 Joakim Gyllström. All rights reserved.
 //
 
+#import <AssetsLibrary/AssetsLibrary.h>
 #import "BSPreviewController.h"
 #import "BSPreviewCollectionViewCellFactory.h"
-
+#import "BSPhotoCell.h"
 
 @implementation BSPreviewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        [self setAutomaticallyAdjustsScrollViewInsets:NO];
+        [self setAutomaticallyAdjustsScrollViewInsets:YES];
 
         //Setup layout
         [self.collectionViewFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
@@ -40,6 +41,25 @@
     [super viewWillAppear:animated];
 
     [self.collectionView scrollToItemAtIndexPath:self.onViewWillAppearScrollToPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+
+    [self.collectionView performBatchUpdates:^{
+        [self.collectionView.collectionViewLayout invalidateLayout];
+
+    } completion:nil];
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    BSPhotoCell *cell = (BSPhotoCell *)[self.collectionCellFactory cellAtIndexPath:indexPath forCollectionView:collectionView withModel:self.collectionModel];
+
+    ALAsset *asset = [self.collectionModel itemAtIndexPath:indexPath];
+    if([self.selectedItems containsObject:asset]) {
+    }
+
+    return cell;
 }
 
 @end

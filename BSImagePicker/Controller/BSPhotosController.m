@@ -67,7 +67,12 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 
-    [self.collectionView.collectionViewLayout invalidateLayout];
+    [self.collectionView performBatchUpdates:^{
+        [self.collectionView.collectionViewLayout invalidateLayout];
+        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+    } completion:^(BOOL finished) {
+
+    }];
 }
 
 #pragma mark - Button actions
