@@ -20,7 +20,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#import "BSItemsModelDelegate.h"
+
 @protocol BSItemsModel <NSObject>
+
+- (void)setupWithParentItem:(id)parentItem;
+- (id)parentItem;
+
+- (void)setDelegate:(id<BSItemsModelDelegate>)delegate;
+- (id<BSItemsModelDelegate>)delegate;
 
 - (NSUInteger)numberOfSections;
 - (NSUInteger)numberOfItemsInSection:(NSUInteger)aSection;

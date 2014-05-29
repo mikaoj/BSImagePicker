@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Joakim Gyllström. All rights reserved.
 //
 
-#import "BSItemsModel.h"
+@protocol BSItemsModel;
 
 @protocol BSItemsModelDelegate <NSObject>
 

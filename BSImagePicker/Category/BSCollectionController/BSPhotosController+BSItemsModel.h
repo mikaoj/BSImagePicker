@@ -6,6 +6,7 @@
 #import <Foundation/Foundation.h>
 #import "BSPhotosController.h"
 #import "BSItemsModelDelegate.h"
+#import "BSCollectionController+BSItemsModel.h"
 
-@interface BSPhotosController (BSItemsModel) <BSItemsModelDelegate>
+@interface BSPhotosController (BSItemsModel)
 @end

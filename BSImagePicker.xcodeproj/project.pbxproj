@@ -70,15 +70,16 @@
 		55EC234218F0A321008F5A02 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55EC234118F0A321008F5A02 /* AssetsLibrary.framework */; };
 		55EC234518F1DB6A008F5A02 /* BSSpeechBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EC234418F1DB6A008F5A02 /* BSSpeechBubbleView.m */; };
 		55EC235118F2F873008F5A02 /* BSTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EC235018F2F873008F5A02 /* BSTriangleView.m */; };
+		BB2B90909814568BB3997E1A /* BSZoomOutAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B99BEDF8860AD297EE80D /* BSZoomOutAnimator.m */; };
 		BB2B929FDF16F341870E5B2A /* BSPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B980BF19D6B2C0E05F297 /* BSPreviewController.m */; };
 		BB2B93DC4B697E92438D302A /* BSCollectionController+UICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B9E700546299C74447B70 /* BSCollectionController+UICollectionView.m */; };
 		BB2B94E7BAF0BCCEEFAB30A3 /* BSCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B95CED0C53BD14DE767C7 /* BSCollectionController.m */; };
+		BB2B94F80589BF941548F2B6 /* BSZoomInAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B90AF1CED4DE415FD931F /* BSZoomInAnimator.m */; };
 		BB2B9726523A57B047F419A1 /* BSPhotosController+BSItemsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B9233DF13BD7F719BC475 /* BSPhotosController+BSItemsModel.m */; };
 		BB2B992598FC83C26F7BCF0F /* ALAssetsGroup+Equal.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B9751359F9EC1A401B326 /* ALAssetsGroup+Equal.m */; };
-		BB2B992E6CA8A1A44054E161 /* BSPhotosController+Actions.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B929354F80AA90706CAF1 /* BSPhotosController+Actions.m */; };
 		BB2B9AE7469076085D5B1689 /* BSPhotosController+UITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B91B1B9E49BA2649C2CC4 /* BSPhotosController+UITableView.m */; };
 		BB2B9B4E9F4BC435FF833E97 /* BSPhotosController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B98057AD855E4FEC3A858 /* BSPhotosController.m */; };
-		BB2B9F14F8076AA93D03546E /* BSPhotosController+Properties.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B9B0CEBAE29D685FAA2F2 /* BSPhotosController+Properties.m */; };
+		BB2B9DCAF191075A0904954F /* BSCollectionController+BSItemsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B976AC6D4786AC6A996B0 /* BSCollectionController+BSItemsModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,21 +148,23 @@
 		55EC234418F1DB6A008F5A02 /* BSSpeechBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSpeechBubbleView.m; sourceTree = "<group>"; };
 		55EC234F18F2F873008F5A02 /* BSTriangleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTriangleView.h; sourceTree = "<group>"; };
 		55EC235018F2F873008F5A02 /* BSTriangleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTriangleView.m; sourceTree = "<group>"; };
+		BB2B90AF1CED4DE415FD931F /* BSZoomInAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSZoomInAnimator.m; sourceTree = "<group>"; };
 		BB2B90F9017BDA73DC835324 /* BSPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPreviewController.h; sourceTree = "<group>"; };
+		BB2B90FB1A88F5ED6BE18836 /* BSZoomOutAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSZoomOutAnimator.h; sourceTree = "<group>"; };
+		BB2B91147C9A9BC9858F630F /* BSCollectionController+BSItemsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSCollectionController+BSItemsModel.h"; sourceTree = "<group>"; };
 		BB2B912024F6ABA0C6B81DEF /* BSCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCollectionController.h; sourceTree = "<group>"; };
 		BB2B91B1B9E49BA2649C2CC4 /* BSPhotosController+UITableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSPhotosController+UITableView.m"; sourceTree = "<group>"; };
 		BB2B9233DF13BD7F719BC475 /* BSPhotosController+BSItemsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "BSPhotosController+BSItemsModel.m"; path = "../BSCollectionController/BSPhotosController+BSItemsModel.m"; sourceTree = "<group>"; };
-		BB2B929354F80AA90706CAF1 /* BSPhotosController+Actions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSPhotosController+Actions.m"; sourceTree = "<group>"; };
 		BB2B95CED0C53BD14DE767C7 /* BSCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCollectionController.m; sourceTree = "<group>"; };
 		BB2B9751359F9EC1A401B326 /* ALAssetsGroup+Equal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsGroup+Equal.m"; sourceTree = "<group>"; };
+		BB2B976AC6D4786AC6A996B0 /* BSCollectionController+BSItemsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSCollectionController+BSItemsModel.m"; sourceTree = "<group>"; };
 		BB2B977CA5245E3C60FCCCF2 /* BSPhotosController+BSItemsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BSPhotosController+BSItemsModel.h"; path = "../BSCollectionController/BSPhotosController+BSItemsModel.h"; sourceTree = "<group>"; };
+		BB2B97C6BB8931E76095B11D /* BSZoomInAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSZoomInAnimator.h; sourceTree = "<group>"; };
 		BB2B98057AD855E4FEC3A858 /* BSPhotosController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPhotosController.m; sourceTree = "<group>"; };
 		BB2B980BF19D6B2C0E05F297 /* BSPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPreviewController.m; sourceTree = "<group>"; };
-		BB2B9AB2ABDBBEC2EACB342C /* BSPhotosController+Actions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSPhotosController+Actions.h"; sourceTree = "<group>"; };
+		BB2B99BEDF8860AD297EE80D /* BSZoomOutAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSZoomOutAnimator.m; sourceTree = "<group>"; };
 		BB2B9AFB1E146FCDEF4CB3CF /* ALAssetsGroup+Equal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsGroup+Equal.h"; sourceTree = "<group>"; };
-		BB2B9B0CEBAE29D685FAA2F2 /* BSPhotosController+Properties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSPhotosController+Properties.m"; sourceTree = "<group>"; };
 		BB2B9B57F530FD9EA5747130 /* BSPhotosController+UITableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSPhotosController+UITableView.h"; sourceTree = "<group>"; };
-		BB2B9CB8369F9514C3638381 /* BSPhotosController+Properties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSPhotosController+Properties.h"; sourceTree = "<group>"; };
 		BB2B9E700546299C74447B70 /* BSCollectionController+UICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSCollectionController+UICollectionView.m"; sourceTree = "<group>"; };
 		BB2B9F6CE1322BBD50645B6D /* BSCollectionController+UICollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSCollectionController+UICollectionView.h"; sourceTree = "<group>"; };
 		BB2B9F7114419CA3D5B3BE3E /* BSPhotosController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPhotosController.h; sourceTree = "<group>"; };
@@ -314,6 +317,7 @@
 				55EC233718EF6AEB008F5A02 /* Controller */,
 				55EC233818EF6AEB008F5A02 /* Misc */,
 				55C3BE6B18EF632D00E601DE /* Supporting Files */,
+				BB2B9A354CAC089377BA84F1 /* Animator */,
 			);
 			path = BSImagePicker;
 			sourceTree = "<group>";
@@ -406,11 +410,7 @@
 				BB2B977CA5245E3C60FCCCF2 /* BSPhotosController+BSItemsModel.h */,
 				BB2B9233DF13BD7F719BC475 /* BSPhotosController+BSItemsModel.m */,
 				BB2B9B57F530FD9EA5747130 /* BSPhotosController+UITableView.h */,
-				BB2B9B0CEBAE29D685FAA2F2 /* BSPhotosController+Properties.m */,
-				BB2B9AB2ABDBBEC2EACB342C /* BSPhotosController+Actions.h */,
 				BB2B91B1B9E49BA2649C2CC4 /* BSPhotosController+UITableView.m */,
-				BB2B9CB8369F9514C3638381 /* BSPhotosController+Properties.h */,
-				BB2B929354F80AA90706CAF1 /* BSPhotosController+Actions.m */,
 			);
 			path = BSPhotosController;
 			sourceTree = "<group>";
@@ -420,8 +420,21 @@
 			children = (
 				BB2B9E700546299C74447B70 /* BSCollectionController+UICollectionView.m */,
 				BB2B9F6CE1322BBD50645B6D /* BSCollectionController+UICollectionView.h */,
+				BB2B976AC6D4786AC6A996B0 /* BSCollectionController+BSItemsModel.m */,
+				BB2B91147C9A9BC9858F630F /* BSCollectionController+BSItemsModel.h */,
 			);
 			path = BSCollectionController;
+			sourceTree = "<group>";
+		};
+		BB2B9A354CAC089377BA84F1 /* Animator */ = {
+			isa = PBXGroup;
+			children = (
+				BB2B90AF1CED4DE415FD931F /* BSZoomInAnimator.m */,
+				BB2B97C6BB8931E76095B11D /* BSZoomInAnimator.h */,
+				BB2B99BEDF8860AD297EE80D /* BSZoomOutAnimator.m */,
+				BB2B90FB1A88F5ED6BE18836 /* BSZoomOutAnimator.h */,
+			);
+			path = Animator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -622,9 +635,10 @@
 				BB2B929FDF16F341870E5B2A /* BSPreviewController.m in Sources */,
 				BB2B93DC4B697E92438D302A /* BSCollectionController+UICollectionView.m in Sources */,
 				BB2B9726523A57B047F419A1 /* BSPhotosController+BSItemsModel.m in Sources */,
-				BB2B9F14F8076AA93D03546E /* BSPhotosController+Properties.m in Sources */,
 				BB2B9AE7469076085D5B1689 /* BSPhotosController+UITableView.m in Sources */,
-				BB2B992E6CA8A1A44054E161 /* BSPhotosController+Actions.m in Sources */,
+				BB2B9DCAF191075A0904954F /* BSCollectionController+BSItemsModel.m in Sources */,
+				BB2B94F80589BF941548F2B6 /* BSZoomInAnimator.m in Sources */,
+				BB2B90909814568BB3997E1A /* BSZoomOutAnimator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

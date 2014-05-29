@@ -9,7 +9,10 @@
 #import "BSAssetsGroupModel.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface BSAssetsGroupModel ()
+@interface BSAssetsGroupModel () {
+    ALAssetsLibrary *_assetsLibrary;
+    id<BSItemsModelDelegate> _delegate;
+}
 
 @property (nonatomic, strong) NSArray *assetGroups;
 
@@ -17,31 +20,49 @@
 
 @implementation BSAssetsGroupModel
 
+- (void)setupWithParentItem:(id)parentItem {
+    if([parentItem isKindOfClass:[ALAssetsLibrary class]]) {
+        _assetsLibrary = parentItem;
+
+        NSMutableArray *mutableGroups = [[NSMutableArray alloc] init];
+
+        [_assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll
+                                      usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+            if(group) {
+                //Set saved photos album to be first in the list
+                if([[group valueForProperty:ALAssetsGroupPropertyType] isEqual:[NSNumber numberWithInteger:ALAssetsGroupSavedPhotos]]) {
+                    [mutableGroups insertObject:group atIndex:0];
+                } else {
+                    [mutableGroups addObject:group];
+                }
+            } else {
+                //Nil group == the enumeration is done
+                [self setAssetGroups:[mutableGroups copy]];
+
+                if(self.delegate) {
+                    [self.delegate didUpdateModel:self];
+                }
+            }
+        } failureBlock:^(NSError *error) {
+            //TODO: HANDLE ERROR (NO ACCESS)
+        }];
+    }
+}
+
+- (id)parentItem {
+    return _assetsLibrary;
+}
+
+- (void)setDelegate:(id<BSItemsModelDelegate>)delegate {
+    _delegate = delegate;
+}
+
+- (id<BSItemsModelDelegate>)delegate {
+    return _delegate;
+}
+
 - (void)setAssetsLibrary:(ALAssetsLibrary *)assetsLibrary {
-    _assetsLibrary = assetsLibrary;
-    
-    NSMutableArray *mutableGroups = [[NSMutableArray alloc] init];
-    
-    [_assetsLibrary enumerateGroupsWithTypes:ALAssetsGroupAll
-                                  usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-                                      if(group) {
-                                          //Set saved photos album to be first in the list
-                                          if([[group valueForProperty:ALAssetsGroupPropertyType] isEqual:[NSNumber numberWithInteger:ALAssetsGroupSavedPhotos]]) {
-                                              [mutableGroups insertObject:group atIndex:0];
-                                          } else {
-                                              [mutableGroups addObject:group];
-                                          }
-                                      } else {
-                                          //Nil group == the enumeration is done
-                                          [self setAssetGroups:[mutableGroups copy]];
-                                          
-                                          if(self.delegate) {
-                                              [self.delegate didUpdateModel:self];
-                                          }
-                                      }
-                                  } failureBlock:^(NSError *error) {
-                                      //TODO: HANDLE ERROR (NO ACCESS)
-                                  }];
+
 }
 
 #pragma mark BSItemsModel

@@ -5,28 +5,25 @@
 
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "BSPhotosController+BSItemsModel.h"
-#import "BSPhotosController+Properties.h"
-#import "BSAssetModel.h"
 
 @implementation BSPhotosController (BSItemsModel)
 
 - (void)didUpdateModel:(id<BSItemsModel>)aModel {
     if(aModel == self.tableModel) {
         NSLog(@"Reload table view");
-        [self.albumTableView reloadData];
+        [self.tableView reloadData];
 
         ALAssetsGroup *assetsGroup = [self.tableModel itemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
 
         [self.albumButton setTitle:[assetsGroup valueForProperty:ALAssetsGroupPropertyName] forState:UIControlStateNormal];
 
         //If no selected album, select the first one
-        if(!self.albumTableView.indexPathForSelectedRow) {
-            [self.assetsModel setAssetGroup:assetsGroup];
-            [self.albumTableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+        if(!self.tableView.indexPathForSelectedRow) {
+            [self.collectionModel setupWithParentItem:assetsGroup];
+            [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
         }
     } else {
-        NSLog(@"Reload collection view");
-        [self.collectionView  reloadSections:[NSIndexSet indexSetWithIndex:0]];
+        [super didUpdateModel:aModel];
     }
 }
 

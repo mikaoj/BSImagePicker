@@ -9,7 +9,6 @@
 
 @interface BSPreviewController : BSCollectionController
 
-@property (nonatomic, strong) BSPreviewCollectionViewCellFactory *previewCellFactory;
-@property (nonatomic, strong) UICollectionView *previewCollectionView;
+@property (nonatomic, strong) NSIndexPath *onViewWillAppearScrollToPath;
 
 @end

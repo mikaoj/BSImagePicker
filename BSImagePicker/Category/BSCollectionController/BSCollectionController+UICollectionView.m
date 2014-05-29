@@ -6,8 +6,6 @@
 #import "BSCollectionController+UICollectionView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "BSPhotoCell.h"
-#import "BSItemsModel.h"
-#import "BSPhotosController+Properties.h"
 #import "BSCollectionViewCellFactory.h"
 #import "BSImagePickerSettings.h"
 

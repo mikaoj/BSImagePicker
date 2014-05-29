@@ -9,31 +9,37 @@
 
 @implementation BSPreviewController
 
-- (UICollectionView *)previewCollectionView {
-    if(!_previewCollectionView) {
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        [layout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        [self setAutomaticallyAdjustsScrollViewInsets:NO];
 
-        _previewCollectionView = [[UICollectionView alloc] initWithFrame:self.view.frame collectionViewLayout:layout];
-        [_previewCollectionView setBackgroundColor:[UIColor clearColor]];
-        [_previewCollectionView setShowsHorizontalScrollIndicator:NO];
-        [_previewCollectionView setShowsVerticalScrollIndicator:NO];
-        [_previewCollectionView setAllowsMultipleSelection:YES];
-        [_previewCollectionView setPagingEnabled:YES];
-        [_previewCollectionView setAlwaysBounceHorizontal:YES];
-        
-        [_previewCollectionView setDelegate:self];
-        [_previewCollectionView setDataSource:self];
+        //Setup layout
+        [self.collectionViewFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+
+        //Setup collection view
+        [self.collectionView setShowsHorizontalScrollIndicator:NO];
+        [self.collectionView setShowsVerticalScrollIndicator:NO];
+        [self.collectionView setAllowsMultipleSelection:YES];
+        [self.collectionView setPagingEnabled:YES];
+        [self.collectionView setAlwaysBounceHorizontal:YES];
+
+        //TODO: REMOVE ME
+        [self.collectionView setBackgroundColor:[UIColor whiteColor]];
+
+        //Setup factory
+        [self setCollectionCellFactory:[[BSPreviewCollectionViewCellFactory alloc] init]];
+
+        //Register identifiers
+        [[self.collectionCellFactory class] registerCellIdentifiersForCollectionView:self.collectionView];
     }
-    
-    return _previewCollectionView;
+
+    return self;
 }
-- (BSPreviewCollectionViewCellFactory *)previewCellFactory {
-    if(!_previewCellFactory) {
-        _previewCellFactory = [[BSPreviewCollectionViewCellFactory alloc] init];
-    }
-    
-    return _previewCellFactory;
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+    [self.collectionView scrollToItemAtIndexPath:self.onViewWillAppearScrollToPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
 }
 
 @end

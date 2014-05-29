@@ -9,7 +9,10 @@
 #import "BSAssetModel.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface BSAssetModel ()
+@interface BSAssetModel () {
+    id<BSItemsModelDelegate> _delegate;
+    ALAssetsGroup *_assetsGroup;
+}
 
 @property (nonatomic, strong) NSArray *assets;
 
@@ -17,24 +20,41 @@
 
 @implementation BSAssetModel
 
+- (void)setupWithParentItem:(id)parentItem {
+    if([parentItem isKindOfClass:[ALAssetsGroup class]]) {
+        _assetsGroup = parentItem;
+
+        NSMutableArray *mutableAssets = [[NSMutableArray alloc] initWithCapacity:_assetsGroup.numberOfAssets];
+
+        [_assetsGroup enumerateAssetsWithOptions:NSEnumerationReverse
+                                      usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+            if([[result valueForProperty:@"ALAssetPropertyType"] isEqualToString:@"ALAssetTypePhoto"]) {
+                [mutableAssets addObject:result];
+            } else if(result == nil) {
+                [self setAssets:[mutableAssets copy]];
+
+                //Enumeration done
+                if(self.delegate) {
+                    [self.delegate didUpdateModel:self];
+                }
+            }
+        }];
+    }
+}
+- (id)parentItem {
+    return _assetsGroup;
+}
+
+- (void)setDelegate:(id<BSItemsModelDelegate>)delegate {
+    _delegate = delegate;
+}
+
+- (id<BSItemsModelDelegate>)delegate {
+    return _delegate;
+}
+
 - (void)setAssetGroup:(ALAssetsGroup *)assetGroup {
-    _assetGroup = assetGroup;
-    
-    NSMutableArray *mutableAssets = [[NSMutableArray alloc] initWithCapacity:_assetGroup.numberOfAssets];
-    
-    [_assetGroup enumerateAssetsWithOptions:NSEnumerationReverse
-                                 usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-                                     if([[result valueForProperty:@"ALAssetPropertyType"] isEqualToString:@"ALAssetTypePhoto"]) {
-                                         [mutableAssets addObject:result];
-                                     } else if(result == nil) {
-                                         [self setAssets:[mutableAssets copy]];
-                                         
-                                         //Enumeration done
-                                         if(self.delegate) {
-                                             [self.delegate didUpdateModel:self];
-                                         }
-                                     }
-                                 }];
+
 }
 
 #pragma mark BSItemsModel

@@ -13,7 +13,4 @@
 
 @interface BSAssetsGroupModel : NSObject <BSItemsModel>
 
-@property (nonatomic, strong) ALAssetsLibrary *assetsLibrary;
-@property (nonatomic, weak) id<BSItemsModelDelegate> delegate;
-
 @end

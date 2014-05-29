@@ -5,11 +5,6 @@
 
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "BSPhotosController+UITableView.h"
-#import "BSAlbumTableViewCellFactory.h"
-#import "BSTableViewCellFactory.h"
-#import "BSPhotosController+Properties.h"
-#import "BSAssetModel.h"
-#import "BSPhotosController+Actions.h"
 
 @implementation BSPhotosController (UITableView)
 
@@ -33,8 +28,8 @@
     ALAssetsGroup *assetsGroup = [self.tableModel itemAtIndexPath:indexPath];
 
     //Only set if we have choosen a new group
-    if(![self.assetsModel.assetGroup isEqual:assetsGroup]) {
-        [self.assetsModel setAssetGroup:assetsGroup];
+    if(![self.tableModel.parentItem isEqual:assetsGroup]) {
+        [self.collectionModel setupWithParentItem:assetsGroup];
     }
 
     [self hideAlbumView];
