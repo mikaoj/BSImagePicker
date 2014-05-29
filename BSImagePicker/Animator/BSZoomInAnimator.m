@@ -20,6 +20,9 @@
     BSPreviewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     BSPhotosController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
 
+    //Disable selection so we don't select a cell while the push animation is running
+    [fromViewController.collectionView setAllowsSelection:NO];
+
     [[transitionContext containerView] addSubview:toViewController.view];
 
     toViewController.collectionView.transform = CGAffineTransformMakeScale(0.1, 0.1);
@@ -36,6 +39,9 @@
         fromViewController.view.transform = CGAffineTransformIdentity;
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         fromViewController.view.alpha = 1.0;
+
+        //Allow selection again
+        [fromViewController.collectionView setAllowsSelection:YES];
     }];
 }
 
