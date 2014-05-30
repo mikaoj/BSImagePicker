@@ -25,7 +25,6 @@
 @implementation BSCollectionController (BSItemsModel)
 
 - (void)didUpdateModel:(id<BSItemsModel>)aModel {
-    NSLog(@"Reload collection view");
     [self.collectionView  reloadSections:[NSIndexSet indexSetWithIndex:0]];
 }
 

@@ -27,7 +27,6 @@
 
 - (void)didUpdateModel:(id<BSItemsModel>)aModel {
     if(aModel == self.tableModel) {
-        NSLog(@"Reload table view");
         [self.tableView reloadData];
 
         ALAssetsGroup *assetsGroup = [[self.tableModel selectedItems] firstObject];
