@@ -24,6 +24,11 @@
         }
     }
 
+    //Remove selections if user doesn't want to keep them
+    if(![[BSImagePickerSettings sharedSetting] keepSelection]) {
+        [self.collectionModel clearSelection];
+    }
+
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
