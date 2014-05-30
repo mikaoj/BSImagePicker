@@ -10,5 +10,6 @@
 @interface BSPreviewController : BSCollectionController
 
 @property (nonatomic, strong) NSIndexPath *onViewWillAppearScrollToPath;
+@property (nonatomic, strong) UIBarButtonItem *checkMarkButton;
 
 @end

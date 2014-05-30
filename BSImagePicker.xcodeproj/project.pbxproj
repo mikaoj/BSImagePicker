@@ -72,12 +72,14 @@
 		55EC235118F2F873008F5A02 /* BSTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EC235018F2F873008F5A02 /* BSTriangleView.m */; };
 		BB2B90909814568BB3997E1A /* BSZoomOutAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B99BEDF8860AD297EE80D /* BSZoomOutAnimator.m */; };
 		BB2B929FDF16F341870E5B2A /* BSPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B980BF19D6B2C0E05F297 /* BSPreviewController.m */; };
+		BB2B92A3E94AD0C3BF3D42D4 /* BSPhotosController+UICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B98E9E8546E358C4B1234 /* BSPhotosController+UICollectionView.m */; };
 		BB2B939921EFF103FA6E1864 /* BSPhotosController+PrivateMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B9E67E9F4DCB27DB352AF /* BSPhotosController+PrivateMethods.m */; };
 		BB2B93DC4B697E92438D302A /* BSCollectionController+UICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B9E700546299C74447B70 /* BSCollectionController+UICollectionView.m */; };
 		BB2B94E7BAF0BCCEEFAB30A3 /* BSCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B95CED0C53BD14DE767C7 /* BSCollectionController.m */; };
 		BB2B94F80589BF941548F2B6 /* BSZoomInAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B90AF1CED4DE415FD931F /* BSZoomInAnimator.m */; };
 		BB2B9726523A57B047F419A1 /* BSPhotosController+BSItemsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B9233DF13BD7F719BC475 /* BSPhotosController+BSItemsModel.m */; };
 		BB2B992598FC83C26F7BCF0F /* ALAssetsGroup+Equal.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B9751359F9EC1A401B326 /* ALAssetsGroup+Equal.m */; };
+		BB2B9A371C251850A91B9B5A /* BSPreviewController+UICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B9F743F0F09AB616E3BCD /* BSPreviewController+UICollectionView.m */; };
 		BB2B9AE7469076085D5B1689 /* BSPhotosController+UITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B91B1B9E49BA2649C2CC4 /* BSPhotosController+UITableView.m */; };
 		BB2B9B4E9F4BC435FF833E97 /* BSPhotosController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B98057AD855E4FEC3A858 /* BSPhotosController.m */; };
 		BB2B9DCAF191075A0904954F /* BSCollectionController+BSItemsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B976AC6D4786AC6A996B0 /* BSCollectionController+BSItemsModel.m */; };
@@ -158,12 +160,14 @@
 		BB2B91B1B9E49BA2649C2CC4 /* BSPhotosController+UITableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSPhotosController+UITableView.m"; sourceTree = "<group>"; };
 		BB2B9233DF13BD7F719BC475 /* BSPhotosController+BSItemsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "BSPhotosController+BSItemsModel.m"; path = "../BSCollectionController/BSPhotosController+BSItemsModel.m"; sourceTree = "<group>"; };
 		BB2B95CED0C53BD14DE767C7 /* BSCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCollectionController.m; sourceTree = "<group>"; };
+		BB2B95FBF0CC2007FECB2C2F /* BSPreviewController+UICollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSPreviewController+UICollectionView.h"; sourceTree = "<group>"; };
 		BB2B9751359F9EC1A401B326 /* ALAssetsGroup+Equal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsGroup+Equal.m"; sourceTree = "<group>"; };
 		BB2B976AC6D4786AC6A996B0 /* BSCollectionController+BSItemsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSCollectionController+BSItemsModel.m"; sourceTree = "<group>"; };
 		BB2B977CA5245E3C60FCCCF2 /* BSPhotosController+BSItemsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BSPhotosController+BSItemsModel.h"; path = "../BSCollectionController/BSPhotosController+BSItemsModel.h"; sourceTree = "<group>"; };
 		BB2B97C6BB8931E76095B11D /* BSZoomInAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSZoomInAnimator.h; sourceTree = "<group>"; };
 		BB2B98057AD855E4FEC3A858 /* BSPhotosController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPhotosController.m; sourceTree = "<group>"; };
 		BB2B980BF19D6B2C0E05F297 /* BSPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPreviewController.m; sourceTree = "<group>"; };
+		BB2B98E9E8546E358C4B1234 /* BSPhotosController+UICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSPhotosController+UICollectionView.m"; sourceTree = "<group>"; };
 		BB2B99BEDF8860AD297EE80D /* BSZoomOutAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSZoomOutAnimator.m; sourceTree = "<group>"; };
 		BB2B9AFB1E146FCDEF4CB3CF /* ALAssetsGroup+Equal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsGroup+Equal.h"; sourceTree = "<group>"; };
 		BB2B9B57F530FD9EA5747130 /* BSPhotosController+UITableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSPhotosController+UITableView.h"; sourceTree = "<group>"; };
@@ -171,6 +175,8 @@
 		BB2B9E700546299C74447B70 /* BSCollectionController+UICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSCollectionController+UICollectionView.m"; sourceTree = "<group>"; };
 		BB2B9F6CE1322BBD50645B6D /* BSCollectionController+UICollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSCollectionController+UICollectionView.h"; sourceTree = "<group>"; };
 		BB2B9F7114419CA3D5B3BE3E /* BSPhotosController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPhotosController.h; sourceTree = "<group>"; };
+		BB2B9F733665175853AEAA5E /* BSPhotosController+UICollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSPhotosController+UICollectionView.h"; sourceTree = "<group>"; };
+		BB2B9F743F0F09AB616E3BCD /* BSPreviewController+UICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSPreviewController+UICollectionView.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +275,7 @@
 				BB2B9AFB1E146FCDEF4CB3CF /* ALAssetsGroup+Equal.h */,
 				BB2B95610ABCEF708B82FD10 /* BSPhotosController */,
 				BB2B98487096DCF720E55BB5 /* BSCollectionController */,
+				BB2B95282F0FFF83A04B49B5 /* BSPreviewController */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -407,6 +414,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		BB2B95282F0FFF83A04B49B5 /* BSPreviewController */ = {
+			isa = PBXGroup;
+			children = (
+				BB2B9F743F0F09AB616E3BCD /* BSPreviewController+UICollectionView.m */,
+				BB2B95FBF0CC2007FECB2C2F /* BSPreviewController+UICollectionView.h */,
+			);
+			path = BSPreviewController;
+			sourceTree = "<group>";
+		};
 		BB2B95610ABCEF708B82FD10 /* BSPhotosController */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,6 +432,8 @@
 				BB2B91B1B9E49BA2649C2CC4 /* BSPhotosController+UITableView.m */,
 				BB2B9E67E9F4DCB27DB352AF /* BSPhotosController+PrivateMethods.m */,
 				BB2B9033028BA2F8F9C5F5BA /* BSPhotosController+PrivateMethods.h */,
+				BB2B98E9E8546E358C4B1234 /* BSPhotosController+UICollectionView.m */,
+				BB2B9F733665175853AEAA5E /* BSPhotosController+UICollectionView.h */,
 			);
 			path = BSPhotosController;
 			sourceTree = "<group>";
@@ -645,6 +663,8 @@
 				BB2B94F80589BF941548F2B6 /* BSZoomInAnimator.m in Sources */,
 				BB2B90909814568BB3997E1A /* BSZoomOutAnimator.m in Sources */,
 				BB2B939921EFF103FA6E1864 /* BSPhotosController+PrivateMethods.m in Sources */,
+				BB2B92A3E94AD0C3BF3D42D4 /* BSPhotosController+UICollectionView.m in Sources */,
+				BB2B9A371C251850A91B9B5A /* BSPreviewController+UICollectionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

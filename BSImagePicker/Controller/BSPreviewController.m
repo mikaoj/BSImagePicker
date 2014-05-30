@@ -3,10 +3,11 @@
 // Copyright (c) 2014 Joakim Gyllström. All rights reserved.
 //
 
-#import <AssetsLibrary/AssetsLibrary.h>
 #import "BSPreviewController.h"
+#import "BSCollectionController+UICollectionView.h"
 #import "BSPreviewCollectionViewCellFactory.h"
 #import "BSPhotoCell.h"
+#import "BSCheckmarkView.h"
 
 @implementation BSPreviewController
 
@@ -52,10 +53,16 @@
     } completion:nil];
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    BSPhotoCell *cell = (BSPhotoCell *)[self.collectionCellFactory cellAtIndexPath:indexPath forCollectionView:collectionView withModel:self.collectionModel];
+#pragma mark - Lazy load
 
-    return cell;
+- (UIBarButtonItem *)checkMarkButton {
+    if(!_checkMarkButton) {
+        BSCheckmarkView *checkmarkView = [[BSCheckmarkView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+        [checkmarkView setBackgroundColor:[UIColor clearColor]];
+        _checkMarkButton = [[UIBarButtonItem alloc] initWithCustomView:checkmarkView];
+    }
+
+    return _checkMarkButton;
 }
 
 @end

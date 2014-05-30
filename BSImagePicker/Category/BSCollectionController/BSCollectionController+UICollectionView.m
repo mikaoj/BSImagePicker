@@ -54,11 +54,6 @@
     //Remove item
     [self.collectionModel deselectItemAtIndexPath:indexPath];
 
-    //Disable done button
-    if([self.collectionModel.selectedItems count] == 0) {
-        [self.navigationItem.rightBarButtonItem setEnabled:NO];
-    }
-
     if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
         ALAsset *asset = [self.collectionModel itemAtIndexPath:indexPath];
         [BSImagePickerSettings sharedSetting].toggleBlock(asset, NO);
@@ -68,11 +63,6 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     //Add item
     [self.collectionModel selectItemAtIndexPath:indexPath];
-
-    //Enable done button
-    if([self.collectionModel.selectedItems count] > 0) {
-        [self.navigationItem.rightBarButtonItem setEnabled:YES];
-    }
 
     if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
         ALAsset *asset = [self.collectionModel itemAtIndexPath:indexPath];
