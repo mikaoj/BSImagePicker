@@ -30,11 +30,4 @@
 @property (nonatomic, strong) BSZoomInAnimator *zoomInAnimator;
 @property (nonatomic, strong) BSZoomOutAnimator *zoomOutAnimator;
 
-//TODO: MOVE THESE TO CATEGORY
-- (void)finishButtonPressed:(id)sender;
-- (void)albumButtonPressed:(id)sender;
-- (void)showAlbumView;
-- (void)hideAlbumView;
-- (void)itemLongPressed:(UIGestureRecognizer *)recognizer;
-
 @end

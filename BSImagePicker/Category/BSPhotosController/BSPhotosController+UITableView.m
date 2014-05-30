@@ -3,7 +3,7 @@
 // Copyright (c) 2014 Joakim Gyllström. All rights reserved.
 //
 
-#import <AssetsLibrary/AssetsLibrary.h>
+#import "BSPhotosController+PrivateMethods.h"
 #import "BSPhotosController+UITableView.h"
 
 @implementation BSPhotosController (UITableView)
