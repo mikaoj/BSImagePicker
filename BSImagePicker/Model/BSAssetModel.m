@@ -15,6 +15,7 @@
 }
 
 @property (nonatomic, strong) NSArray *assets;
+@property (nonatomic, strong) NSMutableSet *selectedAssets;
 
 @end
 
@@ -53,11 +54,7 @@
     return _delegate;
 }
 
-- (void)setAssetGroup:(ALAssetsGroup *)assetGroup {
-
-}
-
-#pragma mark BSItemsModel
+#pragma mark - BSItemsModel
 
 - (NSUInteger)numberOfSections {
     return 1;
@@ -81,6 +78,35 @@
     }
     
     return anObject;
+}
+
+#pragma mark - Selection
+
+- (BOOL)isItemAtIndexPathSelected:(NSIndexPath *)anIndexPath {
+    return [self.selectedAssets containsObject:[self itemAtIndexPath:anIndexPath]];
+}
+
+- (void)selectItemAtIndexPath:(NSIndexPath *)anIndexPath {
+    [self.selectedAssets addObject:[self itemAtIndexPath:anIndexPath]];
+}
+- (void)deselectItemAtIndexPath:(NSIndexPath *)anIndexPath {
+    [self.selectedAssets removeObject:[self itemAtIndexPath:anIndexPath]];
+}
+- (void)clearSelection {
+    [self.selectedAssets removeAllObjects];
+}
+- (NSArray *)selectedItems {
+    return [self.selectedAssets allObjects];
+}
+
+#pragma mark - Lazy load
+
+- (NSMutableSet *)selectedAssets {
+    if(!_selectedAssets) {
+        _selectedAssets = [[NSMutableSet alloc] init];
+    }
+
+    return _selectedAssets;
 }
 
 @end

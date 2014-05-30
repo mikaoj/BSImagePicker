@@ -22,14 +22,6 @@
 
 #pragma mark - Lazy load
 
-- (NSMutableArray *)selectedItems {
-    if(!_selectedItems) {
-        _selectedItems = [[NSMutableArray alloc] init];
-    }
-    
-    return _selectedItems;
-}
-
 - (id<BSItemsModel>)collectionModel {
     if(!_collectionModel) {
         _collectionModel = [[BSAssetModel alloc] init];

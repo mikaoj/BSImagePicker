@@ -15,6 +15,4 @@
 @property (nonatomic, strong) id<BSItemsModel> collectionModel;
 @property (nonatomic, strong) id<BSCollectionViewCellFactory> collectionCellFactory;
 
-@property (nonatomic, strong) NSMutableArray *selectedItems;
-
 @end

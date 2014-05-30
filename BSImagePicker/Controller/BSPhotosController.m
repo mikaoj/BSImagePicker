@@ -55,7 +55,7 @@
     [self.navigationItem setTitleView:self.albumButton];
 
     //Enable/disable done button
-    if([self.selectedItems count] > 0) {
+    if([self.collectionModel.selectedItems count] > 0) {
         [self.doneButton setEnabled:YES];
     } else {
         [self.doneButton setEnabled:NO];
@@ -81,11 +81,11 @@
     //Cancel or finish? Call correct block!
     if(sender == self.cancelButton) {
         if([[BSImagePickerSettings sharedSetting] cancelBlock]) {
-            [BSImagePickerSettings sharedSetting].cancelBlock([self.selectedItems copy]);
+            [BSImagePickerSettings sharedSetting].cancelBlock([self.collectionModel.selectedItems copy]);
         }
     } else {
         if([[BSImagePickerSettings sharedSetting] finishBlock]) {
-            [BSImagePickerSettings sharedSetting].finishBlock([self.selectedItems copy]);
+            [BSImagePickerSettings sharedSetting].finishBlock([self.collectionModel.selectedItems copy]);
         }
     }
 
@@ -163,7 +163,6 @@
 
         [self.zoomInAnimator setAnimateToRect:cell.frame];
         [self.previewController setCollectionModel:self.collectionModel];
-        [self.previewController setSelectedItems:self.selectedItems];
         [self.previewController setOnViewWillAppearScrollToPath:indexPath];
         [self.navigationController pushViewController:self.previewController animated:YES];
 

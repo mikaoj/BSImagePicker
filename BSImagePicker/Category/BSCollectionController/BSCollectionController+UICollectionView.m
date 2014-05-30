@@ -24,8 +24,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     BSPhotoCell *cell = (BSPhotoCell *)[self.collectionCellFactory cellAtIndexPath:indexPath forCollectionView:collectionView withModel:self.collectionModel];
 
-    ALAsset *asset = [self.collectionModel itemAtIndexPath:indexPath];
-    if([self.selectedItems containsObject:asset]) {
+    if([self.collectionModel isItemAtIndexPathSelected:indexPath]) {
         [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
         [cell setSelected:YES animated:NO];
     }
@@ -44,7 +43,7 @@
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.selectedItems count] < [[BSImagePickerSettings sharedSetting] maximumNumberOfImages];
+    return [self.collectionModel.selectedItems count] < [[BSImagePickerSettings sharedSetting] maximumNumberOfImages];
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -52,33 +51,31 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    ALAsset *asset = [self.collectionModel itemAtIndexPath:indexPath];
-
     //Remove item
-    [self.selectedItems removeObject:asset];
+    [self.collectionModel deselectItemAtIndexPath:indexPath];
 
     //Disable done button
-    if([self.selectedItems count] == 0) {
+    if([self.collectionModel.selectedItems count] == 0) {
         [self.navigationItem.rightBarButtonItem setEnabled:NO];
     }
 
     if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
+        ALAsset *asset = [self.collectionModel itemAtIndexPath:indexPath];
         [BSImagePickerSettings sharedSetting].toggleBlock(asset, NO);
     }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    ALAsset *asset = [self.collectionModel itemAtIndexPath:indexPath];
-
     //Add item
-    [self.selectedItems addObject:asset];
+    [self.collectionModel selectItemAtIndexPath:indexPath];
 
     //Enable done button
-    if([self.selectedItems count] > 0) {
+    if([self.collectionModel.selectedItems count] > 0) {
         [self.navigationItem.rightBarButtonItem setEnabled:YES];
     }
 
     if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
+        ALAsset *asset = [self.collectionModel itemAtIndexPath:indexPath];
         [BSImagePickerSettings sharedSetting].toggleBlock(asset, YES);
     }
 }

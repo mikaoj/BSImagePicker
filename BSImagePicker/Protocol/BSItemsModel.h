@@ -34,4 +34,10 @@
 - (NSUInteger)numberOfItemsInSection:(NSUInteger)aSection;
 - (id)itemAtIndexPath:(NSIndexPath *)anIndexPath;
 
+- (BOOL)isItemAtIndexPathSelected:(NSIndexPath *)anIndexPath;
+- (void)selectItemAtIndexPath:(NSIndexPath *)anIndexPath;
+- (void)deselectItemAtIndexPath:(NSIndexPath *)anIndexPath;
+- (void)clearSelection;
+- (NSArray *)selectedItems;
+
 @end

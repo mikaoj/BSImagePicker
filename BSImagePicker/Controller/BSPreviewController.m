@@ -55,10 +55,6 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     BSPhotoCell *cell = (BSPhotoCell *)[self.collectionCellFactory cellAtIndexPath:indexPath forCollectionView:collectionView withModel:self.collectionModel];
 
-    ALAsset *asset = [self.collectionModel itemAtIndexPath:indexPath];
-    if([self.selectedItems containsObject:asset]) {
-    }
-
     return cell;
 }
 

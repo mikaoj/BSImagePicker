@@ -13,15 +13,11 @@
         NSLog(@"Reload table view");
         [self.tableView reloadData];
 
-        ALAssetsGroup *assetsGroup = [self.tableModel itemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        ALAssetsGroup *assetsGroup = [[self.tableModel selectedItems] firstObject];
 
         [self.albumButton setTitle:[assetsGroup valueForProperty:ALAssetsGroupPropertyName] forState:UIControlStateNormal];
 
-        //If no selected album, select the first one
-        if(!self.tableView.indexPathForSelectedRow) {
-            [self.collectionModel setupWithParentItem:assetsGroup];
-            [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-        }
+        [self.collectionModel setupWithParentItem:assetsGroup];
     } else {
         [super didUpdateModel:aModel];
     }

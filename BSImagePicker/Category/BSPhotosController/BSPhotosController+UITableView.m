@@ -17,7 +17,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.tableCellFactory cellAtIndexPath:indexPath forTableView:tableView withModel:self.tableModel];
+    UITableViewCell *cell = [self.tableCellFactory cellAtIndexPath:indexPath forTableView:tableView withModel:self.tableModel];
+
+    if([self.tableModel isItemAtIndexPathSelected:indexPath]) {
+        [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+        [cell setSelected:YES];
+    }
+
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -25,11 +32,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    ALAssetsGroup *assetsGroup = [self.tableModel itemAtIndexPath:indexPath];
+    id item = [self.tableModel itemAtIndexPath:indexPath];
 
     //Only set if we have choosen a new group
-    if(![self.tableModel.parentItem isEqual:assetsGroup]) {
-        [self.collectionModel setupWithParentItem:assetsGroup];
+    if(![item isEqual:[self.tableModel.selectedItems firstObject]]) {
+        [self.tableModel selectItemAtIndexPath:indexPath];
+        [self.collectionModel setupWithParentItem:[self.tableModel.selectedItems firstObject]];
     }
 
     [self hideAlbumView];

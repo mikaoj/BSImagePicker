@@ -15,6 +15,7 @@
 }
 
 @property (nonatomic, strong) NSArray *assetGroups;
+@property (nonatomic, strong) ALAssetsGroup *selectedGroup;
 
 @end
 
@@ -37,6 +38,12 @@
                 }
             } else {
                 //Nil group == the enumeration is done
+
+                //Set selected group to the first album if no previous selection had been made
+                if(!self.selectedGroup) {
+                    [self setSelectedGroup:[mutableGroups firstObject]];
+                }
+
                 [self setAssetGroups:[mutableGroups copy]];
 
                 if(self.delegate) {
@@ -59,10 +66,6 @@
 
 - (id<BSItemsModelDelegate>)delegate {
     return _delegate;
-}
-
-- (void)setAssetsLibrary:(ALAssetsLibrary *)assetsLibrary {
-
 }
 
 #pragma mark BSItemsModel
@@ -89,6 +92,27 @@
     }
     
     return anObject;
+}
+
+#pragma mark - Selection
+
+- (BOOL)isItemAtIndexPathSelected:(NSIndexPath *)anIndexPath {
+    return [self.selectedGroup isEqual:[self itemAtIndexPath:anIndexPath]];
+}
+
+- (void)selectItemAtIndexPath:(NSIndexPath *)anIndexPath {
+    [self setSelectedGroup:[self itemAtIndexPath:anIndexPath]];
+
+    if(self.delegate) {
+        [self.delegate didUpdateModel:self];
+    }
+}
+- (void)deselectItemAtIndexPath:(NSIndexPath *)anIndexPath { }
+
+- (void)clearSelection { }
+
+- (NSArray *)selectedItems {
+    return [NSArray arrayWithObject:self.selectedGroup];
 }
 
 @end
