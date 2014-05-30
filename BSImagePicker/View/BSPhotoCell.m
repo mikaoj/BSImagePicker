@@ -21,7 +21,6 @@
 // SOFTWARE.
 
 #import "BSPhotoCell.h"
-#import "BSCheckmarkView.h"
 
 @interface BSPhotoCell ()
 

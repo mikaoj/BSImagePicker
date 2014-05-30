@@ -23,7 +23,6 @@
 #import "BSZoomOutAnimator.h"
 #import "BSPhotosController.h"
 
-
 @implementation BSZoomOutAnimator
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext
@@ -33,8 +32,8 @@
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
-    BSPhotosController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    BSPreviewController*fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    BSPhotosController *toViewController = (BSPhotosController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    BSPreviewController*fromViewController = (BSPreviewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
 
     [[transitionContext containerView] addSubview:toViewController.view];
     [[transitionContext containerView] addSubview:fromViewController.view];

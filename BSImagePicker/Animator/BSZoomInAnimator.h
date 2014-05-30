@@ -20,9 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <Foundation/Foundation.h>
-
-
 @interface BSZoomInAnimator : NSObject <UIViewControllerAnimatedTransitioning>
 
 @property (nonatomic, assign) CGRect animateToRect;

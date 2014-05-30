@@ -22,7 +22,6 @@
 
 #import "BSCollectionController+BSItemsModel.h"
 
-
 @implementation BSCollectionController (BSItemsModel)
 
 - (void)didUpdateModel:(id<BSItemsModel>)aModel {

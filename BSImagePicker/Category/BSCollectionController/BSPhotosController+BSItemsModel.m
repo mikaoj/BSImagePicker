@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <AssetsLibrary/AssetsLibrary.h>
 #import "BSPhotosController+BSItemsModel.h"
+#import "BSCollectionController+BSItemsModel.h"
 
 @implementation BSPhotosController (BSItemsModel)
 

@@ -21,9 +21,7 @@
 // SOFTWARE.
 
 #import "BSPreviewController.h"
-#import "BSCollectionController+UICollectionView.h"
 #import "BSPreviewCollectionViewCellFactory.h"
-#import "BSPhotoCell.h"
 #import "BSCheckmarkView.h"
 
 @interface BSPreviewController ()

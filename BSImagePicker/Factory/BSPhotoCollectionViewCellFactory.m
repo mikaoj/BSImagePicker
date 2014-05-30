@@ -22,7 +22,6 @@
 
 #import "BSPhotoCollectionViewCellFactory.h"
 #import "BSPhotoCell.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 
 static NSString *kPhotoCellIdentifier =             @"photoCellIdentifier";
 

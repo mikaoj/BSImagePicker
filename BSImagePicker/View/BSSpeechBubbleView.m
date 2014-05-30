@@ -23,7 +23,6 @@
 #import "BSSpeechBubbleView.h"
 #import "BSTriangleView.h"
 
-
 @interface BSSpeechBubbleView ()
 
 @property (nonatomic, strong) BSTriangleView *triangle;

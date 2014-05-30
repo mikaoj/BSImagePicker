@@ -22,8 +22,6 @@
 
 #import "BSCollectionController.h"
 
-@class BSPreviewCollectionViewCellFactory;
-
 @interface BSPreviewController : BSCollectionController
 
 @property (nonatomic, strong) NSIndexPath *onViewWillAppearScrollToPath;

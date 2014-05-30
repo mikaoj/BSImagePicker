@@ -34,8 +34,8 @@
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
-    BSPreviewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    BSPhotosController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    BSPreviewController *toViewController = (BSPreviewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    BSPhotosController *fromViewController = (BSPhotosController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
 
     //Disable selection so we don't select a cell while the push animation is running
     [fromViewController.collectionView setAllowsSelection:NO];

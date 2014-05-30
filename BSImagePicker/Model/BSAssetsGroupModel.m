@@ -21,7 +21,6 @@
 // SOFTWARE.
 
 #import "BSAssetsGroupModel.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface BSAssetsGroupModel () {
     ALAssetsLibrary *_assetsLibrary;

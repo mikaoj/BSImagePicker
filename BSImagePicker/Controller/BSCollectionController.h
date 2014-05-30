@@ -20,10 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <Foundation/Foundation.h>
 #import "BSItemsModel.h"
-
-@protocol BSCollectionViewCellFactory;
+#import "BSCollectionViewCellFactory.h"
 
 @interface BSCollectionController : UIViewController
 

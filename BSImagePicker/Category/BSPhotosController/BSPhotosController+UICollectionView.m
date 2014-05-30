@@ -22,8 +22,6 @@
 
 #import "BSPhotosController+UICollectionView.h"
 #import "BSCollectionController+UICollectionView.h"
-#import "BSCollectionViewCellFactory.h"
-#import "BSPhotoCell.h"
 
 @implementation BSPhotosController (UICollectionView)
 

@@ -21,9 +21,6 @@
 // SOFTWARE.
 
 #import "BSItemsModel.h"
-#import "BSItemsModelDelegate.h"
-
-@class ALAssetsLibrary;
 
 @interface BSAssetsGroupModel : NSObject <BSItemsModel>
 

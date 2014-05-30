@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <Foundation/Foundation.h>
 #import "BSCollectionController.h"
+#import "BSItemsModelDelegate.h"
 
 @interface BSCollectionController (BSItemsModel) <BSItemsModelDelegate>
 @end

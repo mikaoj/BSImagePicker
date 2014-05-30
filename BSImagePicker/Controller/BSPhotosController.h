@@ -22,12 +22,10 @@
 
 #import "BSCollectionController.h"
 #import "BSTableViewCellFactory.h"
+#import "BSSpeechBubbleView.h"
 #import "BSPreviewController.h"
-#import "BSZoomInAnimator.h"
 #import "BSZoomOutAnimator.h"
-
-@class BSAlbumTableViewCellFactory;
-@class BSSpeechBubbleView;
+#import "BSZoomInAnimator.h"
 
 @interface BSPhotosController : BSCollectionController
 

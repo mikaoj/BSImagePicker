@@ -22,7 +22,6 @@
 
 #import "ALAssetsGroup+Equal.h"
 
-
 @implementation ALAssetsGroup (Equal)
 
 - (BOOL)isEqual:(id)obj

@@ -21,9 +21,6 @@
 // SOFTWARE.
 
 #import "BSPhotosController+PrivateMethods.h"
-#import "BSImagePickerSettings.h"
-#import "BSSpeechBubbleView.h"
-
 
 @implementation BSPhotosController (PrivateMethods)
 

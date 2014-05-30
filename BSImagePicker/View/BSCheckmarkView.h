@@ -21,8 +21,6 @@
 // SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface BSCheckmarkView : UIView
 
 @end

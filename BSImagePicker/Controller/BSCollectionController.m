@@ -21,10 +21,10 @@
 // SOFTWARE.
 
 #import "BSCollectionController.h"
-#import "BSCollectionViewCellFactory.h"
-#import "BSCollectionController+UICollectionView.h"
-#import "BSPhotoCollectionViewCellFactory.h"
 #import "BSAssetModel.h"
+#import "BSPhotoCollectionViewCellFactory.h"
+#import "BSCollectionController+BSItemsModel.h"
+#import "BSCollectionController+UICollectionView.h"
 
 @implementation BSCollectionController
 

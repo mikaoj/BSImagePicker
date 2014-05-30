@@ -22,7 +22,6 @@
 
 #import "BSPreviewController+UICollectionView.h"
 #import "BSCollectionController+UICollectionView.h"
-#import "BSCollectionViewCellFactory.h"
 
 @implementation BSPreviewController (UICollectionView)
 

@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import "BSPhotosController+PrivateMethods.h"
 #import "BSPhotosController+UITableView.h"
+#import "BSPhotosController+PrivateMethods.h"
 
 @implementation BSPhotosController (UITableView)
 
