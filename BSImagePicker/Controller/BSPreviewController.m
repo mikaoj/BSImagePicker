@@ -9,6 +9,12 @@
 #import "BSPhotoCell.h"
 #import "BSCheckmarkView.h"
 
+@interface BSPreviewController ()
+
+- (void)toggleCheckMarkForIndexPath:(NSIndexPath *)anIndexPath;
+
+@end
+
 @implementation BSPreviewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -53,6 +59,12 @@
     } completion:nil];
 }
 
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [self toggleCheckMarkForIndexPath:[NSIndexPath indexPathForItem:round(scrollView.contentOffset.x / scrollView.frame.size.width) inSection:0]];
+}
+
 #pragma mark - Lazy load
 
 - (UIBarButtonItem *)checkMarkButton {
@@ -63,6 +75,19 @@
     }
 
     return _checkMarkButton;
+}
+
+- (void)toggleCheckMarkForIndexPath:(NSIndexPath *)anIndexPath {
+    BOOL isSelected = [self.collectionModel isItemAtIndexPathSelected:anIndexPath];
+    BOOL isCheckmarkVisible = self.navigationItem.rightBarButtonItem != nil;
+
+    if(isSelected != isCheckmarkVisible) {
+        if(isSelected) {
+            [self.navigationItem setRightBarButtonItem:self.checkMarkButton animated:YES];
+        } else {
+            [self.navigationItem setRightBarButtonItem:nil animated:YES];
+        }
+    }
 }
 
 @end
