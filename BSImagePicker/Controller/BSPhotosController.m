@@ -25,7 +25,6 @@
 #import "BSAlbumTableViewCellFactory.h"
 #import "BSPhotosController+PrivateMethods.h"
 #import "BSPhotosController+BSItemsModel.h"
-#import "BSPhotosController+UICollectionView.h"
 #import "BSPhotosController+UITableView.h"
 
 @interface BSPhotosController () <UINavigationControllerDelegate>

@@ -21,7 +21,6 @@
 // SOFTWARE.
 
 #import "BSAssetModel.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface BSAssetModel () {
     id<BSItemsModelDelegate> _delegate;

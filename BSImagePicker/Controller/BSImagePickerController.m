@@ -22,7 +22,6 @@
 
 #import "BSImagePickerController.h"
 #import "BSPhotosController.h"
-#import "BSImagePickerSettings.h"
 
 @interface BSImagePickerController ()
 
