@@ -54,7 +54,6 @@
     //Only set if we have choosen a new group
     if(![item isEqual:[self.tableModel.selectedItems firstObject]]) {
         [self.tableModel selectItemAtIndexPath:indexPath];
-        [self.collectionModel setupWithParentItem:[self.tableModel.selectedItems firstObject]];
     }
 
     [self hideAlbumView];
