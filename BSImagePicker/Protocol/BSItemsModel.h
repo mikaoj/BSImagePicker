@@ -20,15 +20,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <Availability.h>
+#import "BSItemsModelDelegate.h"
 
-#ifndef __IPHONE_3_0
-#warning "This project uses features only available in iOS SDK 3.0 and later."
-#endif
+@protocol BSItemsModel <NSObject>
 
-#ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-    #import <AssetsLibrary/AssetsLibrary.h>
-    #import "BSImagePickerSettings.h"
-#endif
+- (void)setupWithParentItem:(id)parentItem;
+- (id)parentItem;
+
+- (void)setDelegate:(id<BSItemsModelDelegate>)delegate;
+- (id<BSItemsModelDelegate>)delegate;
+
+- (NSUInteger)numberOfSections;
+- (NSUInteger)numberOfItemsInSection:(NSUInteger)aSection;
+- (id)itemAtIndexPath:(NSIndexPath *)anIndexPath;
+
+- (BOOL)isItemAtIndexPathSelected:(NSIndexPath *)anIndexPath;
+- (void)selectItemAtIndexPath:(NSIndexPath *)anIndexPath;
+- (void)deselectItemAtIndexPath:(NSIndexPath *)anIndexPath;
+- (void)clearSelection;
+- (NSArray *)selectedItems;
+
+@end

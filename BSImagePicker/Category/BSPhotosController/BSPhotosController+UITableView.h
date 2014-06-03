@@ -20,13 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "BSPhotosController.h"
 
-@class ALAssetsGroup;
-@interface BSImagePreviewController : UIViewController
-
-@property (nonatomic, assign) NSUInteger currentAssetIndex;
-@property (nonatomic, weak) NSArray *photos;
-@property (nonatomic, weak) NSMutableArray *selectedPhotos;
-
+@interface BSPhotosController (UITableView) <UITableViewDataSource, UITableViewDelegate>
 @end

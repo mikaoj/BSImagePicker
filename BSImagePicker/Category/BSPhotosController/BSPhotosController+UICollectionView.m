@@ -20,15 +20,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <Availability.h>
+#import "BSPhotosController+UICollectionView.h"
+#import "BSCollectionController+UICollectionView.h"
 
-#ifndef __IPHONE_3_0
-#warning "This project uses features only available in iOS SDK 3.0 and later."
-#endif
+@implementation BSPhotosController (UICollectionView)
 
-#ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-    #import <AssetsLibrary/AssetsLibrary.h>
-    #import "BSImagePickerSettings.h"
-#endif
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [super collectionView:collectionView didDeselectItemAtIndexPath:indexPath];
+
+    //Disable done button
+    if([self.collectionModel.selectedItems count] == 0) {
+        [self.navigationItem.rightBarButtonItem setEnabled:NO];
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
+
+    //Enable done button
+    if([self.collectionModel.selectedItems count] > 0) {
+        [self.navigationItem.rightBarButtonItem setEnabled:YES];
+    }
+}
+
+@end

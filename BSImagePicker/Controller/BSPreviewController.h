@@ -20,11 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "BSCollectionController.h"
 
-@interface BSPreviewCell : UICollectionViewCell
+@interface BSPreviewController : BSCollectionController
 
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) NSIndexPath *onViewWillAppearScrollToPath;
+@property (nonatomic, strong) UIBarButtonItem *checkMarkButton;
 
 @end

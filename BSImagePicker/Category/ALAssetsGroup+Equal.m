@@ -20,15 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <Availability.h>
+#import "ALAssetsGroup+Equal.h"
 
-#ifndef __IPHONE_3_0
-#warning "This project uses features only available in iOS SDK 3.0 and later."
-#endif
+@implementation ALAssetsGroup (Equal)
 
-#ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-    #import <AssetsLibrary/AssetsLibrary.h>
-    #import "BSImagePickerSettings.h"
-#endif
+- (BOOL)isEqual:(id)obj
+{
+    if(![obj isKindOfClass:[ALAssetsGroup class]]) {
+        return NO;
+    }
+
+    NSURL *firstUrl = [self valueForProperty:ALAssetsGroupPropertyURL];
+    NSURL *secondUrl = [obj valueForProperty:ALAssetsGroupPropertyURL];
+
+    return ([firstUrl isEqual:secondUrl]);
+}
+
+@end

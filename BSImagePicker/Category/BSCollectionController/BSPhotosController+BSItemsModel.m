@@ -20,15 +20,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <Availability.h>
+#import "BSPhotosController+BSItemsModel.h"
+#import "BSCollectionController+BSItemsModel.h"
 
-#ifndef __IPHONE_3_0
-#warning "This project uses features only available in iOS SDK 3.0 and later."
-#endif
+@implementation BSPhotosController (BSItemsModel)
 
-#ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-    #import <AssetsLibrary/AssetsLibrary.h>
-    #import "BSImagePickerSettings.h"
-#endif
+- (void)didUpdateModel:(id<BSItemsModel>)aModel {
+    if(aModel == self.tableModel) {
+        [self.tableView reloadData];
+
+        ALAssetsGroup *assetsGroup = [[self.tableModel selectedItems] firstObject];
+
+        [self.albumButton setTitle:[assetsGroup valueForProperty:ALAssetsGroupPropertyName] forState:UIControlStateNormal];
+
+        [self.collectionModel setupWithParentItem:assetsGroup];
+    } else {
+        [super didUpdateModel:aModel];
+    }
+}
+
+@end

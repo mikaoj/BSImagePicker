@@ -21,7 +21,6 @@
 // SOFTWARE.
 
 #import "BSAlbumCell.h"
-#import <QuartzCore/QuartzCore.h>
 
 @interface BSAlbumCell ()
 

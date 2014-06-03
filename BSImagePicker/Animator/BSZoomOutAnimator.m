@@ -21,6 +21,7 @@
 // SOFTWARE.
 
 #import "BSZoomOutAnimator.h"
+#import "BSPhotosController.h"
 
 @implementation BSZoomOutAnimator
 
@@ -31,21 +32,22 @@
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
 {
-    UIViewController* toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIViewController* fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    BSPhotosController *toViewController = (BSPhotosController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    BSPreviewController*fromViewController = (BSPreviewController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+
     [[transitionContext containerView] addSubview:toViewController.view];
-    toViewController.view.alpha = 0;
-    
+    [[transitionContext containerView] addSubview:fromViewController.view];
+
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-        fromViewController.view.transform = CGAffineTransformMakeScale(0.1, 0.1);
-        toViewController.view.alpha = 1;
-        fromViewController.view.alpha = 0;
+        fromViewController.view.transform = CGAffineTransformMakeScale(0.0, 0.0);
+        fromViewController.view.alpha = 0.0;
     } completion:^(BOOL finished) {
         fromViewController.view.transform = CGAffineTransformIdentity;
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-        
+        fromViewController.view.alpha = 1.0;
+
     }];
-    
+
 }
 
 @end

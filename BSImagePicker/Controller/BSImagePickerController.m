@@ -21,25 +21,20 @@
 // SOFTWARE.
 
 #import "BSImagePickerController.h"
-#import "BSImageSelectionController.h"
+#import "BSPhotosController.h"
 
 @interface BSImagePickerController ()
 
-@property (nonatomic, strong) BSImageSelectionController *imagePicker;
+@property (nonatomic, strong) BSPhotosController *imagePicker;
 
 @end
 
 @implementation BSImagePickerController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        //Default to shitloads of images
-        _maximumNumberOfImages = NSUIntegerMax;
-        
         [self.view setBackgroundColor:[UIColor whiteColor]];
-        
         [self pushViewController:self.imagePicker animated:NO];
     }
     return self;
@@ -47,13 +42,86 @@
 
 #pragma mark - Lazy load
 
-- (BSImageSelectionController *)imagePicker
-{
+- (BSPhotosController *)imagePicker {
     if(!_imagePicker) {
-        _imagePicker = [[BSImageSelectionController alloc] init];
+        _imagePicker = [[BSPhotosController alloc] init];
     }
     
     return _imagePicker;
+}
+
+#pragma mark - Settings forward
+
+- (NSUInteger)maximumNumberOfImages {
+    return [[BSImagePickerSettings sharedSetting] maximumNumberOfImages];
+}
+
+- (void)setMaximumNumberOfImages:(NSUInteger)maximumNumberOfImages {
+    [[BSImagePickerSettings sharedSetting] setMaximumNumberOfImages:maximumNumberOfImages];
+}
+
+- (BSImageToggleBlock)toggleBlock {
+    return [[BSImagePickerSettings sharedSetting] toggleBlock];
+}
+
+- (void)setToggleBlock:(BSImageToggleBlock)toggleBlock {
+    [[BSImagePickerSettings sharedSetting] setToggleBlock:toggleBlock];
+}
+
+- (BSImageGroupBlock)cancelBlock {
+    return [[BSImagePickerSettings sharedSetting] cancelBlock];
+}
+
+- (void)setCancelBlock:(BSImageGroupBlock)cancelBlock {
+    [[BSImagePickerSettings sharedSetting] setCancelBlock:cancelBlock];
+}
+
+- (BSImageGroupBlock)finishBlock {
+    return [[BSImagePickerSettings sharedSetting] finishBlock];
+}
+
+- (void)setFinishBlock:(BSImageGroupBlock)finishBlock {
+    [[BSImagePickerSettings sharedSetting] setFinishBlock:finishBlock];
+}
+
+- (BOOL)previewDisabled {
+    return [[BSImagePickerSettings sharedSetting] previewDisabled];
+}
+
+- (void)setPreviewDisabled:(BOOL)previewDisabled {
+    [[BSImagePickerSettings sharedSetting] setPreviewDisabled:previewDisabled];
+}
+
+- (BOOL)disableEdit {
+    return [[BSImagePickerSettings sharedSetting] disableEdit];
+}
+
+- (void)setDisableEdit:(BOOL)disableEdit {
+    [[BSImagePickerSettings sharedSetting] setDisableEdit:disableEdit];
+}
+
+- (CGSize)itemSize {
+    return [[BSImagePickerSettings sharedSetting] itemSize];
+}
+
+- (void)setItemSize:(CGSize)itemSize {
+    [[BSImagePickerSettings sharedSetting] setItemSize:itemSize];
+}
+
+- (BOOL)keepSelection {
+    return [[BSImagePickerSettings sharedSetting] keepSelection];
+}
+
+- (void)setKeepSelection:(BOOL)keepSelection {
+    [[BSImagePickerSettings sharedSetting] setKeepSelection:keepSelection];
+}
+
+- (UIColor *)albumTintColor {
+    return [[BSImagePickerSettings sharedSetting] albumTintColor];
+}
+
+- (void)setAlbumTintColor:(UIColor *)albumTintColor {
+    [[BSImagePickerSettings sharedSetting] setAlbumTintColor:albumTintColor];
 }
 
 @end

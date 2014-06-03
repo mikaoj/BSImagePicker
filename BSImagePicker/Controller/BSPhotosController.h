@@ -20,15 +20,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <Availability.h>
+#import "BSCollectionController.h"
+#import "BSTableViewCellFactory.h"
+#import "BSSpeechBubbleView.h"
+#import "BSPreviewController.h"
+#import "BSZoomOutAnimator.h"
+#import "BSZoomInAnimator.h"
 
-#ifndef __IPHONE_3_0
-#warning "This project uses features only available in iOS SDK 3.0 and later."
-#endif
+@interface BSPhotosController : BSCollectionController
 
-#ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-    #import <AssetsLibrary/AssetsLibrary.h>
-    #import "BSImagePickerSettings.h"
-#endif
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) id<BSItemsModel> tableModel;
+@property (nonatomic, strong) id<BSTableViewCellFactory> tableCellFactory;
+
+@property (nonatomic, strong) BSSpeechBubbleView *speechBubbleView;
+@property (nonatomic, strong) UIView *coverView;
+
+@property (nonatomic, strong) UIBarButtonItem *cancelButton;
+@property (nonatomic, strong) UIButton *albumButton;
+@property (nonatomic, strong) UIBarButtonItem *doneButton;
+
+@property (nonatomic, strong) BSPreviewController *previewController;
+
+@property (nonatomic, strong) BSZoomInAnimator *zoomInAnimator;
+@property (nonatomic, strong) BSZoomOutAnimator *zoomOutAnimator;
+
+@end

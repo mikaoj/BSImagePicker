@@ -20,15 +20,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <Availability.h>
+#import "BSImagePickerSettings.h"
 
-#ifndef __IPHONE_3_0
-#warning "This project uses features only available in iOS SDK 3.0 and later."
-#endif
+@implementation BSImagePickerSettings
 
-#ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-    #import <AssetsLibrary/AssetsLibrary.h>
-    #import "BSImagePickerSettings.h"
-#endif
++ (instancetype)sharedSetting {
+    static BSImagePickerSettings *sharedSettings = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedSettings = [[self alloc] init];
+    });
+    
+    return sharedSettings;
+}
+
+- (id)init {
+    if(self = [super init]) {
+        //Default to shitloads of images
+        _maximumNumberOfImages = NSUIntegerMax;
+    }
+    
+    return self;
+}
+
+@end

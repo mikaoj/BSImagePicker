@@ -20,8 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "BSPhotosController.h"
 
-@interface BSImageSelectionController : UIViewController
+@interface BSPhotosController (PrivateMethods)
+
+- (void)finishButtonPressed:(id)sender;
+- (void)albumButtonPressed:(id)sender;
+- (void)showAlbumView;
+- (void)hideAlbumView;
+- (void)itemLongPressed:(UIGestureRecognizer *)recognizer;
 
 @end

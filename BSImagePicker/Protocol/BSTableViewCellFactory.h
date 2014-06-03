@@ -20,15 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <Availability.h>
+#import "BSItemsModel.h"
 
-#ifndef __IPHONE_3_0
-#warning "This project uses features only available in iOS SDK 3.0 and later."
-#endif
+@protocol BSTableViewCellFactory <NSObject>
 
-#ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-    #import <AssetsLibrary/AssetsLibrary.h>
-    #import "BSImagePickerSettings.h"
-#endif
++ (void)registerCellIdentifiersForTableView:(UITableView *)aTableView;
++ (CGFloat)heightAtIndexPath:(NSIndexPath *)anIndexPath forModel:(id<BSItemsModel>)aModel;
+- (UITableViewCell *)cellAtIndexPath:(NSIndexPath *)anIndexPath forTableView:(UITableView *)aTableView withModel:(id<BSItemsModel>)aModel;
+
+@end

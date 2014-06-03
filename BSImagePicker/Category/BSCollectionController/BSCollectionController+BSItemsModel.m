@@ -20,15 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <Availability.h>
+#import "BSCollectionController+BSItemsModel.h"
 
-#ifndef __IPHONE_3_0
-#warning "This project uses features only available in iOS SDK 3.0 and later."
-#endif
+@implementation BSCollectionController (BSItemsModel)
 
-#ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-    #import <AssetsLibrary/AssetsLibrary.h>
-    #import "BSImagePickerSettings.h"
-#endif
+- (void)didUpdateModel:(id<BSItemsModel>)aModel {
+    [self.collectionView performBatchUpdates:^{
+        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
+                                    atScrollPosition:UICollectionViewScrollPositionTop
+                                            animated:YES];
+    } completion:nil];
+}
+
+@end
