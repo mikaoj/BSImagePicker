@@ -56,7 +56,7 @@ static NSString *kPhotoCellIdentifier =             @"previewCellIdentifier";
         [cell.fadedCoverView setHidden:YES];
         [cell.checkmarkView setHidden:YES];
         [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
-        [cell.imageView setImage:[UIImage imageWithCGImage:asset.defaultRepresentation.fullResolutionImage scale:asset.defaultRepresentation.scale orientation:(UIImageOrientation)asset.defaultRepresentation.orientation]];
+        [cell.imageView setImage:[UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage scale:asset.defaultRepresentation.scale orientation:(UIImageOrientation) asset.defaultRepresentation.orientation]];
     }
     
     return cell;
