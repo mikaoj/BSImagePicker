@@ -26,6 +26,7 @@
 #import "BSPhotosController+PrivateMethods.h"
 #import "BSPhotosController+BSItemsModel.h"
 #import "BSPhotosController+UITableView.h"
+#import "BSCollectionController+UICollectionView.h"
 
 @interface BSPhotosController () <UINavigationControllerDelegate>
 
@@ -99,6 +100,8 @@
 {
     if(operation == UINavigationControllerOperationPop) {
         [self.collectionView reloadData];
+        UICollectionViewCell *cell = [self collectionView:self.collectionView cellForItemAtIndexPath:[(BSPreviewController *)fromVC currentIndexPath]];
+        [self.zoomOutAnimator setAnimateToRect:cell.frame];
         return self.zoomOutAnimator;
     } else {
         return self.zoomInAnimator;

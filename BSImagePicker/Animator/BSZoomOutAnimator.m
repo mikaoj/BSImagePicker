@@ -38,16 +38,15 @@
     [[transitionContext containerView] addSubview:toViewController.view];
     [[transitionContext containerView] addSubview:fromViewController.view];
 
+    CGPoint center = toViewController.view.center;
     [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-        fromViewController.view.transform = CGAffineTransformMakeScale(0.0, 0.0);
+        fromViewController.view.transform = CGAffineTransformConcat(CGAffineTransformMakeScale(0.01, 0.01), CGAffineTransformMakeTranslation(CGRectGetMidX(self.animateToRect)-center.x, (self.animateToRect.origin.y+self.animateToRect.size.height)-center.y));
         fromViewController.view.alpha = 0.0;
     } completion:^(BOOL finished) {
         fromViewController.view.transform = CGAffineTransformIdentity;
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
         fromViewController.view.alpha = 1.0;
-
     }];
-
 }
 
 @end

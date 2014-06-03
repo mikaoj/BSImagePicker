@@ -115,9 +115,9 @@
         NSIndexPath *indexPath = [self.collectionView indexPathForItemAtPoint:location];
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:indexPath];
 
-        [self.zoomInAnimator setAnimateToRect:cell.frame];
+        [self.zoomInAnimator setAnimateFromRect:cell.frame];
         [self.previewController setCollectionModel:self.collectionModel];
-        [self.previewController setOnViewWillAppearScrollToPath:indexPath];
+        [self.previewController setCurrentIndexPath:indexPath];
         [self.navigationController pushViewController:self.previewController animated:YES];
 
         [recognizer setEnabled:YES];

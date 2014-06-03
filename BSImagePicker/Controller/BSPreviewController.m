@@ -46,9 +46,6 @@
         [self.collectionView setPagingEnabled:YES];
         [self.collectionView setAlwaysBounceHorizontal:YES];
 
-        //TODO: REMOVE ME
-        [self.collectionView setBackgroundColor:[UIColor whiteColor]];
-
         //Setup factory
         [self setCollectionCellFactory:[[BSPreviewCollectionViewCellFactory alloc] init]];
 
@@ -62,7 +59,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    [self.collectionView scrollToItemAtIndexPath:self.onViewWillAppearScrollToPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+    [self.collectionView scrollToItemAtIndexPath:self.currentIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -77,7 +74,8 @@
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self toggleCheckMarkForIndexPath:[NSIndexPath indexPathForItem:round(scrollView.contentOffset.x / scrollView.frame.size.width) inSection:0]];
+    [self setCurrentIndexPath:[NSIndexPath indexPathForItem:round(scrollView.contentOffset.x / scrollView.frame.size.width) inSection:0]];
+    [self toggleCheckMarkForIndexPath:self.currentIndexPath];
 }
 
 #pragma mark - Lazy load

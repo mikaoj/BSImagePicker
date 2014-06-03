@@ -29,7 +29,7 @@
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext
 {
-    return 0.8;
+    return 1.0;
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
@@ -42,7 +42,10 @@
 
     [[transitionContext containerView] addSubview:toViewController.view];
 
-    toViewController.collectionView.transform = CGAffineTransformMakeScale(0.1, 0.1);
+    CGAffineTransform origTransform = toViewController.collectionView.transform;
+
+    CGPoint center = toViewController.view.center;
+    [toViewController.collectionView setTransform:CGAffineTransformConcat(CGAffineTransformMakeScale(0.01, 0.01), CGAffineTransformMakeTranslation(CGRectGetMidX(self.animateFromRect)-center.x, (self.animateFromRect.origin.y+self.animateFromRect.size.height)-center.y))];
 
     [UIView animateWithDuration:[self transitionDuration:transitionContext]
                           delay:0.0
@@ -50,7 +53,7 @@
           initialSpringVelocity:0.0
                         options:0
                      animations:^{
-        toViewController.collectionView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+        toViewController.collectionView.transform = origTransform;
         fromViewController.view.alpha = 0.0;
     } completion:^(BOOL finished) {
         fromViewController.view.transform = CGAffineTransformIdentity;
