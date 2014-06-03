@@ -40,11 +40,14 @@
 
         NSMutableArray *mutableAssets = [[NSMutableArray alloc] initWithCapacity:_assetsGroup.numberOfAssets];
 
+        ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
+        [parentItem setAssetsFilter:onlyPhotosFilter];
+
         [_assetsGroup enumerateAssetsWithOptions:NSEnumerationReverse
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
-            if([[result valueForProperty:@"ALAssetPropertyType"] isEqualToString:@"ALAssetTypePhoto"]) {
+            if(result) {
                 [mutableAssets addObject:result];
-            } else if(result == nil) {
+            } else {
                 [self setAssets:[mutableAssets copy]];
 
                 //Enumeration done
