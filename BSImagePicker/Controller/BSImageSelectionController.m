@@ -622,6 +622,8 @@ static NSString *kAlbumCellIdentifier = @"albumCellIdentifier";
     //Find all albums
     [[BSImageSelectionController defaultAssetsLibrary] enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         if(group) {
+            ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
+	    [group setAssetsFilter:onlyPhotosFilter];
             //Default to select saved photos album
             if([[group valueForProperty:ALAssetsGroupPropertyType] isEqual:[NSNumber numberWithInteger:ALAssetsGroupSavedPhotos]]) {
                 [self.photoAlbums insertObject:group atIndex:0];
