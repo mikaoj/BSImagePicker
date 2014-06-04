@@ -100,6 +100,7 @@
 {
     if(operation == UINavigationControllerOperationPop) {
         [self.collectionView reloadData];
+        [self.collectionView scrollToItemAtIndexPath:[(BSPreviewController *)fromVC currentIndexPath] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
         UICollectionViewCell *cell = [self collectionView:self.collectionView cellForItemAtIndexPath:[(BSPreviewController *)fromVC currentIndexPath]];
         [self.zoomOutAnimator setAnimateToRect:cell.frame];
         return self.zoomOutAnimator;
