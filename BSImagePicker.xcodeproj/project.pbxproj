@@ -53,6 +53,7 @@
 		55A11EE118FC952D00F28CA5 /* UIViewController+MultipleImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE018FC952D00F28CA5 /* UIViewController+MultipleImagePicker.m */; };
 		55A11EE718FE75B300F28CA5 /* ALAsset+Equal.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE618FE75B300F28CA5 /* ALAsset+Equal.m */; };
 		55A4258918FA8E6F00EF7E8F /* BSImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A4258818FA8E6F00EF7E8F /* BSImagePickerController.m */; };
+		55AD0D8E19408C7800BDC37F /* UIImageViewModeScaleAspect.m in Sources */ = {isa = PBXBuildFile; fileRef = 55AD0D8D19408C7800BDC37F /* UIImageViewModeScaleAspect.m */; };
 		55C3BE6518EF632D00E601DE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C3BE6418EF632D00E601DE /* Foundation.framework */; };
 		55C3BE6718EF632D00E601DE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C3BE6618EF632D00E601DE /* CoreGraphics.framework */; };
 		55C3BE6918EF632D00E601DE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C3BE6818EF632D00E601DE /* UIKit.framework */; };
@@ -129,6 +130,8 @@
 		55A11EE618FE75B300F28CA5 /* ALAsset+Equal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+Equal.m"; sourceTree = "<group>"; };
 		55A4258718FA8E6F00EF7E8F /* BSImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSImagePickerController.h; sourceTree = "<group>"; };
 		55A4258818FA8E6F00EF7E8F /* BSImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSImagePickerController.m; sourceTree = "<group>"; };
+		55AD0D8C19408C7800BDC37F /* UIImageViewModeScaleAspect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewModeScaleAspect.h; sourceTree = "<group>"; };
+		55AD0D8D19408C7800BDC37F /* UIImageViewModeScaleAspect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageViewModeScaleAspect.m; sourceTree = "<group>"; };
 		55C3BE6118EF632D00E601DE /* BSImagePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BSImagePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C3BE6418EF632D00E601DE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		55C3BE6618EF632D00E601DE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -452,6 +455,8 @@
 		BB2B9A354CAC089377BA84F1 /* Animator */ = {
 			isa = PBXGroup;
 			children = (
+				55AD0D8C19408C7800BDC37F /* UIImageViewModeScaleAspect.h */,
+				55AD0D8D19408C7800BDC37F /* UIImageViewModeScaleAspect.m */,
 				BB2B90AF1CED4DE415FD931F /* BSZoomInAnimator.m */,
 				BB2B97C6BB8931E76095B11D /* BSZoomInAnimator.h */,
 				BB2B99BEDF8860AD297EE80D /* BSZoomOutAnimator.m */,
@@ -652,6 +657,7 @@
 				5509A41C192F9F4D006E4DA1 /* BSAssetModel.m in Sources */,
 				55EC234518F1DB6A008F5A02 /* BSSpeechBubbleView.m in Sources */,
 				55EC235118F2F873008F5A02 /* BSTriangleView.m in Sources */,
+				55AD0D8E19408C7800BDC37F /* UIImageViewModeScaleAspect.m in Sources */,
 				BB2B992598FC83C26F7BCF0F /* ALAssetsGroup+Equal.m in Sources */,
 				BB2B9B4E9F4BC435FF833E97 /* BSPhotosController.m in Sources */,
 				BB2B94E7BAF0BCCEEFAB30A3 /* BSCollectionController.m in Sources */,
