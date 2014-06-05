@@ -22,47 +22,70 @@
 
 #import "BSZoomInAnimator.h"
 #import "BSPhotosController.h"
+#import "BSPhotoCell.h"
+#import "BSCollectionController+UICollectionView.h"
+#import "UIImageViewModeScaleAspect.h"
 
 @implementation BSZoomInAnimator
 
 #pragma mark - UIViewControllerAnimatedTransitioning
 
-- (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext
-{
-    return 1.0;
+- (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
+    return 0.6;
 }
 
-- (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
-{
+- (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
     BSPreviewController *toViewController = (BSPreviewController *)[transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     BSPhotosController *fromViewController = (BSPhotosController *)[transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIView *containerView = [transitionContext containerView];
 
     //Disable selection so we don't select a cell while the push animation is running
     [fromViewController.collectionView setAllowsSelection:NO];
-
-    [[transitionContext containerView] addSubview:toViewController.view];
-
-    CGAffineTransform origTransform = toViewController.collectionView.transform;
-
-    CGPoint center = toViewController.view.center;
-    [toViewController.collectionView setTransform:CGAffineTransformConcat(CGAffineTransformMakeScale(0.01, 0.01), CGAffineTransformMakeTranslation(CGRectGetMidX(self.animateFromRect)-center.x, (self.animateFromRect.origin.y+self.animateFromRect.size.height)-center.y))];
-
+    
+    //Get cells
+    BSPhotoCell *fromCell = (BSPhotoCell *)[fromViewController.collectionView cellForItemAtIndexPath:toViewController.currentIndexPath];
+    BSPhotoCell *toCell = (BSPhotoCell *)[toViewController collectionView:toViewController.collectionView cellForItemAtIndexPath:toViewController.currentIndexPath];
+    
+    //Replace image
+    [fromCell.imageView setHidden:YES];
+    
+    //Setup scaling image
+    UIImageViewModeScaleAspect *scalingImage = [[UIImageViewModeScaleAspect alloc] initWithFrame:[containerView convertRect:fromCell.imageView.frame fromView:fromCell.imageView.superview]];
+    [scalingImage setContentMode:UIViewContentModeScaleAspectFill];
+    [scalingImage setImage:toCell.imageView.image];
+    
+    //Init image scale
+    [scalingImage initToScaleAspectFitToFrame:CGRectMake(0, toViewController.collectionView.contentInset.top/2.0, toCell.imageView.frame.size.width, toCell.imageView.frame.size.height)];
+    
+    //Add views to container view
+    [toViewController.view setHidden:YES];
+    [containerView addSubview:toViewController.view];
+    [containerView addSubview:scalingImage];
+    
+    //Animate
     [UIView animateWithDuration:[self transitionDuration:transitionContext]
                           delay:0.0
-         usingSpringWithDamping:0.5
+         usingSpringWithDamping:0.8
           initialSpringVelocity:0.0
-                        options:0
+                        options:UIViewAnimationOptionAllowUserInteraction
                      animations:^{
-        toViewController.collectionView.transform = origTransform;
-        fromViewController.view.alpha = 0.0;
-    } completion:^(BOOL finished) {
-        fromViewController.view.transform = CGAffineTransformIdentity;
-        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-        fromViewController.view.alpha = 1.0;
-
-        //Allow selection again
-        [fromViewController.collectionView setAllowsSelection:YES];
-    }];
+                         [fromViewController.collectionView setAlpha:0.0];
+                         [scalingImage animaticToScaleAspectFit];
+                     } completion:^(BOOL finished) {
+                         //Finish image scaling and remove image view
+                         [scalingImage animateFinishToScaleAspectFit];
+                         [scalingImage removeFromSuperview];
+                         
+                         //Unhide
+                         [toViewController.view setHidden:NO];
+                         [fromCell.imageView setHidden:NO];
+                         [fromViewController.collectionView setAlpha:1.0];
+                         
+                         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
+                         
+                         //Enable selection
+                         [fromViewController.collectionView setAllowsSelection:YES];
+                     }];
 }
 
 @end

@@ -22,6 +22,4 @@
 
 @interface BSZoomInAnimator : NSObject <UIViewControllerAnimatedTransitioning>
 
-@property (nonatomic, assign) CGRect animateFromRect;
-
 @end

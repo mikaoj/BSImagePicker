@@ -22,6 +22,4 @@
 
 @interface BSZoomOutAnimator : NSObject <UIViewControllerAnimatedTransitioning>
 
-@property (nonatomic, assign) CGRect animateToRect;
-
 @end
