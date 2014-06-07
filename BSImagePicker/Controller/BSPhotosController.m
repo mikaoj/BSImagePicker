@@ -36,6 +36,9 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+        //Set title to empty string, to get rid of "Back" in the back button
+        [self setTitle:@" "];
+        
         //Register identifiers
         [[self.collectionCellFactory class] registerCellIdentifiersForCollectionView:self.collectionView];
         [[self.tableCellFactory class] registerCellIdentifiersForTableView:self.tableView];
