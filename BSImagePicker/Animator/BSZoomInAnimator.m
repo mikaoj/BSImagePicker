@@ -31,7 +31,7 @@
 #pragma mark - UIViewControllerAnimatedTransitioning
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
-    return 0.6;
+    return 0.3;
 }
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext {
@@ -46,8 +46,9 @@
     BSPhotoCell *fromCell = (BSPhotoCell *)[fromViewController.collectionView cellForItemAtIndexPath:toViewController.currentIndexPath];
     BSPhotoCell *toCell = (BSPhotoCell *)[toViewController collectionView:toViewController.collectionView cellForItemAtIndexPath:toViewController.currentIndexPath];
     
-    //Replace image
+    //Setup views
     [fromCell.imageView setHidden:YES];
+    [toViewController.view setHidden:YES];
     
     //Setup scaling image
     UIImageViewModeScaleAspect *scalingImage = [[UIImageViewModeScaleAspect alloc] initWithFrame:[containerView convertRect:fromCell.imageView.frame fromView:fromCell.imageView.superview]];
@@ -58,18 +59,15 @@
     [scalingImage initToScaleAspectFitToFrame:CGRectMake(0, toViewController.collectionView.contentInset.top/2.0, toCell.imageView.frame.size.width, toCell.imageView.frame.size.height)];
     
     //Add views to container view
-    [toViewController.view setHidden:YES];
     [containerView addSubview:toViewController.view];
     [containerView addSubview:scalingImage];
     
     //Animate
     [UIView animateWithDuration:[self transitionDuration:transitionContext]
                           delay:0.0
-         usingSpringWithDamping:0.8
-          initialSpringVelocity:0.0
                         options:UIViewAnimationOptionAllowUserInteraction
                      animations:^{
-                         [fromViewController.collectionView setAlpha:0.0];
+                         [fromViewController.view setAlpha:0.0];
                          [scalingImage animaticToScaleAspectFit];
                      } completion:^(BOOL finished) {
                          //Finish image scaling and remove image view
@@ -77,9 +75,9 @@
                          [scalingImage removeFromSuperview];
                          
                          //Unhide
-                         [toViewController.view setHidden:NO];
                          [fromCell.imageView setHidden:NO];
-                         [fromViewController.collectionView setAlpha:1.0];
+                         [toViewController.view setHidden:NO];
+                         [fromViewController.view setAlpha:1.0];
                          
                          [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
                          

@@ -102,8 +102,6 @@
                                                  toViewController:(UIViewController *)toVC
 {
     if(operation == UINavigationControllerOperationPop) {
-        [self.collectionView reloadData];
-        [self.collectionView scrollToItemAtIndexPath:[(BSPreviewController *)fromVC currentIndexPath] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:NO];
         return self.zoomOutAnimator;
     } else {
         return self.zoomInAnimator;
