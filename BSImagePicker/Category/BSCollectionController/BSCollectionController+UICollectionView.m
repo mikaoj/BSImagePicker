@@ -57,16 +57,19 @@
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.collectionModel.selectedItems count] < [[BSImagePickerSettings sharedSetting] maximumNumberOfImages];
+    return [self.collectionModel.selectedItems count] < [[BSImagePickerSettings sharedSetting] maximumNumberOfImages] && !self.disableSelection;
 }
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    return !self.disableSelection;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     //Remove item
     [self.collectionModel deselectItemAtIndexPath:indexPath];
+    
+    BSPhotoCell *cell = (BSPhotoCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    [cell setSelected:NO animated:YES];
 
     if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
         ALAsset *asset = [self.collectionModel itemAtIndexPath:indexPath];
@@ -77,6 +80,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     //Add item
     [self.collectionModel selectItemAtIndexPath:indexPath];
+    
+    BSPhotoCell *cell = (BSPhotoCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    [cell setSelected:YES animated:YES];
 
     if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
         ALAsset *asset = [self.collectionModel itemAtIndexPath:indexPath];

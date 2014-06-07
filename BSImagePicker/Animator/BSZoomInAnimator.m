@@ -40,7 +40,7 @@
     UIView *containerView = [transitionContext containerView];
 
     //Disable selection so we don't select a cell while the push animation is running
-    [fromViewController.collectionView setAllowsSelection:NO];
+    [fromViewController setDisableSelection:YES];
     
     //Get cells
     BSPhotoCell *fromCell = (BSPhotoCell *)[fromViewController.collectionView cellForItemAtIndexPath:toViewController.currentIndexPath];
@@ -82,7 +82,7 @@
                          [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
                          
                          //Enable selection
-                         [fromViewController.collectionView setAllowsSelection:YES];
+                         [fromViewController setDisableSelection:NO];
                      }];
 }
 

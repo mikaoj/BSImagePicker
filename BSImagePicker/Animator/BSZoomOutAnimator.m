@@ -25,6 +25,7 @@
 #import "BSPhotoCell.h"
 #import "BSCollectionController+UICollectionView.h"
 #import "UIImageViewModeScaleAspect.h"
+#import "BSItemsModel.h"
 
 @implementation BSZoomOutAnimator
 

@@ -28,8 +28,7 @@
 
 @implementation BSPhotoCell
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self.contentView addSubview:self.imageView];
@@ -37,46 +36,39 @@
     return self;
 }
 
-- (void)setSelected:(BOOL)selected
-{
-    [self setSelected:selected animated:YES];
+- (void)setSelected:(BOOL)selected {
+    [self setSelected:selected animated:NO];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    BOOL wasSelected = self.selected;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected];
-    BOOL isSelected = self.selected;
-
-    if(wasSelected != isSelected) {
-        if(isSelected) {
-            [self.imageView addSubview:self.fadedCoverView];
-            [self.imageView addSubview:self.checkmarkView];
-        } else {
-            [self.checkmarkView removeFromSuperview];
-            [self.fadedCoverView removeFromSuperview];
-        }
-
-        if(animated) {
-            [UIView animateWithDuration:0.08
-                                  delay:0.0
-                                options:0
-                             animations:^{
-                [self.imageView setTransform:CGAffineTransformMakeScale(0.95, 0.95)];
-            } completion:^(BOOL finished) {
-                [UIView animateWithDuration:0.08
-                                      delay:0.0
-                                    options:0
-                                 animations:^{
-                    [self.imageView setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
-                } completion:nil];
-            }];
-        }
+    
+    if(selected) {
+        [self.imageView addSubview:self.fadedCoverView];
+        [self.imageView addSubview:self.checkmarkView];
+    } else {
+        [self.checkmarkView removeFromSuperview];
+        [self.fadedCoverView removeFromSuperview];
+    }
+    
+    if(animated) {
+        [UIView animateWithDuration:0.08
+                              delay:0.0
+                            options:0
+                         animations:^{
+                             [self.imageView setTransform:CGAffineTransformMakeScale(0.95, 0.95)];
+                         } completion:^(BOOL finished) {
+                             [UIView animateWithDuration:0.08
+                                                   delay:0.0
+                                                 options:0
+                                              animations:^{
+                                                  [self.imageView setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+                                              } completion:nil];
+                         }];
     }
 }
 
-- (UIImageView *)imageView
-{
+- (UIImageView *)imageView {
     if(!_imageView) {
         _imageView = [[UIImageView alloc] initWithFrame:self.contentView.frame];
         [_imageView setContentMode:UIViewContentModeScaleAspectFill];
@@ -87,8 +79,7 @@
     return _imageView;
 }
 
-- (UIView *)fadedCoverView
-{
+- (UIView *)fadedCoverView {
     if(!_fadedCoverView) {
         _fadedCoverView = [[UIView alloc] initWithFrame:self.contentView.frame];
         [_fadedCoverView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
@@ -98,8 +89,7 @@
     return _fadedCoverView;
 }
 
-- (BSCheckmarkView *)checkmarkView
-{
+- (BSCheckmarkView *)checkmarkView {
     if(!_checkmarkView) {
         _checkmarkView = [[BSCheckmarkView alloc] initWithFrame:CGRectMake(self.imageView.frame.size.width-25, self.imageView.frame.size.height-25, 25, 25)];
         [_checkmarkView setBackgroundColor:[UIColor clearColor]];

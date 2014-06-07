@@ -70,6 +70,8 @@ static NSString *kPhotoCellIdentifier =             @"photoCellIdentifier";
         [photoCell.imageView setImage:[UIImage imageWithCGImage:asset.thumbnail]];
     }
     
+    [photoCell setSelected:[aModel isItemAtIndexPathSelected:anIndexPath] animated:NO];
+    
     return photoCell;
 }
 
