@@ -102,6 +102,17 @@
                                                  toViewController:(UIViewController *)toVC
 {
     if(operation == UINavigationControllerOperationPop) {
+        //Sync selection
+        for(int i = 0; i < [self.collectionModel numberOfItemsInSection:0]; ++i) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+            
+            if([self.collectionModel isItemAtIndexPathSelected:indexPath]) {
+                [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+            } else {
+                [self.collectionView deselectItemAtIndexPath:indexPath animated:NO];
+            }
+        }
+        
         return self.zoomOutAnimator;
     } else {
         return self.zoomInAnimator;
