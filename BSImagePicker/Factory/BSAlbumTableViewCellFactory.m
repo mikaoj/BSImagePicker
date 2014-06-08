@@ -22,6 +22,7 @@
 
 #import "BSAlbumTableViewCellFactory.h"
 #import "BSAlbumCell.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 static NSString *kAlbumCellIdentifier =             @"albumCellIdentifier";
 

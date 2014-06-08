@@ -20,6 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#import <AssetsLibrary/AssetsLibrary.h>
 #import "BSPhotoCollectionViewCellFactory.h"
 #import "BSPhotoCell.h"
 

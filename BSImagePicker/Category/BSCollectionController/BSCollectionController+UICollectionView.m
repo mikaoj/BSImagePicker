@@ -22,6 +22,8 @@
 
 #import "BSCollectionController+UICollectionView.h"
 #import "BSPhotoCell.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "BSImagePickerSettings.h"
 
 @implementation BSCollectionController (UICollectionView)
 

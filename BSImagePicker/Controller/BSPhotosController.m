@@ -27,6 +27,8 @@
 #import "BSPhotosController+BSItemsModel.h"
 #import "BSPhotosController+UITableView.h"
 #import "BSCollectionController+UICollectionView.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import "BSImagePickerSettings.h"
 
 @interface BSPhotosController () <UINavigationControllerDelegate>
 
