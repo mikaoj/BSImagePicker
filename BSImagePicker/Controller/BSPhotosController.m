@@ -117,6 +117,7 @@
         
         return self.zoomOutAnimator;
     } else {
+        [self.previewController.collectionView reloadData];
         return self.zoomInAnimator;
     }
 }
