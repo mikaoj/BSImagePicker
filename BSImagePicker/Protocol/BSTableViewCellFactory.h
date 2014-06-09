@@ -20,9 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@interface BSAlbumCell : UITableViewCell
+#import "BSItemsModel.h"
 
-@property (nonatomic, strong) UIImageView *secondImageView;
-@property (nonatomic, strong) UIImageView *thirdImageView;
+@protocol BSTableViewCellFactory <NSObject>
+
++ (void)registerCellIdentifiersForTableView:(UITableView *)aTableView;
++ (CGFloat)heightAtIndexPath:(NSIndexPath *)anIndexPath forModel:(id<BSItemsModel>)aModel;
+- (UITableViewCell *)cellAtIndexPath:(NSIndexPath *)anIndexPath forTableView:(UITableView *)aTableView withModel:(id<BSItemsModel>)aModel;
 
 @end

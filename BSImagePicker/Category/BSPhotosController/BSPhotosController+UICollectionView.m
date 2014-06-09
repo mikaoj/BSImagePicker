@@ -20,9 +20,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@interface BSAlbumCell : UITableViewCell
+#import "BSPhotosController+UICollectionView.h"
+#import "BSCollectionController+UICollectionView.h"
 
-@property (nonatomic, strong) UIImageView *secondImageView;
-@property (nonatomic, strong) UIImageView *thirdImageView;
+@implementation BSPhotosController (UICollectionView)
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [super collectionView:collectionView didDeselectItemAtIndexPath:indexPath];
+
+    //Disable done button
+    if([self.collectionModel.selectedItems count] == 0) {
+        [self.navigationItem.rightBarButtonItem setEnabled:NO];
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
+
+    //Enable done button
+    if([self.collectionModel.selectedItems count] > 0) {
+        [self.navigationItem.rightBarButtonItem setEnabled:YES];
+    }
+}
 
 @end

@@ -20,9 +20,20 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@interface BSAlbumCell : UITableViewCell
+#import "ALAssetsGroup+Equal.h"
 
-@property (nonatomic, strong) UIImageView *secondImageView;
-@property (nonatomic, strong) UIImageView *thirdImageView;
+@implementation ALAssetsGroup (Equal)
+
+- (BOOL)isEqual:(id)obj
+{
+    if(![obj isKindOfClass:[ALAssetsGroup class]]) {
+        return NO;
+    }
+
+    NSURL *firstUrl = [self valueForProperty:ALAssetsGroupPropertyURL];
+    NSURL *secondUrl = [obj valueForProperty:ALAssetsGroupPropertyURL];
+
+    return ([firstUrl isEqual:secondUrl]);
+}
 
 @end

@@ -20,34 +20,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#import "BSCollectionController.h"
+#import "BSTableViewCellFactory.h"
+#import "BSSpeechBubbleView.h"
+#import "BSPreviewController.h"
+#import "BSZoomOutAnimator.h"
 #import "BSZoomInAnimator.h"
 
-@implementation BSZoomInAnimator
+@interface BSPhotosController : BSCollectionController
 
-- (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext
-{
-    return 0.25;
-}
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) id<BSItemsModel> tableModel;
+@property (nonatomic, strong) id<BSTableViewCellFactory> tableCellFactory;
 
-- (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
-{
-    UIViewController* toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIViewController* fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    
-    [[transitionContext containerView] addSubview:toViewController.view];
-    toViewController.view.alpha = 0;
-    
-    toViewController.view.transform = CGAffineTransformMakeScale(0.1, 0.1);
-    
-    [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-        toViewController.view.transform = CGAffineTransformMakeScale(1.0, 1.0);
-        toViewController.view.alpha = 1;
-        fromViewController.view.alpha = 0;
-    } completion:^(BOOL finished) {
-        fromViewController.view.transform = CGAffineTransformIdentity;
-        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-        
-    }];
-}
+@property (nonatomic, strong) BSSpeechBubbleView *speechBubbleView;
+@property (nonatomic, strong) UIView *coverView;
+
+@property (nonatomic, strong) UIBarButtonItem *cancelButton;
+@property (nonatomic, strong) UIButton *albumButton;
+@property (nonatomic, strong) UIBarButtonItem *doneButton;
+
+@property (nonatomic, strong) BSPreviewController *previewController;
+
+@property (nonatomic, strong) BSZoomInAnimator *zoomInAnimator;
+@property (nonatomic, strong) BSZoomOutAnimator *zoomOutAnimator;
 
 @end

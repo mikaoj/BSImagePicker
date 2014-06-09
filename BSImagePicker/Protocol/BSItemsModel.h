@@ -20,9 +20,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@interface BSAlbumCell : UITableViewCell
+#import "BSItemsModelDelegate.h"
 
-@property (nonatomic, strong) UIImageView *secondImageView;
-@property (nonatomic, strong) UIImageView *thirdImageView;
+@protocol BSItemsModel <NSObject>
+
+- (void)setupWithParentItem:(id)parentItem;
+- (id)parentItem;
+
+- (void)setDelegate:(id<BSItemsModelDelegate>)delegate;
+- (id<BSItemsModelDelegate>)delegate;
+
+- (NSUInteger)numberOfSections;
+- (NSUInteger)numberOfItemsInSection:(NSUInteger)aSection;
+- (id)itemAtIndexPath:(NSIndexPath *)anIndexPath;
+
+- (BOOL)isItemAtIndexPathSelected:(NSIndexPath *)anIndexPath;
+- (void)selectItemAtIndexPath:(NSIndexPath *)anIndexPath;
+- (void)deselectItemAtIndexPath:(NSIndexPath *)anIndexPath;
+- (void)clearSelection;
+- (NSArray *)selectedItems;
 
 @end

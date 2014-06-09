@@ -26,24 +26,6 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    [super drawRect:rect];
-    
-    if (self.checked) {
-        [self drawRectChecked:rect];
-    }
-}
-
-- (void)setChecked:(BOOL)checked
-{
-    //Only redraw if needed
-    if(checked != _checked) {
-        _checked = checked;
-        [self setNeedsDisplay];
-    }
-}
-
-- (void)drawRectChecked:(CGRect)rect
-{
     //// General Declarations
     CGContextRef context = UIGraphicsGetCurrentContext();
     

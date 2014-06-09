@@ -20,13 +20,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "BSPreviewController+UICollectionView.h"
+#import "BSCollectionController+UICollectionView.h"
 
-@class ALAssetsGroup;
-@interface BSImagePreviewController : UIViewController
+@implementation BSPreviewController (UICollectionView)
 
-@property (nonatomic, assign) NSUInteger currentAssetIndex;
-@property (nonatomic, weak) ALAssetsGroup *photos;
-@property (nonatomic, weak) NSMutableArray *selectedPhotos;
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [super collectionView:collectionView didDeselectItemAtIndexPath:indexPath];
+
+    [self.navigationItem setRightBarButtonItem:nil animated:YES];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
+
+    [self.navigationItem setRightBarButtonItem:self.checkMarkButton animated:YES];
+}
 
 @end

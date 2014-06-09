@@ -20,8 +20,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#import "BSItemsModel.h"
 
-@interface BSZoomOutAnimator : NSObject <UIViewControllerAnimatedTransitioning>
+@interface BSAssetsGroupModel : NSObject <BSItemsModel>
 
 @end

@@ -20,9 +20,27 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@interface BSAlbumCell : UITableViewCell
+#import "BSImagePickerSettings.h"
 
-@property (nonatomic, strong) UIImageView *secondImageView;
-@property (nonatomic, strong) UIImageView *thirdImageView;
+@implementation BSImagePickerSettings
+
++ (instancetype)sharedSetting {
+    static BSImagePickerSettings *sharedSettings = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedSettings = [[self alloc] init];
+    });
+    
+    return sharedSettings;
+}
+
+- (id)init {
+    if(self = [super init]) {
+        //Default to shitloads of images
+        _maximumNumberOfImages = NSUIntegerMax;
+    }
+    
+    return self;
+}
 
 @end

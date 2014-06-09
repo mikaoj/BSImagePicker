@@ -21,67 +21,54 @@
 // SOFTWARE.
 
 #import "BSPhotoCell.h"
-#import "BSCheckmarkView.h"
 
 @interface BSPhotoCell ()
-
-@property (nonatomic, strong) UIView *selectionView;
-@property (nonatomic, strong) BSCheckmarkView *checkmarkView;
 
 @end
 
 @implementation BSPhotoCell
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self.contentView addSubview:self.imageView];
-        [self.contentView addSubview:self.checkmarkView];
-        
-        [self addGestureRecognizer:self.longPressRecognizer];
     }
     return self;
 }
 
-- (void)setSelected:(BOOL)selected
-{
-    BOOL previous = self.selected;
-    
+- (void)setSelected:(BOOL)selected {
+    [self setSelected:selected animated:NO];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected];
     
-    if(previous != selected) {
-        [UIView animateWithDuration:0.05
+    if(selected) {
+        [self.imageView addSubview:self.fadedCoverView];
+        [self.imageView addSubview:self.checkmarkView];
+    } else {
+        [self.checkmarkView removeFromSuperview];
+        [self.fadedCoverView removeFromSuperview];
+    }
+    
+    if(animated) {
+        [UIView animateWithDuration:0.08
                               delay:0.0
                             options:0
                          animations:^{
-                             [self setTransform:CGAffineTransformMakeScale(0.95, 0.95)];
-                             [self.checkmarkView setChecked:selected];
+                             [self.imageView setTransform:CGAffineTransformMakeScale(0.95, 0.95)];
                          } completion:^(BOOL finished) {
-                             if(selected) {
-                                 [self.selectionView setFrame:CGRectMake(self.imageView.center.x, self.imageView.center.y, 1, 1)];
-                                 [self.imageView addSubview:self.selectionView];
-                                 
-                                 [UIView animateWithDuration:0.1
-                                                  animations:^{
-                                                      [self setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
-                                                      [self.selectionView setFrame:self.imageView.frame];
-                                                  }];
-                             } else {
-                                 [UIView animateWithDuration:0.1
-                                                  animations:^{
-                                                      [self setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
-                                                      [self.selectionView setFrame:CGRectMake(self.imageView.center.x, self.imageView.center.y, 1, 1)];
-                                                  } completion:^(BOOL finished) {
-                                                      [self.selectionView removeFromSuperview];
-                                                  }];
-                             }
+                             [UIView animateWithDuration:0.08
+                                                   delay:0.0
+                                                 options:0
+                                              animations:^{
+                                                  [self.imageView setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+                                              } completion:nil];
                          }];
     }
 }
 
-- (UIImageView *)imageView
-{
+- (UIImageView *)imageView {
     if(!_imageView) {
         _imageView = [[UIImageView alloc] initWithFrame:self.contentView.frame];
         [_imageView setContentMode:UIViewContentModeScaleAspectFill];
@@ -92,34 +79,23 @@
     return _imageView;
 }
 
-- (UIView *)selectionView
-{
-    if(!_selectionView) {
-        _selectionView = [[UIView alloc] initWithFrame:self.contentView.frame];
-        [_selectionView setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.3]];
+- (UIView *)fadedCoverView {
+    if(!_fadedCoverView) {
+        _fadedCoverView = [[UIView alloc] initWithFrame:self.contentView.frame];
+        [_fadedCoverView setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+        [_fadedCoverView setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.3]];
     }
     
-    return _selectionView;
+    return _fadedCoverView;
 }
 
-- (BSCheckmarkView *)checkmarkView
-{
+- (BSCheckmarkView *)checkmarkView {
     if(!_checkmarkView) {
         _checkmarkView = [[BSCheckmarkView alloc] initWithFrame:CGRectMake(self.imageView.frame.size.width-25, self.imageView.frame.size.height-25, 25, 25)];
         [_checkmarkView setBackgroundColor:[UIColor clearColor]];
     }
     
     return _checkmarkView;
-}
-
-- (UILongPressGestureRecognizer *)longPressRecognizer
-{
-    if(!_longPressRecognizer) {
-        _longPressRecognizer = [[UILongPressGestureRecognizer alloc] init];
-        [_longPressRecognizer setMinimumPressDuration:1.0];
-    }
-    
-    return _longPressRecognizer;
 }
 
 @end

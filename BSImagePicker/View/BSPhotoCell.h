@@ -20,13 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "BSCheckmarkView.h"
 
-@class ALAsset;
 @interface BSPhotoCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, assign) NSUInteger assetIndex;
-@property (nonatomic, strong) UILongPressGestureRecognizer *longPressRecognizer;
+@property (nonatomic, strong) UIView *fadedCoverView;
+@property (nonatomic, strong) BSCheckmarkView *checkmarkView;
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 
 @end

@@ -20,9 +20,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@interface BSAlbumCell : UITableViewCell
+#import "BSCollectionController+BSItemsModel.h"
 
-@property (nonatomic, strong) UIImageView *secondImageView;
-@property (nonatomic, strong) UIImageView *thirdImageView;
+@implementation BSCollectionController (BSItemsModel)
+
+- (void)didUpdateModel:(id<BSItemsModel>)aModel {
+    [self.collectionView performBatchUpdates:^{
+        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
+                                    atScrollPosition:UICollectionViewScrollPositionTop
+                                            animated:YES];
+    } completion:nil];
+}
 
 @end

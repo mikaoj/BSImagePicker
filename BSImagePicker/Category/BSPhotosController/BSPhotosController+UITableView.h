@@ -20,11 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <UIKit/UIKit.h>
+#import "BSPhotosController.h"
 
-@interface BSPreviewCell : UICollectionViewCell
-
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) UIScrollView *scrollView;
-
+@interface BSPhotosController (UITableView) <UITableViewDataSource, UITableViewDelegate>
 @end

@@ -21,10 +21,6 @@
 // SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface BSCheckmarkView : UIView
-
-@property (nonatomic, assign) BOOL checked;
 
 @end

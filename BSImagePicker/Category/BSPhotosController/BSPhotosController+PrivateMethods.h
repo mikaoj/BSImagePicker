@@ -20,32 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import "BSZoomOutAnimator.h"
+#import "BSPhotosController.h"
 
-@implementation BSZoomOutAnimator
+@interface BSPhotosController (PrivateMethods)
 
-- (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext
-{
-    return 0.25;
-}
-
-- (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext
-{
-    UIViewController* toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIViewController* fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    [[transitionContext containerView] addSubview:toViewController.view];
-    toViewController.view.alpha = 0;
-    
-    [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-        fromViewController.view.transform = CGAffineTransformMakeScale(0.1, 0.1);
-        toViewController.view.alpha = 1;
-        fromViewController.view.alpha = 0;
-    } completion:^(BOOL finished) {
-        fromViewController.view.transform = CGAffineTransformIdentity;
-        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
-        
-    }];
-    
-}
+- (void)finishButtonPressed:(id)sender;
+- (void)albumButtonPressed:(id)sender;
+- (void)showAlbumView;
+- (void)hideAlbumView;
+- (void)itemLongPressed:(UIGestureRecognizer *)recognizer;
 
 @end

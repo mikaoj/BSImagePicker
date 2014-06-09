@@ -22,7 +22,9 @@
 
 #import "UIViewController+MultipleImagePicker.h"
 
-@interface BSImagePickerController : UINavigationController
+@interface BSImagePickerSettings : NSObject
+
++ (instancetype)sharedSetting;
 
 /**
  *  Defaults to NSUIntegerMax (i.e shitloads of images)

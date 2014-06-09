@@ -20,9 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@interface BSAlbumCell : UITableViewCell
+@protocol BSItemsModel;
 
-@property (nonatomic, strong) UIImageView *secondImageView;
-@property (nonatomic, strong) UIImageView *thirdImageView;
+@protocol BSItemsModelDelegate <NSObject>
+
+- (void)didUpdateModel:(id<BSItemsModel>)aModel;
 
 @end

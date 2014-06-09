@@ -20,9 +20,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@interface BSAlbumCell : UITableViewCell
+#import "BSPhotosController+BSItemsModel.h"
+#import "BSCollectionController+BSItemsModel.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
-@property (nonatomic, strong) UIImageView *secondImageView;
-@property (nonatomic, strong) UIImageView *thirdImageView;
+@implementation BSPhotosController (BSItemsModel)
+
+- (void)didUpdateModel:(id<BSItemsModel>)aModel {
+    if(aModel == self.tableModel) {
+        [self.tableView reloadData];
+
+        ALAssetsGroup *assetsGroup = [[self.tableModel selectedItems] firstObject];
+
+        [self.albumButton setTitle:[assetsGroup valueForProperty:ALAssetsGroupPropertyName] forState:UIControlStateNormal];
+
+        [self.collectionModel setupWithParentItem:assetsGroup];
+    } else {
+        [super didUpdateModel:aModel];
+    }
+}
 
 @end

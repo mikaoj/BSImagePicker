@@ -20,9 +20,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@interface BSAlbumCell : UITableViewCell
+#import "BSItemsModel.h"
+#import "BSCollectionViewCellFactory.h"
 
-@property (nonatomic, strong) UIImageView *secondImageView;
-@property (nonatomic, strong) UIImageView *thirdImageView;
+@interface BSCollectionController : UIViewController
+
+@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UICollectionViewFlowLayout *collectionViewFlowLayout;
+@property (nonatomic, strong) id<BSItemsModel> collectionModel;
+@property (nonatomic, strong) id<BSCollectionViewCellFactory> collectionCellFactory;
+
+@property (nonatomic, assign) BOOL disableSelection;
 
 @end
