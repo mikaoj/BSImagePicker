@@ -34,7 +34,8 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        [self setAutomaticallyAdjustsScrollViewInsets:YES];
+        [self setAutomaticallyAdjustsScrollViewInsets:NO];
+        [self.collectionView setContentInset:UIEdgeInsetsMake(64.0, 0.0, 0.0, 0.0)];
 
         //Setup layout
         [self.collectionViewFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];

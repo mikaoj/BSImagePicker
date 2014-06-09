@@ -56,7 +56,7 @@
     [scalingImage setImage:toCell.imageView.image];
     
     //Init image scale
-    [scalingImage initToScaleAspectFitToFrame:CGRectMake(0, toViewController.collectionView.contentInset.top/2.0, toCell.imageView.frame.size.width, toCell.imageView.frame.size.height)];
+    [scalingImage initToScaleAspectFitToFrame:CGRectMake(0, toViewController.collectionView.contentInset.top, toCell.imageView.frame.size.width, toCell.imageView.frame.size.height)];
     
     //Add views to container view
     [containerView addSubview:toViewController.view];

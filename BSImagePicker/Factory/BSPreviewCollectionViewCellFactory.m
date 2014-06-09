@@ -33,7 +33,7 @@ static NSString *kPhotoCellIdentifier =             @"previewCellIdentifier";
 }
 
 + (CGSize)sizeAtIndexPath:(NSIndexPath *)anIndexPath forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
-    return aCollectionView.bounds.size;
+    return CGSizeMake(aCollectionView.bounds.size.width, aCollectionView.bounds.size.height-aCollectionView.contentInset.top);
 }
 
 + (UIEdgeInsets)edgeInsetAtSection:(NSUInteger)aSection forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
