@@ -756,8 +756,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BSImagePickerController/BSImagePickerController-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -783,6 +785,7 @@
 				DEAD_CODE_STRIPPING = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BSImagePickerController/BSImagePickerController-Prefix.pch";
 				INFOPLIST_FILE = "BSImagePickerController/BSImagePickerController-Info.plist";
@@ -800,6 +803,7 @@
 		556E0D021901764D006F8F73 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COPY_PHASE_STRIP = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
