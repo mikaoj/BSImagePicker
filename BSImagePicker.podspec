@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "BSImagePicker"
-  s.version      = "0.3"
+  s.version      = "0.4"
   s.summary      = "BSImagePicker is a multiple image picker for iOS"
   s.description  = <<-DESC
   A mix between the native iOS 7 gallery and facebooks image picker. Allows you to preview and select multiple images.
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.license      = "MIT"
   s.author             = { "Joakim Gyllström" => "joakim@backslashed.se" }
   s.platform     = :ios, "7.0"
-  s.source       = { :git => "https://github.com/mikaoj/BSImagePicker.git", :tag => "0.3" }
+  s.source       = { :git => "https://github.com/mikaoj/BSImagePicker.git", :tag => "0.4" }
   s.source_files  = "BSImagePicker/**/*.{h,m}"
   s.exclude_files = "BSImagePicker/Controller/BSAppDelegate.{h,m}", "BSImagePicker/Misc/main.m"
   s.public_header_files = "BSImagePicker/Controller/BSImagePickerController.h", "BSImagePicker/Category/UIViewController+MultipleImagePicker.h"
