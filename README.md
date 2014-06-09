@@ -1,4 +1,4 @@
-![alt text](https://cloud.githubusercontent.com/assets/4034956/3030005/c0e4cc28-e03b-11e3-91d4-3e60fce5db4d.gif "Demo gif")
+![alt text](https://cloud.githubusercontent.com/assets/4034956/3212805/680b1e88-ef75-11e3-9410-a5de4b4f92d2.gif "Demo gif")
 
 A mix between the native iOS 7 gallery and facebooks image picker.
 
@@ -10,7 +10,7 @@ pod 'BSImagePicker', '~> 0.4'
 ```
 ## Framework
 ### Download framework
-[Download the framework](https://github.com/mikaoj/BSImagePicker/releases/download/0.3/BSImagePickerController.framework.zip "framework") and drop into your project.
+[Download the framework](https://github.com/mikaoj/BSImagePicker/releases/download/0.4/BSImagePickerController.framework.zip "framework") and drop into your project.
 ### Or build it yourself
 * Clone project
 ```shell
