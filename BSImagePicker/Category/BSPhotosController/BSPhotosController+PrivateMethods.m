@@ -61,7 +61,7 @@
     [self.navigationController.view addSubview:self.coverView];
     [self.navigationController.view addSubview:self.speechBubbleView];
 
-    CGFloat tableViewHeight = MIN(self.tableView.contentSize.height, 240);
+    CGFloat tableViewHeight = MIN(self.tableController.tableView.contentSize.height, 240);
     CGRect frame = CGRectMake(0, 0, self.speechBubbleView.frame.size.width, tableViewHeight+7);
 
     //Remember old values

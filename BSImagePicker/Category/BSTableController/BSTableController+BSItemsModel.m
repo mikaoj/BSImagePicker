@@ -20,20 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import "BSCollectionController+BSItemsModel.h"
+#import "BSTableController+BSItemsModel.h"
 
-@implementation BSCollectionController (BSItemsModel)
+@implementation BSTableController (BSItemsModel)
 
 - (void)didUpdateModel:(id<BSItemsModel>)aModel {
-    //Since we are assuming that it is the first section that needs to be reloaded, make sure that it actually exists!
-    if([self.collectionView numberOfSections] > 0) {
-        [self.collectionView performBatchUpdates:^{
-            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
-            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
-                                        atScrollPosition:UICollectionViewScrollPositionTop
-                                                animated:YES];
-        } completion:nil];
-    }
+    [self.tableView reloadData];
 }
 
 @end
