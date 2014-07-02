@@ -20,10 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import "BSPhotosController+UITableView.h"
-#import "BSPhotosController+PrivateMethods.h"
+#import "BSTableController+UITableView.h"
 
-@implementation BSPhotosController (UITableView)
+@implementation BSTableController (UITableView)
+
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [self.tableModel numberOfSections];
@@ -35,12 +36,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [self.tableCellFactory cellAtIndexPath:indexPath forTableView:tableView withModel:self.tableModel];
-
+    
     if([self.tableModel isItemAtIndexPathSelected:indexPath]) {
         [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
         [cell setSelected:YES];
     }
-
+    
     return cell;
 }
 
@@ -48,15 +49,15 @@
     return [[self.tableCellFactory class] heightAtIndexPath:indexPath forModel:self.tableModel];
 }
 
+#pragma mark - UITableViewDelegate
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     id item = [self.tableModel itemAtIndexPath:indexPath];
-
+    
     //Only set if we have choosen a new group
     if(![item isEqual:[self.tableModel.selectedItems firstObject]]) {
         [self.tableModel selectItemAtIndexPath:indexPath];
     }
-
-    [self hideAlbumView];
 }
 
 @end

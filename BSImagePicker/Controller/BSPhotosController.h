@@ -26,12 +26,11 @@
 #import "BSPreviewController.h"
 #import "BSZoomOutAnimator.h"
 #import "BSZoomInAnimator.h"
+#import "BSTableController.h"
 
 @interface BSPhotosController : BSCollectionController
 
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) id<BSItemsModel> tableModel;
-@property (nonatomic, strong) id<BSTableViewCellFactory> tableCellFactory;
+@property (nonatomic, strong) BSTableController *tableController;
 
 @property (nonatomic, strong) BSSpeechBubbleView *speechBubbleView;
 @property (nonatomic, strong) UIView *coverView;
