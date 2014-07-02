@@ -74,7 +74,7 @@
 #pragma mark - BSItemsModel
 
 - (NSUInteger)numberOfSections {
-    return 1;
+    return ( [self.assets count] > 0 ? 1:0 );
 }
 
 - (NSUInteger)numberOfItemsInSection:(NSUInteger)aSection {
