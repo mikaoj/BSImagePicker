@@ -38,6 +38,8 @@
     if(self = [super init]) {
         //Default to shitloads of images
         _maximumNumberOfImages = NSUIntegerMax;
+        
+        _assetType = BSAssetTypeImage;
     }
     
     return self;

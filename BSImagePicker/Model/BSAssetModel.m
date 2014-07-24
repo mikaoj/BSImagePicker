@@ -22,6 +22,7 @@
 
 #import "BSAssetModel.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "BSImagePickerSettings.h"
 
 @interface BSAssetModel () {
     id<BSItemsModelDelegate> _delegate;
@@ -40,9 +41,18 @@
         _assetsGroup = parentItem;
 
         NSMutableArray *mutableAssets = [[NSMutableArray alloc] initWithCapacity:_assetsGroup.numberOfAssets];
-
-        ALAssetsFilter *onlyPhotosFilter = [ALAssetsFilter allPhotos];
-        [parentItem setAssetsFilter:onlyPhotosFilter];
+        
+        //Set up asset filters based on what types of assets the user wants
+        BSAssetType assetType = [[BSImagePickerSettings sharedSetting] assetType];
+        if(assetType == (BSAssetTypeImage|BSAssetTypeVideo)) {
+            [parentItem setAssetsFilter:[ALAssetsFilter allAssets]];
+        } else if(assetType & BSAssetTypeImage) {
+            [parentItem setAssetsFilter:[ALAssetsFilter allPhotos]];
+        } else if(assetType & BSAssetTypeVideo) {
+            [parentItem setAssetsFilter:[ALAssetsFilter allVideos]];
+        } else {
+            NSAssert(false, @"Unsupported asset type");
+        }
 
         [_assetsGroup enumerateAssetsWithOptions:NSEnumerationReverse
                                       usingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {

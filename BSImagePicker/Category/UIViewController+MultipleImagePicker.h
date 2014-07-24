@@ -24,6 +24,11 @@
 
 @class ALAsset;
 
+typedef NS_OPTIONS(NSInteger, BSAssetType) {
+    BSAssetTypeImage = 1 << 0,
+    BSAssetTypeVideo = 1 << 1
+};
+
 typedef void (^BSImageToggleBlock)(ALAsset *asset, BOOL select);
 typedef void (^BSImageGroupBlock)(NSArray *assets);
 

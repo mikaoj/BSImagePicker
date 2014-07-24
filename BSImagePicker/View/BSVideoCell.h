@@ -19,22 +19,13 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
+//
 
-#import "BSPreviewController+UICollectionView.h"
-#import "BSCollectionController+UICollectionView.h"
+#import "BSPhotoCell.h"
 
-@implementation BSPreviewController (UICollectionView)
+@interface BSVideoCell : BSPhotoCell
 
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [super collectionView:collectionView didDeselectItemAtIndexPath:indexPath];
-
-    [self.navigationItem setRightBarButtonItem:self.emptyItem animated:YES];
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
-
-    [self.navigationItem setRightBarButtonItem:self.checkMarkButton animated:YES];
-}
+@property (nonatomic, strong) UILabel *durationLabel;
+@property (nonatomic, strong) UIView *gradientView;
 
 @end

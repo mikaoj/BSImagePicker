@@ -23,13 +23,16 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "BSPhotoCollectionViewCellFactory.h"
 #import "BSPhotoCell.h"
+#import "BSVideoCell.h"
 
 static NSString *kPhotoCellIdentifier =             @"photoCellIdentifier";
+static NSString *kVideoCellIdentifier =             @"videoCellIdentifier";
 
 @implementation BSPhotoCollectionViewCellFactory
 
 + (void)registerCellIdentifiersForCollectionView:(UICollectionView *)aCollectionView {
     [aCollectionView registerClass:[BSPhotoCell class] forCellWithReuseIdentifier:kPhotoCellIdentifier];
+    [aCollectionView registerClass:[BSVideoCell class] forCellWithReuseIdentifier:kVideoCellIdentifier];
 }
 
 + (CGSize)sizeAtIndexPath:(NSIndexPath *)anIndexPath forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
@@ -64,8 +67,21 @@ static NSString *kPhotoCellIdentifier =             @"photoCellIdentifier";
 }
 
 - (UICollectionViewCell *)cellAtIndexPath:(NSIndexPath *)anIndexPath forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
-    BSPhotoCell *photoCell = [aCollectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:anIndexPath];
     ALAsset *asset = [aModel itemAtIndexPath:anIndexPath];
+    
+    //Deque correct type of cell for the asset
+    BSPhotoCell *photoCell = nil;
+    if([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo]) {
+        photoCell = [aCollectionView dequeueReusableCellWithReuseIdentifier:kVideoCellIdentifier forIndexPath:anIndexPath];
+        if([asset valueForProperty:ALAssetPropertyDuration] != ALErrorInvalidProperty) {
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"mm:ss"];
+            
+            [[(BSVideoCell *)photoCell durationLabel] setText:[formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:[[asset valueForProperty:ALAssetPropertyDuration] doubleValue]]]];
+        }
+    } else {
+        photoCell = [aCollectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:anIndexPath];
+    }
     
     if([asset isKindOfClass:[ALAsset class]]) {
         [photoCell.imageView setImage:[UIImage imageWithCGImage:asset.thumbnail]];

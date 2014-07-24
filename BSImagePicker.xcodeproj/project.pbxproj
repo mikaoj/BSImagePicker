@@ -44,6 +44,8 @@
 		553EC5881943E080004D7B12 /* UIImageViewModeScaleAspect.m in Sources */ = {isa = PBXBuildFile; fileRef = 55AD0D8D19408C7800BDC37F /* UIImageViewModeScaleAspect.m */; };
 		553EC5891943E083004D7B12 /* BSZoomInAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B90AF1CED4DE415FD931F /* BSZoomInAnimator.m */; };
 		553EC58A1943E086004D7B12 /* BSZoomOutAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B99BEDF8860AD297EE80D /* BSZoomOutAnimator.m */; };
+		556AABA5197FCA8000D799F7 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 556AABA4197FCA8000D799F7 /* MediaPlayer.framework */; };
+		556AABA81980641500D799F7 /* BSCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 556AABA71980641500D799F7 /* BSCameraView.m */; };
 		556E0CE919017470006F8F73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 556E0CE719017470006F8F73 /* InfoPlist.strings */; };
 		556E0CF0190174E6006F8F73 /* UIViewController+MultipleImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE018FC952D00F28CA5 /* UIViewController+MultipleImagePicker.m */; };
 		556E0CF2190174E6006F8F73 /* ALAsset+Equal.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE618FE75B300F28CA5 /* ALAsset+Equal.m */; };
@@ -85,6 +87,7 @@
 		55CF229118FAD757003784D9 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CF229018FAD757003784D9 /* MessageUI.framework */; };
 		55E9AFEE1964B62A000B4699 /* BSTableController+BSItemsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9AFED1964B62A000B4699 /* BSTableController+BSItemsModel.m */; };
 		55E9AFF11964B6B4000B4699 /* BSTableController+UITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9AFF01964B6B4000B4699 /* BSTableController+UITableView.m */; };
+		55E9AFF41964C470000B4699 /* BSVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9AFF31964C470000B4699 /* BSVideoCell.m */; };
 		55EC233D18F08F95008F5A02 /* MultipleImagePickerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 55C3BE8918EF632D00E601DE /* MultipleImagePickerTests.m */; };
 		55EC234218F0A321008F5A02 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55EC234118F0A321008F5A02 /* AssetsLibrary.framework */; };
 		55EC234518F1DB6A008F5A02 /* BSSpeechBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EC234418F1DB6A008F5A02 /* BSSpeechBubbleView.m */; };
@@ -125,6 +128,9 @@
 		5509A42819301069006E4DA1 /* BSPhotoCollectionViewCellFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPhotoCollectionViewCellFactory.m; sourceTree = "<group>"; };
 		5509A42B193010BC006E4DA1 /* BSPreviewCollectionViewCellFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPreviewCollectionViewCellFactory.h; sourceTree = "<group>"; };
 		5509A42C193010BC006E4DA1 /* BSPreviewCollectionViewCellFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSPreviewCollectionViewCellFactory.m; sourceTree = "<group>"; };
+		556AABA4197FCA8000D799F7 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		556AABA61980641500D799F7 /* BSCameraView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCameraView.h; sourceTree = "<group>"; };
+		556AABA71980641500D799F7 /* BSCameraView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCameraView.m; sourceTree = "<group>"; };
 		556E0CE119017470006F8F73 /* BSImagePickerController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BSImagePickerController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		556E0CE219017470006F8F73 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		556E0CE619017470006F8F73 /* BSImagePickerController-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BSImagePickerController-Info.plist"; sourceTree = "<group>"; };
@@ -172,6 +178,8 @@
 		55E9AFED1964B62A000B4699 /* BSTableController+BSItemsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSTableController+BSItemsModel.m"; sourceTree = "<group>"; };
 		55E9AFEF1964B6B4000B4699 /* BSTableController+UITableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSTableController+UITableView.h"; sourceTree = "<group>"; };
 		55E9AFF01964B6B4000B4699 /* BSTableController+UITableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BSTableController+UITableView.m"; sourceTree = "<group>"; };
+		55E9AFF21964C470000B4699 /* BSVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSVideoCell.h; sourceTree = "<group>"; };
+		55E9AFF31964C470000B4699 /* BSVideoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSVideoCell.m; sourceTree = "<group>"; };
 		55EC234118F0A321008F5A02 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		55EC234318F1DB6A008F5A02 /* BSSpeechBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSpeechBubbleView.h; sourceTree = "<group>"; };
 		55EC234418F1DB6A008F5A02 /* BSSpeechBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSpeechBubbleView.m; sourceTree = "<group>"; };
@@ -215,6 +223,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				556AABA5197FCA8000D799F7 /* MediaPlayer.framework in Frameworks */,
 				55C3BE6718EF632D00E601DE /* CoreGraphics.framework in Frameworks */,
 				55C3BE6918EF632D00E601DE /* UIKit.framework in Frameworks */,
 				55C3BE6518EF632D00E601DE /* Foundation.framework in Frameworks */,
@@ -329,6 +338,7 @@
 		55C3BE6318EF632D00E601DE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				556AABA4197FCA8000D799F7 /* MediaPlayer.framework */,
 				55CF229018FAD757003784D9 /* MessageUI.framework */,
 				55EC234118F0A321008F5A02 /* AssetsLibrary.framework */,
 				55C3BE6418EF632D00E601DE /* Foundation.framework */,
@@ -448,6 +458,10 @@
 				558315E818F8436E00B54FE6 /* BSPhotoCell.m */,
 				55A11ED518FC440D00F28CA5 /* BSCheckmarkView.h */,
 				55A11ED618FC440D00F28CA5 /* BSCheckmarkView.m */,
+				55E9AFF21964C470000B4699 /* BSVideoCell.h */,
+				55E9AFF31964C470000B4699 /* BSVideoCell.m */,
+				556AABA61980641500D799F7 /* BSCameraView.h */,
+				556AABA71980641500D799F7 /* BSCameraView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -691,6 +705,7 @@
 			files = (
 				55C3BE7118EF632D00E601DE /* main.m in Sources */,
 				558315E618F8192F00B54FE6 /* BSAlbumCell.m in Sources */,
+				55E9AFF41964C470000B4699 /* BSVideoCell.m in Sources */,
 				559829841931625B00D68BD5 /* BSImagePickerSettings.m in Sources */,
 				55A4258918FA8E6F00EF7E8F /* BSImagePickerController.m in Sources */,
 				5509A42919301069006E4DA1 /* BSPhotoCollectionViewCellFactory.m in Sources */,
@@ -706,6 +721,7 @@
 				5598296E1930ECDF00D68BD5 /* BSAssetsGroupModel.m in Sources */,
 				5509A41C192F9F4D006E4DA1 /* BSAssetModel.m in Sources */,
 				55EC234518F1DB6A008F5A02 /* BSSpeechBubbleView.m in Sources */,
+				556AABA81980641500D799F7 /* BSCameraView.m in Sources */,
 				55EC235118F2F873008F5A02 /* BSTriangleView.m in Sources */,
 				55AD0D8E19408C7800BDC37F /* UIImageViewModeScaleAspect.m in Sources */,
 				BB2B992598FC83C26F7BCF0F /* ALAssetsGroup+Equal.m in Sources */,

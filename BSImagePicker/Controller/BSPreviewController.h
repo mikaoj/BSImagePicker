@@ -26,5 +26,6 @@
 
 @property (nonatomic, strong) NSIndexPath *currentIndexPath;
 @property (nonatomic, strong) UIBarButtonItem *checkMarkButton;
+@property (nonatomic, strong) UIBarButtonItem *emptyItem;
 
 @end
