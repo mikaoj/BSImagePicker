@@ -85,6 +85,14 @@
     [[BSImagePickerSettings sharedSetting] setFinishBlock:finishBlock];
 }
 
+- (BSAssetType)assetType {
+    return [[BSImagePickerSettings sharedSetting] assetType];
+}
+
+- (void)setAssetType:(BSAssetType)assetType {
+    [[BSImagePickerSettings sharedSetting] setAssetType:assetType];
+}
+
 - (BOOL)previewDisabled {
     return [[BSImagePickerSettings sharedSetting] previewDisabled];
 }

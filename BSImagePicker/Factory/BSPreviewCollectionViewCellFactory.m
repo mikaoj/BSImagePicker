@@ -49,7 +49,6 @@ static NSString *kPhotoCellIdentifier =             @"previewCellIdentifier";
 }
 
 - (UICollectionViewCell *)cellAtIndexPath:(NSIndexPath *)anIndexPath forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
-    
     BSPhotoCell *cell = (BSPhotoCell *)[aCollectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:anIndexPath];
     ALAsset *asset = [aModel itemAtIndexPath:anIndexPath];
     
