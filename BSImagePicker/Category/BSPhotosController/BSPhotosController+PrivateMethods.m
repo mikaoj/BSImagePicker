@@ -43,8 +43,6 @@
     if(![[BSImagePickerSettings sharedSetting] keepSelection]) {
         [self.collectionModel clearSelection];
     }
-
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)albumButtonPressed:(id)sender {
