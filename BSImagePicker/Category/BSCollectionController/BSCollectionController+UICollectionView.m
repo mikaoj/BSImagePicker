@@ -96,7 +96,10 @@
     CGSize itemSize = CGSizeZero;
 
     if(self.collectionCellFactory) {
-        itemSize = [[self.collectionCellFactory class] sizeAtIndexPath:indexPath forCollectionView:collectionView withModel:self.collectionModel];
+        itemSize = [[self.collectionCellFactory class]
+                    sizeAtIndexPath:indexPath
+                    forCollectionView:collectionView
+                    withModel:self.collectionModel];
     }
 
     return itemSize;

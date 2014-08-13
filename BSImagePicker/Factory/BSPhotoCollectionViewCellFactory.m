@@ -50,7 +50,6 @@ static NSString *kVideoCellIdentifier =             @"videoCellIdentifier";
         UIEdgeInsets sectionInsets = [[self class] edgeInsetAtSection:anIndexPath.section forCollectionView:aCollectionView withModel:aModel];
         CGFloat minItemSpacing = [[self class] minimumItemSpacingAtSection:anIndexPath.section forCollectionView:aCollectionView withModel:aModel];
         
-        
         itemSize = CGSizeMake((aCollectionView.bounds.size.width - (sectionInsets.left + 2*minItemSpacing + sectionInsets.right))/3.0, 100);
         itemSize = CGSizeMake(itemSize.width, thumbnailSize.height / thumbnailSize.width * itemSize.width);
     }

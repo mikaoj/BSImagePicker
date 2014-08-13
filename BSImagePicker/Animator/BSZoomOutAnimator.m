@@ -49,7 +49,7 @@
     [toCell setHidden:YES];
     [fromCell.imageView setHidden:YES];
     
-    UIImageView *iv = fromCell.imageView; // your image view
+    UIImageView *iv = fromCell.imageView;
     CGSize imageSize = iv.image.size;
     CGFloat imageScale = fminf(CGRectGetWidth(iv.bounds)/imageSize.width, CGRectGetHeight(iv.bounds)/imageSize.height);
     CGSize scaledImageSize = CGSizeMake(imageSize.width*imageScale, imageSize.height*imageScale);
