@@ -28,6 +28,7 @@
 @property (nonatomic, strong) BSImagePickerController *imagePicker;
 @property (nonatomic, strong) BSImagePickerController *darkImagePicker;
 @property (nonatomic, strong) UIImagePickerController *oldImagePicker;
+@property (nonatomic, strong) UIPopoverController *popover;
 
 @end
 
@@ -49,6 +50,13 @@
     [pressMe2 addTarget:self action:@selector(doUIImagePicker:) forControlEvents:UIControlEventTouchUpInside];
     [viewController.view addSubview:pressMe2];
     
+    UIButton *pressMe = [[UIButton alloc] initWithFrame:CGRectMake(50, 200, 200, 35)];
+    [pressMe setTitle:@"BSImagePicker" forState:UIControlStateNormal];
+    [pressMe setTitleColor:viewController.view.tintColor forState:UIControlStateNormal];
+    [pressMe addTarget:self action:@selector(doBSImagePicker:) forControlEvents:UIControlEventTouchUpInside];
+    [pressMe setTag:1];
+    [viewController.view addSubview:pressMe];
+    
     UIButton *pressMe3 = [[UIButton alloc] initWithFrame:CGRectMake(50, 300, 200, 35)];
     [pressMe3 setTitle:@"BSImagePicker Dark" forState:UIControlStateNormal];
     [pressMe3 setTitleColor:viewController.view.tintColor forState:UIControlStateNormal];
@@ -56,12 +64,12 @@
     [pressMe3 setTag:2];
     [viewController.view addSubview:pressMe3];
     
-    UIButton *pressMe = [[UIButton alloc] initWithFrame:CGRectMake(50, 200, 200, 35)];
-    [pressMe setTitle:@"BSImagePicker" forState:UIControlStateNormal];
-    [pressMe setTitleColor:viewController.view.tintColor forState:UIControlStateNormal];
-    [pressMe addTarget:self action:@selector(doBSImagePicker:) forControlEvents:UIControlEventTouchUpInside];
-    [pressMe setTag:1];
-    [viewController.view addSubview:pressMe];
+    UIButton *pressMe4 = [[UIButton alloc] initWithFrame:CGRectMake(50, 400, 200, 35)];
+    [pressMe4 setTitle:@"BSImagePicker popover" forState:UIControlStateNormal];
+    [pressMe4 setTitleColor:viewController.view.tintColor forState:UIControlStateNormal];
+    [pressMe4 addTarget:self action:@selector(doBSImagePickerWithPopover:) forControlEvents:UIControlEventTouchUpInside];
+    [pressMe4 setTag:1];
+    [viewController.view addSubview:pressMe4];
     
     [self setImagePicker:[[BSImagePickerController alloc] init]];
     [self.imagePicker setKeepSelection:YES];
@@ -114,9 +122,37 @@
                                                           }
                                                           cancel:^(NSArray *assets) {
                                                               NSLog(@"User canceled...!");
-                                                          } finish:^(NSArray *assets) {
+                                                              [imagePicker dismissViewControllerAnimated:YES completion:nil];
+                                                          }
+                                                          finish:^(NSArray *assets) {
                                                               NSLog(@"User finished :)!");
+                                                              [imagePicker dismissViewControllerAnimated:YES completion:nil];
                                                           }];
+}
+
+- (void)doBSImagePickerWithPopover:(id)sender {
+    UIButton *button = (UIButton *)sender;
+    UIPopoverController *popover = [[UIPopoverController alloc] initWithContentViewController:self.imagePicker];
+    [self.imagePicker setToggleBlock:^(ALAsset *asset, BOOL select) {
+        if(select) {
+            NSLog(@"Image selected");
+        } else {
+            NSLog(@"Image deselected");
+        }
+    }];
+    [self.imagePicker setCancelBlock:^(NSArray *assets) {
+        NSLog(@"User canceled...!");
+        [popover dismissPopoverAnimated:YES];
+    }];
+    [self.imagePicker setFinishBlock:^(NSArray *assets) {
+        NSLog(@"User finished :)!");
+        [popover dismissPopoverAnimated:YES];
+    }];
+    
+    [popover presentPopoverFromRect:button.frame
+                             inView:self.window.rootViewController.view
+           permittedArrowDirections:UIPopoverArrowDirectionLeft
+                           animated:YES];
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle

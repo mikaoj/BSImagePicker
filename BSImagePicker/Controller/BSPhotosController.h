@@ -24,14 +24,13 @@
 #import "BSTableViewCellFactory.h"
 #import "BSSpeechBubbleView.h"
 #import "BSPreviewController.h"
-#import "BSZoomOutAnimator.h"
-#import "BSZoomInAnimator.h"
+#import "BSShrinkAnimator.h"
+#import "BSExpandAnimator.h"
+#import "BSTableController.h"
 
 @interface BSPhotosController : BSCollectionController
 
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) id<BSItemsModel> tableModel;
-@property (nonatomic, strong) id<BSTableViewCellFactory> tableCellFactory;
+@property (nonatomic, strong) BSTableController *tableController;
 
 @property (nonatomic, strong) BSSpeechBubbleView *speechBubbleView;
 @property (nonatomic, strong) UIView *coverView;
@@ -42,7 +41,7 @@
 
 @property (nonatomic, strong) BSPreviewController *previewController;
 
-@property (nonatomic, strong) BSZoomInAnimator *zoomInAnimator;
-@property (nonatomic, strong) BSZoomOutAnimator *zoomOutAnimator;
+@property (nonatomic, strong) BSExpandAnimator *zoomInAnimator;
+@property (nonatomic, strong) BSShrinkAnimator *zoomOutAnimator;
 
 @end

@@ -25,12 +25,15 @@
 @implementation BSCollectionController (BSItemsModel)
 
 - (void)didUpdateModel:(id<BSItemsModel>)aModel {
-    [self.collectionView performBatchUpdates:^{
-        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
-        [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
-                                    atScrollPosition:UICollectionViewScrollPositionTop
-                                            animated:YES];
-    } completion:nil];
+    //Since we are assuming that it is the first section that needs to be reloaded, make sure that it actually exists!
+    if([self.collectionView numberOfSections] > 0) {
+        [self.collectionView performBatchUpdates:^{
+            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
+            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
+                                        atScrollPosition:UICollectionViewScrollPositionTop
+                                                animated:YES];
+        } completion:nil];
+    }
 }
 
 @end

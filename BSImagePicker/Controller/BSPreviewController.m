@@ -23,10 +23,25 @@
 #import "BSPreviewController.h"
 #import "BSPreviewCollectionViewCellFactory.h"
 #import "BSCheckmarkView.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+#import <MediaPlayer/MediaPlayer.h>
+#import "BSVideoCell.h"
 
 @interface BSPreviewController ()
 
+@property (nonatomic, strong) UIBarButtonItem *playButton;
+@property (nonatomic, strong) UIBarButtonItem *stopButton;
+@property (nonatomic, strong) UIBarButtonItem *flexibleItem;
+@property (nonatomic, strong) UIToolbar *toolbar;
+@property (nonatomic, strong) MPMoviePlayerController *moviePlayerController;
+
 - (void)toggleCheckMarkForIndexPath:(NSIndexPath *)anIndexPath;
+- (void)togglePlayButtonForIndexPath:(NSIndexPath *)anIndexPath;
+- (void)prepareMoviePlayerForIndexPath:(NSIndexPath *)anIndexPath;
+
+- (void)playAction:(id)sender;
+- (void)stopAction:(id)sender;
+- (void)videoFinishedPlaying:(NSNotification *)notification;
 
 @end
 
@@ -35,8 +50,7 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         [self setAutomaticallyAdjustsScrollViewInsets:NO];
-        [self.collectionView setContentInset:UIEdgeInsetsMake(64.0, 0.0, 0.0, 0.0)];
-
+        
         //Setup layout
         [self.collectionViewFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
@@ -59,8 +73,22 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [self.navigationItem setTitleView:self.toolbar];
+    [self.navigationItem setRightBarButtonItem:self.emptyItem];
+    
+    [self.collectionView scrollToItemAtIndexPath:self.currentIndexPath
+                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                        animated:NO];
+    
+    [self toggleCheckMarkForIndexPath:self.currentIndexPath];
+    [self togglePlayButtonForIndexPath:self.currentIndexPath];
+}
 
-    [self.collectionView scrollToItemAtIndexPath:self.currentIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self prepareMoviePlayerForIndexPath:self.currentIndexPath];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -68,7 +96,6 @@
 
     [self.collectionView performBatchUpdates:^{
         [self.collectionView.collectionViewLayout invalidateLayout];
-
     } completion:nil];
 }
 
@@ -77,6 +104,9 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self setCurrentIndexPath:[NSIndexPath indexPathForItem:round(scrollView.contentOffset.x / scrollView.frame.size.width) inSection:0]];
     [self toggleCheckMarkForIndexPath:self.currentIndexPath];
+    [self togglePlayButtonForIndexPath:self.currentIndexPath];
+    [self.moviePlayerController stop];
+    [self prepareMoviePlayerForIndexPath:self.currentIndexPath];
 }
 
 #pragma mark - Lazy load
@@ -91,17 +121,143 @@
     return _checkMarkButton;
 }
 
+- (UIBarButtonItem *)emptyItem {
+    if(!_emptyItem) {
+        _emptyItem = [[UIBarButtonItem alloc] initWithCustomView:[[UIView alloc] initWithFrame:CGRectMake(0, 0, 25.0, 25.0)]];
+    }
+    
+    return _emptyItem;
+}
+
+- (UIBarButtonItem *)playButton {
+    if(!_playButton) {
+        _playButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemPlay target:self action:@selector(playAction:)];
+    }
+    
+    return _playButton;
+}
+
+- (UIBarButtonItem *)stopButton {
+    if(!_stopButton) {
+        _stopButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(stopAction:)];
+    }
+    
+    return _stopButton;
+}
+
+- (UIBarButtonItem *)flexibleItem {
+    if(!_flexibleItem) {
+        _flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    }
+    
+    return _flexibleItem;
+}
+
+- (UIToolbar *)toolbar {
+    if(!_toolbar) {
+        _toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 44.0, 44.0)];
+        [_toolbar setItems:@[self.flexibleItem, self.playButton, self.flexibleItem]];
+        [_toolbar sizeThatFits:CGSizeMake(44.0, 44.0)];
+        [_toolbar setClipsToBounds:YES];
+        [_toolbar setContentMode:UIViewContentModeCenter];
+        [_toolbar setBackgroundColor:[UIColor clearColor]];
+        [_toolbar setTranslucent:YES];
+        [self.toolbar setBackgroundImage:[UIImage new]
+                      forToolbarPosition:UIToolbarPositionAny
+                              barMetrics:UIBarMetricsDefault];
+    }
+    
+    return _toolbar;
+}
+
+- (MPMoviePlayerController *)moviePlayerController {
+    if(!_moviePlayerController) {
+        _moviePlayerController = [[MPMoviePlayerController alloc] init];
+        [_moviePlayerController setControlStyle:MPMovieControlStyleNone];
+        [_moviePlayerController setScalingMode:MPMovieScalingModeAspectFit];
+        [_moviePlayerController setAllowsAirPlay:NO];
+    }
+    
+    return _moviePlayerController;
+}
+
+#pragma mark - Give me a name
+
 - (void)toggleCheckMarkForIndexPath:(NSIndexPath *)anIndexPath {
     BOOL isSelected = [self.collectionModel isItemAtIndexPathSelected:anIndexPath];
-    BOOL isCheckmarkVisible = self.navigationItem.rightBarButtonItem != nil;
+    BOOL isCheckmarkVisible = self.navigationItem.rightBarButtonItem == self.checkMarkButton;
 
     if(isSelected != isCheckmarkVisible) {
         if(isSelected) {
             [self.navigationItem setRightBarButtonItem:self.checkMarkButton animated:YES];
         } else {
-            [self.navigationItem setRightBarButtonItem:nil animated:YES];
+            [self.navigationItem setRightBarButtonItem:self.emptyItem animated:YES];
         }
     }
+}
+
+- (void)togglePlayButtonForIndexPath:(NSIndexPath *)anIndexPath {
+    ALAsset *asset = [self.collectionModel itemAtIndexPath:anIndexPath];
+    if([[asset valueForProperty:ALAssetPropertyType] isEqualToString:ALAssetTypeVideo]) {
+        [self.toolbar setHidden:NO];
+    } else {
+        [self.toolbar setHidden:YES];
+    }
+}
+
+- (void)prepareMoviePlayerForIndexPath:(NSIndexPath *)anIndexPath {
+    ALAsset *asset = [self.collectionModel itemAtIndexPath:anIndexPath];
+    
+    if([[asset valueForProperty:ALAssetPropertyType] isEqualToString:ALAssetTypeVideo]) {
+        BSVideoCell *cell = (BSVideoCell *)[self.collectionView cellForItemAtIndexPath:anIndexPath];
+        [self.moviePlayerController setContentURL:asset.defaultRepresentation.url];
+        [self.moviePlayerController.view setFrame:cell.imageView.bounds];
+        [self.moviePlayerController prepareToPlay];
+    }
+}
+
+#pragma mark - Action
+
+- (void)playAction:(id)sender {
+    //Get Cell to play it in
+    BSVideoCell *cell = (BSVideoCell *)[self.collectionView cellForItemAtIndexPath:self.currentIndexPath];
+    
+    //Listen for notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(videoFinishedPlaying:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+                                               object:self.moviePlayerController];
+    
+    //Add subview and play
+    [self.moviePlayerController.backgroundView setBackgroundColor:[self.navigationController.view backgroundColor]];
+    [cell.imageView addSubview:self.moviePlayerController.view];
+    [self.moviePlayerController play];
+    
+    //Update toolbar
+    [self.toolbar setItems:@[self.flexibleItem, self.stopButton, self.flexibleItem]];
+}
+
+- (void)stopAction:(id)sender {
+    [self.moviePlayerController stop];
+}
+
+- (void)videoFinishedPlaying:(NSNotification *)notification {
+    //Remove notification listener
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:MPMoviePlayerPlaybackDidFinishNotification
+                                                  object:self.moviePlayerController];
+    
+    //Stop playback and remove view
+    [self.moviePlayerController stop];
+    [self.moviePlayerController.view removeFromSuperview];
+    
+    //Update toolbar
+    [self.toolbar setItems:@[self.flexibleItem, self.playButton, self.flexibleItem]];
+    
+    //To prevent glitch if played a second time
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.moviePlayerController prepareToPlay];
+    });
 }
 
 @end

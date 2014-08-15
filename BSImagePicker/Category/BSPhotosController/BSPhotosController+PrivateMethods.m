@@ -43,8 +43,6 @@
     if(![[BSImagePickerSettings sharedSetting] keepSelection]) {
         [self.collectionModel clearSelection];
     }
-
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)albumButtonPressed:(id)sender {
@@ -61,7 +59,7 @@
     [self.navigationController.view addSubview:self.coverView];
     [self.navigationController.view addSubview:self.speechBubbleView];
 
-    CGFloat tableViewHeight = MIN(self.tableView.contentSize.height, 240);
+    CGFloat tableViewHeight = MIN(self.tableController.tableView.contentSize.height, 240);
     CGRect frame = CGRectMake(0, 0, self.speechBubbleView.frame.size.width, tableViewHeight+7);
 
     //Remember old values
@@ -117,6 +115,7 @@
 
         [self.previewController setCollectionModel:self.collectionModel];
         [self.previewController setCurrentIndexPath:indexPath];
+        [self.previewController.collectionView setContentInset:self.collectionView.contentInset];
         [self.navigationController pushViewController:self.previewController animated:YES];
 
         [recognizer setEnabled:YES];

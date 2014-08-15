@@ -41,6 +41,12 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.imagePicker.collectionView reloadData];
+}
+
 #pragma mark - Lazy load
 
 - (BSPhotosController *)imagePicker {
@@ -83,6 +89,14 @@
 
 - (void)setFinishBlock:(BSImageGroupBlock)finishBlock {
     [[BSImagePickerSettings sharedSetting] setFinishBlock:finishBlock];
+}
+
+- (BSAssetType)assetType {
+    return [[BSImagePickerSettings sharedSetting] assetType];
+}
+
+- (void)setAssetType:(BSAssetType)assetType {
+    [[BSImagePickerSettings sharedSetting] setAssetType:assetType];
 }
 
 - (BOOL)previewDisabled {

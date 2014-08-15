@@ -10,29 +10,29 @@
 	<string>BSImagePicker</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>3DC0F6DD-BC5C-46F5-9A37-FECD8B9F1B11</key>
+		<key>DF1E81D5DDD90A1D12FA649A155BB8370AC65668</key>
 		<string>ssh://github.com/mikaoj/BSImagePicker.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>BSImagePicker.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>3DC0F6DD-BC5C-46F5-9A37-FECD8B9F1B11</key>
+		<key>DF1E81D5DDD90A1D12FA649A155BB8370AC65668</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/mikaoj/BSImagePicker.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>3DC0F6DD-BC5C-46F5-9A37-FECD8B9F1B11</string>
+	<string>DF1E81D5DDD90A1D12FA649A155BB8370AC65668</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>3DC0F6DD-BC5C-46F5-9A37-FECD8B9F1B11</string>
+			<string>DF1E81D5DDD90A1D12FA649A155BB8370AC65668</string>
 			<key>IDESourceControlWCCName</key>
 			<string>MultipleImagePicker</string>
 		</dict>

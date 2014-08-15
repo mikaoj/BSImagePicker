@@ -20,6 +20,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@interface BSZoomOutAnimator : NSObject <UIViewControllerAnimatedTransitioning>
+#import <UIKit/UIKit.h>
+
+@interface BSCameraView : UIView
+
+@property (nonatomic, strong) UIColor *color;
 
 @end

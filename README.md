@@ -6,7 +6,7 @@ A mix between the native iOS 7 gallery and facebooks image picker.
 ## Pod
 Put this into your Podfile:
 ```shell
-pod 'BSImagePicker', '~> 0.4'
+pod 'BSImagePicker', '~> 0.5'
 ```
 ## Framework
 ### Download framework
@@ -55,7 +55,7 @@ All blocks are optional and can be nil, so you could for an instance just handle
 
 Blocks are always called on the main thread.
 
-### Customization (see BSImagePickerController.h)
+### Customize (see BSImagePickerController.h)
 * You can disable previews by setting previewDisabled to YES.
 * Setting keepSelection to YES will keep your image selection after dismissing the controller.
 * Set maximumNumberOfImages to a value to limit selection to a certain number of images.

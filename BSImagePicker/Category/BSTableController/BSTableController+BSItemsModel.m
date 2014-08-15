@@ -20,21 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import "BSPreviewController+UICollectionView.h"
-#import "BSCollectionController+UICollectionView.h"
+#import "BSTableController+BSItemsModel.h"
 
-@implementation BSPreviewController (UICollectionView)
+@implementation BSTableController (BSItemsModel)
 
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [super collectionView:collectionView didDeselectItemAtIndexPath:indexPath];
-
-    [self.navigationItem setRightBarButtonItem:self.emptyItem animated:YES];
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
-
-    [self.navigationItem setRightBarButtonItem:self.checkMarkButton animated:YES];
+- (void)didUpdateModel:(id<BSItemsModel>)aModel {
+    [self.tableView reloadData];
 }
 
 @end

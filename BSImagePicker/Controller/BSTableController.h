@@ -20,7 +20,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import "BSPhotosController.h"
+#import "BSItemsModel.h"
+#import "BSTableViewCellFactory.h"
 
-@interface BSPhotosController (UITableView) <UITableViewDataSource, UITableViewDelegate>
+@interface BSTableController : UIViewController
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) id<BSItemsModel> tableModel;
+@property (nonatomic, strong) id<BSTableViewCellFactory> tableCellFactory;
+
 @end

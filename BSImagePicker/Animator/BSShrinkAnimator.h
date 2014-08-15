@@ -20,21 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import "BSPreviewController+UICollectionView.h"
-#import "BSCollectionController+UICollectionView.h"
-
-@implementation BSPreviewController (UICollectionView)
-
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [super collectionView:collectionView didDeselectItemAtIndexPath:indexPath];
-
-    [self.navigationItem setRightBarButtonItem:self.emptyItem animated:YES];
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
-
-    [self.navigationItem setRightBarButtonItem:self.checkMarkButton animated:YES];
-}
+@interface BSShrinkAnimator : NSObject <UIViewControllerAnimatedTransitioning>
 
 @end

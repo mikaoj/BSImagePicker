@@ -47,6 +47,11 @@
 @property (nonatomic, copy) BSImageGroupBlock finishBlock;
 
 /**
+ * What types of assets you want the picker to handle
+ */
+@property (nonatomic, assign) BSAssetType assetType;
+
+/**
  *  Set to YES to disable preview on long press
  */
 @property (nonatomic, assign) BOOL previewDisabled;

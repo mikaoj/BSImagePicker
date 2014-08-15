@@ -23,13 +23,16 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "BSPhotoCollectionViewCellFactory.h"
 #import "BSPhotoCell.h"
+#import "BSVideoCell.h"
 
 static NSString *kPhotoCellIdentifier =             @"photoCellIdentifier";
+static NSString *kVideoCellIdentifier =             @"videoCellIdentifier";
 
 @implementation BSPhotoCollectionViewCellFactory
 
 + (void)registerCellIdentifiersForCollectionView:(UICollectionView *)aCollectionView {
     [aCollectionView registerClass:[BSPhotoCell class] forCellWithReuseIdentifier:kPhotoCellIdentifier];
+    [aCollectionView registerClass:[BSVideoCell class] forCellWithReuseIdentifier:kVideoCellIdentifier];
 }
 
 + (CGSize)sizeAtIndexPath:(NSIndexPath *)anIndexPath forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
@@ -41,10 +44,13 @@ static NSString *kPhotoCellIdentifier =             @"photoCellIdentifier";
         CGSize thumbnailSize = CGSizeMake(CGImageGetWidth(asset.thumbnail), CGImageGetHeight(asset.thumbnail));
         
         //We want 3 images in each row. So width should be viewWidth-(4*LEFT/RIGHT_INSET)/3
-        //4*2.0 is edgeinset
         //Height should be adapted so we maintain the aspect ratio of thumbnail
         //original height / original width * new width
-        itemSize = CGSizeMake((aCollectionView.bounds.size.width - (4*2.0))/3.0, 100);
+        
+        UIEdgeInsets sectionInsets = [[self class] edgeInsetAtSection:anIndexPath.section forCollectionView:aCollectionView withModel:aModel];
+        CGFloat minItemSpacing = [[self class] minimumItemSpacingAtSection:anIndexPath.section forCollectionView:aCollectionView withModel:aModel];
+        
+        itemSize = CGSizeMake((aCollectionView.bounds.size.width - (sectionInsets.left + 2*minItemSpacing + sectionInsets.right))/3.0, 100);
         itemSize = CGSizeMake(itemSize.width, thumbnailSize.height / thumbnailSize.width * itemSize.width);
     }
     
@@ -64,8 +70,21 @@ static NSString *kPhotoCellIdentifier =             @"photoCellIdentifier";
 }
 
 - (UICollectionViewCell *)cellAtIndexPath:(NSIndexPath *)anIndexPath forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
-    BSPhotoCell *photoCell = [aCollectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:anIndexPath];
     ALAsset *asset = [aModel itemAtIndexPath:anIndexPath];
+    
+    //Deque correct type of cell for the asset
+    BSPhotoCell *photoCell = nil;
+    if([[asset valueForProperty:ALAssetPropertyType] isEqual:ALAssetTypeVideo]) {
+        photoCell = [aCollectionView dequeueReusableCellWithReuseIdentifier:kVideoCellIdentifier forIndexPath:anIndexPath];
+        if([asset valueForProperty:ALAssetPropertyDuration] != ALErrorInvalidProperty) {
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"mm:ss"];
+            
+            [[(BSVideoCell *)photoCell durationLabel] setText:[formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:[[asset valueForProperty:ALAssetPropertyDuration] doubleValue]]]];
+        }
+    } else {
+        photoCell = [aCollectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:anIndexPath];
+    }
     
     if([asset isKindOfClass:[ALAsset class]]) {
         [photoCell.imageView setImage:[UIImage imageWithCGImage:asset.thumbnail]];

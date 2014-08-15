@@ -22,19 +22,22 @@
 
 #import "BSPhotosController+BSItemsModel.h"
 #import "BSCollectionController+BSItemsModel.h"
+#import "BSTableController+BSItemsModel.h"
+#import "BSPhotosController+PrivateMethods.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
 @implementation BSPhotosController (BSItemsModel)
 
 - (void)didUpdateModel:(id<BSItemsModel>)aModel {
-    if(aModel == self.tableModel) {
-        [self.tableView reloadData];
+    if(aModel == self.tableController.tableModel) {
+        [self.tableController didUpdateModel:aModel];
 
-        ALAssetsGroup *assetsGroup = [[self.tableModel selectedItems] firstObject];
-
+        ALAssetsGroup *assetsGroup = [[self.tableController.tableModel selectedItems] firstObject];
+        
         [self.albumButton setTitle:[assetsGroup valueForProperty:ALAssetsGroupPropertyName] forState:UIControlStateNormal];
-
         [self.collectionModel setupWithParentItem:assetsGroup];
+        
+        [self hideAlbumView];
     } else {
         [super didUpdateModel:aModel];
     }

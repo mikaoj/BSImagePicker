@@ -33,7 +33,10 @@ static NSString *kPhotoCellIdentifier =             @"previewCellIdentifier";
 }
 
 + (CGSize)sizeAtIndexPath:(NSIndexPath *)anIndexPath forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
-    return CGSizeMake(aCollectionView.bounds.size.width, aCollectionView.bounds.size.height-aCollectionView.contentInset.top);
+    UIEdgeInsets insets = aCollectionView.contentInset;
+    CGSize collectionSize = aCollectionView.bounds.size;
+    
+    return CGSizeMake(collectionSize.width - (insets.left + insets.right), collectionSize.height - (insets.top + insets.bottom));
 }
 
 + (UIEdgeInsets)edgeInsetAtSection:(NSUInteger)aSection forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
@@ -49,13 +52,12 @@ static NSString *kPhotoCellIdentifier =             @"previewCellIdentifier";
 }
 
 - (UICollectionViewCell *)cellAtIndexPath:(NSIndexPath *)anIndexPath forCollectionView:(UICollectionView *)aCollectionView withModel:(id<BSItemsModel>)aModel {
-    
     BSPhotoCell *cell = (BSPhotoCell *)[aCollectionView dequeueReusableCellWithReuseIdentifier:kPhotoCellIdentifier forIndexPath:anIndexPath];
     ALAsset *asset = [aModel itemAtIndexPath:anIndexPath];
     
     if([asset isKindOfClass:[ALAsset class]]) {
         [cell.fadedCoverView setHidden:YES];
-        [cell.checkmarkView setHidden:YES];
+        [cell.checkmarkView removeFromSuperview];
         [cell.imageView setContentMode:UIViewContentModeScaleAspectFit];
         [cell.imageView setImage:[UIImage imageWithCGImage:asset.defaultRepresentation.fullScreenImage scale:asset.defaultRepresentation.scale orientation:(UIImageOrientation) asset.defaultRepresentation.orientation]];
     }

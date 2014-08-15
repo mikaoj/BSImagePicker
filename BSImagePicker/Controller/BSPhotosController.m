@@ -25,7 +25,6 @@
 #import "BSAlbumTableViewCellFactory.h"
 #import "BSPhotosController+PrivateMethods.h"
 #import "BSPhotosController+BSItemsModel.h"
-#import "BSPhotosController+UITableView.h"
 #import "BSCollectionController+UICollectionView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "BSImagePickerSettings.h"
@@ -43,7 +42,9 @@
         
         //Register identifiers
         [[self.collectionCellFactory class] registerCellIdentifiersForCollectionView:self.collectionView];
-        [[self.tableCellFactory class] registerCellIdentifiersForTableView:self.tableView];
+        
+        //Add table view controller
+        [self addChildViewController:self.tableController];
 
         [self.collectionView setAllowsMultipleSelection:YES];
         [self.collectionView setScrollEnabled:YES];
@@ -62,7 +63,6 @@
     //Release these if they aren't visible
     if(![self.speechBubbleView isDescendantOfView:self.navigationController.view]) {
         [self setSpeechBubbleView:nil];
-        [self setTableView:nil];
         [self setCoverView:nil];
     }
 }
@@ -124,14 +124,13 @@
 
 #pragma mark - Lazy load
 
-- (id<BSItemsModel>)tableModel {
-    if(!_tableModel) {
-        _tableModel = [[BSAssetsGroupModel alloc] init];
-        [_tableModel setDelegate:self];
-        [_tableModel setupWithParentItem:[[ALAssetsLibrary alloc] init]];
+- (BSTableController *)tableController {
+    if(!_tableController) {
+        _tableController = [[BSTableController alloc] init];
+        [_tableController.tableModel setDelegate:self];
     }
-
-    return _tableModel;
+    
+    return _tableController;
 }
 
 - (UIBarButtonItem *)cancelButton {
@@ -169,7 +168,7 @@
     if(!_speechBubbleView) {
         _speechBubbleView = [[BSSpeechBubbleView alloc] initWithFrame:CGRectMake(0, 0, 300, 320)];
         [_speechBubbleView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
-        [[_speechBubbleView contentView] addSubview:self.tableView];
+        [[_speechBubbleView contentView] addSubview:self.tableController.tableView];
     }
 
     //Set speechbubble color to match tab bar color
@@ -178,23 +177,6 @@
     }
 
     return _speechBubbleView;
-}
-
-- (UITableView *)tableView {
-    if(!_tableView) {
-        _tableView = [[UITableView alloc] init];
-        [_tableView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-        [_tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-        [_tableView setBackgroundColor:[UIColor clearColor]];;
-        [_tableView setAllowsSelection:YES];
-        [_tableView setAllowsMultipleSelection:NO];
-        [_tableView setDelegate:self];
-        [_tableView setDataSource:self];
-
-        [_tableView reloadData];
-    }
-
-    return _tableView;
 }
 
 - (UIView *)coverView {
@@ -210,14 +192,6 @@
     return _coverView;
 }
 
-- (id<BSTableViewCellFactory>)tableCellFactory {
-    if(!_tableCellFactory) {
-        _tableCellFactory = [[BSAlbumTableViewCellFactory alloc] init];
-    }
-
-    return _tableCellFactory;
-}
-
 - (BSPreviewController *)previewController {
     if(!_previewController) {
         _previewController = [[BSPreviewController alloc] initWithNibName:nil bundle:nil];
@@ -227,17 +201,17 @@
     return _previewController;
 }
 
-- (BSZoomInAnimator *)zoomInAnimator {
+- (BSExpandAnimator *)zoomInAnimator {
     if(!_zoomInAnimator) {
-        _zoomInAnimator = [[BSZoomInAnimator alloc] init];
+        _zoomInAnimator = [[BSExpandAnimator alloc] init];
     }
 
     return _zoomInAnimator;
 }
 
-- (BSZoomOutAnimator *)zoomOutAnimator {
+- (BSShrinkAnimator *)zoomOutAnimator {
     if(!_zoomOutAnimator) {
-        _zoomOutAnimator = [[BSZoomOutAnimator alloc] init];
+        _zoomOutAnimator = [[BSShrinkAnimator alloc] init];
     }
 
     return _zoomOutAnimator;
