@@ -92,6 +92,11 @@
 		55EC234218F0A321008F5A02 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55EC234118F0A321008F5A02 /* AssetsLibrary.framework */; };
 		55EC234518F1DB6A008F5A02 /* BSSpeechBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EC234418F1DB6A008F5A02 /* BSSpeechBubbleView.m */; };
 		55EC235118F2F873008F5A02 /* BSTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EC235018F2F873008F5A02 /* BSTriangleView.m */; };
+		55F2A199199EC23500175CF8 /* BSTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 557BD8FE1962B607007A1C38 /* BSTableController.m */; };
+		55F2A19A199EC24400175CF8 /* BSVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9AFF31964C470000B4699 /* BSVideoCell.m */; };
+		55F2A19B199EC26600175CF8 /* BSCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 556AABA71980641500D799F7 /* BSCameraView.m */; };
+		55F2A19C199EC2BB00175CF8 /* BSTableController+UITableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9AFF01964B6B4000B4699 /* BSTableController+UITableView.m */; };
+		55F2A19D199EC2C100175CF8 /* BSTableController+BSItemsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 55E9AFED1964B62A000B4699 /* BSTableController+BSItemsModel.m */; };
 		BB2B90909814568BB3997E1A /* BSShrinkAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B99BEDF8860AD297EE80D /* BSShrinkAnimator.m */; };
 		BB2B929FDF16F341870E5B2A /* BSPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B980BF19D6B2C0E05F297 /* BSPreviewController.m */; };
 		BB2B92A3E94AD0C3BF3D42D4 /* BSPhotosController+UICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2B98E9E8546E358C4B1234 /* BSPhotosController+UICollectionView.m */; };
@@ -670,8 +675,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				556E0CF0190174E6006F8F73 /* UIViewController+MultipleImagePicker.m in Sources */,
+				55F2A19A199EC24400175CF8 /* BSVideoCell.m in Sources */,
 				553EC5781943DFE9004D7B12 /* BSPhotosController.m in Sources */,
 				553EC57C1943E025004D7B12 /* ALAssetsGroup+Equal.m in Sources */,
+				55F2A199199EC23500175CF8 /* BSTableController.m in Sources */,
 				556E0CF2190174E6006F8F73 /* ALAsset+Equal.m in Sources */,
 				553EC5881943E080004D7B12 /* UIImageViewModeScaleAspect.m in Sources */,
 				553EC5821943E04A004D7B12 /* BSCollectionController+BSItemsModel.m in Sources */,
@@ -684,6 +691,7 @@
 				553EC57D1943E035004D7B12 /* BSPhotosController+BSItemsModel.m in Sources */,
 				553EC5791943E003004D7B12 /* BSAlbumTableViewCellFactory.m in Sources */,
 				553EC5871943E078004D7B12 /* BSPreviewController.m in Sources */,
+				55F2A19C199EC2BB00175CF8 /* BSTableController+UITableView.m in Sources */,
 				556E0CF6190174E6006F8F73 /* BSPhotoCell.m in Sources */,
 				553EC5851943E05B004D7B12 /* BSAssetsGroupModel.m in Sources */,
 				553EC57B1943E00B004D7B12 /* BSPreviewCollectionViewCellFactory.m in Sources */,
@@ -693,8 +701,10 @@
 				553EC5811943E047004D7B12 /* BSCollectionController+UICollectionView.m in Sources */,
 				553EC5841943E058004D7B12 /* BSAssetModel.m in Sources */,
 				556E0CFC190174E6006F8F73 /* BSImagePickerController.m in Sources */,
+				55F2A19B199EC26600175CF8 /* BSCameraView.m in Sources */,
 				553EC5801943E041004D7B12 /* BSPhotosController+UICollectionView.m in Sources */,
 				553EC5831943E04F004D7B12 /* BSPreviewController+UICollectionView.m in Sources */,
+				55F2A19D199EC2C100175CF8 /* BSTableController+BSItemsModel.m in Sources */,
 				553EC57F1943E03E004D7B12 /* BSPhotosController+PrivateMethods.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
