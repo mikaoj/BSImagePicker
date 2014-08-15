@@ -49,9 +49,6 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        [self setAutomaticallyAdjustsScrollViewInsets:NO];
-        [self.collectionView setContentInset:UIEdgeInsetsMake(64.0, 0.0, 0.0, 0.0)];
-
         //Setup layout
         [self.collectionViewFlowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
 
@@ -77,8 +74,10 @@
     
     [self.navigationItem setTitleView:self.toolbar];
     [self.navigationItem setRightBarButtonItem:self.emptyItem];
-
-    [self.collectionView scrollToItemAtIndexPath:self.currentIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+    
+    [self.collectionView scrollToItemAtIndexPath:self.currentIndexPath
+                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
+                                        animated:NO];
     
     [self toggleCheckMarkForIndexPath:self.currentIndexPath];
     [self togglePlayButtonForIndexPath:self.currentIndexPath];
@@ -95,7 +94,6 @@
 
     [self.collectionView performBatchUpdates:^{
         [self.collectionView.collectionViewLayout invalidateLayout];
-
     } completion:nil];
 }
 
