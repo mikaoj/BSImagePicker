@@ -56,7 +56,7 @@
     [scalingImage setImage:toCell.imageView.image];
     
     //Init image scale
-    [scalingImage initToScaleAspectFitToFrame:CGRectMake(0, (fromViewController.navigationController.navigationBar.frame.origin.y + fromViewController.navigationController.navigationBar.frame.size.height)/2.0, toCell.imageView.frame.size.width, toCell.imageView.frame.size.height)];
+    [scalingImage initToScaleAspectFitToFrame:CGRectMake(0, fromViewController.view.frame.origin.y - (fromViewController.collectionView.contentOffset.y/2.0), toCell.imageView.frame.size.width, toCell.imageView.frame.size.height)];
     
     //Add views to container view
     [containerView addSubview:toViewController.view];
