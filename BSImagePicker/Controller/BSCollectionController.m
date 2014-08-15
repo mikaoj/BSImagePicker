@@ -37,6 +37,12 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.collectionView setBackgroundColor:self.navigationController.view.backgroundColor];
+}
+
 #pragma mark - Lazy load
 
 - (id<BSItemsModel>)collectionModel {

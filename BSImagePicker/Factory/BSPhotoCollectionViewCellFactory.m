@@ -44,10 +44,13 @@ static NSString *kVideoCellIdentifier =             @"videoCellIdentifier";
         CGSize thumbnailSize = CGSizeMake(CGImageGetWidth(asset.thumbnail), CGImageGetHeight(asset.thumbnail));
         
         //We want 3 images in each row. So width should be viewWidth-(4*LEFT/RIGHT_INSET)/3
-        //4*2.0 is edgeinset
         //Height should be adapted so we maintain the aspect ratio of thumbnail
         //original height / original width * new width
-        itemSize = CGSizeMake((aCollectionView.bounds.size.width - (4*2.0))/3.0, 100);
+        
+        UIEdgeInsets sectionInsets = [[self class] edgeInsetAtSection:anIndexPath.section forCollectionView:aCollectionView withModel:aModel];
+        CGFloat minItemSpacing = [[self class] minimumItemSpacingAtSection:anIndexPath.section forCollectionView:aCollectionView withModel:aModel];
+        
+        itemSize = CGSizeMake((aCollectionView.bounds.size.width - (sectionInsets.left + 2*minItemSpacing + sectionInsets.right))/3.0, 100);
         itemSize = CGSizeMake(itemSize.width, thumbnailSize.height / thumbnailSize.width * itemSize.width);
     }
     

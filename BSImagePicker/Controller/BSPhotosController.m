@@ -201,17 +201,17 @@
     return _previewController;
 }
 
-- (BSZoomInAnimator *)zoomInAnimator {
+- (BSExpandAnimator *)zoomInAnimator {
     if(!_zoomInAnimator) {
-        _zoomInAnimator = [[BSZoomInAnimator alloc] init];
+        _zoomInAnimator = [[BSExpandAnimator alloc] init];
     }
 
     return _zoomInAnimator;
 }
 
-- (BSZoomOutAnimator *)zoomOutAnimator {
+- (BSShrinkAnimator *)zoomOutAnimator {
     if(!_zoomOutAnimator) {
-        _zoomOutAnimator = [[BSZoomOutAnimator alloc] init];
+        _zoomOutAnimator = [[BSShrinkAnimator alloc] init];
     }
 
     return _zoomOutAnimator;

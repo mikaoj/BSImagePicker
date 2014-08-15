@@ -41,6 +41,12 @@
     return self;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.imagePicker.collectionView reloadData];
+}
+
 #pragma mark - Lazy load
 
 - (BSPhotosController *)imagePicker {

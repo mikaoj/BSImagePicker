@@ -24,8 +24,8 @@
 #import "BSTableViewCellFactory.h"
 #import "BSSpeechBubbleView.h"
 #import "BSPreviewController.h"
-#import "BSZoomOutAnimator.h"
-#import "BSZoomInAnimator.h"
+#import "BSShrinkAnimator.h"
+#import "BSExpandAnimator.h"
 #import "BSTableController.h"
 
 @interface BSPhotosController : BSCollectionController
@@ -41,7 +41,7 @@
 
 @property (nonatomic, strong) BSPreviewController *previewController;
 
-@property (nonatomic, strong) BSZoomInAnimator *zoomInAnimator;
-@property (nonatomic, strong) BSZoomOutAnimator *zoomOutAnimator;
+@property (nonatomic, strong) BSExpandAnimator *zoomInAnimator;
+@property (nonatomic, strong) BSShrinkAnimator *zoomOutAnimator;
 
 @end
