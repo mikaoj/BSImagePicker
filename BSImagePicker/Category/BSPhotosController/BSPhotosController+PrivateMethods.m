@@ -115,6 +115,7 @@
 
         [self.previewController setCollectionModel:self.collectionModel];
         [self.previewController setCurrentIndexPath:indexPath];
+        [self.previewController.collectionView setContentInset:self.collectionView.contentInset];
         [self.navigationController pushViewController:self.previewController animated:YES];
 
         [recognizer setEnabled:YES];
