@@ -20,6 +20,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-@interface BSZoomOutAnimator : NSObject <UIViewControllerAnimatedTransitioning>
+@interface BSExpandAnimator : NSObject <UIViewControllerAnimatedTransitioning>
 
 @end
