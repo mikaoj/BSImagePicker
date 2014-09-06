@@ -48,7 +48,7 @@
 		556AABA81980641500D799F7 /* BSCameraView.m in Sources */ = {isa = PBXBuildFile; fileRef = 556AABA71980641500D799F7 /* BSCameraView.m */; };
 		556E0CE919017470006F8F73 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 556E0CE719017470006F8F73 /* InfoPlist.strings */; };
 		556E0CF0190174E6006F8F73 /* UIViewController+MultipleImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE018FC952D00F28CA5 /* UIViewController+MultipleImagePicker.m */; };
-		556E0CF2190174E6006F8F73 /* ALAsset+Equal.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE618FE75B300F28CA5 /* ALAsset+Equal.m */; };
+		556E0CF2190174E6006F8F73 /* ALAsset+BSEqual.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE618FE75B300F28CA5 /* ALAsset+BSEqual.m */; };
 		556E0CF3190174E6006F8F73 /* BSSpeechBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EC234418F1DB6A008F5A02 /* BSSpeechBubbleView.m */; };
 		556E0CF4190174E6006F8F73 /* BSTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55EC235018F2F873008F5A02 /* BSTriangleView.m */; };
 		556E0CF5190174E6006F8F73 /* BSAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558315E518F8192F00B54FE6 /* BSAlbumCell.m */; };
@@ -69,7 +69,7 @@
 		559829841931625B00D68BD5 /* BSImagePickerSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 559829831931625B00D68BD5 /* BSImagePickerSettings.m */; };
 		55A11ED718FC440D00F28CA5 /* BSCheckmarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11ED618FC440D00F28CA5 /* BSCheckmarkView.m */; };
 		55A11EE118FC952D00F28CA5 /* UIViewController+MultipleImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE018FC952D00F28CA5 /* UIViewController+MultipleImagePicker.m */; };
-		55A11EE718FE75B300F28CA5 /* ALAsset+Equal.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE618FE75B300F28CA5 /* ALAsset+Equal.m */; };
+		55A11EE718FE75B300F28CA5 /* ALAsset+BSEqual.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE618FE75B300F28CA5 /* ALAsset+BSEqual.m */; };
 		55A4258918FA8E6F00EF7E8F /* BSImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A4258818FA8E6F00EF7E8F /* BSImagePickerController.m */; };
 		55AD0D8E19408C7800BDC37F /* UIImageViewModeScaleAspect.m in Sources */ = {isa = PBXBuildFile; fileRef = 55AD0D8D19408C7800BDC37F /* UIImageViewModeScaleAspect.m */; };
 		55C3BE6518EF632D00E601DE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C3BE6418EF632D00E601DE /* Foundation.framework */; };
@@ -156,8 +156,8 @@
 		55A11ED618FC440D00F28CA5 /* BSCheckmarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCheckmarkView.m; sourceTree = "<group>"; };
 		55A11EDF18FC952D00F28CA5 /* UIViewController+MultipleImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MultipleImagePicker.h"; sourceTree = "<group>"; };
 		55A11EE018FC952D00F28CA5 /* UIViewController+MultipleImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MultipleImagePicker.m"; sourceTree = "<group>"; };
-		55A11EE518FE75B300F28CA5 /* ALAsset+Equal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+Equal.h"; sourceTree = "<group>"; };
-		55A11EE618FE75B300F28CA5 /* ALAsset+Equal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+Equal.m"; sourceTree = "<group>"; };
+		55A11EE518FE75B300F28CA5 /* ALAsset+BSEqual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+BSEqual.h"; sourceTree = "<group>"; };
+		55A11EE618FE75B300F28CA5 /* ALAsset+BSEqual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+BSEqual.m"; sourceTree = "<group>"; };
 		55A4258718FA8E6F00EF7E8F /* BSImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSImagePickerController.h; sourceTree = "<group>"; };
 		55A4258818FA8E6F00EF7E8F /* BSImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSImagePickerController.m; sourceTree = "<group>"; };
 		55AD0D8C19408C7800BDC37F /* UIImageViewModeScaleAspect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewModeScaleAspect.h; sourceTree = "<group>"; };
@@ -307,8 +307,8 @@
 			children = (
 				55A11EDF18FC952D00F28CA5 /* UIViewController+MultipleImagePicker.h */,
 				55A11EE018FC952D00F28CA5 /* UIViewController+MultipleImagePicker.m */,
-				55A11EE518FE75B300F28CA5 /* ALAsset+Equal.h */,
-				55A11EE618FE75B300F28CA5 /* ALAsset+Equal.m */,
+				55A11EE518FE75B300F28CA5 /* ALAsset+BSEqual.h */,
+				55A11EE618FE75B300F28CA5 /* ALAsset+BSEqual.m */,
 				BB2B9751359F9EC1A401B326 /* ALAssetsGroup+Equal.m */,
 				BB2B9AFB1E146FCDEF4CB3CF /* ALAssetsGroup+Equal.h */,
 				55E9AFEB1964B5C7000B4699 /* BSTableController */,
@@ -679,7 +679,7 @@
 				553EC5781943DFE9004D7B12 /* BSPhotosController.m in Sources */,
 				553EC57C1943E025004D7B12 /* ALAssetsGroup+Equal.m in Sources */,
 				55F2A199199EC23500175CF8 /* BSTableController.m in Sources */,
-				556E0CF2190174E6006F8F73 /* ALAsset+Equal.m in Sources */,
+				556E0CF2190174E6006F8F73 /* ALAsset+BSEqual.m in Sources */,
 				553EC5881943E080004D7B12 /* UIImageViewModeScaleAspect.m in Sources */,
 				553EC5821943E04A004D7B12 /* BSCollectionController+BSItemsModel.m in Sources */,
 				553EC57A1943E008004D7B12 /* BSPhotoCollectionViewCellFactory.m in Sources */,
@@ -724,7 +724,7 @@
 				55E9AFF11964B6B4000B4699 /* BSTableController+UITableView.m in Sources */,
 				5509A42D193010BC006E4DA1 /* BSPreviewCollectionViewCellFactory.m in Sources */,
 				558315E918F8436E00B54FE6 /* BSPhotoCell.m in Sources */,
-				55A11EE718FE75B300F28CA5 /* ALAsset+Equal.m in Sources */,
+				55A11EE718FE75B300F28CA5 /* ALAsset+BSEqual.m in Sources */,
 				5509A423192FA2FD006E4DA1 /* BSAlbumTableViewCellFactory.m in Sources */,
 				557BD8FF1962B607007A1C38 /* BSTableController.m in Sources */,
 				55A11ED718FC440D00F28CA5 /* BSCheckmarkView.m in Sources */,
