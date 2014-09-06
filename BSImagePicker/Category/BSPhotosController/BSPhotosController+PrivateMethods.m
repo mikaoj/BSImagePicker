@@ -104,6 +104,19 @@
     }];
 }
 
+- (void)syncSelectionInModel:(id<BSItemsModel>)aModel withCollectionView:(UICollectionView *)aCollectionView {
+    //Sync collection view selection with whats selected in the model
+    for(int i = 0; i < [aModel numberOfItemsInSection:0]; ++i) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+        
+        if([aModel isItemAtIndexPathSelected:indexPath]) {
+            [aCollectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+        } else {
+            [aCollectionView deselectItemAtIndexPath:indexPath animated:NO];
+        }
+    }
+}
+
 #pragma mark - GestureRecognizer
 
 - (void)itemLongPressed:(UIGestureRecognizer *)recognizer {
