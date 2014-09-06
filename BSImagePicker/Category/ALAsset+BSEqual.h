@@ -22,6 +22,6 @@
 
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface ALAsset (Equal)
+@interface ALAsset (BSEqual)
 
 @end

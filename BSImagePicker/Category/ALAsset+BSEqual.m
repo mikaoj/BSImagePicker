@@ -20,12 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import "ALAsset+Equal.h"
+#import "ALAsset+BSEqual.h"
 
-@implementation ALAsset (Equal)
+@implementation ALAsset (BSEqual)
 
-- (BOOL)isEqual:(id)obj
-{
+- (BOOL)isEqual:(id)obj {
     if(![obj isKindOfClass:[ALAsset class]]) {
         return NO;
     }
@@ -34,6 +33,10 @@
     NSURL *secondUrl = [obj valueForProperty:ALAssetPropertyAssetURL];
     
     return ([firstUrl isEqual:secondUrl]);
+}
+
+- (NSUInteger)hash {
+    return [[self valueForProperty:ALAssetPropertyAssetURL] hash];
 }
 
 @end
