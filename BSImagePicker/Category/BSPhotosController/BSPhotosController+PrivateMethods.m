@@ -22,6 +22,7 @@
 
 #import "BSPhotosController+PrivateMethods.h"
 #import "BSImagePickerSettings.h"
+#import "BSItemsModel.h"
 
 @implementation BSPhotosController (PrivateMethods)
 
@@ -45,7 +46,18 @@
     }
 }
 
-- (void)albumButtonPressed:(id)sender {
+- (void)albumButtonPressed:(UIButton *)sender {
+    [UIView animateWithDuration:0.1
+                     animations:^{
+                         [sender setTransform:CGAffineTransformMakeScale(0.9, 0.9)];
+                         [sender setAlpha:0.5];
+                     } completion:^(BOOL finished) {
+                         [UIView animateWithDuration:0.1
+                                          animations:^{
+                                              [sender setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+                                              [sender setAlpha:1.0];
+                                          } completion:nil];
+                     }];
     if([self.speechBubbleView isDescendantOfView:self.navigationController.view]) {
         [self hideAlbumView];
     } else {
@@ -115,6 +127,17 @@
             [aCollectionView deselectItemAtIndexPath:indexPath animated:NO];
         }
     }
+}
+
+- (void)updateAlbumTitle:(NSString *)aTitle {
+    [UIView transitionWithView:self.albumButton
+                      duration:0.4
+                       options:UIViewAnimationOptionTransitionFlipFromBottom
+                    animations:^{
+                        [self.albumButton setTitle:aTitle
+                                          forState:UIControlStateNormal];
+                    }
+                    completion:nil];
 }
 
 #pragma mark - GestureRecognizer

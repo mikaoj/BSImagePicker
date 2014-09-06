@@ -32,7 +32,8 @@
             [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]
                                         atScrollPosition:UICollectionViewScrollPositionTop
                                                 animated:YES];
-        } completion:nil];
+        }
+                                      completion:nil];
     }
 }
 

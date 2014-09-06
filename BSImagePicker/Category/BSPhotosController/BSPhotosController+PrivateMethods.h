@@ -31,5 +31,6 @@
 - (void)hideAlbumView;
 - (void)itemLongPressed:(UIGestureRecognizer *)recognizer;
 - (void)syncSelectionInModel:(id<BSItemsModel>)aModel withCollectionView:(UICollectionView *)aCollectionView;
+- (void)updateAlbumTitle:(NSString *)aTitle;
 
 @end

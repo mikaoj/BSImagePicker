@@ -34,7 +34,8 @@
 
         ALAssetsGroup *assetsGroup = [[self.tableController.tableModel selectedItems] firstObject];
         
-        [self.albumButton setTitle:[assetsGroup valueForProperty:ALAssetsGroupPropertyName] forState:UIControlStateNormal];
+        [self updateAlbumTitle:[assetsGroup valueForProperty:ALAssetsGroupPropertyName]];
+        
         [self.collectionModel setupWithParentItem:assetsGroup];
         
         [self hideAlbumView];
