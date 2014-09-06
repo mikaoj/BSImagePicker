@@ -22,6 +22,7 @@
 
 #import "BSPhotosController+PrivateMethods.h"
 #import "BSImagePickerSettings.h"
+#import "BSItemsModel.h"
 
 @implementation BSPhotosController (PrivateMethods)
 
@@ -45,7 +46,18 @@
     }
 }
 
-- (void)albumButtonPressed:(id)sender {
+- (void)albumButtonPressed:(UIButton *)sender {
+    [UIView animateWithDuration:0.1
+                     animations:^{
+                         [sender setTransform:CGAffineTransformMakeScale(0.9, 0.9)];
+                         [sender setAlpha:0.5];
+                     } completion:^(BOOL finished) {
+                         [UIView animateWithDuration:0.1
+                                          animations:^{
+                                              [sender setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+                                              [sender setAlpha:1.0];
+                                          } completion:nil];
+                     }];
     if([self.speechBubbleView isDescendantOfView:self.navigationController.view]) {
         [self hideAlbumView];
     } else {
@@ -102,6 +114,30 @@
         [self.speechBubbleView setTransform:origTransForm];
         [self.coverView removeFromSuperview];
     }];
+}
+
+- (void)syncSelectionInModel:(id<BSItemsModel>)aModel withCollectionView:(UICollectionView *)aCollectionView {
+    //Sync collection view selection with whats selected in the model
+    for(int i = 0; i < [aModel numberOfItemsInSection:0]; ++i) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+        
+        if([aModel isItemAtIndexPathSelected:indexPath]) {
+            [aCollectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+        } else {
+            [aCollectionView deselectItemAtIndexPath:indexPath animated:NO];
+        }
+    }
+}
+
+- (void)updateAlbumTitle:(NSString *)aTitle {
+    [UIView transitionWithView:self.albumButton
+                      duration:0.4
+                       options:UIViewAnimationOptionTransitionFlipFromBottom
+                    animations:^{
+                        [self.albumButton setTitle:aTitle
+                                          forState:UIControlStateNormal];
+                    }
+                    completion:nil];
 }
 
 #pragma mark - GestureRecognizer
