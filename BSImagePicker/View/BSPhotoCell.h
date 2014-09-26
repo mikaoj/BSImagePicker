@@ -27,7 +27,8 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIView *fadedCoverView;
 @property (nonatomic, strong) BSCheckmarkView *checkmarkView;
+@property (nonatomic) BOOL selected __attribute__((unavailable("User -setPictureNumber:selected:animated: instead.")));
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
+- (void)setPictureNumber:(NSUInteger)pictureNumber selected:(BOOL)selected animated:(BOOL)animated;
 
 @end
