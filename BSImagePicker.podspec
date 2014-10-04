@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/mikaoj/BSImagePicker.git", :tag => "0.6.1" }
   s.source_files  = "BSImagePicker/**/*.{h,m}"
   s.exclude_files = "BSImagePicker/Controller/BSAppDelegate.{h,m}", "BSImagePicker/Misc/main.m"
-  s.public_header_files = "BSImagePicker/Controller/BSImagePickerController.h", "BSImagePicker/Category/UIViewController+MultipleImagePicker.h"
+  s.public_header_files = "BSImagePicker/Controller/BSImagePickerController.h", "BSImagePicker/Category/UIViewController+BSImagePicker.h"
   s.requires_arc = true
   s.frameworks = 'AssetsLibrary', 'UIKit', 'MediaPlayer'
   s.screenshots = ["https://cloud.githubusercontent.com/assets/4034956/3030011/c7d86756-e03b-11e3-87b8-d682142967c2.png",
