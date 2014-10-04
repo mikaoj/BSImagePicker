@@ -20,29 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import <XCTest/XCTest.h>
+#import "UIViewController+BSImagePicker.h"
+#import "BSImagePickerController.h"
 
-@interface MultipleImagePickerTests : XCTestCase
+@implementation UIViewController (BSImagePicker)
 
-@end
-
-@implementation MultipleImagePickerTests
-
-- (void)setUp
+- (void)presentImagePickerController:(BSImagePickerController *)viewControllerToPresent
+                            animated:(BOOL)flag
+                          completion:(void (^)(void))completion
+                              toggle:(BSImageToggleBlock)toggleBlock
+                              cancel:(BSImageGroupBlock)cancelBlock
+                              finish:(BSImageGroupBlock)finishBlock
 {
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)tearDown
-{
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
-- (void)testExample
-{
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    if([viewControllerToPresent isKindOfClass:[BSImagePickerController class]]) {
+        [viewControllerToPresent setToggleBlock:toggleBlock];
+        [viewControllerToPresent setCancelBlock:cancelBlock];
+        [viewControllerToPresent setFinishBlock:finishBlock];
+    }
+    
+    [self presentViewController:viewControllerToPresent animated:flag completion:completion];
 }
 
 @end

@@ -8,22 +8,6 @@ Put this into your Podfile:
 ```shell
 pod 'BSImagePicker', '~> 0.6'
 ```
-## Framework
-### Download framework
-[Download the framework](https://github.com/mikaoj/BSImagePicker/releases/download/0.4/BSImagePickerController.framework.zip "framework") and drop into your project.
-### Or build it yourself
-* Clone project
-```shell
-git clone git@bitbucket.org:backslashed/bsimagepicker.git
-```
-* Build framework
-```shell
-cd bsimagepicker
-xcodebuild  -target BuildFramework
-open -a Finder Products/
-```
-* Drag & Drop framework into your project
-
 # Use
 Import header
 ```objc
