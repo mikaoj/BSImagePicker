@@ -68,7 +68,7 @@
     [toViewController.view setAlpha:0.0];
 
     //Init image scale
-    [scalingImage initToScaleAspectFillToFrame:CGRectMake(toCell.frame.origin.x, toCell.frame.origin.y+(fromViewController.navigationController.navigationBar.frame.origin.y + fromViewController.navigationController.navigationBar.frame.size.height), toCell.frame.size.width, toCell.frame.size.height)];
+    [scalingImage initToScaleAspectFillToFrame:[containerView convertRect:toCell.frame fromView:toCell.superview]];
 
     //Animate
     [UIView animateWithDuration:[self transitionDuration:transitionContext]
