@@ -42,7 +42,12 @@
 
     if([self.collectionModel isItemAtIndexPathSelected:indexPath]) {
         [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-        [cell setSelected:YES animated:NO];
+
+        id selectedItem = [self.collectionModel itemAtIndexPath:indexPath];
+        NSInteger pictureNumber = [self.collectionModel.selectedItems indexOfObject:selectedItem]+1;
+		[cell setPictureNumber:pictureNumber selected:YES animated:NO];
+    } else {
+        [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     }
 
     return cell;
@@ -71,12 +76,14 @@
     [self.collectionModel deselectItemAtIndexPath:indexPath];
     
     BSPhotoCell *cell = (BSPhotoCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    [cell setSelected:NO animated:YES];
+	[cell setPictureNumber:0 selected:NO animated:YES];
 
     if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
         ALAsset *asset = [self.collectionModel itemAtIndexPath:indexPath];
         [BSImagePickerSettings sharedSetting].toggleBlock(asset, NO);
     }
+    
+    [self.collectionView reloadItemsAtIndexPaths:self.collectionView.indexPathsForSelectedItems];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -84,7 +91,7 @@
     [self.collectionModel selectItemAtIndexPath:indexPath];
     
     BSPhotoCell *cell = (BSPhotoCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    [cell setSelected:YES animated:YES];
+	[cell setPictureNumber:[self.collectionModel.selectedItems count] selected:YES animated:YES];
 
     if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
         ALAsset *asset = [self.collectionModel itemAtIndexPath:indexPath];

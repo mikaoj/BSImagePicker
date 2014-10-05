@@ -21,6 +21,7 @@
 // SOFTWARE.
 //
 
-@interface BSCheckmarkView : UIView
+@interface BSNumberedSelectionView : UIView
 
+@property (assign, nonatomic) NSUInteger pictureNumber;
 @end

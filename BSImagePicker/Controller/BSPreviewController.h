@@ -28,4 +28,6 @@
 @property (nonatomic, strong) UIBarButtonItem *checkMarkButton;
 @property (nonatomic, strong) UIBarButtonItem *emptyItem;
 
+- (void)toggleCheckMarkForIndexPath:(NSIndexPath *)anIndexPath;
+
 @end

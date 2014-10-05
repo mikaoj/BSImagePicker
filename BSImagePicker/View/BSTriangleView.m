@@ -24,10 +24,8 @@
 
 @implementation BSTriangleView
 
-- (id)initWithFrame:(CGRect)frame andPointerSize:(CGSize)pointerSize
-{
-    self = [super initWithFrame:frame];
-    if (self) {
+- (id)initWithFrame:(CGRect)frame andPointerSize:(CGSize)pointerSize {
+    if (self = [super initWithFrame:frame]) {
         //Need a color to make it appear...
         [self setBackgroundColor:[UIColor blackColor]];
         

@@ -30,7 +30,7 @@
 }
 
 @property (nonatomic, strong) NSArray *assets;
-@property (nonatomic, strong) NSMutableSet *selectedAssets;
+@property (nonatomic, strong) NSMutableArray *selectedAssets;
 
 @end
 
@@ -114,7 +114,9 @@
 }
 
 - (void)selectItemAtIndexPath:(NSIndexPath *)anIndexPath {
-    [self.selectedAssets addObject:[self itemAtIndexPath:anIndexPath]];
+    if(![self isItemAtIndexPathSelected:anIndexPath]) {
+        [self.selectedAssets addObject:[self itemAtIndexPath:anIndexPath]];        
+    }
 }
 - (void)deselectItemAtIndexPath:(NSIndexPath *)anIndexPath {
     [self.selectedAssets removeObject:[self itemAtIndexPath:anIndexPath]];
@@ -123,14 +125,14 @@
     [self.selectedAssets removeAllObjects];
 }
 - (NSArray *)selectedItems {
-    return [self.selectedAssets allObjects];
+    return [self.selectedAssets copy];
 }
 
 #pragma mark - Lazy load
 
-- (NSMutableSet *)selectedAssets {
+- (NSMutableArray *)selectedAssets {
     if(!_selectedAssets) {
-        _selectedAssets = [[NSMutableSet alloc] init];
+        _selectedAssets = [[NSMutableArray alloc] init];
     }
 
     return _selectedAssets;

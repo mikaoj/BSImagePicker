@@ -22,7 +22,7 @@
 
 #import "BSPreviewController.h"
 #import "BSPreviewCollectionViewCellFactory.h"
-#import "BSCheckmarkView.h"
+#import "BSNumberedSelectionView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "BSVideoCell.h"
@@ -34,8 +34,8 @@
 @property (nonatomic, strong) UIBarButtonItem *flexibleItem;
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayerController;
+@property (nonatomic, strong) BSNumberedSelectionView *checkmarkView;
 
-- (void)toggleCheckMarkForIndexPath:(NSIndexPath *)anIndexPath;
 - (void)togglePlayButtonForIndexPath:(NSIndexPath *)anIndexPath;
 - (void)prepareMoviePlayerForIndexPath:(NSIndexPath *)anIndexPath;
 
@@ -102,23 +102,32 @@
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self setCurrentIndexPath:[NSIndexPath indexPathForItem:round(scrollView.contentOffset.x / scrollView.frame.size.width) inSection:0]];
-    [self toggleCheckMarkForIndexPath:self.currentIndexPath];
-    [self togglePlayButtonForIndexPath:self.currentIndexPath];
-    [self.moviePlayerController stop];
-    [self prepareMoviePlayerForIndexPath:self.currentIndexPath];
+    if([self isViewLoaded] && self.view.window) {
+        [self setCurrentIndexPath:[NSIndexPath indexPathForItem:round(scrollView.contentOffset.x / scrollView.frame.size.width) inSection:0]];
+        [self toggleCheckMarkForIndexPath:self.currentIndexPath];
+        [self togglePlayButtonForIndexPath:self.currentIndexPath];
+        [self.moviePlayerController stop];
+        [self prepareMoviePlayerForIndexPath:self.currentIndexPath];
+    }
 }
 
 #pragma mark - Lazy load
 
 - (UIBarButtonItem *)checkMarkButton {
     if(!_checkMarkButton) {
-        BSCheckmarkView *checkmarkView = [[BSCheckmarkView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-        [checkmarkView setBackgroundColor:[UIColor clearColor]];
-        _checkMarkButton = [[UIBarButtonItem alloc] initWithCustomView:checkmarkView];
+        _checkMarkButton = [[UIBarButtonItem alloc] initWithCustomView:self.checkmarkView];
     }
 
     return _checkMarkButton;
+}
+
+- (BSNumberedSelectionView *)checkmarkView {
+    if(!_checkmarkView) {
+        _checkmarkView = [[BSNumberedSelectionView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+        [_checkmarkView setBackgroundColor:[UIColor clearColor]];
+    }
+    
+    return _checkmarkView;
 }
 
 - (UIBarButtonItem *)emptyItem {
@@ -186,6 +195,14 @@
 - (void)toggleCheckMarkForIndexPath:(NSIndexPath *)anIndexPath {
     BOOL isSelected = [self.collectionModel isItemAtIndexPathSelected:anIndexPath];
     BOOL isCheckmarkVisible = self.navigationItem.rightBarButtonItem == self.checkMarkButton;
+    
+    if(isSelected) {
+        id selectedItem = [self.collectionModel itemAtIndexPath:anIndexPath];
+        NSInteger pictureNumber = [self.collectionModel.selectedItems indexOfObject:selectedItem]+1;
+        [self.checkmarkView setPictureNumber:pictureNumber];
+    } else {
+        [self.checkmarkView setPictureNumber:0];
+    }
 
     if(isSelected != isCheckmarkVisible) {
         if(isSelected) {

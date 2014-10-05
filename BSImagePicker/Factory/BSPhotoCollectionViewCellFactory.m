@@ -24,6 +24,7 @@
 #import "BSPhotoCollectionViewCellFactory.h"
 #import "BSPhotoCell.h"
 #import "BSVideoCell.h"
+#import "BSImagePickerSettings.h"
 
 static NSString *kPhotoCellIdentifier =             @"photoCellIdentifier";
 static NSString *kVideoCellIdentifier =             @"videoCellIdentifier";
@@ -90,7 +91,7 @@ static NSString *kVideoCellIdentifier =             @"videoCellIdentifier";
         [photoCell.imageView setImage:[UIImage imageWithCGImage:asset.thumbnail]];
     }
     
-    [photoCell setSelected:[aModel isItemAtIndexPathSelected:anIndexPath] animated:NO];
+    [photoCell setPictureNumber:0 selected:[aModel isItemAtIndexPathSelected:anIndexPath] animated:NO];
     
     return photoCell;
 }

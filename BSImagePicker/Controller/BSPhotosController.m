@@ -76,11 +76,7 @@
     [self.navigationItem setTitleView:self.albumButton];
 
     //Enable/disable done button
-    if([self.collectionModel.selectedItems count] > 0) {
-        [self.doneButton setEnabled:YES];
-    } else {
-        [self.doneButton setEnabled:NO];
-    }
+    [self toggleDoneButton];
 
     [self.navigationController setDelegate:self];
 }
@@ -91,9 +87,7 @@
     [self.collectionView performBatchUpdates:^{
         [self.collectionView.collectionViewLayout invalidateLayout];
         [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
-    } completion:^(BOOL finished) {
-
-    }];
+    } completion:nil];
 }
 
 #pragma mark - UINavigationControllerDelegate

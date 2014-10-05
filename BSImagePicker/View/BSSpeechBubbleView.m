@@ -31,8 +31,7 @@
 
 @implementation BSSpeechBubbleView
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self setContentView:[[UIToolbar alloc] initWithFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y+self.triangle.pointerSize.height, round(self.frame.size.width), round(self.frame.size.height-self.triangle.pointerSize.height))]];
@@ -49,8 +48,7 @@
     return self;
 }
 
-- (BSTriangleView *)triangle
-{
+- (BSTriangleView *)triangle {
     if(!_triangle) {
         _triangle = [[BSTriangleView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, 7) andPointerSize:CGSizeMake(24, 7)];
         [_triangle setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleRightMargin];
@@ -59,16 +57,14 @@
     return _triangle;
 }
 
-- (void)setBackgroundColor:(UIColor *)backgroundColor
-{
+- (void)setBackgroundColor:(UIColor *)backgroundColor {
     [super setBackgroundColor:[UIColor clearColor]];
     [self.contentView setBarTintColor:backgroundColor];
     [self.triangle setBarTintColor:backgroundColor];
 }
 
-- (UIColor *)backgroundColor
-{
-    return self.contentView.backgroundColor;
+- (UIColor *)backgroundColor {
+    return self.contentView.barTintColor;
 }
 
 @end

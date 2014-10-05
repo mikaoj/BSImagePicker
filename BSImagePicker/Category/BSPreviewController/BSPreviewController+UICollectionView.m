@@ -28,13 +28,13 @@
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     [super collectionView:collectionView didDeselectItemAtIndexPath:indexPath];
 
-    [self.navigationItem setRightBarButtonItem:self.emptyItem animated:YES];
+    [self toggleCheckMarkForIndexPath:indexPath];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
-
-    [self.navigationItem setRightBarButtonItem:self.checkMarkButton animated:YES];
+    
+    [self toggleCheckMarkForIndexPath:indexPath];
 }
 
 @end
