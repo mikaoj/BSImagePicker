@@ -20,9 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-#import "BSCheckmarkView.h"
+#import "BSNumberedSelectionView.h"
 
-@implementation BSCheckmarkView
+@implementation BSNumberedSelectionView
 
 - (void)drawRect:(CGRect)rect
 {

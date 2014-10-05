@@ -22,7 +22,7 @@
 
 #import "BSPreviewController.h"
 #import "BSPreviewCollectionViewCellFactory.h"
-#import "BSCheckmarkView.h"
+#import "BSNumberedSelectionView.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import "BSVideoCell.h"
@@ -34,8 +34,8 @@
 @property (nonatomic, strong) UIBarButtonItem *flexibleItem;
 @property (nonatomic, strong) UIToolbar *toolbar;
 @property (nonatomic, strong) MPMoviePlayerController *moviePlayerController;
+@property (nonatomic, strong) BSNumberedSelectionView *checkmarkView;
 
-- (void)toggleCheckMarkForIndexPath:(NSIndexPath *)anIndexPath;
 - (void)togglePlayButtonForIndexPath:(NSIndexPath *)anIndexPath;
 - (void)prepareMoviePlayerForIndexPath:(NSIndexPath *)anIndexPath;
 
@@ -113,12 +113,19 @@
 
 - (UIBarButtonItem *)checkMarkButton {
     if(!_checkMarkButton) {
-        BSCheckmarkView *checkmarkView = [[BSCheckmarkView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-        [checkmarkView setBackgroundColor:[UIColor clearColor]];
-        _checkMarkButton = [[UIBarButtonItem alloc] initWithCustomView:checkmarkView];
+        _checkMarkButton = [[UIBarButtonItem alloc] initWithCustomView:self.checkmarkView];
     }
 
     return _checkMarkButton;
+}
+
+- (BSNumberedSelectionView *)checkmarkView {
+    if(!_checkmarkView) {
+        _checkmarkView = [[BSNumberedSelectionView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+        [_checkmarkView setBackgroundColor:[UIColor clearColor]];
+    }
+    
+    return _checkmarkView;
 }
 
 - (UIBarButtonItem *)emptyItem {

@@ -18,7 +18,7 @@
 		558315E918F8436E00B54FE6 /* BSPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 558315E818F8436E00B54FE6 /* BSPhotoCell.m */; };
 		5598296E1930ECDF00D68BD5 /* BSAssetsGroupModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5598296D1930ECDF00D68BD5 /* BSAssetsGroupModel.m */; };
 		559829841931625B00D68BD5 /* BSImagePickerSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 559829831931625B00D68BD5 /* BSImagePickerSettings.m */; };
-		55A11ED718FC440D00F28CA5 /* BSCheckmarkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11ED618FC440D00F28CA5 /* BSCheckmarkView.m */; };
+		55A11ED718FC440D00F28CA5 /* BSNumberedSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11ED618FC440D00F28CA5 /* BSNumberedSelectionView.m */; };
 		55A11EE118FC952D00F28CA5 /* UIViewController+BSImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE018FC952D00F28CA5 /* UIViewController+BSImagePicker.m */; };
 		55A11EE718FE75B300F28CA5 /* ALAsset+BSEqual.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE618FE75B300F28CA5 /* ALAsset+BSEqual.m */; };
 		55A4258918FA8E6F00EF7E8F /* BSImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A4258818FA8E6F00EF7E8F /* BSImagePickerController.m */; };
@@ -76,8 +76,8 @@
 		559829801931507700D68BD5 /* BSItemsModelDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSItemsModelDelegate.h; sourceTree = "<group>"; };
 		559829821931625B00D68BD5 /* BSImagePickerSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSImagePickerSettings.h; sourceTree = "<group>"; };
 		559829831931625B00D68BD5 /* BSImagePickerSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSImagePickerSettings.m; sourceTree = "<group>"; };
-		55A11ED518FC440D00F28CA5 /* BSCheckmarkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSCheckmarkView.h; sourceTree = "<group>"; };
-		55A11ED618FC440D00F28CA5 /* BSCheckmarkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSCheckmarkView.m; sourceTree = "<group>"; };
+		55A11ED518FC440D00F28CA5 /* BSNumberedSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSNumberedSelectionView.h; sourceTree = "<group>"; };
+		55A11ED618FC440D00F28CA5 /* BSNumberedSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSNumberedSelectionView.m; sourceTree = "<group>"; };
 		55A11EDF18FC952D00F28CA5 /* UIViewController+BSImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BSImagePicker.h"; sourceTree = "<group>"; };
 		55A11EE018FC952D00F28CA5 /* UIViewController+BSImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BSImagePicker.m"; sourceTree = "<group>"; };
 		55A11EE518FE75B300F28CA5 /* ALAsset+BSEqual.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAsset+BSEqual.h"; sourceTree = "<group>"; };
@@ -321,8 +321,8 @@
 				558315E518F8192F00B54FE6 /* BSAlbumCell.m */,
 				558315E718F8436E00B54FE6 /* BSPhotoCell.h */,
 				558315E818F8436E00B54FE6 /* BSPhotoCell.m */,
-				55A11ED518FC440D00F28CA5 /* BSCheckmarkView.h */,
-				55A11ED618FC440D00F28CA5 /* BSCheckmarkView.m */,
+				55A11ED518FC440D00F28CA5 /* BSNumberedSelectionView.h */,
+				55A11ED618FC440D00F28CA5 /* BSNumberedSelectionView.m */,
 				55E9AFF21964C470000B4699 /* BSVideoCell.h */,
 				55E9AFF31964C470000B4699 /* BSVideoCell.m */,
 				556AABA61980641500D799F7 /* BSCameraView.h */,
@@ -455,7 +455,7 @@
 				55A11EE718FE75B300F28CA5 /* ALAsset+BSEqual.m in Sources */,
 				5509A423192FA2FD006E4DA1 /* BSAlbumTableViewCellFactory.m in Sources */,
 				557BD8FF1962B607007A1C38 /* BSTableController.m in Sources */,
-				55A11ED718FC440D00F28CA5 /* BSCheckmarkView.m in Sources */,
+				55A11ED718FC440D00F28CA5 /* BSNumberedSelectionView.m in Sources */,
 				5598296E1930ECDF00D68BD5 /* BSAssetsGroupModel.m in Sources */,
 				5509A41C192F9F4D006E4DA1 /* BSAssetModel.m in Sources */,
 				55EC234518F1DB6A008F5A02 /* BSSpeechBubbleView.m in Sources */,

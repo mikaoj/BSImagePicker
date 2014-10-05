@@ -83,9 +83,9 @@
     return _fadedCoverView;
 }
 
-- (BSCheckmarkView *)checkmarkView {
+- (BSNumberedSelectionView *)checkmarkView {
     if(!_checkmarkView) {
-        _checkmarkView = [[BSCheckmarkView alloc] initWithFrame:CGRectMake(self.imageView.bounds.size.width-25, self.imageView.bounds.size.height-25, 25, 25)];
+        _checkmarkView = [[BSNumberedSelectionView alloc] initWithFrame:CGRectMake(self.imageView.bounds.size.width-25, self.imageView.bounds.size.height-25, 25, 25)];
 		_checkmarkView.contentMode = UIViewContentModeRedraw;
         [_checkmarkView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
         [_checkmarkView setBackgroundColor:[UIColor clearColor]];
