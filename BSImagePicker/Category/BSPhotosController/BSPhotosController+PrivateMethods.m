@@ -28,6 +28,7 @@
 
 - (void)updateDoneButtonWithSelectedAssets:(NSUInteger)selectedAssets;
 - (void)setTitleWithoutAnimation:(NSString *)aTitle forButton:(UIButton *)aButton;
+- (BOOL)isRightBarButton:(UIButton *)aButton;
 
 @end
 
@@ -176,18 +177,15 @@
 
 - (void)updateDoneButtonWithSelectedAssets:(NSUInteger)selectedAssets {
     //This is dangerous and not very future proof.
-    //If some of the presumed indexes change (button #2) this should hopefully not blow up atleast.
     UIView *view = self.navigationController.navigationBar;
     static NSString *origText;
     
-    NSUInteger buttonCount = 0;
     for(UIView *subview in view.subviews) {
-        if([subview isKindOfClass:[UIButton class]]) {
-            ++buttonCount;
-            
+        if([subview isKindOfClass:[NSClassFromString(@"UINavigationButton") class]]) {
             //Second button is what we are looking for...
-            if(buttonCount == 2) {
+            if([self isRightBarButton:(UIButton *)subview]) {
                 UIButton *hopeToBeDoneButton = (UIButton *)subview;
+                
                 if(!origText) {
                     origText = [hopeToBeDoneButton titleForState:UIControlStateNormal];
                 }
@@ -213,6 +211,28 @@
     [aButton setEnabled:wasEnabled];
     [aButton layoutIfNeeded];
     [UIView setAnimationsEnabled:YES];
+}
+
+- (BOOL)isRightBarButton:(UIButton *)aButton {
+    BOOL isRightBarButton = NO;
+    
+    //Store previous values
+    BOOL wasRightEnabled = self.navigationItem.rightBarButtonItem.enabled;
+    BOOL wasButtonEnabled = aButton.enabled;
+    
+    //Set a known state for both buttons
+    [aButton setEnabled:NO];
+    [self.navigationItem.rightBarButtonItem setEnabled:NO];
+    
+    //Change one and se if other also changes
+    [self.navigationItem.rightBarButtonItem setEnabled:YES];
+    isRightBarButton = aButton.enabled == YES;
+    
+    //Reset
+    [self.navigationItem.rightBarButtonItem setEnabled:wasRightEnabled];
+    [aButton setEnabled:wasButtonEnabled];
+    
+    return isRightBarButton;
 }
 
 @end
