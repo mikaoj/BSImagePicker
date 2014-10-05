@@ -42,7 +42,8 @@
 
     if([self.collectionModel isItemAtIndexPathSelected:indexPath]) {
         [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-		[cell setPictureNumber:[self.collectionModel.selectedItems count] selected:YES animated:NO];
+        id selectedItem = [self.collectionModel itemAtIndexPath:indexPath];
+		[cell setPictureNumber:[self.collectionModel.selectedItems indexOfObject:selectedItem]+1 selected:YES animated:NO];
     }
 
     return cell;
@@ -71,7 +72,7 @@
     [self.collectionModel deselectItemAtIndexPath:indexPath];
     
     BSPhotoCell *cell = (BSPhotoCell *)[collectionView cellForItemAtIndexPath:indexPath];
-	[cell setPictureNumber:[self.collectionModel.selectedItems count] selected:NO animated:YES];
+	[cell setPictureNumber:0 selected:NO animated:YES];
 
     if([[BSImagePickerSettings sharedSetting] toggleBlock]) {
         ALAsset *asset = [self.collectionModel itemAtIndexPath:indexPath];
