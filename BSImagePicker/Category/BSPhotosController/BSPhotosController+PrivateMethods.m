@@ -176,7 +176,7 @@
 #pragma mark - Private private
 
 - (void)updateDoneButtonWithSelectedAssets:(NSUInteger)selectedAssets {
-    //This is dangerous and not very future proof.
+    //This is not very future proof.
     UIView *view = self.navigationController.navigationBar;
     static NSString *origText;
     
@@ -224,7 +224,7 @@
     [aButton setEnabled:NO];
     [self.navigationItem.rightBarButtonItem setEnabled:NO];
     
-    //Change one and se if other also changes
+    //Change one and see if other also changes
     [self.navigationItem.rightBarButtonItem setEnabled:YES];
     isRightBarButton = aButton.enabled == YES;
     
