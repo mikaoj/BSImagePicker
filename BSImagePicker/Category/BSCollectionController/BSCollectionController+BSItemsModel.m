@@ -25,6 +25,7 @@
 @implementation BSCollectionController (BSItemsModel)
 
 - (void)didUpdateModel:(id<BSItemsModel>)aModel {
+    [self.collectionView setContentOffset:CGPointMake(-self.collectionView.contentInset.left, -self.collectionView.contentInset.top)];
     [self.collectionView reloadData];
 }
 
