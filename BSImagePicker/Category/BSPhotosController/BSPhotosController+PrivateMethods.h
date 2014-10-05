@@ -22,6 +22,7 @@
 
 #import "BSPhotosController.h"
 
+@protocol BSItemsModel;
 @interface BSPhotosController (PrivateMethods)
 
 - (void)finishButtonPressed:(id)sender;
@@ -29,5 +30,8 @@
 - (void)showAlbumView;
 - (void)hideAlbumView;
 - (void)itemLongPressed:(UIGestureRecognizer *)recognizer;
+- (void)syncSelectionInModel:(id<BSItemsModel>)aModel withCollectionView:(UICollectionView *)aCollectionView;
+- (void)updateAlbumTitle:(NSString *)aTitle;
+- (void)toggleDoneButton;
 
 @end

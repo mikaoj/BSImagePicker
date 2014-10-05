@@ -19,26 +19,9 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
+//
 
-#import "UIViewController+MultipleImagePicker.h"
-#import "BSImagePickerController.h"
+@interface BSNumberedSelectionView : UIView
 
-@implementation UIViewController (MultipleImagePicker)
-
-- (void)presentImagePickerController:(BSImagePickerController *)viewControllerToPresent
-                            animated:(BOOL)flag
-                          completion:(void (^)(void))completion
-                              toggle:(BSImageToggleBlock)toggleBlock
-                              cancel:(BSImageGroupBlock)cancelBlock
-                              finish:(BSImageGroupBlock)finishBlock
-{
-    if([viewControllerToPresent isKindOfClass:[BSImagePickerController class]]) {
-        [viewControllerToPresent setToggleBlock:toggleBlock];
-        [viewControllerToPresent setCancelBlock:cancelBlock];
-        [viewControllerToPresent setFinishBlock:finishBlock];
-    }
-    
-    [self presentViewController:viewControllerToPresent animated:flag completion:completion];
-}
-
+@property (assign, nonatomic) NSUInteger pictureNumber;
 @end

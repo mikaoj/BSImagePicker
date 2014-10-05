@@ -33,7 +33,7 @@ typedef void (^BSImageToggleBlock)(ALAsset *asset, BOOL select);
 typedef void (^BSImageGroupBlock)(NSArray *assets);
 
 @class BSImagePickerController;
-@interface UIViewController (MultipleImagePicker)
+@interface UIViewController (BSImagePicker)
 
 /**
  *  Present image picker controller (wrapper around presentViewController)

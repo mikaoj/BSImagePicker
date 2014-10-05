@@ -76,11 +76,7 @@
     [self.navigationItem setTitleView:self.albumButton];
 
     //Enable/disable done button
-    if([self.collectionModel.selectedItems count] > 0) {
-        [self.doneButton setEnabled:YES];
-    } else {
-        [self.doneButton setEnabled:NO];
-    }
+    [self toggleDoneButton];
 
     [self.navigationController setDelegate:self];
 }
@@ -91,9 +87,7 @@
     [self.collectionView performBatchUpdates:^{
         [self.collectionView.collectionViewLayout invalidateLayout];
         [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
-    } completion:^(BOOL finished) {
-
-    }];
+    } completion:nil];
 }
 
 #pragma mark - UINavigationControllerDelegate
@@ -104,17 +98,7 @@
                                                  toViewController:(UIViewController *)toVC
 {
     if(operation == UINavigationControllerOperationPop) {
-        //Sync selection
-        for(int i = 0; i < [self.collectionModel numberOfItemsInSection:0]; ++i) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
-            
-            if([self.collectionModel isItemAtIndexPathSelected:indexPath]) {
-                [self.collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone];
-            } else {
-                [self.collectionView deselectItemAtIndexPath:indexPath animated:NO];
-            }
-        }
-        
+        [self syncSelectionInModel:self.collectionModel withCollectionView:self.collectionView];
         return self.zoomOutAnimator;
     } else {
         [self.previewController.collectionView reloadData];

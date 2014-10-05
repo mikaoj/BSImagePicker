@@ -38,14 +38,11 @@
     return self;
 }
 
-- (void)setSelected:(BOOL)selected {
-    [self setSelected:selected animated:NO];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setPictureNumber:(NSUInteger)pictureNumber selected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected];
-    
+
     [self.fadedCoverView setHidden:!selected];
+	[self.checkmarkView setPictureNumber:pictureNumber];
     [self.checkmarkView setHidden:!selected];
     
     if(animated) {
@@ -67,7 +64,7 @@
 
 - (UIImageView *)imageView {
     if(!_imageView) {
-        _imageView = [[UIImageView alloc] initWithFrame:self.contentView.frame];
+        _imageView = [[UIImageView alloc] initWithFrame:self.contentView.bounds];
         [_imageView setContentMode:UIViewContentModeScaleAspectFill];
         [_imageView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
         [_imageView setClipsToBounds:YES];
@@ -86,9 +83,10 @@
     return _fadedCoverView;
 }
 
-- (BSCheckmarkView *)checkmarkView {
+- (BSNumberedSelectionView *)checkmarkView {
     if(!_checkmarkView) {
-        _checkmarkView = [[BSCheckmarkView alloc] initWithFrame:CGRectMake(self.imageView.bounds.size.width-25, self.imageView.bounds.size.height-25, 25, 25)];
+        _checkmarkView = [[BSNumberedSelectionView alloc] initWithFrame:CGRectMake(self.imageView.bounds.size.width-25, self.imageView.bounds.size.height-25, 25, 25)];
+		_checkmarkView.contentMode = UIViewContentModeRedraw;
         [_checkmarkView setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin];
         [_checkmarkView setBackgroundColor:[UIColor clearColor]];
     }

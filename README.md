@@ -1,4 +1,4 @@
-![alt text](https://cloud.githubusercontent.com/assets/4034956/3212805/680b1e88-ef75-11e3-9410-a5de4b4f92d2.gif "Demo gif")
+![alt text](https://cloud.githubusercontent.com/assets/4034956/4519852/caadef06-4ccd-11e4-98f3-287ad6ee05db.gif "Demo gif")
 
 A mix between the native iOS 7 gallery and facebooks image picker.
 
@@ -6,24 +6,8 @@ A mix between the native iOS 7 gallery and facebooks image picker.
 ## Pod
 Put this into your Podfile:
 ```shell
-pod 'BSImagePicker', '~> 0.6'
+pod 'BSImagePicker', '~> 0.7'
 ```
-## Framework
-### Download framework
-[Download the framework](https://github.com/mikaoj/BSImagePicker/releases/download/0.4/BSImagePickerController.framework.zip "framework") and drop into your project.
-### Or build it yourself
-* Clone project
-```shell
-git clone git@bitbucket.org:backslashed/bsimagepicker.git
-```
-* Build framework
-```shell
-cd bsimagepicker
-xcodebuild  -target BuildFramework
-open -a Finder Products/
-```
-* Drag & Drop framework into your project
-
 # Use
 Import header
 ```objc
