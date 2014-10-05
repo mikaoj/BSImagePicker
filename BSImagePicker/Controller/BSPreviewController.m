@@ -102,11 +102,13 @@
 #pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    [self setCurrentIndexPath:[NSIndexPath indexPathForItem:round(scrollView.contentOffset.x / scrollView.frame.size.width) inSection:0]];
-    [self toggleCheckMarkForIndexPath:self.currentIndexPath];
-    [self togglePlayButtonForIndexPath:self.currentIndexPath];
-    [self.moviePlayerController stop];
-    [self prepareMoviePlayerForIndexPath:self.currentIndexPath];
+    if([self isViewLoaded] && self.view.window) {
+        [self setCurrentIndexPath:[NSIndexPath indexPathForItem:round(scrollView.contentOffset.x / scrollView.frame.size.width) inSection:0]];
+        [self toggleCheckMarkForIndexPath:self.currentIndexPath];
+        [self togglePlayButtonForIndexPath:self.currentIndexPath];
+        [self.moviePlayerController stop];
+        [self prepareMoviePlayerForIndexPath:self.currentIndexPath];
+    }
 }
 
 #pragma mark - Lazy load
