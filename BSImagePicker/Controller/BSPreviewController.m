@@ -193,6 +193,14 @@
 - (void)toggleCheckMarkForIndexPath:(NSIndexPath *)anIndexPath {
     BOOL isSelected = [self.collectionModel isItemAtIndexPathSelected:anIndexPath];
     BOOL isCheckmarkVisible = self.navigationItem.rightBarButtonItem == self.checkMarkButton;
+    
+    if(isSelected) {
+        id selectedItem = [self.collectionModel itemAtIndexPath:anIndexPath];
+        NSInteger pictureNumber = [self.collectionModel.selectedItems indexOfObject:selectedItem]+1;
+        [self.checkmarkView setPictureNumber:pictureNumber];
+    } else {
+        [self.checkmarkView setPictureNumber:0];
+    }
 
     if(isSelected != isCheckmarkVisible) {
         if(isSelected) {
