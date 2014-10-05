@@ -42,7 +42,7 @@
     [super setSelected:selected];
 
     [self.fadedCoverView setHidden:!selected];
-//	[self.checkmarkView setPictureNumber:pictureNumber];
+	[self.checkmarkView setPictureNumber:pictureNumber];
     [self.checkmarkView setHidden:!selected];
     
     if(animated) {
@@ -57,7 +57,6 @@
                                                  options:0
                                               animations:^{
                                                   [self.imageView setTransform:CGAffineTransformMakeScale(1.0, 1.0)];
-												  [self.checkmarkView setNeedsDisplay];
                                               } completion:nil];
                          }];
     }

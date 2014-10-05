@@ -55,16 +55,27 @@
     checkedOvalPath.lineWidth = 1;
     [checkedOvalPath stroke];
     
-    //// Bezier Drawing
-    UIBezierPath* bezierPath = [UIBezierPath bezierPath];
-    [bezierPath moveToPoint: CGPointMake(CGRectGetMinX(group) + 0.27083 * CGRectGetWidth(group), CGRectGetMinY(group) + 0.54167 * CGRectGetHeight(group))];
-    [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(group) + 0.41667 * CGRectGetWidth(group), CGRectGetMinY(group) + 0.68750 * CGRectGetHeight(group))];
-    [bezierPath addLineToPoint: CGPointMake(CGRectGetMinX(group) + 0.75000 * CGRectGetWidth(group), CGRectGetMinY(group) + 0.35417 * CGRectGetHeight(group))];
-    bezierPath.lineCapStyle = kCGLineCapSquare;
-    
-    [[UIColor whiteColor] setStroke];
-    bezierPath.lineWidth = 1.3;
-    [bezierPath stroke];
+    //// Bezier Drawing (Picture Number)
+	if (self.pictureNumber > 0) {
+		CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
+		NSString *text = [@(self.pictureNumber) stringValue];
+		UIFont *font   = [UIFont boldSystemFontOfSize:13.0f];
+		CGSize size    = [text sizeWithFont:font];
+		[text drawInRect:CGRectMake(CGRectGetMidX(frame) - size.width / 2.0f,
+									CGRectGetMidY(frame) - size.height / 2.0f,
+									size.width,
+									size.height)
+				withFont:font
+		   lineBreakMode:NSLineBreakByTruncatingTail
+			   alignment:NSTextAlignmentCenter];
+	}
+}
+
+- (void)setPictureNumber:(NSUInteger)pictureNumber {
+    if(pictureNumber != _pictureNumber) {
+        _pictureNumber = pictureNumber;
+        [self setNeedsDisplay];
+    }
 }
 
 @end

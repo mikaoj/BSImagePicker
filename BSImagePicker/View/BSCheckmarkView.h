@@ -23,4 +23,5 @@
 
 @interface BSCheckmarkView : UIView
 
+@property (assign, nonatomic) NSUInteger pictureNumber;
 @end
