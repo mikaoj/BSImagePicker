@@ -176,24 +176,27 @@
 #pragma mark - Private private
 
 - (void)updateDoneButtonWithSelectedAssets:(NSUInteger)selectedAssets {
-    //This is not very future proof.
+    //This is not very future proof. But should hopefully not blow anything up when things change.
     UIView *view = self.navigationController.navigationBar;
-    static NSString *origText;
+    static NSString *defaultText;
     
+    //Loop through all subviews in the navigation bar...
     for(UIView *subview in view.subviews) {
-        if([subview isKindOfClass:[NSClassFromString(@"UINavigationButton") class]]) {
-            //Second button is what we are looking for...
+        if([subview isKindOfClass:[UIButton class]]) {
+            //Trust in the KVO to find the right button...
             if([self isRightBarButton:(UIButton *)subview]) {
                 UIButton *hopeToBeDoneButton = (UIButton *)subview;
                 
-                if(!origText) {
-                    origText = [hopeToBeDoneButton titleForState:UIControlStateNormal];
+                //Store default text
+                if(!defaultText) {
+                    defaultText = [hopeToBeDoneButton titleForState:UIControlStateNormal];
                 }
                 
+                //If we have selected any assets set custom button title, else default
                 if(selectedAssets > 0) {
-                    [self setTitleWithoutAnimation:[NSString stringWithFormat:@"%@ (%lu)", origText, selectedAssets] forButton:hopeToBeDoneButton];
+                    [self setTitleWithoutAnimation:[NSString stringWithFormat:@"%@ (%lu)", defaultText, selectedAssets] forButton:hopeToBeDoneButton];
                 } else {
-                    [self setTitleWithoutAnimation:origText forButton:hopeToBeDoneButton];
+                    [self setTitleWithoutAnimation:defaultText forButton:hopeToBeDoneButton];
                 }
                 
                 break;
@@ -203,8 +206,10 @@
 }
 
 - (void)setTitleWithoutAnimation:(NSString *)aTitle forButton:(UIButton *)aButton {
+    //Store value
     BOOL wasEnabled = aButton.enabled;
     
+    //This is voodoo to update the done button without it blinking
     [UIView setAnimationsEnabled:NO];
     [aButton setEnabled:YES];
     [aButton setTitle:aTitle forState:UIControlStateNormal];
