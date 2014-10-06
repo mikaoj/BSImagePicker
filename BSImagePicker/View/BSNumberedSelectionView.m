@@ -59,15 +59,14 @@
 	if (self.pictureNumber > 0) {
 		CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
 		NSString *text = [@(self.pictureNumber) stringValue];
-		UIFont *font   = [UIFont boldSystemFontOfSize:13.0f];
-		CGSize size    = [text sizeWithFont:font];
-		[text drawInRect:CGRectMake(CGRectGetMidX(frame) - size.width / 2.0f,
-									CGRectGetMidY(frame) - size.height / 2.0f,
-									size.width,
-									size.height)
-				withFont:font
-		   lineBreakMode:NSLineBreakByTruncatingTail
-			   alignment:NSTextAlignmentCenter];
+		UIFont *font   = [UIFont boldSystemFontOfSize:13.0];
+        NSDictionary *attributes = @{NSFontAttributeName: font, NSForegroundColorAttributeName: [UIColor whiteColor]};
+        CGSize size = [text sizeWithAttributes:attributes];
+        CGRect drawRect = CGRectMake(CGRectGetMidX(frame) - size.width / 2.0,
+                                     CGRectGetMidY(frame) - size.height / 2.0,
+                                     size.width,
+                                     size.height);
+        [text drawInRect:drawRect withAttributes:attributes];
 	}
 }
 
