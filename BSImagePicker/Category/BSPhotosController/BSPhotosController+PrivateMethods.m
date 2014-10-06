@@ -191,7 +191,7 @@
                 }
                 
                 if(selectedAssets > 0) {
-                    [self setTitleWithoutAnimation:[NSString stringWithFormat:@"%@ (%d)", origText, selectedAssets] forButton:hopeToBeDoneButton];
+                    [self setTitleWithoutAnimation:[NSString stringWithFormat:@"%@ (%lu)", origText, selectedAssets] forButton:hopeToBeDoneButton];
                 } else {
                     [self setTitleWithoutAnimation:origText forButton:hopeToBeDoneButton];
                 }
