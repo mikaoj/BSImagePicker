@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0879977EF00D2E2F8578B0B0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AADD7794030C33DAB1DA0972 /* libPods.a */; };
 		5509A41C192F9F4D006E4DA1 /* BSAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5509A41B192F9F4D006E4DA1 /* BSAssetModel.m */; };
 		5509A423192FA2FD006E4DA1 /* BSAlbumTableViewCellFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5509A422192FA2FD006E4DA1 /* BSAlbumTableViewCellFactory.m */; };
 		5509A42919301069006E4DA1 /* BSPhotoCollectionViewCellFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 5509A42819301069006E4DA1 /* BSPhotoCollectionViewCellFactory.m */; };
@@ -22,7 +23,6 @@
 		55A11EE118FC952D00F28CA5 /* UIViewController+BSImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE018FC952D00F28CA5 /* UIViewController+BSImagePicker.m */; };
 		55A11EE718FE75B300F28CA5 /* ALAsset+BSEqual.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A11EE618FE75B300F28CA5 /* ALAsset+BSEqual.m */; };
 		55A4258918FA8E6F00EF7E8F /* BSImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A4258818FA8E6F00EF7E8F /* BSImagePickerController.m */; };
-		55AD0D8E19408C7800BDC37F /* UIImageViewModeScaleAspect.m in Sources */ = {isa = PBXBuildFile; fileRef = 55AD0D8D19408C7800BDC37F /* UIImageViewModeScaleAspect.m */; };
 		55C3BE6518EF632D00E601DE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C3BE6418EF632D00E601DE /* Foundation.framework */; };
 		55C3BE6718EF632D00E601DE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C3BE6618EF632D00E601DE /* CoreGraphics.framework */; };
 		55C3BE6918EF632D00E601DE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55C3BE6818EF632D00E601DE /* UIKit.framework */; };
@@ -50,6 +50,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01822671BD2FB33E04CAE7E9 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		5509A411192F9B08006E4DA1 /* BSItemsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSItemsModel.h; sourceTree = "<group>"; };
 		5509A412192F9B27006E4DA1 /* BSTableViewCellFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSTableViewCellFactory.h; sourceTree = "<group>"; };
 		5509A413192F9C18006E4DA1 /* BSCollectionViewCellFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSCollectionViewCellFactory.h; sourceTree = "<group>"; };
@@ -84,8 +85,6 @@
 		55A11EE618FE75B300F28CA5 /* ALAsset+BSEqual.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+BSEqual.m"; sourceTree = "<group>"; };
 		55A4258718FA8E6F00EF7E8F /* BSImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSImagePickerController.h; sourceTree = "<group>"; };
 		55A4258818FA8E6F00EF7E8F /* BSImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSImagePickerController.m; sourceTree = "<group>"; };
-		55AD0D8C19408C7800BDC37F /* UIImageViewModeScaleAspect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewModeScaleAspect.h; sourceTree = "<group>"; };
-		55AD0D8D19408C7800BDC37F /* UIImageViewModeScaleAspect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageViewModeScaleAspect.m; sourceTree = "<group>"; };
 		55C3BE6118EF632D00E601DE /* BSImagePicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BSImagePicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55C3BE6418EF632D00E601DE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		55C3BE6618EF632D00E601DE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -110,6 +109,8 @@
 		55EC234418F1DB6A008F5A02 /* BSSpeechBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSpeechBubbleView.m; sourceTree = "<group>"; };
 		55EC234F18F2F873008F5A02 /* BSTriangleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTriangleView.h; sourceTree = "<group>"; };
 		55EC235018F2F873008F5A02 /* BSTriangleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTriangleView.m; sourceTree = "<group>"; };
+		94459BC6DFE9F8F48647AAC7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		AADD7794030C33DAB1DA0972 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB2B9033028BA2F8F9C5F5BA /* BSPhotosController+PrivateMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BSPhotosController+PrivateMethods.h"; sourceTree = "<group>"; };
 		BB2B90AF1CED4DE415FD931F /* BSExpandAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSExpandAnimator.m; sourceTree = "<group>"; };
 		BB2B90F9017BDA73DC835324 /* BSPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSPreviewController.h; sourceTree = "<group>"; };
@@ -145,6 +146,7 @@
 				55C3BE6718EF632D00E601DE /* CoreGraphics.framework in Frameworks */,
 				55C3BE6918EF632D00E601DE /* UIKit.framework in Frameworks */,
 				55C3BE6518EF632D00E601DE /* Foundation.framework in Frameworks */,
+				0879977EF00D2E2F8578B0B0 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +209,7 @@
 				55C3BE6A18EF632D00E601DE /* BSImagePicker */,
 				55C3BE6318EF632D00E601DE /* Frameworks */,
 				55C3BE6218EF632D00E601DE /* Products */,
+				81D2B107C23482167788E554 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -229,6 +232,7 @@
 				55C3BE6818EF632D00E601DE /* UIKit.framework */,
 				55C3BE7D18EF632D00E601DE /* XCTest.framework */,
 				556E0CE219017470006F8F73 /* CoreFoundation.framework */,
+				AADD7794030C33DAB1DA0972 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -331,6 +335,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		81D2B107C23482167788E554 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				94459BC6DFE9F8F48647AAC7 /* Pods.debug.xcconfig */,
+				01822671BD2FB33E04CAE7E9 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		BB2B95282F0FFF83A04B49B5 /* BSPreviewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -367,8 +380,6 @@
 		BB2B9A354CAC089377BA84F1 /* Animator */ = {
 			isa = PBXGroup;
 			children = (
-				55AD0D8C19408C7800BDC37F /* UIImageViewModeScaleAspect.h */,
-				55AD0D8D19408C7800BDC37F /* UIImageViewModeScaleAspect.m */,
 				BB2B90AF1CED4DE415FD931F /* BSExpandAnimator.m */,
 				BB2B97C6BB8931E76095B11D /* BSExpandAnimator.h */,
 				BB2B99BEDF8860AD297EE80D /* BSShrinkAnimator.m */,
@@ -384,9 +395,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55C3BE8D18EF632D00E601DE /* Build configuration list for PBXNativeTarget "BSImagePicker" */;
 			buildPhases = (
+				C28BAC8F42A562E0987AAA1E /* Check Pods Manifest.lock */,
 				55C3BE5D18EF632D00E601DE /* Sources */,
 				55C3BE5E18EF632D00E601DE /* Frameworks */,
 				55C3BE5F18EF632D00E601DE /* Resources */,
+				F260A9838E9B996133C615AB /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -436,6 +449,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C28BAC8F42A562E0987AAA1E /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F260A9838E9B996133C615AB /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		55C3BE5D18EF632D00E601DE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -461,7 +507,6 @@
 				55EC234518F1DB6A008F5A02 /* BSSpeechBubbleView.m in Sources */,
 				556AABA81980641500D799F7 /* BSCameraView.m in Sources */,
 				55EC235118F2F873008F5A02 /* BSTriangleView.m in Sources */,
-				55AD0D8E19408C7800BDC37F /* UIImageViewModeScaleAspect.m in Sources */,
 				BB2B992598FC83C26F7BCF0F /* ALAssetsGroup+Equal.m in Sources */,
 				BB2B9B4E9F4BC435FF833E97 /* BSPhotosController.m in Sources */,
 				BB2B94E7BAF0BCCEEFAB30A3 /* BSCollectionController.m in Sources */,
@@ -566,6 +611,7 @@
 		};
 		55C3BE8E18EF632D00E601DE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 94459BC6DFE9F8F48647AAC7 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -574,7 +620,7 @@
 				GCC_PREFIX_HEADER = "BSImagePicker/Misc/BSImagePicker-Prefix.pch";
 				INFOPLIST_FILE = "BSImagePicker/Misc/BSImagePicker-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = BSImagePicker;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
@@ -583,6 +629,7 @@
 		};
 		55C3BE8F18EF632D00E601DE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 01822671BD2FB33E04CAE7E9 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -591,7 +638,7 @@
 				GCC_PREFIX_HEADER = "BSImagePicker/Misc/BSImagePicker-Prefix.pch";
 				INFOPLIST_FILE = "BSImagePicker/Misc/BSImagePicker-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = BSImagePicker;
 				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
