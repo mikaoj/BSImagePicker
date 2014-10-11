@@ -22,6 +22,8 @@
 *.lock
 profile
 
+# But not Podfile.lock
+!Podfile.lock
 
 ####
 # Xcode temporary files that should never be committed
