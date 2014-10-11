@@ -1,0 +1,10 @@
+PODS:
+  - UIImageViewModeScaleAspect (1.3)
+
+DEPENDENCIES:
+  - UIImageViewModeScaleAspect (= 1.3)
+
+SPEC CHECKSUMS:
+  UIImageViewModeScaleAspect: 61ea5fbcbddab6ff8ae5fe86a657f9208dd19fda
+
+COCOAPODS: 0.34.2

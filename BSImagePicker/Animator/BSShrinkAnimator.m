@@ -24,7 +24,7 @@
 #import "BSPhotosController.h"
 #import "BSPhotoCell.h"
 #import "BSCollectionController+UICollectionView.h"
-#import "UIImageViewModeScaleAspect.h"
+#import <UIImageViewModeScaleAspect/UIImageViewModeScaleAspect.h>
 #import "BSItemsModel.h"
 
 @implementation BSShrinkAnimator
