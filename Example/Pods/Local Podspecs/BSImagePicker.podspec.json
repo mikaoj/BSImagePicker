@@ -3,13 +3,13 @@
   "version": "2.0",
   "summary": "A short description of BSImagePicker.",
   "description": "                       An optional longer description of BSImagePicker\n\n                       * Markdown format.\n                       * Don't worry about the indent, we strip it!\n",
-  "homepage": "https://github.com/<GITHUB_USERNAME>/BSImagePicker",
+  "homepage": "https://github.com/mikaoj/BSImagePicker",
   "license": "MIT",
   "authors": {
     "Joakim Gyllstrom": "joakim@backslashed.se"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/BSImagePicker.git",
+    "git": "https://github.com/mikaoj/BSImagePicker.git",
     "tag": "2.0"
   },
   "platforms": {

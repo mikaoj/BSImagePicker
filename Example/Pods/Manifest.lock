@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BSImagePicker: a2d93660c5037b1716a2be50d4148194cb53a88a
+  BSImagePicker: d3dcabd83ff85597662fead29e0764c62abbb1b4
   FBSnapshotTestCase: 1eea5145c1f2fa907812ab92e1d6063a8d809b4e
 
 COCOAPODS: 0.36.4

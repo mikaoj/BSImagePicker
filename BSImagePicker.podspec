@@ -8,11 +8,11 @@ Pod::Spec.new do |s|
                        * Markdown format.
                        * Don't worry about the indent, we strip it!
                        DESC
-  s.homepage         = "https://github.com/<GITHUB_USERNAME>/BSImagePicker"
-  # s.screenshots     = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.homepage         = "https://github.com/mikaoj/BSImagePicker"
+  # s.screenshots     = "www.example.com/screenshotsots_1", "www.example.com/screenshots_2"
   s.license          = 'MIT'
   s.author           = { "Joakim Gyllstrom" => "joakim@backslashed.se" }
-  s.source           = { :git => "https://github.com/<GITHUB_USERNAME>/BSImagePicker.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/mikaoj/BSImagePicker.git", :tag => s.version.to_s }
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true

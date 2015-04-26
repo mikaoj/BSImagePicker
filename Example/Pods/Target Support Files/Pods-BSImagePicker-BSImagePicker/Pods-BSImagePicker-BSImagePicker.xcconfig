@@ -1,1 +1,0 @@
-PODS_BSIMAGEPICKER_BSIMAGEPICKER_OTHER_LDFLAGS = -framework "Photos" -framework "UIKit"
