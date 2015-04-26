@@ -19,7 +19,8 @@
   "source_files": "Pod/Classes/**/*",
   "resource_bundles": {
     "BSImagePicker": [
-      "Pod/Assets/*.png"
+      "Pod/Assets/*.png",
+      "Pod/Assets/*.xib"
     ]
   },
   "frameworks": [
