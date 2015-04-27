@@ -1,19 +1,43 @@
 import UIKit
+import Photos
 
-public class ImagePickerViewController : UIViewController {
-    let imagePickerViewName = "ImagePickerView"
-    
-    convenience init () {
-        self.init(nibName: nil, bundle: nil)
+public class ImagePickerViewController : UINavigationController {
+    internal var selectionClosure: ((asset: PHAsset) -> Void)? {
+        set {
+            photosViewController.selectionClosure = newValue
+        }
+        get {
+            return photosViewController.selectionClosure
+        }
     }
-
-    required public convenience init(coder aDecoder: NSCoder) {
-        self.init(nibName: nil, bundle: nil)
+    internal var deselectionClosure: ((asset: PHAsset) -> Void)? {
+        set {
+            photosViewController.deselectionClosure = newValue
+        }
+        get {
+            return photosViewController.deselectionClosure
+        }
+    }
+    internal var cancelClosure: ((assets: [PHAsset]) -> Void)? {
+        set {
+            photosViewController.cancelClosure = newValue
+        }
+        get {
+            return photosViewController.cancelClosure
+        }
+    }
+    internal var finishClosure: ((assets: [PHAsset]) -> Void)? {
+        set {
+            photosViewController.finishClosure = newValue
+        }
+        get {
+            return photosViewController.finishClosure
+        }
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    internal var photosViewController: PhotosViewController = {
         // Get path for BSImagePicker bundle
-        let bundlePath = NSBundle(forClass: ImagePickerViewController.self).pathForResource("BSImagePicker", ofType: "bundle")
+        let bundlePath = NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")
         let bundle: NSBundle?
         
         // Load bundle
@@ -23,7 +47,18 @@ public class ImagePickerViewController : UIViewController {
             bundle = nil
         }
         
-        // Call super with view name and bundle
-        super.init(nibName: imagePickerViewName, bundle: bundle)
+        return PhotosViewController(nibName: "PhotosView", bundle: bundle)
+    }()
+    
+    public init() {
+        super.init(rootViewController: photosViewController)
+    }
+
+    required public init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
 }
