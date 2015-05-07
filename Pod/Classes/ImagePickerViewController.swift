@@ -47,7 +47,9 @@ public class ImagePickerViewController : UINavigationController {
             bundle = nil
         }
         
-        return PhotosViewController(nibName: "PhotosView", bundle: bundle)
+        let storyboard = UIStoryboard(name: "Photos", bundle: bundle)
+        
+        return storyboard.instantiateInitialViewController() as! PhotosViewController
     }()
     
     public init() {

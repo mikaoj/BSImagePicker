@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
 
 #import "FBSnapshotTestCase.h"
+#import "FBSnapshotTestCasePlatform.h"
 #import "FBSnapshotTestController.h"
 #import "UIImage+Compare.h"
 #import "UIImage+Diff.h"

@@ -15,6 +15,6 @@
 // FBSnapshotTestCase
 #define COCOAPODS_POD_AVAILABLE_FBSnapshotTestCase
 #define COCOAPODS_VERSION_MAJOR_FBSnapshotTestCase 1
-#define COCOAPODS_VERSION_MINOR_FBSnapshotTestCase 7
-#define COCOAPODS_VERSION_PATCH_FBSnapshotTestCase 0
+#define COCOAPODS_VERSION_MINOR_FBSnapshotTestCase 8
+#define COCOAPODS_VERSION_PATCH_FBSnapshotTestCase 1
 

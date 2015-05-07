@@ -20,7 +20,8 @@
   "resource_bundles": {
     "BSImagePicker": [
       "Pod/Assets/*.png",
-      "Pod/Assets/*.xib"
+      "Pod/Assets/*.xib",
+      "Pod/Assets/*.storyboard"
     ]
   },
   "frameworks": [
