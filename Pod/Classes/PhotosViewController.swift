@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class PhotosViewController : UICollectionViewController {
+class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate {
     internal var selectionClosure: ((asset: PHAsset) -> Void)?
     internal var deselectionClosure: ((asset: PHAsset) -> Void)?
     internal var cancelClosure: ((assets: [PHAsset]) -> Void)?
@@ -20,7 +20,7 @@ class PhotosViewController : UICollectionViewController {
         return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "doneButtonPressed:")
     }()
     
-    private lazy var albumView: AlbumView = {
+    private lazy var bundle: NSBundle? = {
         // Get path for BSImagePicker bundle
         let bundlePath = NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")
         let bundle: NSBundle?
@@ -32,9 +32,21 @@ class PhotosViewController : UICollectionViewController {
             bundle = nil
         }
         
-        let lazyVC = bundle?.loadNibNamed("AlbumView", owner: self, options: nil).first as! AlbumView
+        return bundle
+    }()
+    
+    private lazy var albumTitleView: AlbumTitleView? = {
+        return self.bundle?.loadNibNamed("AlbumTitleView", owner: self, options: nil).first as? AlbumTitleView
+    }()
+    
+    private lazy var albumsViewController: AlbumsViewController? = {
+        let storyboard = UIStoryboard(name: "Albums", bundle: self.bundle)
         
-        return lazyVC
+        let vc = storyboard.instantiateInitialViewController() as? AlbumsViewController
+        vc?.modalPresentationStyle = .Popover
+        vc?.preferredContentSize = CGSize(width: 300, height: 300)
+        
+        return vc
     }()
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -52,8 +64,9 @@ class PhotosViewController : UICollectionViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelButtonPressed:")
         navigationItem.rightBarButtonItem = doneBarButton
         
-        albumView.albumTitle = "Hejsan"
-        navigationItem.titleView = albumView
+        albumTitleView?.albumTitle = "Hejsan"
+        albumTitleView?.albumButton.addTarget(self, action: "albumButtonPressed:", forControlEvents: .TouchUpInside)
+        navigationItem.titleView = albumTitleView
     }
     
     func cancelButtonPressed(sender: UIBarButtonItem) {
@@ -68,6 +81,23 @@ class PhotosViewController : UICollectionViewController {
         finishClosure?(assets: array)
         
         dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func albumButtonPressed(sender: UIButton) {
+        if let albumsViewController = albumsViewController, let popVC = albumsViewController.popoverPresentationController, albumTitleView = albumTitleView {
+            popVC.permittedArrowDirections = .Up
+            popVC.sourceView = sender
+            let senderRect = sender.convertRect(sender.frame, fromView: sender.superview)
+            let sourceRect = CGRect(x: senderRect.origin.x, y: senderRect.origin.y + (albumTitleView.frame.size.height / 2), width: senderRect.size.width, height: senderRect.size.height)
+            popVC.sourceRect = sourceRect
+            popVC.delegate = self
+            
+            presentViewController(albumsViewController, animated: true, completion: nil)
+        }
+    }
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
     }
     
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {

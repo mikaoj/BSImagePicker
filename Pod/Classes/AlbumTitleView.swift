@@ -8,7 +8,7 @@
 
 import UIKit
 
-internal class AlbumView: UIView {
+internal class AlbumTitleView: UIView {
     @IBOutlet weak var albumButton: UIButton!
     
     internal var albumTitle = "" {
