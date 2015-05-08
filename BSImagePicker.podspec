@@ -21,7 +21,9 @@ Pod::Spec.new do |s|
   s.resource_bundles = {
     'BSImagePicker' => ['Pod/Assets/*.png',
                         'Pod/Assets/*.xib',
-                        'Pod/Assets/*.storyboard']
+                        'Pod/Assets/*.storyboard',
+                        'Pod/Assets/*.xcassets',
+                        'Pod/Assets/*.png']
   }
 
   # s.public_header_files = 'Pod/Classes/**/*.h'

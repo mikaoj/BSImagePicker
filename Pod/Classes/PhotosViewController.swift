@@ -20,6 +20,23 @@ class PhotosViewController : UICollectionViewController {
         return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "doneButtonPressed:")
     }()
     
+    private lazy var albumView: AlbumView = {
+        // Get path for BSImagePicker bundle
+        let bundlePath = NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")
+        let bundle: NSBundle?
+        
+        // Load bundle
+        if let bundlePath = bundlePath {
+            bundle = NSBundle(path: bundlePath)
+        } else {
+            bundle = nil
+        }
+        
+        let lazyVC = bundle?.loadNibNamed("AlbumView", owner: self, options: nil).first as! AlbumView
+        
+        return lazyVC
+    }()
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -34,6 +51,9 @@ class PhotosViewController : UICollectionViewController {
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelButtonPressed:")
         navigationItem.rightBarButtonItem = doneBarButton
+        
+        albumView.albumTitle = "Hejsan"
+        navigationItem.titleView = albumView
     }
     
     func cancelButtonPressed(sender: UIBarButtonItem) {

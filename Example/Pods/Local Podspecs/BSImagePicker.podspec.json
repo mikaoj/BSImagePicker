@@ -21,7 +21,9 @@
     "BSImagePicker": [
       "Pod/Assets/*.png",
       "Pod/Assets/*.xib",
-      "Pod/Assets/*.storyboard"
+      "Pod/Assets/*.storyboard",
+      "Pod/Assets/*.xcassets",
+      "Pod/Assets/*.png"
     ]
   },
   "frameworks": [
