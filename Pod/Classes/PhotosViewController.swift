@@ -16,6 +16,7 @@ class PhotosViewController : UICollectionViewController, UIPopoverPresentationCo
     internal var finishClosure: ((assets: [PHAsset]) -> Void)?
     
     private let photosDataSource = PhotosDataSource()
+    private let albumsDataSource = AlbumsDataSource()
     private lazy var doneBarButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "doneButtonPressed:")
     }()
@@ -36,7 +37,12 @@ class PhotosViewController : UICollectionViewController, UIPopoverPresentationCo
     }()
     
     private lazy var albumTitleView: AlbumTitleView? = {
-        return self.bundle?.loadNibNamed("AlbumTitleView", owner: self, options: nil).first as? AlbumTitleView
+        let albumTitleView = self.bundle?.loadNibNamed("AlbumTitleView", owner: self, options: nil).first as? AlbumTitleView
+        
+        albumTitleView?.albumTitle = self.albumsDataSource.selectedAlbum.localizedTitle
+        albumTitleView?.albumButton.addTarget(self, action: "albumButtonPressed:", forControlEvents: .TouchUpInside)
+        
+        return albumTitleView
     }()
     
     private lazy var albumsViewController: AlbumsViewController? = {
@@ -45,6 +51,7 @@ class PhotosViewController : UICollectionViewController, UIPopoverPresentationCo
         let vc = storyboard.instantiateInitialViewController() as? AlbumsViewController
         vc?.modalPresentationStyle = .Popover
         vc?.preferredContentSize = CGSize(width: 300, height: 300)
+        vc?.tableView.dataSource = self.albumsDataSource
         
         return vc
     }()
@@ -59,13 +66,14 @@ class PhotosViewController : UICollectionViewController, UIPopoverPresentationCo
     
     override func loadView() {
         super.loadView()
+        
+        // Hook up data source
+        photosDataSource.album = albumsDataSource.selectedAlbum
         collectionView?.dataSource = photosDataSource
         
+        // Add buttons
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelButtonPressed:")
         navigationItem.rightBarButtonItem = doneBarButton
-        
-        albumTitleView?.albumTitle = "Hejsan"
-        albumTitleView?.albumButton.addTarget(self, action: "albumButtonPressed:", forControlEvents: .TouchUpInside)
         navigationItem.titleView = albumTitleView
     }
     
@@ -98,6 +106,12 @@ class PhotosViewController : UICollectionViewController, UIPopoverPresentationCo
     
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return .None
+    }
+    
+    func popoverPresentationControllerShouldDismissPopover(popoverPresentationController: UIPopoverPresentationController) -> Bool {
+        println("hejsan!")
+        
+        return true
     }
     
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {

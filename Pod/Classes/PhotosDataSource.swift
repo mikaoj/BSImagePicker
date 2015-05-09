@@ -10,6 +10,29 @@ import UIKit
 import Photos
 
 internal class PhotosDataSource : NSObject, UICollectionViewDataSource {
+    internal var album: PHAssetCollection? {
+        didSet {
+            let fetchOptions = PHFetchOptions()
+            fetchOptions.sortDescriptors = [
+                NSSortDescriptor(key: "creationDate", ascending: false)
+            ]
+            fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
+            
+            PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
+            if let result = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions) {
+                var assets: [PHAsset] = []
+                result.enumerateObjectsUsingBlock { (object, idx, _) in
+                    if let asset = object as? PHAsset {
+                        assets.append(asset)
+                    } else {
+                        println("not!")
+                    }
+                }
+                
+                self.assets = assets
+            }
+        }
+    }
     internal var imageSize: CGSize = CGSize(width: 0, height: 0) {
         willSet {
             if CGSizeEqualToSize(newValue, imageSize) == false {
@@ -33,28 +56,6 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource {
         didSet {
             startCaching()
         }
-    }
-    
-    override init() {
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [
-            NSSortDescriptor(key: "creationDate", ascending: false)
-        ]
-        
-        if let result = PHAsset.fetchAssetsWithMediaType(.Image, options: fetchOptions) {
-            var assets: [PHAsset] = []
-            result.enumerateObjectsUsingBlock { (object, idx, _) in
-                if let asset = object as? PHAsset {
-                    assets.append(asset)
-                } else {
-                    println("not!")
-                }
-            }
-            
-            self.assets = assets
-        }
-        
-        super.init()
     }
     
     deinit {
