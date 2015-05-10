@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate {
+class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate {
     internal var selectionClosure: ((asset: PHAsset) -> Void)?
     internal var deselectionClosure: ((asset: PHAsset) -> Void)?
     internal var cancelClosure: ((assets: [PHAsset]) -> Void)?
@@ -50,8 +50,9 @@ class PhotosViewController : UICollectionViewController, UIPopoverPresentationCo
         
         let vc = storyboard.instantiateInitialViewController() as? AlbumsViewController
         vc?.modalPresentationStyle = .Popover
-        vc?.preferredContentSize = CGSize(width: 300, height: 300)
+        vc?.preferredContentSize = CGSize(width: 320, height: 300)
         vc?.tableView.dataSource = self.albumsDataSource
+        vc?.tableView.delegate = self
         
         return vc
     }()
@@ -70,6 +71,7 @@ class PhotosViewController : UICollectionViewController, UIPopoverPresentationCo
         // Hook up data source
         photosDataSource.album = albumsDataSource.selectedAlbum
         collectionView?.dataSource = photosDataSource
+        collectionView?.delegate = self
         
         // Add buttons
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelButtonPressed:")
@@ -147,5 +149,14 @@ class PhotosViewController : UICollectionViewController, UIPopoverPresentationCo
             collectionViewFlowLayout.itemSize = itemSize
             photosDataSource.imageSize = itemSize
         }
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // TODO: Update selected album
+        // TODO: Update photos
+        albumsViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     }
 }
