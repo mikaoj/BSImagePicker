@@ -37,7 +37,6 @@
 		7ACB02726B27B16CD62305D3 /* ImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B67109A9BCB73E7122FB26 /* ImagePickerViewController.swift */; };
 		7B2CB5140C296B410A8209C8 /* Pods-BSImagePickerExampleTests-FBSnapshotTestCase-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 221F65ACA7CE42D8D4650FE9 /* Pods-BSImagePickerExampleTests-FBSnapshotTestCase-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		85B7E295265908105D745465 /* UIImage+Compare.h in Headers */ = {isa = PBXBuildFile; fileRef = 98AD1F87E6B3A2C531267BC1 /* UIImage+Compare.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		882A634EA188D1F2BB415B93 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 932F453A41513C75D4B5BF9A /* Images.xcassets */; };
 		8BEB9E56AC3237EAEFAF5BA7 /* AlbumTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 91919383E52BFBACCDC4B972 /* AlbumTitleView.xib */; };
 		8C51400A9F2DC633FB2033D8 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A252F414D8E8A9CA927599 /* PhotoCell.swift */; };
 		8CDBBDBA1C21026B4188C568 /* UIImage+Diff.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B1D43CBD68091D06315119 /* UIImage+Diff.m */; };
@@ -50,7 +49,6 @@
 		B6E25E3C5AC280C92B474293 /* UIViewController+BSImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72E1A9256BA6BA1CA8D430A /* UIViewController+BSImagePicker.swift */; };
 		BA80FF9C2173CB53E249E9B8 /* arrow_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EED2858A89146290CD2573F1 /* arrow_down@2x.png */; };
 		BB44AE1D630BA261466FD690 /* PhotosDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FE3F3436A1CE1BFDC5EDD4 /* PhotosDataSource.swift */; };
-		BBA37672AC11B692B68C1B37 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 932F453A41513C75D4B5BF9A /* Images.xcassets */; };
 		C0128177776FDB8D6D2BBFDC /* arrow_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EED2858A89146290CD2573F1 /* arrow_down@2x.png */; };
 		CBAFD9D3F0AC3CCAEB1F70E1 /* Pods-BSImagePickerExample-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4624EDD31A6363A8F3721997 /* Pods-BSImagePickerExample-dummy.m */; };
 		CFA1BC633398C46FF9F09AB3 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290464892BF04716D369E3F9 /* AlbumCell.swift */; };
@@ -158,7 +156,6 @@
 		8E42E042A4E9E3C3CF996408 /* Pods_BSImagePickerExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BSImagePickerExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8EE2F5D48F670D56688B6980 /* Pods-BSImagePickerExampleTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BSImagePickerExampleTests-dummy.m"; sourceTree = "<group>"; };
 		91919383E52BFBACCDC4B972 /* AlbumTitleView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = AlbumTitleView.xib; sourceTree = "<group>"; };
-		932F453A41513C75D4B5BF9A /* Images.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		98AD1F87E6B3A2C531267BC1 /* UIImage+Compare.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+Compare.h"; path = "FBSnapshotTestCase/UIImage+Compare.h"; sourceTree = "<group>"; };
 		A2B1D43CBD68091D06315119 /* UIImage+Diff.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Diff.m"; path = "FBSnapshotTestCase/UIImage+Diff.m"; sourceTree = "<group>"; };
 		A8422CD7910CD72A3C07B334 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Photos.framework; sourceTree = DEVELOPER_DIR; };
@@ -271,7 +268,6 @@
 			children = (
 				91919383E52BFBACCDC4B972 /* AlbumTitleView.xib */,
 				5AD563F1286543426AAF5A83 /* Albums.storyboard */,
-				932F453A41513C75D4B5BF9A /* Images.xcassets */,
 				217A96FD126AE0E70F4AF305 /* Photos.storyboard */,
 				3A676D3EF4F97E296E20DB91 /* arrow_down@1x.png */,
 				EED2858A89146290CD2573F1 /* arrow_down@2x.png */,
@@ -701,7 +697,6 @@
 			files = (
 				5C67879ADDA39349FCD70123 /* AlbumTitleView.xib in Resources */,
 				18B7E35CD76F75814EE93310 /* Albums.storyboard in Resources */,
-				882A634EA188D1F2BB415B93 /* Images.xcassets in Resources */,
 				04397BB4975A5744D37F24BC /* Photos.storyboard in Resources */,
 				965C29D7C45C8D3B9122085F /* arrow_down@1x.png in Resources */,
 				BA80FF9C2173CB53E249E9B8 /* arrow_down@2x.png in Resources */,
@@ -731,7 +726,6 @@
 			files = (
 				8BEB9E56AC3237EAEFAF5BA7 /* AlbumTitleView.xib in Resources */,
 				2E8857AF9C262EECF2BCE0CA /* Albums.storyboard in Resources */,
-				BBA37672AC11B692B68C1B37 /* Images.xcassets in Resources */,
 				F717961A7E1DF418251EF0F2 /* Photos.storyboard in Resources */,
 				D666DCBCEDE0AE518FA0FFDB /* arrow_down@1x.png in Resources */,
 				C0128177776FDB8D6D2BBFDC /* arrow_down@2x.png in Resources */,
