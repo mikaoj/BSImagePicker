@@ -1,5 +1,5 @@
 PODS:
-  - BSImagePicker (2.0)
+  - BSImagePicker (1.0)
   - FBSnapshotTestCase (1.8.1)
 
 DEPENDENCIES:
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BSImagePicker: f8028c26745756fcb5a44bf65704ba990496aaf9
+  BSImagePicker: bef16d9f67de29e0ac28f1e94f37436cc8983298
   FBSnapshotTestCase: 3dc3899168747a0319c5278f5b3445c13a6532dd
 
 COCOAPODS: 0.37.1

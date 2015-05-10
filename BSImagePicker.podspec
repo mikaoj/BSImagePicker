@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "BSImagePicker"
-  s.version          = "2.0"
+  s.version          = "1.0"
   s.summary          = "A short description of BSImagePicker."
   s.description      = <<-DESC
                        An optional longer description of BSImagePicker

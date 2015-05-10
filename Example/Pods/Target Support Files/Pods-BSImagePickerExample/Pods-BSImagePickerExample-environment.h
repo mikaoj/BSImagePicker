@@ -8,7 +8,7 @@
 
 // BSImagePicker
 #define COCOAPODS_POD_AVAILABLE_BSImagePicker
-#define COCOAPODS_VERSION_MAJOR_BSImagePicker 2
+#define COCOAPODS_VERSION_MAJOR_BSImagePicker 1
 #define COCOAPODS_VERSION_MINOR_BSImagePicker 0
 #define COCOAPODS_VERSION_PATCH_BSImagePicker 0
 
