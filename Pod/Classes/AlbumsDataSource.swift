@@ -60,10 +60,60 @@ internal class AlbumsDataSource: NSObject, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(albumCellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(albumCellIdentifier, forIndexPath: indexPath) as! AlbumCell
         
+        // Fetch album
         let album = albums[indexPath.row]
-        cell.textLabel!.text = album.localizedTitle
+        
+        // Title
+        cell.albumTitleLabel.text = album.localizedTitle
+        
+        // Selection checkmark
+        if album == selectedAlbum {
+            cell.accessoryType = .Checkmark
+        } else {
+            cell.accessoryType = .None
+        }
+        
+        // Selection style
+        cell.selectionStyle = .None
+        
+        // Set images
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [
+            NSSortDescriptor(key: "creationDate", ascending: false)
+        ]
+        fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
+        
+        PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
+        if let result = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions) {
+            result.enumerateObjectsUsingBlock { (object, idx, stop) in
+                if let asset = object as? PHAsset {
+                    let imageSize = CGSize(width: 79, height: 79)
+                    let imageContentMode: PHImageContentMode = .AspectFill
+                    switch idx {
+                    case 0:
+                        PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+                            cell.firstImageView.image = result
+                            cell.secondImageView.image = result
+                            cell.thirdImageView.image = result
+                        }
+                    case 1:
+                        PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+                            cell.secondImageView.image = result
+                            cell.thirdImageView.image = result
+                        }
+                    case 2:
+                        PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+                            cell.thirdImageView.image = result
+                        }
+                        
+                    default:
+                        stop.initialize(true)
+                    }
+                }
+            }
+        }
         
         return cell
     }
