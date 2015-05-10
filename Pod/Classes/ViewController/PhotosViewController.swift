@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate {
+internal class PhotosViewController : UICollectionViewController {
     internal var selectionClosure: ((asset: PHAsset) -> Void)?
     internal var deselectionClosure: ((asset: PHAsset) -> Void)?
     internal var cancelClosure: ((assets: [PHAsset]) -> Void)?
@@ -106,16 +106,6 @@ class PhotosViewController : UICollectionViewController, UIPopoverPresentationCo
         }
     }
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
-        return .None
-    }
-    
-    func popoverPresentationControllerShouldDismissPopover(popoverPresentationController: UIPopoverPresentationController) -> Bool {
-        println("hejsan!")
-        
-        return true
-    }
-    
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
@@ -150,13 +140,28 @@ class PhotosViewController : UICollectionViewController, UIPopoverPresentationCo
             photosDataSource.imageSize = itemSize
         }
     }
+}
+
+extension PhotosViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
+    }
     
+    func popoverPresentationControllerShouldDismissPopover(popoverPresentationController: UIPopoverPresentationController) -> Bool {
+        
+        return true
+    }
+}
+
+extension PhotosViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         // TODO: Update selected album
         // TODO: Update photos
         albumsViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
-    
+}
+
+extension PhotosViewController: UICollectionViewDelegate {
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
     }
 }
