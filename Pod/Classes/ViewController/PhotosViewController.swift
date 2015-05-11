@@ -87,6 +87,9 @@ internal class PhotosViewController : UICollectionViewController {
         collectionView?.dataSource = photosDataSource
         collectionView?.delegate = self
         
+        // Enable multiple selection
+        collectionView?.allowsMultipleSelection = true
+        
         // Add buttons
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelButtonPressed:")
         navigationItem.rightBarButtonItem = doneBarButton
