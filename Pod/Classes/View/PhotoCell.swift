@@ -26,4 +26,43 @@ internal class PhotoCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var selectionOverlayView: UIView!
     @IBOutlet weak var numberedSelectionView: NumberedSelectionView!
+    
+    var selectionNumber: Int {
+        get {
+            return numberedSelectionView.pictureNumber
+        }
+        
+        set {
+            numberedSelectionView.pictureNumber = newValue
+        }
+    }
+    
+    override var selected: Bool {
+        get {
+            return super.selected
+        }
+        
+        set {
+            super.selected = newValue
+            
+            UIView.animateWithDuration(NSTimeInterval(0.1), animations: { () -> Void in
+                // Set alpha for views
+                if newValue == true {
+                    self.numberedSelectionView.alpha = 1.0
+                    self.selectionOverlayView.alpha = 0.3
+                } else {
+                    self.numberedSelectionView.alpha = 0.0
+                    self.selectionOverlayView.alpha = 0.0
+                }
+                
+                // Scale all views down a little
+                self.transform = CGAffineTransformMakeScale(0.95, 0.95)
+            }) { (finished: Bool) -> Void in
+                UIView.animateWithDuration(NSTimeInterval(0.1), animations: { () -> Void in
+                    // And then scale them back upp again to give a bounce effect
+                    self.transform = CGAffineTransformMakeScale(1.0, 1.0)
+                }, completion: nil)
+            }
+        }
+    }
 }

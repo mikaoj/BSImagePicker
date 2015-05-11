@@ -31,20 +31,14 @@
                                         </imageView>
                                         <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F1c-31-W0b">
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ybD-Wz-CPT" customClass="NumberedSelectionView" customModule="BSImagePicker">
-                                                    <rect key="frame" x="71" y="71" width="25" height="25"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="25" id="bsz-dZ-eDD"/>
-                                                        <constraint firstAttribute="height" constant="25" id="c2q-Y1-ucE"/>
-                                                    </constraints>
-                                                </view>
-                                            </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ybD-Wz-CPT" customClass="NumberedSelectionView" customModule="BSImagePicker">
+                                            <rect key="frame" x="71" y="71" width="25" height="25"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="ybD-Wz-CPT" secondAttribute="trailing" constant="4" id="J2X-ug-shk"/>
-                                                <constraint firstAttribute="bottom" secondItem="ybD-Wz-CPT" secondAttribute="bottom" constant="4" id="jAN-FF-3y1"/>
+                                                <constraint firstAttribute="width" constant="25" id="bsz-dZ-eDD"/>
+                                                <constraint firstAttribute="height" constant="25" id="c2q-Y1-ucE"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -55,10 +49,12 @@
                                     <constraint firstItem="9Dy-87-LZo" firstAttribute="top" secondItem="93c-II-fE8" secondAttribute="top" id="EUb-IH-GvO"/>
                                     <constraint firstAttribute="bottom" secondItem="F1c-31-W0b" secondAttribute="bottom" id="R9S-Dj-2ew"/>
                                     <constraint firstAttribute="trailing" secondItem="F1c-31-W0b" secondAttribute="trailing" id="Vgc-SP-fhs"/>
+                                    <constraint firstAttribute="trailing" secondItem="ybD-Wz-CPT" secondAttribute="trailing" constant="4" id="X5c-x1-ruF"/>
                                     <constraint firstItem="F1c-31-W0b" firstAttribute="top" secondItem="93c-II-fE8" secondAttribute="top" id="esR-AC-f5s"/>
                                     <constraint firstItem="F1c-31-W0b" firstAttribute="leading" secondItem="93c-II-fE8" secondAttribute="leading" id="k4n-Cx-oih"/>
                                     <constraint firstAttribute="trailing" secondItem="9Dy-87-LZo" secondAttribute="trailing" id="lFI-jc-MCW"/>
                                     <constraint firstAttribute="bottom" secondItem="9Dy-87-LZo" secondAttribute="bottom" id="tw9-cB-imu"/>
+                                    <constraint firstAttribute="bottom" secondItem="ybD-Wz-CPT" secondAttribute="bottom" constant="4" id="yzW-a3-vyR"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="imageView" destination="9Dy-87-LZo" id="wr1-lN-u6M"/>

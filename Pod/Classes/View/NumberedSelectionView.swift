@@ -23,7 +23,7 @@
 import UIKit
 
 @IBDesignable internal class NumberedSelectionView: UIView {
-    internal var pictureNumber: Int = 1 {
+    internal var pictureNumber: Int = 0 {
         didSet {
             if pictureNumber != oldValue {
                 setNeedsDisplay()
