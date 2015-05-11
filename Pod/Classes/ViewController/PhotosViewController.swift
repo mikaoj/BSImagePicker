@@ -180,5 +180,10 @@ extension PhotosViewController: UITableViewDelegate {
 
 extension PhotosViewController: UICollectionViewDelegate {
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        photosDataSource.selectAsset(atIndexPath: indexPath, inCollectionView: collectionView)
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        photosDataSource.deselectAsset(atIndexPath: indexPath, inCollectionView: collectionView)
     }
 }

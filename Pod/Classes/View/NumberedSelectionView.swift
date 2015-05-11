@@ -32,6 +32,11 @@ import UIKit
     }
     
     override func drawRect(rect: CGRect) {
+        // Only draw numbers greater than 0
+        if pictureNumber < 1 {
+            return
+        }
+        
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
         
@@ -62,7 +67,8 @@ import UIKit
         checkedOvalPath.stroke()
         
         //// Bezier Drawing (Picture Number)
-        if (pictureNumber > 0) {
+        // TODO: Handled > 9
+        if (pictureNumber < 10) {
             CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
             let text = String(pictureNumber)
             let font = UIFont.boldSystemFontOfSize(13.0)

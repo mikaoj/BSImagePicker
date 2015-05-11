@@ -63,7 +63,7 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource {
     private let photoCellIdentifier = "photoCellIdentifier"
     private let photosManager = PHCachingImageManager()
     private let imageContentMode: PHImageContentMode = .AspectFill
-    private var assets: [PHAsset]? {
+    private var assets: [PHAsset] = [] {
         willSet {
             stopCaching()
         }
@@ -72,16 +72,14 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource {
         }
     }
     
+    private var selectedAssets: [PHAsset] = []
+    
     deinit {
 //        photosManager.stopCachingImagesForAllAssets()
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if let assets = assets {
-            return assets.count
-        }
-        
-        return 0
+        return assets.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -91,11 +89,14 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource {
             photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
         }
         
-        if let assets = assets {
-            let asset = assets[indexPath.row]
-            cell.tag = Int(photosManager.requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                cell.imageView.image = result
-            })
+        let asset = assets[indexPath.row]
+        cell.tag = Int(photosManager.requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+            cell.imageView.image = result
+        })
+        
+        // Set selection number
+        if let index = find(selectedAssets, asset) {
+            cell.selectionNumber = index
         }
         
         return cell
@@ -115,5 +116,22 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource {
 //                self.photosManager.startCachingImagesForAssets(assets, targetSize: self.imageSize, contentMode: self.imageContentMode, options: nil)
 //            }
 //        }
+    }
+    
+    func selectAsset(atIndexPath indexPath: NSIndexPath, inCollectionView collectionView: UICollectionView) {
+        let asset = assets[indexPath.row]
+        selectedAssets.append(asset)
+        
+        // Update selection number
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCell {
+            cell.selectionNumber = selectedAssets.count
+        }
+    }
+    
+    func deselectAsset(atIndexPath indexPath: NSIndexPath, inCollectionView collectionView: UICollectionView) {
+        let asset = assets[indexPath.row]
+        if let index = find(selectedAssets, asset) {
+            selectedAssets.removeAtIndex(index)
+        }
     }
 }
