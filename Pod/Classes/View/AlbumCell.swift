@@ -39,4 +39,15 @@ internal class AlbumCell: UITableViewCell {
             imageView.layer.shadowOpacity = 1.0
         }
     }
+    
+    override var selected: Bool {
+        didSet {
+            // Selection checkmark
+            if selected == true {
+                accessoryType = .Checkmark
+            } else {
+                accessoryType = .None
+            }
+        }
+    }
 }

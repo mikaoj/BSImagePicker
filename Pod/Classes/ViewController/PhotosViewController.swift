@@ -23,14 +23,14 @@
 import UIKit
 import Photos
 
-internal class PhotosViewController : UICollectionViewController {
+internal class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, AlbumsDelegate, PhotosDelegate {
     internal var selectionClosure: ((asset: PHAsset) -> Void)?
     internal var deselectionClosure: ((asset: PHAsset) -> Void)?
     internal var cancelClosure: ((assets: [PHAsset]) -> Void)?
     internal var finishClosure: ((assets: [PHAsset]) -> Void)?
     
     private let photosDataSource = PhotosDataSource()
-    private let albumsDataSource = AlbumsDataSource()
+    private var albumsDataSource: AlbumsDataSource?
     private lazy var doneBarButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "doneButtonPressed:")
     }()
@@ -53,7 +53,6 @@ internal class PhotosViewController : UICollectionViewController {
     private lazy var albumTitleView: AlbumTitleView? = {
         let albumTitleView = self.bundle?.loadNibNamed("AlbumTitleView", owner: self, options: nil).first as? AlbumTitleView
         
-        albumTitleView?.albumTitle = self.albumsDataSource.selectedAlbum.localizedTitle
         albumTitleView?.albumButton.addTarget(self, action: "albumButtonPressed:", forControlEvents: .TouchUpInside)
         
         return albumTitleView
@@ -82,8 +81,11 @@ internal class PhotosViewController : UICollectionViewController {
     override func loadView() {
         super.loadView()
         
+        // Setup albums data source
+        albumsDataSource = AlbumsDataSource(delegate: self)
+        
         // Hook up data source
-        photosDataSource.album = albumsDataSource.selectedAlbum
+        photosDataSource.delegate = self
         collectionView?.dataSource = photosDataSource
         collectionView?.delegate = self
         
@@ -96,6 +98,7 @@ internal class PhotosViewController : UICollectionViewController {
         navigationItem.titleView = albumTitleView
     }
     
+    // MARK: Button actions
     func cancelButtonPressed(sender: UIBarButtonItem) {
         let array = [PHAsset]()
         cancelClosure?(assets: array)
@@ -118,11 +121,13 @@ internal class PhotosViewController : UICollectionViewController {
             let sourceRect = CGRect(x: senderRect.origin.x, y: senderRect.origin.y + (albumTitleView.frame.size.height / 2), width: senderRect.size.width, height: senderRect.size.height)
             popVC.sourceRect = sourceRect
             popVC.delegate = self
+            albumsViewController.tableView.reloadData()
             
             presentViewController(albumsViewController, animated: true, completion: nil)
         }
     }
     
+    // MARK: Traits
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
@@ -157,9 +162,8 @@ internal class PhotosViewController : UICollectionViewController {
             photosDataSource.imageSize = itemSize
         }
     }
-}
-
-extension PhotosViewController: UIPopoverPresentationControllerDelegate {
+    
+    // MARK: UIPopoverPresentationControllerDelegate
     func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
         return .None
     }
@@ -168,22 +172,35 @@ extension PhotosViewController: UIPopoverPresentationControllerDelegate {
         
         return true
     }
-}
-
-extension PhotosViewController: UITableViewDelegate {
+    
+    // MARK: UITableViewDelegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // TODO: Update selected album
-        // TODO: Update photos
+        // Update selected album
+        albumsDataSource?.selectAlbum(atIndexPath: indexPath, inTableView: tableView)
+        
         albumsViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
-}
-
-extension PhotosViewController: UICollectionViewDelegate {
+    
+    // MARK: UICollectionViewDelegate
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         photosDataSource.selectAsset(atIndexPath: indexPath, inCollectionView: collectionView)
     }
     
     override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         photosDataSource.deselectAsset(atIndexPath: indexPath, inCollectionView: collectionView)
+    }
+    
+    // MARK: AlbumsDelegate
+    func didSelectAlbum(album: PHAssetCollection) {
+        // Update album title
+        albumTitleView?.albumTitle = album.localizedTitle
+        
+        // Pass it on to photos data source
+        photosDataSource.didSelectAlbum(album)
+    }
+    
+    // MARK: PhotosDelegate
+    func didUpdatePhotos() {
+        collectionView?.reloadData()
     }
 }

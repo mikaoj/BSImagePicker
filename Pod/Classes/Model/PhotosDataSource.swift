@@ -23,63 +23,27 @@
 import UIKit
 import Photos
 
-internal class PhotosDataSource : NSObject, UICollectionViewDataSource {
-    internal var album: PHAssetCollection? {
-        didSet {
-            let fetchOptions = PHFetchOptions()
-            fetchOptions.sortDescriptors = [
-                NSSortDescriptor(key: "creationDate", ascending: false)
-            ]
-            fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
-            
-            PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
-            if let result = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions) {
-                var assets: [PHAsset] = []
-                result.enumerateObjectsUsingBlock { (object, idx, _) in
-                    if let asset = object as? PHAsset {
-                        assets.append(asset)
-                    } else {
-                        println("not!")
-                    }
-                }
-                
-                self.assets = assets
-            }
-        }
-    }
-    internal var imageSize: CGSize = CGSize(width: 0, height: 0) {
-        willSet {
-            if CGSizeEqualToSize(newValue, imageSize) == false {
-                stopCaching()
-            }
-        }
-        didSet {
-            if CGSizeEqualToSize(oldValue, imageSize) == false {
-                startCaching()
-            }
-        }
-    }
-    
+internal protocol PhotosDelegate {
+    func didUpdatePhotos()
+}
+
+internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AlbumsDelegate {
+    internal var imageSize: CGSize = CGSizeZero
+    internal var delegate: PhotosDelegate?
     private let photoCellIdentifier = "photoCellIdentifier"
     private let photosManager = PHCachingImageManager()
     private let imageContentMode: PHImageContentMode = .AspectFill
-    private var assets: [PHAsset] = [] {
-        willSet {
-            stopCaching()
-        }
+    private var photos: [PHAsset] = [] {
         didSet {
-            startCaching()
+            delegate?.didUpdatePhotos()
         }
     }
     
-    private var selectedAssets: [PHAsset] = []
+    private var selectedPhotos: [PHAsset] = []
     
-    deinit {
-//        photosManager.stopCachingImagesForAllAssets()
-    }
-    
+    // MARK: UICollectionViewDatasource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return assets.count
+        return photos.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -89,49 +53,57 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource {
             photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
         }
         
-        let asset = assets[indexPath.row]
+        let asset = photos[indexPath.row]
         cell.tag = Int(photosManager.requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
             cell.imageView.image = result
         })
         
         // Set selection number
-        if let index = find(selectedAssets, asset) {
+        if let index = find(selectedPhotos, asset) {
             cell.selectionNumber = index
         }
         
         return cell
     }
     
-    private func stopCaching() {
-//        if let assets = assets {
-//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-//                self.photosManager.stopCachingImagesForAssets(assets, targetSize: self.imageSize, contentMode: self.imageContentMode, options: nil)
-//            }
-//        }
-    }
-    
-    private func startCaching() {
-//        if let assets = assets {
-//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-//                self.photosManager.startCachingImagesForAssets(assets, targetSize: self.imageSize, contentMode: self.imageContentMode, options: nil)
-//            }
-//        }
-    }
-    
+    // MARK: Selection & deselection
     func selectAsset(atIndexPath indexPath: NSIndexPath, inCollectionView collectionView: UICollectionView) {
-        let asset = assets[indexPath.row]
-        selectedAssets.append(asset)
+        let asset = photos[indexPath.row]
+        if contains(selectedPhotos, asset) == false {
+            selectedPhotos.append(asset)
+        }
         
         // Update selection number
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCell {
-            cell.selectionNumber = selectedAssets.count
+            cell.selectionNumber = selectedPhotos.count
         }
     }
     
     func deselectAsset(atIndexPath indexPath: NSIndexPath, inCollectionView collectionView: UICollectionView) {
-        let asset = assets[indexPath.row]
-        if let index = find(selectedAssets, asset) {
-            selectedAssets.removeAtIndex(index)
+        let asset = photos[indexPath.row]
+        if let index = find(selectedPhotos, asset) {
+            selectedPhotos.removeAtIndex(index)
+        }
+    }
+    
+    // MARK: AlbumsDelegate
+    func didSelectAlbum(album: PHAssetCollection) {
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [
+            NSSortDescriptor(key: "creationDate", ascending: false)
+        ]
+        fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
+        
+        PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
+        if let result = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions) {
+            var assets: [PHAsset] = []
+            result.enumerateObjectsUsingBlock { (object, idx, _) in
+                if let asset = object as? PHAsset {
+                    assets.append(asset)
+                }
+            }
+            
+            photos = assets
         }
     }
 }

@@ -23,13 +23,24 @@
 import UIKit
 import Photos
 
+internal protocol AlbumsDelegate {
+    func didSelectAlbum(album: PHAssetCollection)
+}
+
 internal class AlbumsDataSource: NSObject, UITableViewDataSource {
-    internal var selectedAlbum: PHAssetCollection
-    
+    internal var delegate: AlbumsDelegate?
+    private var selectedAlbum: PHAssetCollection {
+        didSet {
+            delegate?.didSelectAlbum(selectedAlbum)
+        }
+    }
     private var albums: [PHAssetCollection] = []
     private let albumCellIdentifier = "albumCell"
     
-    override init() {
+    init(delegate aDelegate: AlbumsDelegate?) {
+        // Set delegate
+        delegate = aDelegate
+        
         let fetchOptions = PHFetchOptions()
         
         // Find camera roll
@@ -57,16 +68,13 @@ internal class AlbumsDataSource: NSObject, UITableViewDataSource {
         // Set selected albums to be the first album (should be the camera roll)
         if let selectedAlbum = albums.first {
             self.selectedAlbum = selectedAlbum
+            delegate?.didSelectAlbum(selectedAlbum)
         } else {
             // To guarantee that we have a selected album. This should never happen
             selectedAlbum = PHAssetCollection()
         }
         
         super.init()
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -82,12 +90,8 @@ internal class AlbumsDataSource: NSObject, UITableViewDataSource {
         // Title
         cell.albumTitleLabel.text = album.localizedTitle
         
-        // Selection checkmark
-        if album == selectedAlbum {
-            cell.accessoryType = .Checkmark
-        } else {
-            cell.accessoryType = .None
-        }
+        // Selected
+        cell.selected = album == selectedAlbum
         
         // Selection style
         cell.selectionStyle = .None
@@ -123,6 +127,7 @@ internal class AlbumsDataSource: NSObject, UITableViewDataSource {
                         }
                         
                     default:
+                        // Stop enumeration
                         stop.initialize(true)
                     }
                 }
@@ -130,5 +135,9 @@ internal class AlbumsDataSource: NSObject, UITableViewDataSource {
         }
         
         return cell
+    }
+    
+    func selectAlbum(atIndexPath indexPath: NSIndexPath, inTableView tableView: UITableView) {
+        selectedAlbum = albums[indexPath.row]
     }
 }

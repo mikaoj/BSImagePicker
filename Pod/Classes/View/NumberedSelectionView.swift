@@ -49,13 +49,13 @@ import UIKit
         let shadow2BlurRadius: CGFloat = 2.5;
         
         //// Frames
-        let checkmarkFrame = self.bounds;
+        let checkmarkFrame = bounds;
         
         //// Subframes
         let group = CGRect(x: CGRectGetMinX(checkmarkFrame) + 3, y: CGRectGetMinY(checkmarkFrame) + 3, width: CGRectGetWidth(checkmarkFrame) - 6, height: CGRectGetHeight(checkmarkFrame) - 6)
         
         //// CheckedOval Drawing
-        let checkedOvalPath = UIBezierPath(ovalInRect: CGRectMake(CGRectGetMinX(group) + floor(CGRectGetWidth(group) * 0.00000 + 0.5), CGRectGetMinY(group) + floor(CGRectGetHeight(group) * 0.00000 + 0.5), floor(CGRectGetWidth(group) * 1.00000 + 0.5) - floor(CGRectGetWidth(group) * 0.00000 + 0.5), floor(CGRectGetHeight(group) * 1.00000 + 0.5) - floor(CGRectGetHeight(group) * 0.00000 + 0.5)))
+        let checkedOvalPath = UIBezierPath(ovalInRect: CGRectMake(CGRectGetMinX(group) + floor(CGRectGetWidth(group) * 0.0 + 0.5), CGRectGetMinY(group) + floor(CGRectGetHeight(group) * 0.0 + 0.5), floor(CGRectGetWidth(group) * 1.0 + 0.5) - floor(CGRectGetWidth(group) * 0.0 + 0.5), floor(CGRectGetHeight(group) * 1.0 + 0.5) - floor(CGRectGetHeight(group) * 0.0 + 0.5)))
         CGContextSaveGState(context)
         CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadow2.CGColor)
         checkmarkBlue2.setFill()
@@ -67,7 +67,7 @@ import UIKit
         checkedOvalPath.stroke()
         
         //// Bezier Drawing (Picture Number)
-        // TODO: Handled > 9
+        // TODO: Handle > 9
         if (pictureNumber < 10) {
             CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
             let text = String(pictureNumber)
