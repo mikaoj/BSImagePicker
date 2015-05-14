@@ -25,17 +25,31 @@ import UIKit
 internal class AlbumTitleView: UIView {
     @IBOutlet weak var albumButton: UIButton!
     
+    private var context = 0
+    
     internal var albumTitle = "" {
         didSet {
-            albumButton.setTitle(self.albumTitle, forState: .Normal)
-            albumButton.setImage(arrowDownImage, forState: .Normal)
-            
-            // Place image to the right
-            if let imageView = albumButton.imageView, let titleLabel = albumButton.titleLabel {
-                albumButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageView.frame.size.width, bottom: 0, right: imageView.frame.size.width)
-                albumButton.imageEdgeInsets = UIEdgeInsets(top: 4, left: titleLabel.frame.size.width, bottom: 0, right: -titleLabel.frame.size.width - 8)
+            if let imageView = self.albumButton.imageView, let titleLabel = self.albumButton.titleLabel {
+                // Set title on button
+                albumButton.setTitle(self.albumTitle, forState: .Normal)
+                
+                // Also set title directly to label, since it isn't done right away when setting button title
+                // And we need to know its width to calculate insets
+                titleLabel.text = self.albumTitle
+                titleLabel.sizeToFit()
+                
+                // Adjust insets to right align image
+                albumButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageView.bounds.size.width, bottom: 0, right: imageView.bounds.size.width)
+                albumButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: titleLabel.bounds.size.width + 4, bottom: 0, right: -(titleLabel.bounds.size.width + 4))
             }
         }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        // Set image
+        albumButton.setImage(arrowDownImage, forState: .Normal)
     }
     
     internal lazy var arrowDownImage: UIImage? = {
