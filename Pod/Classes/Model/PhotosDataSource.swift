@@ -37,6 +37,16 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AlbumsDe
     
     private var selectedPhotos: [PHAsset] = []
     
+    init() {
+        super.init()
+        
+        PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
+    }
+    
+    deinit {
+        PHPhotoLibrary.sharedPhotoLibrary().unregisterChangeObserver(self)
+    }
+    
     // MARK: UICollectionViewDatasource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return fetchResult.count
