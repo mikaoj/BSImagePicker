@@ -60,7 +60,11 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AlbumsDe
         
         // Set selection number
         if let index = find(selectedPhotos, asset) {
-            cell.selectionNumber = index
+            cell.selectionNumber = index + 1
+            cell.selected = true
+        } else {
+            cell.selectionNumber = 0
+            cell.selected = false
         }
         
         return cell
@@ -88,6 +92,19 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AlbumsDe
     
     func numberOfSelectedAssets() -> Int {
         return selectedPhotos.count
+    }
+    
+    func indexPathsForSelectedAssets() -> [NSIndexPath] {
+        var indexPaths: [NSIndexPath] = []
+        
+        for asset in selectedPhotos {
+            if let index = find(photos, asset) {
+                let indexPath = NSIndexPath(forItem: index, inSection: 0)
+                indexPaths.append(indexPath)
+            }
+        }
+        
+        return indexPaths
     }
     
     // MARK: AlbumsDelegate

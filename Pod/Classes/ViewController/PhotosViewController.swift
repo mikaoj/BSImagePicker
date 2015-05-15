@@ -229,7 +229,13 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     
     // MARK: PhotosDelegate
     func didUpdatePhotos() {
-        collectionView?.reloadData()
+        if let collectionView = collectionView {
+            // Reload
+            collectionView.reloadSections(NSIndexSet(index: 0))
+            
+            // Sync selection
+            syncSelectionInDataSource(photosDataSource, withCollectionView: collectionView)
+        }
     }
     
     // MARK: Private helper methods
@@ -268,6 +274,8 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     }
     
     // Check if a give UIButton is the right UIBarButtonItem in the navigation bar
+    // Somewhere along the road, our UIBarButtonItem gets transformed to an UINavigationButton
+    // A private apple class that subclasses UIButton
     func checkIfRightButtonItem(btn: UIButton) -> Bool {
         var isRightButton = false
         
@@ -290,5 +298,15 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         }
         
         return isRightButton
+    }
+    
+    func syncSelectionInDataSource(dataSource: PhotosDataSource, withCollectionView collectionView: UICollectionView) {
+        // Get indexpaths of selected assets
+        let indexPaths = dataSource.indexPathsForSelectedAssets()
+        
+        // Loop through them and set them as selected in the collection view
+        for indexPath in indexPaths {
+            collectionView.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: .None)
+        }
     }
 }
