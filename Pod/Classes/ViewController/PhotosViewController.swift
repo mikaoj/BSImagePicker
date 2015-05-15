@@ -254,10 +254,17 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     }
     
     // MARK: PhotosDelegate
-    func didUpdatePhotos() {
+    func didUpdateDatasource(incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
         if let collectionView = collectionView {
-            // Reload
-            collectionView.reloadSections(NSIndexSet(index: 0))
+            if incrementalChange {
+                // Update
+                collectionView.deleteItemsAtIndexPaths(delete)
+                collectionView.insertItemsAtIndexPaths(insert)
+                collectionView.reloadItemsAtIndexPaths(change)
+            } else {
+                // Reload
+                collectionView.reloadSections(NSIndexSet(index: 0))
+            }
             
             // Sync selection
             syncSelectionInDataSource(photosDataSource, withCollectionView: collectionView)
