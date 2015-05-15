@@ -120,15 +120,21 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     
     // MARK: Button actions
     func cancelButtonPressed(sender: UIBarButtonItem) {
-        let array = [PHAsset]()
-        cancelClosure?(assets: array)
+        if let closure = cancelClosure {
+            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
+                closure(assets: self.photosDataSource.selectedAssets())
+            })
+        }
         
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     func doneButtonPressed(sender: UIBarButtonItem) {
-        let array = [PHAsset]()
-        finishClosure?(assets: array)
+        if let closure = finishClosure {
+            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
+                closure(assets: self.photosDataSource.selectedAssets())
+            })
+        }
         
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -208,6 +214,13 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         
         // Update done button
         updateDoneButton()
+        
+        // Call selection closure
+        if let closure = selectionClosure {
+            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
+                closure(asset: self.photosDataSource.assetAtIndexPath(indexPath))
+            })
+        }
     }
     
     override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
@@ -222,6 +235,13 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         collectionView.reloadItemsAtIndexPaths(photosDataSource.indexPathsForSelectedAssets())
         syncSelectionInDataSource(photosDataSource, withCollectionView: collectionView)
         UIView.setAnimationsEnabled(true)
+        
+        // Call deselection closure
+        if let closure = deselectionClosure {
+            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
+                closure(asset: self.photosDataSource.assetAtIndexPath(indexPath))
+            })
+        }
     }
     
     // MARK: AlbumsDelegate

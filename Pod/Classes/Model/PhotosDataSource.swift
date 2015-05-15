@@ -107,6 +107,14 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AlbumsDe
         return indexPaths
     }
     
+    func assetAtIndexPath(indexPath: NSIndexPath) -> PHAsset {
+        return photos[indexPath.row]
+    }
+    
+    func selectedAssets() -> [PHAsset] {
+        return selectedPhotos
+    }
+    
     // MARK: AlbumsDelegate
     func didSelectAlbum(album: PHAssetCollection) {
         let fetchOptions = PHFetchOptions()

@@ -57,7 +57,7 @@ public class ImagePickerViewController : UINavigationController {
         }
     }
     
-    internal var photosViewController: PhotosViewController = {
+    internal lazy var photosViewController: PhotosViewController = {
         // Get path for BSImagePicker bundle
         let bundlePath = NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")
         let bundle: NSBundle?
@@ -74,8 +74,8 @@ public class ImagePickerViewController : UINavigationController {
         return storyboard.instantiateInitialViewController() as! PhotosViewController
     }()
     
-    public init() {
-        super.init(rootViewController: photosViewController)
+    public convenience init() {
+        self.init(nibName: nil, bundle: nil)
     }
 
     required public init(coder aDecoder: NSCoder) {
@@ -84,5 +84,6 @@ public class ImagePickerViewController : UINavigationController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.viewControllers = [photosViewController]
     }
 }

@@ -31,13 +31,13 @@ class ViewController: UIViewController {
         
         bs_presentImagePickerController(vc, animated: true,
             select: { (asset: PHAsset) -> Void in
-            
+                println("Selected: \(asset)")
             }, deselect: { (asset: PHAsset) -> Void in
-            
+                println("Deselected: \(asset)")
             }, cancel: { (assets: [PHAsset]) -> Void in
-            
+                println("Cancel: \(assets)")
             }, finish: { (assets: [PHAsset]) -> Void in
-            
+                println("Finish: \(assets)")
         }, completion: nil)
     }
 }
