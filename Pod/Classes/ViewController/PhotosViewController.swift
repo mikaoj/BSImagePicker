@@ -23,6 +23,25 @@
 import UIKit
 import Photos
 
+// TODO: Put in separate file
+extension UIButton {
+    func bs_setTitle(title: String?, forState state: UIControlState, animated: Bool) {
+        // Store enabled
+        let wasEnabled = self.enabled
+        
+        // Disable/enable animations
+        UIView.setAnimationsEnabled(animated)
+        
+        // A little hack to set title without animation
+        self.enabled = true
+        self.setTitle(title, forState: state)
+        self.layoutIfNeeded()
+        
+        // Enable animations
+        UIView.setAnimationsEnabled(true)
+    }
+}
+
 internal class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, AlbumsDelegate, PhotosDelegate {
     internal var selectionClosure: ((asset: PHAsset) -> Void)?
     internal var deselectionClosure: ((asset: PHAsset) -> Void)?
@@ -34,6 +53,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     private lazy var doneBarButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "doneButtonPressed:")
     }()
+    private var doneBarButtonTitle: String?
     
     private lazy var bundle: NSBundle? = {
         // Get path for BSImagePicker bundle
@@ -183,11 +203,19 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     
     // MARK: UICollectionViewDelegate
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        // Select asset
         photosDataSource.selectAsset(atIndexPath: indexPath, inCollectionView: collectionView)
+        
+        // Update done button
+        updateDoneButton()
     }
     
     override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        // Deselect asset
         photosDataSource.deselectAsset(atIndexPath: indexPath, inCollectionView: collectionView)
+        
+        // Update done button
+        updateDoneButton()
     }
     
     // MARK: AlbumsDelegate
@@ -202,5 +230,65 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     // MARK: PhotosDelegate
     func didUpdatePhotos() {
         collectionView?.reloadData()
+    }
+    
+    // MARK: Private helper methods
+    func updateDoneButton() {
+        // Get selection count
+        let selectedAssets = photosDataSource.numberOfSelectedAssets()
+        
+        // Find right button
+        if let subViews = navigationController?.navigationBar.subviews {
+            for view in subViews {
+                if let btn = view as? UIButton where checkIfRightButtonItem(btn) {
+                    // Store original title if we havn't got it
+                    if doneBarButtonTitle == nil {
+                        doneBarButtonTitle = btn.titleForState(.Normal)
+                    }
+                    
+                    // Update title
+                    if selectedAssets > 0 {
+                        btn.bs_setTitle("\(doneBarButtonTitle!) (\(selectedAssets))", forState: .Normal, animated: false)
+                    } else {
+                        btn.bs_setTitle(doneBarButtonTitle!, forState: .Normal, animated: false)
+                    }
+                    
+                    // Stop loop
+                    break
+                }
+            }
+        }
+        
+        // Enabled
+        if selectedAssets > 0 {
+            doneBarButton.enabled = true
+        } else {
+            doneBarButton.enabled = false
+        }
+    }
+    
+    // Check if a give UIButton is the right UIBarButtonItem in the navigation bar
+    func checkIfRightButtonItem(btn: UIButton) -> Bool {
+        var isRightButton = false
+        
+        if let rightButton = navigationItem.rightBarButtonItem {
+            // Store previous values
+            var wasRightEnabled = rightButton.enabled
+            var wasButtonEnabled = btn.enabled
+            
+            // Set a known state for both buttons
+            rightButton.enabled = false
+            btn.enabled = false
+            
+            // Change one and see if other also changes
+            rightButton.enabled = true
+            isRightButton = btn.enabled
+            
+            // Reset
+            rightButton.enabled = wasRightEnabled
+            btn.enabled = wasButtonEnabled
+        }
+        
+        return isRightButton
     }
 }

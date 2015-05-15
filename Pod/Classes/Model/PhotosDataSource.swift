@@ -86,6 +86,10 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AlbumsDe
         }
     }
     
+    func numberOfSelectedAssets() -> Int {
+        return selectedPhotos.count
+    }
+    
     // MARK: AlbumsDelegate
     func didSelectAlbum(album: PHAssetCollection) {
         let fetchOptions = PHFetchOptions()
