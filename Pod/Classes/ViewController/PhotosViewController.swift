@@ -216,6 +216,12 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         
         // Update done button
         updateDoneButton()
+        
+        // Reload selected cells to update their selection number
+        UIView.setAnimationsEnabled(false)
+        collectionView.reloadItemsAtIndexPaths(photosDataSource.indexPathsForSelectedAssets())
+        syncSelectionInDataSource(photosDataSource, withCollectionView: collectionView)
+        UIView.setAnimationsEnabled(true)
     }
     
     // MARK: AlbumsDelegate
