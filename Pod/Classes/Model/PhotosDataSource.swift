@@ -23,33 +23,35 @@
 import UIKit
 import Photos
 
-internal protocol PhotosDelegate {
-    func didUpdateDatasource(incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath])
-}
-
-internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AlbumsDelegate, PHPhotoLibraryChangeObserver {
+internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AlbumsDelegate {
     internal var imageSize: CGSize = CGSizeZero
-    internal var delegate: PhotosDelegate?
+    internal var delegate: FetchResultDelegate? {
+        set {
+            selectableFetchResult.delegate = newValue
+        }
+        
+        get {
+            return selectableFetchResult.delegate
+        }
+    }
+    internal var selectableFetchResult: SelectableFetchResultModel<PHAsset> {
+        get {
+            return _selectableFetchResult
+        }
+    }
+    
     private let photoCellIdentifier = "photoCellIdentifier"
     private let photosManager = PHCachingImageManager()
     private let imageContentMode: PHImageContentMode = .AspectFill
-    private var fetchResult = PHFetchResult()
+    private var _selectableFetchResult: SelectableFetchResultModel<PHAsset>
     
-    private var selectedPhotos: [PHAsset] = []
-    
-    init() {
-        super.init()
-        
-        PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
-    }
-    
-    deinit {
-        PHPhotoLibrary.sharedPhotoLibrary().unregisterChangeObserver(self)
+    override init() {
+        _selectableFetchResult = SelectableFetchResultModel<PHAsset>(fetchResult: PHFetchResult())
     }
     
     // MARK: UICollectionViewDatasource
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fetchResult.count
+        return selectableFetchResult.fetchResult.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -59,13 +61,13 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AlbumsDe
             photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
         }
         
-        if let asset = fetchResult[indexPath.row] as? PHAsset {
+        if let asset = selectableFetchResult.fetchResult[indexPath.row] as? PHAsset {
             cell.tag = Int(photosManager.requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
                 cell.imageView.image = result
                 })
             
             // Set selection number
-            if let index = find(selectedPhotos, asset) {
+            if let index = find(selectableFetchResult.selectedResults, asset) {
                 cell.selectionNumber = index + 1
                 cell.selected = true
             } else {
@@ -76,51 +78,7 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AlbumsDe
         
         return cell
     }
-    
-    // MARK: Selection & deselection
-    func selectAsset(atIndexPath indexPath: NSIndexPath, inCollectionView collectionView: UICollectionView) {
-        if let asset = fetchResult[indexPath.row] as? PHAsset where contains(selectedPhotos, asset) == false {
-            selectedPhotos.append(asset)
-        }
-        
-        // Update selection number
-        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCell {
-            cell.selectionNumber = selectedPhotos.count
-        }
-    }
-    
-    func deselectAsset(atIndexPath indexPath: NSIndexPath, inCollectionView collectionView: UICollectionView) {
-        if let asset = fetchResult[indexPath.row] as? PHAsset, let index = find(selectedPhotos, asset) {
-            selectedPhotos.removeAtIndex(index)
-        }
-    }
-    
-    func numberOfSelectedAssets() -> Int {
-        return selectedPhotos.count
-    }
-    
-    func indexPathsForSelectedAssets() -> [NSIndexPath] {
-        var indexPaths: [NSIndexPath] = []
-        
-        for asset in selectedPhotos {
-            let index = fetchResult.indexOfObject(asset)
-            if index != NSNotFound {
-                let indexPath = NSIndexPath(forItem: index, inSection: 0)
-                indexPaths.append(indexPath)
-            }
-        }
-        
-        return indexPaths
-    }
-    
-    func assetAtIndexPath(indexPath: NSIndexPath) -> PHAsset {
-        return fetchResult[indexPath.row] as! PHAsset
-    }
-    
-    func selectedAssets() -> [PHAsset] {
-        return selectedPhotos
-    }
-    
+
     // MARK: AlbumsDelegate
     func didSelectAlbum(album: PHAssetCollection) {
         let fetchOptions = PHFetchOptions()
@@ -129,47 +87,12 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AlbumsDe
         ]
         fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
         
-        fetchResult = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
+        let fetchResult = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
+        let localDelegate = delegate
+        _selectableFetchResult = SelectableFetchResultModel<PHAsset>(fetchResult: fetchResult)
+        selectableFetchResult.delegate = localDelegate
         
         // Notify delegate
-        delegate?.didUpdateDatasource(false, insert: [], delete: [], change: [])
-    }
-    
-    // MARK: PHPhotoLibraryChangeObserver
-    func photoLibraryDidChange(changeInstance: PHChange!) {
-        // Check if there are changes to our fetch result
-        if let collectionChanges = changeInstance.changeDetailsForFetchResult(fetchResult) {
-            // Get the new fetch result
-            fetchResult = collectionChanges.fetchResultAfterChanges
-            
-            let removedIndexes: [NSIndexPath]
-            let insertedIndexes: [NSIndexPath]
-            let changedIndexes: [NSIndexPath]
-            
-            if collectionChanges.hasIncrementalChanges {
-                // Incremental change, tell delegate what has been deleted, inserted and changed
-                removedIndexes = indexPathsFromIndexSet(collectionChanges.removedIndexes, inSection: 0)
-                insertedIndexes = indexPathsFromIndexSet(collectionChanges.insertedIndexes, inSection: 0)
-                changedIndexes = indexPathsFromIndexSet(collectionChanges.changedIndexes, inSection: 0)
-            } else {
-                // No incremental change. Set empty arrays
-                removedIndexes = []
-                insertedIndexes = []
-                changedIndexes = []
-            }
-            
-            // Notify delegate
-            delegate?.didUpdateDatasource(collectionChanges.hasIncrementalChanges, insert: insertedIndexes, delete: removedIndexes, change: changedIndexes)
-        }
-    }
-    
-    private func indexPathsFromIndexSet(indexSet: NSIndexSet, inSection section: Int) -> [NSIndexPath] {
-        var indexPaths: [NSIndexPath] = []
-        
-        indexSet.enumerateIndexesUsingBlock { (index, _) -> Void in
-            indexPaths.append(NSIndexPath(forItem: index, inSection: section))
-        }
-        
-        return indexPaths
+        delegate?.didUpdateFetchResult(false, insert: [], delete: [], change: [])
     }
 }
