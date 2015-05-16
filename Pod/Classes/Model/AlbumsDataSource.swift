@@ -23,8 +23,8 @@
 import UIKit
 import Photos
 
-internal class AlbumsDataSource: NSObject, UITableViewDataSource, FetchResultDelegate {
-    internal var delegate: FetchResultDelegate?
+internal class AlbumsDataSource: NSObject, UITableViewDataSource, AssetsDelegate {
+    internal var delegate: AssetsDelegate?
     internal var selectableFetchResult: SelectableFetchResultModel<PHAssetCollection> {
         get {
             return _selectableFetchResult
@@ -113,8 +113,8 @@ internal class AlbumsDataSource: NSObject, UITableViewDataSource, FetchResultDel
         return cell
     }
     
-    // MARK: FetchResultDelegate
-    func didUpdateFetchResult(incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
-        delegate?.didUpdateFetchResult(incrementalChange, insert: insert, delete: delete, change: change)
+    // MARK: AssetsDelegate
+    func didUpdateAssets(sender: AnyObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
+        delegate?.didUpdateAssets(self, incrementalChange: incrementalChange, insert: insert, delete: delete, change: change)
     }
 }

@@ -23,9 +23,9 @@
 import UIKit
 import Photos
 
-internal class PhotosDataSource : NSObject, UICollectionViewDataSource, FetchResultDelegate {
+internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDelegate {
     internal var imageSize: CGSize = CGSizeZero
-    internal var delegate: FetchResultDelegate?
+    internal var delegate: AssetsDelegate?
     internal var selectableFetchResult: SelectableFetchResultModel<PHAsset> {
         get {
             return _selectableFetchResult
@@ -77,9 +77,9 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, FetchRes
         return cell
     }
     
-    // MARK: FetchResultDelegate
-    func didUpdateFetchResult(incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
-        self.delegate?.didUpdateFetchResult(incrementalChange, insert: insert, delete: delete, change: change)
+    // MARK: AssetsDelegate
+    func didUpdateAssets(sender: AnyObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
+        self.delegate?.didUpdateAssets(self, incrementalChange: incrementalChange, insert: insert, delete: delete, change: change)
     }
 
     func fetchResultsForAsset(album: PHAssetCollection) {
@@ -95,6 +95,6 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, FetchRes
         selectableFetchResult.delegate = self
         selectableFetchResult.selectedResults = temporarySelection
         
-        delegate?.didUpdateFetchResult(false, insert: [], delete: [], change: [])
+        delegate?.didUpdateAssets(self, incrementalChange: false, insert: [], delete: [], change: [])
     }
 }

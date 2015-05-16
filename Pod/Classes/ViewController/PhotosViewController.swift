@@ -42,7 +42,7 @@ extension UIButton {
     }
 }
 
-internal class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, FetchResultDelegate {
+internal class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, AssetsDelegate {
     internal var selectionClosure: ((asset: PHAsset) -> Void)?
     internal var deselectionClosure: ((asset: PHAsset) -> Void)?
     internal var cancelClosure: ((assets: [PHAsset]) -> Void)?
@@ -272,8 +272,8 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         }
     }
     
-    // MARK: PhotosDelegate
-    func didUpdateFetchResult(incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
+    // MARK: AssetsDelegate
+    func didUpdateAssets(sender: AnyObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
         if let collectionView = collectionView {
             if incrementalChange {
                 // Update

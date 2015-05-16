@@ -23,13 +23,13 @@
 import Foundation
 import Photos
 
-internal protocol FetchResultDelegate {
-    func didUpdateFetchResult(incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath])
+internal protocol AssetsDelegate {
+    func didUpdateAssets(sender: AnyObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath])
 }
 
 internal class FetchResultModel : NSObject, PHPhotoLibraryChangeObserver {
     internal var section: Int = 0
-    internal var delegate: FetchResultDelegate?
+    internal var delegate: AssetsDelegate?
     internal var fetchResults: [PHFetchResult] {
         get {
             return _fetchResults
@@ -78,7 +78,7 @@ internal class FetchResultModel : NSObject, PHPhotoLibraryChangeObserver {
                 }
                 
                 // Notify delegate
-                delegate?.didUpdateFetchResult(collectionChanges.hasIncrementalChanges, insert: insertedIndexes, delete: removedIndexes, change: changedIndexes)
+                delegate?.didUpdateAssets(self, incrementalChange: collectionChanges.hasIncrementalChanges, insert: insertedIndexes, delete: removedIndexes, change: changedIndexes)
             }
         }
     }
