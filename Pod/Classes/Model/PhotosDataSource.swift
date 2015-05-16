@@ -45,11 +45,11 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
     
     // MARK: UICollectionViewDatasource
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return selectableFetchResult.fetchResults.count
+        return selectableFetchResult.results.count
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return selectableFetchResult.fetchResults[section].count
+        return selectableFetchResult.results[section].count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -59,13 +59,13 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
             photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
         }
         
-        if let asset = selectableFetchResult.fetchResults[indexPath.section][indexPath.row] as? PHAsset {
+        if let asset = selectableFetchResult.results[indexPath.section][indexPath.row] as? PHAsset {
             cell.tag = Int(photosManager.requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
                 cell.imageView.image = result
                 })
             
             // Set selection number
-            if let index = find(selectableFetchResult.selectedResults, asset) {
+            if let index = find(selectableFetchResult.selectedAssets, asset) {
                 cell.selectionNumber = index + 1
                 cell.selected = true
             } else {
@@ -90,10 +90,10 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
         fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
         
         let fetchResult = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
-        let temporarySelection = selectableFetchResult.selectedResults
+        let temporarySelection = selectableFetchResult.selectedAssets
         _selectableFetchResult = SelectableAssetsModel<PHAsset>(fetchResult: [fetchResult])
         selectableFetchResult.delegate = self
-        selectableFetchResult.selectedResults = temporarySelection
+        selectableFetchResult.selectedAssets = temporarySelection
         
         delegate?.didUpdateAssets(self, incrementalChange: false, insert: [], delete: [], change: [])
     }

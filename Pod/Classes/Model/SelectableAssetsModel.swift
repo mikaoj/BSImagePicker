@@ -26,7 +26,7 @@ import Photos
 
 // TODO: Generic
 internal class SelectableAssetsModel<T: Equatable> : AssetsModel {
-    internal var selectedResults = [T]()
+    internal var selectedAssets = [T]()
     
     required init(fetchResult aFetchResult: [PHFetchResult]) {
         super.init(fetchResult: aFetchResult)
@@ -34,30 +34,30 @@ internal class SelectableAssetsModel<T: Equatable> : AssetsModel {
     
     // MARK: Selection & deselection
     func selectResult(atIndexPath indexPath: NSIndexPath) {
-        if let result = fetchResults[indexPath.section][indexPath.row] as? T where contains(selectedResults, result) == false {
-            selectedResults.append(result)
+        if let result = results[indexPath.section][indexPath.row] as? T where contains(selectedAssets, result) == false {
+            selectedAssets.append(result)
         }
     }
     
     func deselectResult(atIndexPath indexPath: NSIndexPath) {
-        if let result = fetchResults[indexPath.section][indexPath.row] as? T, let index = find(selectedResults, result) {
-            selectedResults.removeAtIndex(index)
+        if let result = results[indexPath.section][indexPath.row] as? T, let index = find(selectedAssets, result) {
+            selectedAssets.removeAtIndex(index)
         }
     }
     
-    func numberOfSelectedResults() -> Int {
-        return selectedResults.count
+    func numberOfselectedAssets() -> Int {
+        return selectedAssets.count
     }
 
-    func indexPathsForSelectedResults() -> [NSIndexPath] {
+    func indexPathsForselectedAssets() -> [NSIndexPath] {
         var indexPaths: [NSIndexPath] = []
         
-        for result in selectedResults {
+        for result in selectedAssets {
             if let result: AnyObject = result as? AnyObject {
-                for (fetchResultIndex, fetchResult) in enumerate(fetchResults) {
+                for (resultIndex, fetchResult) in enumerate(results) {
                     let index = fetchResult.indexOfObject(result)
                     if index != NSNotFound {
-                        let indexPath = NSIndexPath(forItem: index, inSection: fetchResultIndex)
+                        let indexPath = NSIndexPath(forItem: index, inSection: resultIndex)
                         indexPaths.append(indexPath)
                     }
                 }
@@ -68,6 +68,6 @@ internal class SelectableAssetsModel<T: Equatable> : AssetsModel {
     }
     
     func selections() -> [T] {
-        return selectedResults
+        return selectedAssets
     }
 }

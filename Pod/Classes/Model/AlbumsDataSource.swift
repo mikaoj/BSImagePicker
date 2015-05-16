@@ -49,23 +49,23 @@ internal class AlbumsDataSource: NSObject, UITableViewDataSource, AssetsDelegate
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return selectableFetchResult.fetchResults.count
+        return selectableFetchResult.results.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return selectableFetchResult.fetchResults[section].count
+        return selectableFetchResult.results[section].count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(albumCellIdentifier, forIndexPath: indexPath) as! AlbumCell
         
         // Fetch album
-        if let album = selectableFetchResult.fetchResults[indexPath.section][indexPath.row] as? PHAssetCollection {
+        if let album = selectableFetchResult.results[indexPath.section][indexPath.row] as? PHAssetCollection {
             // Title
             cell.albumTitleLabel.text = album.localizedTitle
             
             // Selected
-            cell.selected = contains(selectableFetchResult.selectedResults, album)
+            cell.selected = contains(selectableFetchResult.selectedAssets, album)
             
             // Selection style
             cell.selectionStyle = .None

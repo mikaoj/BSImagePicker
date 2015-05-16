@@ -30,16 +30,16 @@ internal protocol AssetsDelegate {
 internal class AssetsModel : NSObject, PHPhotoLibraryChangeObserver {
     internal var section: Int = 0
     internal var delegate: AssetsDelegate?
-    internal var fetchResults: [PHFetchResult] {
+    internal var results: [PHFetchResult] {
         get {
-            return _fetchResults
+            return _results
         }
     }
     
-    private var _fetchResults: [PHFetchResult]
+    private var _results: [PHFetchResult]
     
     required init(fetchResult aFetchResult: [PHFetchResult]) {
-        _fetchResults = aFetchResult
+        _results = aFetchResult
         
         super.init()
         
@@ -52,14 +52,14 @@ internal class AssetsModel : NSObject, PHPhotoLibraryChangeObserver {
     
     // MARK: PHPhotoLibraryChangeObserver
     func photoLibraryDidChange(changeInstance: PHChange!) {
-        for (index, fetchResult) in enumerate(_fetchResults) {
+        for (index, fetchResult) in enumerate(_results) {
             // Check if there are changes to our fetch result
             if let collectionChanges = changeInstance.changeDetailsForFetchResult(fetchResult) {
                 // Get the new fetch result
                 let newResult = collectionChanges.fetchResultAfterChanges as PHFetchResult
                 
                 // Replace old result
-                _fetchResults[index] = newResult
+                _results[index] = newResult
                 
                 let removedIndexes: [NSIndexPath]
                 let insertedIndexes: [NSIndexPath]
