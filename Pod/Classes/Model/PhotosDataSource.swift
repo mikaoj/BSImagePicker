@@ -26,7 +26,7 @@ import Photos
 internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDelegate {
     internal var imageSize: CGSize = CGSizeZero
     internal var delegate: AssetsDelegate?
-    internal var selectableFetchResult: SelectableFetchResultModel<PHAsset> {
+    internal var selectableFetchResult: SelectableAssetsModel<PHAsset> {
         get {
             return _selectableFetchResult
         }
@@ -35,10 +35,10 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
     private let photoCellIdentifier = "photoCellIdentifier"
     private let photosManager = PHCachingImageManager()
     private let imageContentMode: PHImageContentMode = .AspectFill
-    private var _selectableFetchResult: SelectableFetchResultModel<PHAsset>
+    private var _selectableFetchResult: SelectableAssetsModel<PHAsset>
     
     override init() {
-        _selectableFetchResult = SelectableFetchResultModel<PHAsset>(fetchResult: [])
+        _selectableFetchResult = SelectableAssetsModel<PHAsset>(fetchResult: [])
         
         super.init()
     }
@@ -91,7 +91,7 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
         
         let fetchResult = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
         let temporarySelection = selectableFetchResult.selectedResults
-        _selectableFetchResult = SelectableFetchResultModel<PHAsset>(fetchResult: [fetchResult])
+        _selectableFetchResult = SelectableAssetsModel<PHAsset>(fetchResult: [fetchResult])
         selectableFetchResult.delegate = self
         selectableFetchResult.selectedResults = temporarySelection
         

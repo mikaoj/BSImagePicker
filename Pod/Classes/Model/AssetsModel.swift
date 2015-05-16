@@ -27,7 +27,7 @@ internal protocol AssetsDelegate {
     func didUpdateAssets(sender: AnyObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath])
 }
 
-internal class FetchResultModel : NSObject, PHPhotoLibraryChangeObserver {
+internal class AssetsModel : NSObject, PHPhotoLibraryChangeObserver {
     internal var section: Int = 0
     internal var delegate: AssetsDelegate?
     internal var fetchResults: [PHFetchResult] {

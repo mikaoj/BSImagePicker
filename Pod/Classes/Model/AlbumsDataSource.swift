@@ -25,13 +25,13 @@ import Photos
 
 internal class AlbumsDataSource: NSObject, UITableViewDataSource, AssetsDelegate {
     internal var delegate: AssetsDelegate?
-    internal var selectableFetchResult: SelectableFetchResultModel<PHAssetCollection> {
+    internal var selectableFetchResult: SelectableAssetsModel<PHAssetCollection> {
         get {
             return _selectableFetchResult
         }
     }
     
-    private var _selectableFetchResult: SelectableFetchResultModel<PHAssetCollection>
+    private var _selectableFetchResult: SelectableAssetsModel<PHAssetCollection>
     private let albumCellIdentifier = "albumCell"
     
     override init() {
@@ -43,7 +43,7 @@ internal class AlbumsDataSource: NSObject, UITableViewDataSource, AssetsDelegate
         // Albums fetch result
         let albumResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
         
-        _selectableFetchResult = SelectableFetchResultModel<PHAssetCollection>(fetchResult: [cameraRollResult, albumResult])
+        _selectableFetchResult = SelectableAssetsModel<PHAssetCollection>(fetchResult: [cameraRollResult, albumResult])
         
         super.init()
     }

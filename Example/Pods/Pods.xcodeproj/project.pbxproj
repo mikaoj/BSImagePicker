@@ -38,7 +38,7 @@
 		6A01F17E13B6EB505C561D6E /* UIImage+Diff.h in Headers */ = {isa = PBXBuildFile; fileRef = 76A8934185E237C32B22599D /* UIImage+Diff.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6AC9782813C7F200C96BE2B3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDAE622B4B1EEE09A4726B5 /* UIKit.framework */; };
 		6CC1204245C4D598484E80E2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A98A5891DB4601A2050519 /* Foundation.framework */; };
-		808CBA1247CCA33E5B355E8E /* FetchResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986B775585EB0496BCFA4F21 /* FetchResultModel.swift */; };
+		808CBA1247CCA33E5B355E8E /* AssetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986B775585EB0496BCFA4F21 /* AssetsModel.swift */; };
 		82FCF05EA6670DBB1BF16DED /* NumberedSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF7EB5ABD1F7CD0D73787D6 /* NumberedSelectionView.swift */; };
 		868710E333D3CDBC839D7233 /* arrow_down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 446FE8D520B22D7DB4869676 /* arrow_down@3x.png */; };
 		87BB3F6CB7BA76DFA22A14AF /* UIImage+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = F5B73A4D7CCD425500E79293 /* UIImage+Compare.m */; };
@@ -51,7 +51,7 @@
 		91A2D8B8733B4B448DED31D9 /* AlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC068B25D75677FAC98382A /* AlbumsViewController.swift */; };
 		972ED6CEE3FE1B46411018E1 /* AlbumTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7BBDFD2C47BC051B03947FEB /* AlbumTitleView.xib */; };
 		979A0170E935F43E5CA12AB9 /* Pods-BSImagePickerExampleTests-FBSnapshotTestCase-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DD30D045897DB846C6A911 /* Pods-BSImagePickerExampleTests-FBSnapshotTestCase-dummy.m */; };
-		9801843BF2872A450B405646 /* FetchResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986B775585EB0496BCFA4F21 /* FetchResultModel.swift */; };
+		9801843BF2872A450B405646 /* AssetsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986B775585EB0496BCFA4F21 /* AssetsModel.swift */; };
 		9A2C262F98618298F76B9D8E /* UIViewController+BSImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8AA630986A5C76919045918 /* UIViewController+BSImagePicker.swift */; };
 		9A9BA692AC12D9571CC8629F /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CEC1A39399804E15E8206B /* PhotoCell.swift */; };
 		A1027E66F7677D192748EC4C /* Photos.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C14D3BEFE1DBCD8F8D8E4F2 /* Photos.storyboard */; };
@@ -167,7 +167,7 @@
 		9450A0119838247A6A7724FC /* Pods-BSImagePickerExampleTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BSImagePickerExampleTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		9562C37D0F07DDA18268645F /* Pods-BSImagePickerExampleTests-BSImagePicker-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Pods-BSImagePickerExampleTests-BSImagePicker-dummy.m"; path = "../Pods-BSImagePickerExampleTests-BSImagePicker/Pods-BSImagePickerExampleTests-BSImagePicker-dummy.m"; sourceTree = "<group>"; };
 		96200D886473C68288E771FB /* Pods-BSImagePickerExample-BSImagePicker-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BSImagePickerExample-BSImagePicker-umbrella.h"; sourceTree = "<group>"; };
-		986B775585EB0496BCFA4F21 /* FetchResultModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FetchResultModel.swift; sourceTree = "<group>"; };
+		986B775585EB0496BCFA4F21 /* AssetsModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AssetsModel.swift; sourceTree = "<group>"; };
 		99329921430E61D68D00512D /* Pods-BSImagePickerExample-BSImagePicker-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BSImagePickerExample-BSImagePicker-Private.xcconfig"; sourceTree = "<group>"; };
 		A0213B26DF313FBF323A8881 /* UIImage+Diff.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Diff.m"; path = "FBSnapshotTestCase/UIImage+Diff.m"; sourceTree = "<group>"; };
 		A1E68CC0678C7798ADBD3203 /* Pods-BSImagePickerExample-BSImagePicker.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BSImagePickerExample-BSImagePicker.xcconfig"; sourceTree = "<group>"; };
@@ -384,7 +384,7 @@
 			children = (
 				A6BC4A01F25B9BC07E84A4B0 /* AlbumsDataSource.swift */,
 				E078769E6AE43F0B416934D6 /* PhotosDataSource.swift */,
-				986B775585EB0496BCFA4F21 /* FetchResultModel.swift */,
+				986B775585EB0496BCFA4F21 /* AssetsModel.swift */,
 				5F5131BA3B96A7039EF39F52 /* SelectableFetchResultModel.swift */,
 			);
 			path = Model;
@@ -795,7 +795,7 @@
 				5DB58517EAF7F117D13845A2 /* AlbumTitleView.swift in Sources */,
 				E249A965E5502178F0AEE438 /* AlbumsDataSource.swift in Sources */,
 				91A2D8B8733B4B448DED31D9 /* AlbumsViewController.swift in Sources */,
-				9801843BF2872A450B405646 /* FetchResultModel.swift in Sources */,
+				9801843BF2872A450B405646 /* AssetsModel.swift in Sources */,
 				39E0C11817BC5EF143524A22 /* ImagePickerViewController.swift in Sources */,
 				8F5137C22651661CEF7D90D4 /* NumberedSelectionView.swift in Sources */,
 				9A9BA692AC12D9571CC8629F /* PhotoCell.swift in Sources */,
@@ -828,7 +828,7 @@
 				CB3753F38C8682A485E35482 /* AlbumTitleView.swift in Sources */,
 				2FFE9AC56B8A321B9BC394A5 /* AlbumsDataSource.swift in Sources */,
 				8EF234FC80E75306ED6F1BAF /* AlbumsViewController.swift in Sources */,
-				808CBA1247CCA33E5B355E8E /* FetchResultModel.swift in Sources */,
+				808CBA1247CCA33E5B355E8E /* AssetsModel.swift in Sources */,
 				62B9527AA8E88BAE833615EB /* ImagePickerViewController.swift in Sources */,
 				82FCF05EA6670DBB1BF16DED /* NumberedSelectionView.swift in Sources */,
 				8A4A5B803829BD3B88437B72 /* PhotoCell.swift in Sources */,

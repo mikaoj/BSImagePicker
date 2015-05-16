@@ -25,7 +25,7 @@ import Foundation
 import Photos
 
 // TODO: Generic
-internal class SelectableFetchResultModel<T: Equatable> : FetchResultModel {
+internal class SelectableAssetsModel<T: Equatable> : AssetsModel {
     internal var selectedResults = [T]()
     
     required init(fetchResult aFetchResult: [PHFetchResult]) {
