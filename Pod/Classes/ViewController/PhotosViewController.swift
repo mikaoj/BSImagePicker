@@ -42,7 +42,7 @@ extension UIButton {
     }
 }
 
-internal class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, AlbumsDelegate, FetchResultDelegate {
+internal class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, FetchResultDelegate {
     internal var selectionClosure: ((asset: PHAsset) -> Void)?
     internal var deselectionClosure: ((asset: PHAsset) -> Void)?
     internal var cancelClosure: ((assets: [PHAsset]) -> Void)?
@@ -102,7 +102,17 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         super.loadView()
         
         // Setup albums data source
-        albumsDataSource = AlbumsDataSource(delegate: self)
+        albumsDataSource = AlbumsDataSource()
+        albumsDataSource?.selectableFetchResult.selectResult(atIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        albumsDataSource?.delegate = self
+        
+        if let album = albumsDataSource?.selectableFetchResult.selectedResults.first {
+            // Update album title
+            albumTitleView?.albumTitle = album.localizedTitle
+            
+            // Pass it on to photos data source
+            photosDataSource.fetchResultsForAsset(album)
+        }
         
         // Hook up data source
         photosDataSource.delegate = self
@@ -201,9 +211,22 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     
     // MARK: UITableViewDelegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // Update selected album
-        albumsDataSource?.selectAlbum(atIndexPath: indexPath, inTableView: tableView)
+        // Clear previous selection
+        albumsDataSource?.selectableFetchResult.selectedResults.removeAll(keepCapacity: true)
         
+        // Update selected album
+        albumsDataSource?.selectableFetchResult.selectResult(atIndexPath: indexPath)
+        
+        // Notify photos data source
+        if let album = albumsDataSource?.selectableFetchResult.selectedResults.first {
+            // Update album title
+            albumTitleView?.albumTitle = album.localizedTitle
+            
+            // Pass it on to photos data source
+            photosDataSource.fetchResultsForAsset(album)
+        }
+        
+        // Dismiss album selection
         albumsViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -223,7 +246,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         // Call selection closure
         if let closure = selectionClosure {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-                closure(asset: self.photosDataSource.selectableFetchResult.fetchResult[indexPath.row] as! PHAsset)
+                closure(asset: self.photosDataSource.selectableFetchResult.fetchResults[indexPath.section][indexPath.row] as! PHAsset)
             })
         }
     }
@@ -244,18 +267,9 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         // Call deselection closure
         if let closure = deselectionClosure {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-                closure(asset: self.photosDataSource.selectableFetchResult.fetchResult[indexPath.row] as! PHAsset)
+                closure(asset: self.photosDataSource.selectableFetchResult.fetchResults[indexPath.section][indexPath.row] as! PHAsset)
             })
         }
-    }
-    
-    // MARK: AlbumsDelegate
-    func didSelectAlbum(album: PHAssetCollection) {
-        // Update album title
-        albumTitleView?.albumTitle = album.localizedTitle
-        
-        // Pass it on to photos data source
-        photosDataSource.didSelectAlbum(album)
     }
     
     // MARK: PhotosDelegate

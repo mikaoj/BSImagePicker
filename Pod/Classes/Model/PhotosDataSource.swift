@@ -23,17 +23,9 @@
 import UIKit
 import Photos
 
-internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AlbumsDelegate {
+internal class PhotosDataSource : NSObject, UICollectionViewDataSource, FetchResultDelegate {
     internal var imageSize: CGSize = CGSizeZero
-    internal var delegate: FetchResultDelegate? {
-        set {
-            selectableFetchResult.delegate = newValue
-        }
-        
-        get {
-            return selectableFetchResult.delegate
-        }
-    }
+    internal var delegate: FetchResultDelegate?
     internal var selectableFetchResult: SelectableFetchResultModel<PHAsset> {
         get {
             return _selectableFetchResult
@@ -46,12 +38,18 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AlbumsDe
     private var _selectableFetchResult: SelectableFetchResultModel<PHAsset>
     
     override init() {
-        _selectableFetchResult = SelectableFetchResultModel<PHAsset>(fetchResult: PHFetchResult())
+        _selectableFetchResult = SelectableFetchResultModel<PHAsset>(fetchResult: [])
+        
+        super.init()
     }
     
     // MARK: UICollectionViewDatasource
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return selectableFetchResult.fetchResults.count
+    }
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return selectableFetchResult.fetchResult.count
+        return selectableFetchResult.fetchResults[section].count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -61,7 +59,7 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AlbumsDe
             photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
         }
         
-        if let asset = selectableFetchResult.fetchResult[indexPath.row] as? PHAsset {
+        if let asset = selectableFetchResult.fetchResults[indexPath.section][indexPath.row] as? PHAsset {
             cell.tag = Int(photosManager.requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
                 cell.imageView.image = result
                 })
@@ -78,9 +76,13 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AlbumsDe
         
         return cell
     }
+    
+    // MARK: FetchResultDelegate
+    func didUpdateFetchResult(incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
+        self.delegate?.didUpdateFetchResult(incrementalChange, insert: insert, delete: delete, change: change)
+    }
 
-    // MARK: AlbumsDelegate
-    func didSelectAlbum(album: PHAssetCollection) {
+    func fetchResultsForAsset(album: PHAssetCollection) {
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: false)
@@ -88,11 +90,11 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AlbumsDe
         fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
         
         let fetchResult = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
-        let localDelegate = delegate
-        _selectableFetchResult = SelectableFetchResultModel<PHAsset>(fetchResult: fetchResult)
-        selectableFetchResult.delegate = localDelegate
+        let temporarySelection = selectableFetchResult.selectedResults
+        _selectableFetchResult = SelectableFetchResultModel<PHAsset>(fetchResult: [fetchResult])
+        selectableFetchResult.delegate = self
+        selectableFetchResult.selectedResults = temporarySelection
         
-        // Notify delegate
         delegate?.didUpdateFetchResult(false, insert: [], delete: [], change: [])
     }
 }

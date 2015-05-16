@@ -28,19 +28,19 @@ import Photos
 internal class SelectableFetchResultModel<T: Equatable> : FetchResultModel {
     internal var selectedResults = [T]()
     
-    required init(fetchResult aFetchResult: PHFetchResult) {
+    required init(fetchResult aFetchResult: [PHFetchResult]) {
         super.init(fetchResult: aFetchResult)
     }
     
     // MARK: Selection & deselection
     func selectResult(atIndexPath indexPath: NSIndexPath) {
-        if let result = fetchResult[indexPath.row] as? T where contains(selectedResults, result) == false {
+        if let result = fetchResults[indexPath.section][indexPath.row] as? T where contains(selectedResults, result) == false {
             selectedResults.append(result)
         }
     }
     
     func deselectResult(atIndexPath indexPath: NSIndexPath) {
-        if let result = fetchResult[indexPath.row] as? T, let index = find(selectedResults, result) {
+        if let result = fetchResults[indexPath.section][indexPath.row] as? T, let index = find(selectedResults, result) {
             selectedResults.removeAtIndex(index)
         }
     }
@@ -54,10 +54,12 @@ internal class SelectableFetchResultModel<T: Equatable> : FetchResultModel {
         
         for result in selectedResults {
             if let result: AnyObject = result as? AnyObject {
-                let index = fetchResult.indexOfObject(result)
-                if index != NSNotFound {
-                    let indexPath = NSIndexPath(forItem: index, inSection: 0)
-                    indexPaths.append(indexPath)
+                for (fetchResultIndex, fetchResult) in enumerate(fetchResults) {
+                    let index = fetchResult.indexOfObject(result)
+                    if index != NSNotFound {
+                        let indexPath = NSIndexPath(forItem: index, inSection: fetchResultIndex)
+                        indexPaths.append(indexPath)
+                    }
                 }
             }
         }

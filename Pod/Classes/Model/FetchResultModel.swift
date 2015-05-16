@@ -28,17 +28,18 @@ internal protocol FetchResultDelegate {
 }
 
 internal class FetchResultModel : NSObject, PHPhotoLibraryChangeObserver {
+    internal var section: Int = 0
     internal var delegate: FetchResultDelegate?
-    internal var fetchResult: PHFetchResult {
+    internal var fetchResults: [PHFetchResult] {
         get {
-            return _fetchResult
+            return _fetchResults
         }
     }
     
-    private var _fetchResult: PHFetchResult
+    private var _fetchResults: [PHFetchResult]
     
-    required init(fetchResult aFetchResult: PHFetchResult) {
-        _fetchResult = aFetchResult
+    required init(fetchResult aFetchResult: [PHFetchResult]) {
+        _fetchResults = aFetchResult
         
         super.init()
         
@@ -51,32 +52,36 @@ internal class FetchResultModel : NSObject, PHPhotoLibraryChangeObserver {
     
     // MARK: PHPhotoLibraryChangeObserver
     func photoLibraryDidChange(changeInstance: PHChange!) {
-        // Check if there are changes to our fetch result
-        if let collectionChanges = changeInstance.changeDetailsForFetchResult(fetchResult) {
-            // Get the new fetch result
-            _fetchResult = collectionChanges.fetchResultAfterChanges
-            
-            let removedIndexes: [NSIndexPath]
-            let insertedIndexes: [NSIndexPath]
-            let changedIndexes: [NSIndexPath]
-            
-            if collectionChanges.hasIncrementalChanges {
-                // Incremental change, tell delegate what has been deleted, inserted and changed
-                removedIndexes = indexPathsFromIndexSet(collectionChanges.removedIndexes, inSection: 0)
-                insertedIndexes = indexPathsFromIndexSet(collectionChanges.insertedIndexes, inSection: 0)
-                changedIndexes = indexPathsFromIndexSet(collectionChanges.changedIndexes, inSection: 0)
-            } else {
-                // No incremental change. Set empty arrays
-                removedIndexes = []
-                insertedIndexes = []
-                changedIndexes = []
+        for (index, fetchResult) in enumerate(_fetchResults) {
+            // Check if there are changes to our fetch result
+            if let collectionChanges = changeInstance.changeDetailsForFetchResult(fetchResult) {
+                // Get the new fetch result
+                let newResult = collectionChanges.fetchResultAfterChanges as PHFetchResult
+                
+                // Replace old result
+                _fetchResults[index] = newResult
+                
+                let removedIndexes: [NSIndexPath]
+                let insertedIndexes: [NSIndexPath]
+                let changedIndexes: [NSIndexPath]
+                
+                if collectionChanges.hasIncrementalChanges {
+                    // Incremental change, tell delegate what has been deleted, inserted and changed
+                    removedIndexes = indexPathsFromIndexSet(collectionChanges.removedIndexes, inSection: index)
+                    insertedIndexes = indexPathsFromIndexSet(collectionChanges.insertedIndexes, inSection: index)
+                    changedIndexes = indexPathsFromIndexSet(collectionChanges.changedIndexes, inSection: index)
+                } else {
+                    // No incremental change. Set empty arrays
+                    removedIndexes = []
+                    insertedIndexes = []
+                    changedIndexes = []
+                }
+                
+                // Notify delegate
+                delegate?.didUpdateFetchResult(collectionChanges.hasIncrementalChanges, insert: insertedIndexes, delete: removedIndexes, change: changedIndexes)
             }
-            
-            // Notify delegate
-            delegate?.didUpdateFetchResult(collectionChanges.hasIncrementalChanges, insert: insertedIndexes, delete: removedIndexes, change: changedIndexes)
         }
     }
-    
     
     // TODO: Extension on NSIndexSet?
     private func indexPathsFromIndexSet(indexSet: NSIndexSet, inSection section: Int) -> [NSIndexPath] {
