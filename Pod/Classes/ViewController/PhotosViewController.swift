@@ -273,20 +273,33 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     }
     
     // MARK: AssetsDelegate
-    func didUpdateAssets(sender: AnyObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
-        if let collectionView = collectionView {
+    func didUpdateAssets(sender: NSObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
+        // Reload table view or collection view?
+        if sender == photosDataSource {
+            if let collectionView = collectionView {
+                if incrementalChange {
+                    // Update
+                    collectionView.deleteItemsAtIndexPaths(delete)
+                    collectionView.insertItemsAtIndexPaths(insert)
+                    collectionView.reloadItemsAtIndexPaths(change)
+                } else {
+                    // Reload
+                    collectionView.reloadSections(NSIndexSet(index: 0))
+                }
+                
+                // Sync selection
+                syncSelectionInDataSource(photosDataSource, withCollectionView: collectionView)
+            }
+        } else if sender == albumsDataSource {
             if incrementalChange {
                 // Update
-                collectionView.deleteItemsAtIndexPaths(delete)
-                collectionView.insertItemsAtIndexPaths(insert)
-                collectionView.reloadItemsAtIndexPaths(change)
+                albumsViewController?.tableView?.deleteRowsAtIndexPaths(delete, withRowAnimation: .Automatic)
+                albumsViewController?.tableView?.insertRowsAtIndexPaths(insert, withRowAnimation: .Automatic)
+                albumsViewController?.tableView?.reloadRowsAtIndexPaths(change, withRowAnimation: .Automatic)
             } else {
                 // Reload
-                collectionView.reloadSections(NSIndexSet(index: 0))
+                albumsViewController?.tableView?.reloadData()
             }
-            
-            // Sync selection
-            syncSelectionInDataSource(photosDataSource, withCollectionView: collectionView)
         }
     }
     

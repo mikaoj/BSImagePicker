@@ -24,11 +24,10 @@ import Foundation
 import Photos
 
 internal protocol AssetsDelegate {
-    func didUpdateAssets(sender: AnyObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath])
+    func didUpdateAssets(sender: NSObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath])
 }
 
 internal class AssetsModel : NSObject, PHPhotoLibraryChangeObserver {
-    internal var section: Int = 0
     internal var delegate: AssetsDelegate?
     internal var results: [PHFetchResult] {
         get {

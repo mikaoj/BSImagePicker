@@ -114,7 +114,7 @@ internal class AlbumsDataSource: NSObject, UITableViewDataSource, AssetsDelegate
     }
     
     // MARK: AssetsDelegate
-    func didUpdateAssets(sender: AnyObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
+    func didUpdateAssets(sender: NSObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
         delegate?.didUpdateAssets(self, incrementalChange: incrementalChange, insert: insert, delete: delete, change: change)
     }
 }
