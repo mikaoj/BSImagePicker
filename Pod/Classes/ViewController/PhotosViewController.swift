@@ -274,33 +274,36 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     
     // MARK: AssetsDelegate
     func didUpdateAssets(sender: NSObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
-        // Reload table view or collection view?
-        if sender == photosDataSource {
-            if let collectionView = collectionView {
+        // May come on a background thread, so dispatch to main
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            // Reload table view or collection view?
+            if sender == self.photosDataSource {
+                if let collectionView = self.collectionView {
+                    if incrementalChange {
+                        // Update
+                        collectionView.deleteItemsAtIndexPaths(delete)
+                        collectionView.insertItemsAtIndexPaths(insert)
+                        collectionView.reloadItemsAtIndexPaths(change)
+                    } else {
+                        // Reload
+                        collectionView.reloadSections(NSIndexSet(index: 0))
+                    }
+                    
+                    // Sync selection
+                    self.syncSelectionInDataSource(self.photosDataSource, withCollectionView: collectionView)
+                }
+            } else if sender == self.albumsDataSource {
                 if incrementalChange {
                     // Update
-                    collectionView.deleteItemsAtIndexPaths(delete)
-                    collectionView.insertItemsAtIndexPaths(insert)
-                    collectionView.reloadItemsAtIndexPaths(change)
+                    self.albumsViewController?.tableView?.deleteRowsAtIndexPaths(delete, withRowAnimation: .Automatic)
+                    self.albumsViewController?.tableView?.insertRowsAtIndexPaths(insert, withRowAnimation: .Automatic)
+                    self.albumsViewController?.tableView?.reloadRowsAtIndexPaths(change, withRowAnimation: .Automatic)
                 } else {
                     // Reload
-                    collectionView.reloadSections(NSIndexSet(index: 0))
+                    self.albumsViewController?.tableView?.reloadData()
                 }
-                
-                // Sync selection
-                syncSelectionInDataSource(photosDataSource, withCollectionView: collectionView)
             }
-        } else if sender == albumsDataSource {
-            if incrementalChange {
-                // Update
-                albumsViewController?.tableView?.deleteRowsAtIndexPaths(delete, withRowAnimation: .Automatic)
-                albumsViewController?.tableView?.insertRowsAtIndexPaths(insert, withRowAnimation: .Automatic)
-                albumsViewController?.tableView?.reloadRowsAtIndexPaths(change, withRowAnimation: .Automatic)
-            } else {
-                // Reload
-                albumsViewController?.tableView?.reloadData()
-            }
-        }
+        })
     }
     
     // MARK: Private helper methods
