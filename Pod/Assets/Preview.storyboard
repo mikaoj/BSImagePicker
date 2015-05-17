@@ -15,7 +15,18 @@
                     <view key="view" contentMode="scaleToFill" id="Hmu-9c-ajl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XWy-G4-PyU">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="XWy-G4-PyU" secondAttribute="trailing" id="0gn-L6-DDR"/>
+                            <constraint firstItem="XWy-G4-PyU" firstAttribute="leading" secondItem="Hmu-9c-ajl" secondAttribute="leading" id="G42-zT-eim"/>
+                            <constraint firstItem="XWy-G4-PyU" firstAttribute="top" secondItem="Hmu-9c-ajl" secondAttribute="top" id="OdE-lb-BrM"/>
+                            <constraint firstItem="9TO-y0-8il" firstAttribute="top" secondItem="XWy-G4-PyU" secondAttribute="bottom" id="sVy-13-Xf9"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jq0-Pi-ZeT" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -106,6 +106,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         albumsDataSource?.selectableFetchResult.selectResult(atIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         albumsDataSource?.delegate = self
         
+        // TODO: Break out into method. Is duplicated in didSelectTableView
         if let album = albumsDataSource?.selectableFetchResult.selectedAssets.first {
             // Update album title
             albumTitleView?.albumTitle = album.localizedTitle
@@ -126,6 +127,11 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelButtonPressed:")
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.titleView = albumTitleView
+        
+        // Add long press recognizer
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "collectionViewLongPressed:")
+        longPressRecognizer.minimumPressDuration = 0.5
+        collectionView?.addGestureRecognizer(longPressRecognizer)
     }
     
     // MARK: Button actions
@@ -160,6 +166,23 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
             albumsViewController.tableView.reloadData()
             
             presentViewController(albumsViewController, animated: true, completion: nil)
+        }
+    }
+    
+    func collectionViewLongPressed(sender: UIGestureRecognizer) {
+        if sender.state == .Began {
+            // Disable recognizer while we are figuring out location and pushing preview
+            sender.enabled = false
+            
+            // Calculate which index path long press came from
+            let location = sender.locationInView(collectionView)
+            let indexPath = collectionView?.indexPathForItemAtPoint(location)
+            
+            // TODO: Push preview
+            println(indexPath)
+            
+            // Re-enable recognizer
+            sender.enabled = true
         }
     }
     
