@@ -1,6 +1,8 @@
 PODS:
-  - BSImagePicker (1.0)
+  - BSImagePicker (1.0):
+    - UIImageViewModeScaleAspect (= 1.3)
   - FBSnapshotTestCase (1.8.1)
+  - UIImageViewModeScaleAspect (1.3)
 
 DEPENDENCIES:
   - BSImagePicker (from `../`)
@@ -11,7 +13,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BSImagePicker: bef16d9f67de29e0ac28f1e94f37436cc8983298
+  BSImagePicker: 5115b62f4595f731fa92c47a94911186f9bda2ad
   FBSnapshotTestCase: 3dc3899168747a0319c5278f5b3445c13a6532dd
+  UIImageViewModeScaleAspect: ec78901acfc20d3782154111a21d34390f8f71ad
 
 COCOAPODS: 0.37.1

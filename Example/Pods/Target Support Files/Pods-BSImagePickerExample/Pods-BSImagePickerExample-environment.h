@@ -12,3 +12,9 @@
 #define COCOAPODS_VERSION_MINOR_BSImagePicker 0
 #define COCOAPODS_VERSION_PATCH_BSImagePicker 0
 
+// UIImageViewModeScaleAspect
+#define COCOAPODS_POD_AVAILABLE_UIImageViewModeScaleAspect
+#define COCOAPODS_VERSION_MAJOR_UIImageViewModeScaleAspect 1
+#define COCOAPODS_VERSION_MINOR_UIImageViewModeScaleAspect 3
+#define COCOAPODS_VERSION_PATCH_UIImageViewModeScaleAspect 0
+

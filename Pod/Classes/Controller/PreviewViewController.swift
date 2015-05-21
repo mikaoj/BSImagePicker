@@ -23,5 +23,20 @@
 import UIKit
 
 internal class PreviewViewController : UIViewController {
+    internal var imageView: UIImageView!
     
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        view.backgroundColor = UIColor.whiteColor()
+        
+        imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode = .ScaleAspectFit
+        imageView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        view.addSubview(imageView)
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }

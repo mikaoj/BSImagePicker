@@ -42,12 +42,14 @@ extension UIButton {
     }
 }
 
-internal class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, AssetsDelegate {
+internal class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, AssetsDelegate, UINavigationControllerDelegate {
     internal var selectionClosure: ((asset: PHAsset) -> Void)?
     internal var deselectionClosure: ((asset: PHAsset) -> Void)?
     internal var cancelClosure: ((assets: [PHAsset]) -> Void)?
     internal var finishClosure: ((assets: [PHAsset]) -> Void)?
     
+    private let expandAnimator = ExpandAnimator()
+    private let shrinkAnimator = ShrinkAnimator()
     private let photosDataSource = PhotosDataSource()
     private var albumsDataSource: AlbumsDataSource?
     private lazy var doneBarButton: UIBarButtonItem = {
@@ -90,6 +92,10 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         return vc
     }()
     
+    private lazy var previewViewContoller: PreviewViewController? = {
+        return PreviewViewController(nibName: nil, bundle: nil)
+    }()
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -100,6 +106,9 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     
     override func loadView() {
         super.loadView()
+        
+        // Set an empty title to get < back button
+        title = " "
         
         // Setup albums data source
         albumsDataSource = AlbumsDataSource()
@@ -132,6 +141,9 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "collectionViewLongPressed:")
         longPressRecognizer.minimumPressDuration = 0.5
         collectionView?.addGestureRecognizer(longPressRecognizer)
+        
+        // Set navigation controller delegate
+        navigationController?.delegate = self
     }
     
     // MARK: Button actions
@@ -173,16 +185,34 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         if sender.state == .Began {
             // Disable recognizer while we are figuring out location and pushing preview
             sender.enabled = false
+            collectionView?.userInteractionEnabled = false
             
             // Calculate which index path long press came from
             let location = sender.locationInView(collectionView)
             let indexPath = collectionView?.indexPathForItemAtPoint(location)
             
-            // TODO: Push preview
-            println(indexPath)
+            if let vc = previewViewContoller, let indexPath = indexPath, let cell = collectionView?.cellForItemAtIndexPath(indexPath) as? PhotoCell, let asset = photosDataSource.selectableFetchResult.results[indexPath.section][indexPath.row] as? PHAsset {
+                // Setup fetch options to be synchronous
+                let options = PHImageRequestOptions()
+                options.synchronous = true
+                
+                // Load image for preview
+                PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: vc.imageView.frame.size, contentMode: .AspectFit, options: options) { (result, _) in
+                    vc.imageView?.image = result
+                }
+                
+                // Setup animation
+                expandAnimator.sourceImageView = cell.imageView
+                expandAnimator.destinationImageView = vc.imageView
+                shrinkAnimator.sourceImageView = vc.imageView
+                shrinkAnimator.destinationImageView = cell.imageView
+                
+                navigationController?.pushViewController(vc, animated: true)
+            }
             
             // Re-enable recognizer
             sender.enabled = true
+            collectionView?.userInteractionEnabled = true
         }
     }
     
@@ -398,6 +428,15 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         // Loop through them and set them as selected in the collection view
         for indexPath in indexPaths {
             collectionView.selectItemAtIndexPath(indexPath, animated: false, scrollPosition: .None)
+        }
+    }
+    
+    // MARK: UINavigationControllerDelegate
+    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if operation == .Push {
+            return expandAnimator
+        } else {
+            return shrinkAnimator
         }
     }
 }

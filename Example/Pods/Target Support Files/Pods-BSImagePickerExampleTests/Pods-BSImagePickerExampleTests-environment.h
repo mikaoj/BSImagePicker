@@ -18,3 +18,9 @@
 #define COCOAPODS_VERSION_MINOR_FBSnapshotTestCase 8
 #define COCOAPODS_VERSION_PATCH_FBSnapshotTestCase 1
 
+// UIImageViewModeScaleAspect
+#define COCOAPODS_POD_AVAILABLE_UIImageViewModeScaleAspect
+#define COCOAPODS_VERSION_MAJOR_UIImageViewModeScaleAspect 1
+#define COCOAPODS_VERSION_MINOR_UIImageViewModeScaleAspect 3
+#define COCOAPODS_VERSION_PATCH_UIImageViewModeScaleAspect 0
+
