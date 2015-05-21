@@ -9,12 +9,12 @@
 import UIKit
 import UIImageViewModeScaleAspect
 
-internal class ExpandAnimator : NSObject, UIViewControllerAnimatedTransitioning {
+internal class ZoomAnimator : NSObject, UIViewControllerAnimatedTransitioning {
     internal var sourceImageView: UIImageView?
     internal var destinationImageView: UIImageView?
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
-        return 2.0
+        return 0.3
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
@@ -40,10 +40,11 @@ internal class ExpandAnimator : NSObject, UIViewControllerAnimatedTransitioning 
             scalingImage.image = sourceImageView.image
             
             //Init image scale
+            let destinationFrame = toViewController.view.convertRect(destinationImageView.bounds, fromView: destinationImageView.superview)
             if destinationImageView.contentMode == .ScaleAspectFit {
-                scalingImage.initToScaleAspectFitToFrame(destinationImageView.frame)
+                scalingImage.initToScaleAspectFitToFrame(destinationFrame)
             } else {
-                scalingImage.initToScaleAspectFillToFrame(destinationImageView.frame)
+                scalingImage.initToScaleAspectFillToFrame(destinationFrame)
             }
             
             // Add views to container view
@@ -58,27 +59,32 @@ internal class ExpandAnimator : NSObject, UIViewControllerAnimatedTransitioning 
                     // Fade in
                     fromViewController.view.alpha = 0.0
                     toViewController.view.alpha = 1.0
-                    scalingImage.animaticToScaleAspectFit()
-            }, completion: { (finished) -> Void in
-                
-                // Finish image scaling and remove image view
-                if destinationImageView.contentMode == .ScaleAspectFit {
-                    scalingImage.animateFinishToScaleAspectFit()
-                } else {
-                    scalingImage.animateFinishToScaleAspectFill()
-                }
-                scalingImage.removeFromSuperview()
-                
-                // Unhide
-                destinationImageView.hidden = false
-                sourceImageView.hidden = false
-                fromViewController.view.alpha = 1.0
-                
-                // Finish transition
-                transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
-                
-                // Enable selection again
-                fromViewController.view?.userInteractionEnabled = true
+                    
+                    if destinationImageView.contentMode == .ScaleAspectFit {
+                        scalingImage.animaticToScaleAspectFit()
+                    } else {
+                        scalingImage.animaticToScaleAspectFill()
+                    }
+                }, completion: { (finished) -> Void in
+                    
+                    // Finish image scaling and remove image view
+                    if destinationImageView.contentMode == .ScaleAspectFit {
+                        scalingImage.animateFinishToScaleAspectFit()
+                    } else {
+                        scalingImage.animateFinishToScaleAspectFill()
+                    }
+                    scalingImage.removeFromSuperview()
+                    
+                    // Unhide
+                    destinationImageView.hidden = false
+                    sourceImageView.hidden = false
+                    fromViewController.view.alpha = 1.0
+                    
+                    // Finish transition
+                    transitionContext.completeTransition(!transitionContext.transitionWasCancelled())
+                    
+                    // Enable selection again
+                    fromViewController.view?.userInteractionEnabled = true
             })
         }
     }

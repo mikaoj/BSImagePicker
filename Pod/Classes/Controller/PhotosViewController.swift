@@ -23,6 +23,7 @@
 import UIKit
 import Photos
 
+// TODO: Handle no right to acces photos!
 // TODO: Put in separate file
 extension UIButton {
     func bs_setTitle(title: String?, forState state: UIControlState, animated: Bool) {
@@ -48,8 +49,8 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     internal var cancelClosure: ((assets: [PHAsset]) -> Void)?
     internal var finishClosure: ((assets: [PHAsset]) -> Void)?
     
-    private let expandAnimator = ExpandAnimator()
-    private let shrinkAnimator = ShrinkAnimator()
+    private let expandAnimator = ZoomAnimator()
+    private let shrinkAnimator = ZoomAnimator()
     private let photosDataSource = PhotosDataSource()
     private var albumsDataSource: AlbumsDataSource?
     private lazy var doneBarButton: UIBarButtonItem = {
