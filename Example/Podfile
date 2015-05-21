@@ -16,3 +16,4 @@ target 'BSImagePickerExampleTests', :exclusive => true do
 
   pod 'FBSnapshotTestCase'
 end
+

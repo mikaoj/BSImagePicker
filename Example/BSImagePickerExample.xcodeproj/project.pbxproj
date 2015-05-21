@@ -13,13 +13,13 @@
 		5573E9071AECAC0600A82E74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5573E9051AECAC0600A82E74 /* Main.storyboard */; };
 		5573E9091AECAC0600A82E74 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5573E9081AECAC0600A82E74 /* Images.xcassets */; };
 		5573E90C1AECAC0600A82E74 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5573E90A1AECAC0600A82E74 /* LaunchScreen.xib */; };
-		5573E9181AECAC0600A82E74 /* BSImagePickerExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573E9171AECAC0600A82E74 /* BSImagePickerExampleTests.swift */; };
 		558834941B0E3243000FF4FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 558834931B0E3243000FF4FE /* main.m */; };
 		558834971B0E3243000FF4FE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 558834961B0E3243000FF4FE /* AppDelegate.m */; };
 		5588349A1B0E3243000FF4FE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 558834991B0E3243000FF4FE /* ViewController.m */; };
 		5588349D1B0E3243000FF4FE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5588349B1B0E3243000FF4FE /* Main.storyboard */; };
 		5588349F1B0E3243000FF4FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5588349E1B0E3243000FF4FE /* Images.xcassets */; };
 		558834A21B0E3243000FF4FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558834A01B0E3243000FF4FE /* LaunchScreen.xib */; };
+		558834BB1B0E38F2000FF4FE /* ImagePickerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558834BA1B0E38F2000FF4FE /* ImagePickerViewTests.swift */; };
 		80F38842667288D37FB63AEF /* Pods_BSImagePickerObjectiveCExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26515536695B76E37CF65B2B /* Pods_BSImagePickerObjectiveCExample.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D74D4C8F5A343AF7AA961268 /* Pods_BSImagePickerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0315608F4D5EF6DAB50AEA52 /* Pods_BSImagePickerExample.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
@@ -48,7 +48,6 @@
 		5573E90B1AECAC0600A82E74 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		5573E9111AECAC0600A82E74 /* BSImagePickerExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BSImagePickerExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5573E9161AECAC0600A82E74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5573E9171AECAC0600A82E74 /* BSImagePickerExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSImagePickerExampleTests.swift; sourceTree = "<group>"; };
 		5588348F1B0E3243000FF4FE /* BSImagePickerObjectiveCExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BSImagePickerObjectiveCExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		558834921B0E3243000FF4FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		558834931B0E3243000FF4FE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -59,6 +58,8 @@
 		5588349C1B0E3243000FF4FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5588349E1B0E3243000FF4FE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		558834A11B0E3243000FF4FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		558834B91B0E38F1000FF4FE /* BSImagePickerExampleTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BSImagePickerExampleTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		558834BA1B0E38F2000FF4FE /* ImagePickerViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewTests.swift; sourceTree = "<group>"; };
 		88F135AD834589F5E7D74C2E /* Pods-BSImagePickerExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePickerExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePickerExample/Pods-BSImagePickerExample.debug.xcconfig"; sourceTree = "<group>"; };
 		936B0C5304B03DC95C5D8AC2 /* Pods-BSImagePickerObjectiveCExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePickerObjectiveCExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePickerObjectiveCExample/Pods-BSImagePickerObjectiveCExample.release.xcconfig"; sourceTree = "<group>"; };
 		A440C84D4FFF450C1D203AB3 /* Pods-BSImagePickerObjectiveCExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePickerObjectiveCExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePickerObjectiveCExample/Pods-BSImagePickerObjectiveCExample.debug.xcconfig"; sourceTree = "<group>"; };
@@ -163,8 +164,9 @@
 		5573E9141AECAC0600A82E74 /* BSImagePickerExampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				5573E9171AECAC0600A82E74 /* BSImagePickerExampleTests.swift */,
 				5573E9151AECAC0600A82E74 /* Supporting Files */,
+				558834BA1B0E38F2000FF4FE /* ImagePickerViewTests.swift */,
+				558834B91B0E38F1000FF4FE /* BSImagePickerExampleTests-Bridging-Header.h */,
 			);
 			path = BSImagePickerExampleTests;
 			sourceTree = "<group>";
@@ -488,7 +490,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5573E9181AECAC0600A82E74 /* BSImagePickerExampleTests.swift in Sources */,
+				558834BB1B0E38F2000FF4FE /* ImagePickerViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -658,6 +660,7 @@
 			baseConfigurationReference = F379D3C2022B2FB0CCB9469C /* Pods-BSImagePickerExampleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -669,6 +672,8 @@
 				INFOPLIST_FILE = BSImagePickerExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BSImagePickerExampleTests/BSImagePickerExampleTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BSImagePickerExample.app/BSImagePickerExample";
 			};
 			name = Debug;
@@ -678,6 +683,7 @@
 			baseConfigurationReference = 35E4EBD638F46064234F70BB /* Pods-BSImagePickerExampleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -685,6 +691,7 @@
 				INFOPLIST_FILE = BSImagePickerExampleTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BSImagePickerExampleTests/BSImagePickerExampleTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BSImagePickerExample.app/BSImagePickerExample";
 			};
 			name = Release;
