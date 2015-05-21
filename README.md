@@ -15,11 +15,39 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 To use it in you own project
 ###### Objective-C
 ```objc
-objective-c code example
+ImagePickerViewController *imagePicker = [ImagePickerViewController new];
+
+// Present image picker. Any of the blocks can be nil
+[self bs_presentImagePickerController:imagePicker
+                             animated:YES
+                               select:^(PHAsset * __nonnull asset) {
+                                 // User selected an asset.
+                                 // Do something with it, start upload perhaps?
+                               } deselect:^(PHAsset * __nonnull asset) {
+                                 // User deselected an assets.
+                                 // Do something, cancel upload?
+                               } cancel:^(NSArray * __nonnull assets) {
+                                 // User cancelled. And this where the assets currently selected.
+                               } finish:^(NSArray * __nonnull assets) {
+                                 // User finished with these assets
+                               } completion:nil];
 ```
 ###### Swift
 ```swift
-swift code example
+let vc = ImagePickerViewController()
+
+bs_presentImagePickerController(vc, animated: true,
+    select: { (asset: PHAsset) -> Void in
+      // User selected an asset.
+      // Do something with it, start upload perhaps?
+    }, deselect: { (asset: PHAsset) -> Void in
+      // User deselected an assets.
+      // Do something, cancel upload?
+    }, cancel: { (assets: [PHAsset]) -> Void in
+      // User cancelled. And this where the assets currently selected.
+    }, finish: { (assets: [PHAsset]) -> Void in
+      // User finished with these assets
+}, completion: nil)
 ```
 
 ## Requirements
