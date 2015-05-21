@@ -57,6 +57,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "doneButtonPressed:")
     }()
     private var doneBarButtonTitle: String?
+    private var isVisible = true
     
     private lazy var bundle: NSBundle? = {
         // Get path for BSImagePicker bundle
@@ -147,6 +148,19 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         
         // Set navigation controller delegate
         navigationController?.delegate = self
+    }
+    
+    // MARK: Appear/Disappear
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        isVisible = true
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        isVisible = false
     }
     
     // MARK: Button actions
@@ -263,7 +277,6 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     }
     
     func popoverPresentationControllerShouldDismissPopover(popoverPresentationController: UIPopoverPresentationController) -> Bool {
-        
         return true
     }
     
@@ -289,6 +302,14 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     }
     
     // MARK: UICollectionViewDelegate
+    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return isVisible
+    }
+    
+    override func collectionView(collectionView: UICollectionView, shouldDeselectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return isVisible
+    }
+    
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         // Select asset)
         photosDataSource?.selectableFetchResult.selectResult(atIndexPath: indexPath)
