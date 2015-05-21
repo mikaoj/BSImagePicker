@@ -92,9 +92,7 @@ public class ImagePickerViewController : UINavigationController {
             PHPhotoLibrary.requestAuthorization({ (status) -> Void in
                 self.updateViewControllerToStatus(status)
             })
-        default:
-            // TODO: Push some sad view
-            println("Nooo")
+        default: ()
         }
     }
 }

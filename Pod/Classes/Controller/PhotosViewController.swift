@@ -200,8 +200,10 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
                 options.synchronous = true
                 
                 // Load image for preview
-                PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: vc.imageView.frame.size, contentMode: .AspectFit, options: options) { (result, _) in
-                    vc.imageView?.image = result
+                if let imageView = vc.imageView {
+                    PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize:imageView.frame.size, contentMode: .AspectFit, options: options) { (result, _) in
+                        imageView.image = result
+                    }
                 }
                 
                 // Setup animation

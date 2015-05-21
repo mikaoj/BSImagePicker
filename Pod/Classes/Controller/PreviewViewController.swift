@@ -23,7 +23,8 @@
 import UIKit
 
 internal class PreviewViewController : UIViewController {
-    internal var imageView: UIImageView!
+    internal var imageView: UIImageView?
+    private var fullscreen = false
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -31,12 +32,56 @@ internal class PreviewViewController : UIViewController {
         view.backgroundColor = UIColor.whiteColor()
         
         imageView = UIImageView(frame: view.bounds)
-        imageView.contentMode = .ScaleAspectFit
-        imageView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
-        view.addSubview(imageView)
+        imageView?.contentMode = .ScaleAspectFit
+        imageView?.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        view.addSubview(imageView!)
+        
+        let tapRecognizer = UITapGestureRecognizer()
+        tapRecognizer.numberOfTapsRequired = 1
+        tapRecognizer.addTarget(self, action: "toggleFullscreen")
+        view.addGestureRecognizer(tapRecognizer)
     }
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    override func loadView() {
+        super.loadView()
+    }
+    
+    func toggleFullscreen() {
+        fullscreen = !fullscreen
+        toggleNavigationBar()
+        toggleStatusBar()
+        toggleBackgroundColor()
+    }
+    
+    func toggleNavigationBar() {
+        navigationController?.setNavigationBarHidden(fullscreen, animated: true)
+    }
+    
+    func toggleStatusBar() {
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.setNeedsStatusBarAppearanceUpdate()
+        })
+    }
+    
+    func toggleBackgroundColor() {
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            let aColor: UIColor
+            
+            if self.fullscreen {
+                aColor = UIColor.blackColor()
+            } else {
+                aColor = UIColor.whiteColor()
+            }
+            
+            self.view.backgroundColor = aColor
+        })
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return fullscreen
     }
 }
