@@ -51,7 +51,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     
     private let expandAnimator = ZoomAnimator()
     private let shrinkAnimator = ZoomAnimator()
-    private let photosDataSource = PhotosDataSource()
+    private var photosDataSource: PhotosDataSource?
     private var albumsDataSource: AlbumsDataSource?
     private lazy var doneBarButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "doneButtonPressed:")
@@ -116,17 +116,19 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         albumsDataSource?.selectableFetchResult.selectResult(atIndexPath: NSIndexPath(forRow: 0, inSection: 0))
         albumsDataSource?.delegate = self
         
+        photosDataSource = PhotosDataSource()
+        
         // TODO: Break out into method. Is duplicated in didSelectTableView
         if let album = albumsDataSource?.selectableFetchResult.selectedAssets.first {
             // Update album title
             albumTitleView?.albumTitle = album.localizedTitle
             
             // Pass it on to photos data source
-            photosDataSource.fetchResultsForAsset(album)
+            photosDataSource?.fetchResultsForAsset(album)
         }
         
         // Hook up data source
-        photosDataSource.delegate = self
+        photosDataSource?.delegate = self
         collectionView?.dataSource = photosDataSource
         collectionView?.delegate = self
         
@@ -149,9 +151,9 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     
     // MARK: Button actions
     func cancelButtonPressed(sender: UIBarButtonItem) {
-        if let closure = cancelClosure {
+        if let closure = cancelClosure, let assets = photosDataSource?.selectableFetchResult.selectedAssets {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-                closure(assets: self.photosDataSource.selectableFetchResult.selectedAssets)
+                closure(assets: assets)
             })
         }
         
@@ -159,9 +161,9 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     }
     
     func doneButtonPressed(sender: UIBarButtonItem) {
-        if let closure = finishClosure {
+        if let closure = finishClosure, let assets = photosDataSource?.selectableFetchResult.selectedAssets {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-                closure(assets: self.photosDataSource.selectableFetchResult.selectedAssets)
+                closure(assets: assets)
             })
         }
         
@@ -192,7 +194,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
             let location = sender.locationInView(collectionView)
             let indexPath = collectionView?.indexPathForItemAtPoint(location)
             
-            if let vc = previewViewContoller, let indexPath = indexPath, let cell = collectionView?.cellForItemAtIndexPath(indexPath) as? PhotoCell, let asset = photosDataSource.selectableFetchResult.results[indexPath.section][indexPath.row] as? PHAsset {
+            if let vc = previewViewContoller, let indexPath = indexPath, let cell = collectionView?.cellForItemAtIndexPath(indexPath) as? PhotoCell, let asset = photosDataSource?.selectableFetchResult.results[indexPath.section][indexPath.row] as? PHAsset {
                 // Setup fetch options to be synchronous
                 let options = PHImageRequestOptions()
                 options.synchronous = true
@@ -221,7 +223,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        if let collectionViewFlowLayout = collectionViewLayout as? UICollectionViewFlowLayout, let collectionViewWidth = collectionView?.bounds.size.width {
+        if let collectionViewFlowLayout = collectionViewLayout as? UICollectionViewFlowLayout, let collectionViewWidth = collectionView?.bounds.size.width, photosDataSource = photosDataSource {
             let itemSpacing: CGFloat
             let cellsPerRow: CGFloat
             
@@ -277,7 +279,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
             albumTitleView?.albumTitle = album.localizedTitle
             
             // Pass it on to photos data source
-            photosDataSource.fetchResultsForAsset(album)
+            photosDataSource?.fetchResultsForAsset(album)
         }
         
         // Dismiss album selection
@@ -287,41 +289,43 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     // MARK: UICollectionViewDelegate
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         // Select asset)
-        photosDataSource.selectableFetchResult.selectResult(atIndexPath: indexPath)
+        photosDataSource?.selectableFetchResult.selectResult(atIndexPath: indexPath)
         
         // Set selection number
-        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCell {
-            cell.selectionNumber = photosDataSource.selectableFetchResult.selectedAssets.count
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCell, let count = photosDataSource?.selectableFetchResult.selectedAssets.count {
+            cell.selectionNumber = count
         }
         
         // Update done button
         updateDoneButton()
         
         // Call selection closure
-        if let closure = selectionClosure {
+        if let closure = selectionClosure, let asset = photosDataSource?.selectableFetchResult.results[indexPath.section][indexPath.row] as? PHAsset {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-                closure(asset: self.photosDataSource.selectableFetchResult.results[indexPath.section][indexPath.row] as! PHAsset)
+                closure(asset: asset)
             })
         }
     }
     
     override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         // Deselect asset
-        photosDataSource.selectableFetchResult.deselectResult(atIndexPath: indexPath)
+        photosDataSource?.selectableFetchResult.deselectResult(atIndexPath: indexPath)
         
         // Update done button
         updateDoneButton()
         
         // Reload selected cells to update their selection number
-        UIView.setAnimationsEnabled(false)
-        collectionView.reloadItemsAtIndexPaths(photosDataSource.selectableFetchResult.indexPathsForselectedAssets())
-        syncSelectionInDataSource(photosDataSource, withCollectionView: collectionView)
-        UIView.setAnimationsEnabled(true)
+        if let photosDataSource = photosDataSource {
+            UIView.setAnimationsEnabled(false)
+            collectionView.reloadItemsAtIndexPaths(photosDataSource.selectableFetchResult.indexPathsForselectedAssets())
+            syncSelectionInDataSource(photosDataSource, withCollectionView: collectionView)
+            UIView.setAnimationsEnabled(true)
+        }
         
         // Call deselection closure
-        if let closure = deselectionClosure {
+        if let closure = deselectionClosure, let asset = photosDataSource?.selectableFetchResult.results[indexPath.section][indexPath.row] as? PHAsset {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-                closure(asset: self.photosDataSource.selectableFetchResult.results[indexPath.section][indexPath.row] as! PHAsset)
+                closure(asset: asset)
             })
         }
     }
@@ -344,7 +348,9 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
                     }
                     
                     // Sync selection
-                    self.syncSelectionInDataSource(self.photosDataSource, withCollectionView: collectionView)
+                    if let photosDataSource = self.photosDataSource {
+                        self.syncSelectionInDataSource(photosDataSource, withCollectionView: collectionView)
+                    }
                 }
             } else if sender == self.albumsDataSource {
                 if incrementalChange {
@@ -363,35 +369,35 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     // MARK: Private helper methods
     func updateDoneButton() {
         // Get selection count
-        let selectedAssets = photosDataSource.selectableFetchResult.selectedAssets.count
-        
-        // Find right button
-        if let subViews = navigationController?.navigationBar.subviews {
-            for view in subViews {
-                if let btn = view as? UIButton where checkIfRightButtonItem(btn) {
-                    // Store original title if we havn't got it
-                    if doneBarButtonTitle == nil {
-                        doneBarButtonTitle = btn.titleForState(.Normal)
+        if let numberOfSelectedAssets = photosDataSource?.selectableFetchResult.selectedAssets.count {
+            // Find right button
+            if let subViews = navigationController?.navigationBar.subviews {
+                for view in subViews {
+                    if let btn = view as? UIButton where checkIfRightButtonItem(btn) {
+                        // Store original title if we havn't got it
+                        if doneBarButtonTitle == nil {
+                            doneBarButtonTitle = btn.titleForState(.Normal)
+                        }
+                        
+                        // Update title
+                        if numberOfSelectedAssets > 0 {
+                            btn.bs_setTitle("\(doneBarButtonTitle!) (\(numberOfSelectedAssets))", forState: .Normal, animated: false)
+                        } else {
+                            btn.bs_setTitle(doneBarButtonTitle!, forState: .Normal, animated: false)
+                        }
+                        
+                        // Stop loop
+                        break
                     }
-                    
-                    // Update title
-                    if selectedAssets > 0 {
-                        btn.bs_setTitle("\(doneBarButtonTitle!) (\(selectedAssets))", forState: .Normal, animated: false)
-                    } else {
-                        btn.bs_setTitle(doneBarButtonTitle!, forState: .Normal, animated: false)
-                    }
-                    
-                    // Stop loop
-                    break
                 }
             }
-        }
-        
-        // Enabled
-        if selectedAssets > 0 {
-            doneBarButton.enabled = true
-        } else {
-            doneBarButton.enabled = false
+            
+            // Enabled
+            if numberOfSelectedAssets > 0 {
+                doneBarButton.enabled = true
+            } else {
+                doneBarButton.enabled = false
+            }
         }
     }
     

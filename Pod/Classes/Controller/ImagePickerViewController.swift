@@ -24,38 +24,10 @@ import UIKit
 import Photos
 
 public class ImagePickerViewController : UINavigationController {
-    internal var selectionClosure: ((asset: PHAsset) -> Void)? {
-        set {
-            photosViewController.selectionClosure = newValue
-        }
-        get {
-            return photosViewController.selectionClosure
-        }
-    }
-    internal var deselectionClosure: ((asset: PHAsset) -> Void)? {
-        set {
-            photosViewController.deselectionClosure = newValue
-        }
-        get {
-            return photosViewController.deselectionClosure
-        }
-    }
-    internal var cancelClosure: ((assets: [PHAsset]) -> Void)? {
-        set {
-            photosViewController.cancelClosure = newValue
-        }
-        get {
-            return photosViewController.cancelClosure
-        }
-    }
-    internal var finishClosure: ((assets: [PHAsset]) -> Void)? {
-        set {
-            photosViewController.finishClosure = newValue
-        }
-        get {
-            return photosViewController.finishClosure
-        }
-    }
+    internal var selectionClosure: ((asset: PHAsset) -> Void)?
+    internal var deselectionClosure: ((asset: PHAsset) -> Void)?
+    internal var cancelClosure: ((assets: [PHAsset]) -> Void)?
+    internal var finishClosure: ((assets: [PHAsset]) -> Void)?
     
     internal lazy var photosViewController: PhotosViewController = {
         // Get path for BSImagePicker bundle
@@ -84,6 +56,45 @@ public class ImagePickerViewController : UINavigationController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self.viewControllers = [photosViewController]
+    }
+    
+    public override func loadView() {
+        super.loadView()
+        
+        view.backgroundColor = UIColor.whiteColor()
+    }
+    
+    public override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        updateViewControllerToStatus(PHPhotoLibrary.authorizationStatus())
+    }
+    
+    func updateViewControllerToStatus(status: PHAuthorizationStatus) {
+        switch status {
+        case .Authorized:
+            // Sync and clear closures
+            photosViewController.selectionClosure = selectionClosure
+            photosViewController.deselectionClosure = deselectionClosure
+            photosViewController.cancelClosure = cancelClosure
+            photosViewController.finishClosure = finishClosure
+            selectionClosure = nil
+            deselectionClosure = nil
+            cancelClosure = nil
+            finishClosure = nil
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                self.viewControllers = []
+                self.pushViewController(self.photosViewController, animated: false)
+            })
+            
+        case .NotDetermined:
+            PHPhotoLibrary.requestAuthorization({ (status) -> Void in
+                self.updateViewControllerToStatus(status)
+            })
+        default:
+            // TODO: Push some sad view
+            println("Nooo")
+        }
     }
 }
