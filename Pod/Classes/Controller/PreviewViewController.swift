@@ -41,7 +41,7 @@ internal class PreviewViewController : UIViewController {
         tapRecognizer.addTarget(self, action: "toggleFullscreen")
         view.addGestureRecognizer(tapRecognizer)
     }
-
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -52,9 +52,11 @@ internal class PreviewViewController : UIViewController {
     
     func toggleFullscreen() {
         fullscreen = !fullscreen
-        toggleNavigationBar()
-        toggleStatusBar()
-        toggleBackgroundColor()
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.toggleNavigationBar()
+            self.toggleStatusBar()
+            self.toggleBackgroundColor()
+        })
     }
     
     func toggleNavigationBar() {
@@ -62,23 +64,19 @@ internal class PreviewViewController : UIViewController {
     }
     
     func toggleStatusBar() {
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-            self.setNeedsStatusBarAppearanceUpdate()
-        })
+        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     func toggleBackgroundColor() {
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-            let aColor: UIColor
-            
-            if self.fullscreen {
-                aColor = UIColor.blackColor()
-            } else {
-                aColor = UIColor.whiteColor()
-            }
-            
-            self.view.backgroundColor = aColor
-        })
+        let aColor: UIColor
+        
+        if self.fullscreen {
+            aColor = UIColor.blackColor()
+        } else {
+            aColor = UIColor.whiteColor()
+        }
+        
+        self.view.backgroundColor = aColor
     }
     
     override func prefersStatusBarHidden() -> Bool {
