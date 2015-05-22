@@ -152,6 +152,12 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     }
     
     // MARK: Appear/Disappear
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        updateDoneButton()
+    }
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
