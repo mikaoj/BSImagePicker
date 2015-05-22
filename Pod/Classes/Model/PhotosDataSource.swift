@@ -53,6 +53,7 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        UIView.setAnimationsEnabled(false)
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(photoCellIdentifier, forIndexPath: indexPath) as! PhotoCell
         
         if cell.tag != 0 {
@@ -73,6 +74,8 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
                 cell.selected = false
             }
         }
+        
+        UIView.setAnimationsEnabled(true)
         
         return cell
     }

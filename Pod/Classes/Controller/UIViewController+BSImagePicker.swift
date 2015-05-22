@@ -24,6 +24,17 @@ import UIKit
 import Photos
 
 public extension UIViewController {
+    /**
+        Present a given image picker with closures, any of the closures can be nil.
+    
+        :param: imagePicker a BSImagePickerViewController to present
+        :param: animated To animate the presentation or not
+        :param: select Closure to call when user selects an asset or nil
+        :param: deselect Closure to call when user deselects an asset or nil
+        :param: cancel Closure to call when user cancels or nil
+        :param: finish Closure to call when user finishes or nil
+        :param: completion presentation completed closure or nil
+    */
     func bs_presentImagePickerController(imagePicker: BSImagePickerViewController, animated: Bool, select: ((asset: PHAsset) -> Void)?, deselect: ((asset: PHAsset) -> Void)?, cancel: (([PHAsset]) -> Void)?, finish: (([PHAsset]) -> Void)?, completion: (() -> Void)?) {
         // Set blocks
         imagePicker.selectionClosure = select

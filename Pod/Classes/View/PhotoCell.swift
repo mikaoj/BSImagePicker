@@ -43,9 +43,10 @@ internal class PhotoCell: UICollectionViewCell {
         }
         
         set {
+            let hasChanged = selected != newValue
             super.selected = newValue
             
-            if UIView.areAnimationsEnabled() {
+            if UIView.areAnimationsEnabled() && hasChanged {
                 UIView.animateWithDuration(NSTimeInterval(0.1), animations: { () -> Void in
                     // Set alpha for views
                     self.updateAlpha(newValue)
