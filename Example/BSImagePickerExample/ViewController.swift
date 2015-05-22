@@ -27,7 +27,7 @@ import Photos
 class ViewController: UIViewController {
     
     @IBAction func showImagePicker(sender: UIButton) {
-        let vc = ImagePickerViewController()
+        let vc = BSImagePickerViewController()
         
         bs_presentImagePickerController(vc, animated: true,
             select: { (asset: PHAsset) -> Void in

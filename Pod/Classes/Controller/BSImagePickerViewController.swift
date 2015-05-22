@@ -23,7 +23,7 @@
 import UIKit
 import Photos
 
-public class ImagePickerViewController : UINavigationController {
+public class BSImagePickerViewController : UINavigationController {
     internal var selectionClosure: ((asset: PHAsset) -> Void)?
     internal var deselectionClosure: ((asset: PHAsset) -> Void)?
     internal var cancelClosure: ((assets: [PHAsset]) -> Void)?

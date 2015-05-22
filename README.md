@@ -15,7 +15,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 To use it in you own project
 ###### Objective-C
 ```objc
-ImagePickerViewController *imagePicker = [ImagePickerViewController new];
+BSImagePickerViewController *imagePicker = [BSImagePickerViewController new];
 
 // Present image picker. Any of the blocks can be nil
 [self bs_presentImagePickerController:imagePicker
@@ -34,7 +34,7 @@ ImagePickerViewController *imagePicker = [ImagePickerViewController new];
 ```
 ###### Swift
 ```swift
-let vc = ImagePickerViewController()
+let vc = BSImagePickerViewController()
 
 bs_presentImagePickerController(vc, animated: true,
     select: { (asset: PHAsset) -> Void in
