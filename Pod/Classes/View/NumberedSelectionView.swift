@@ -67,26 +67,23 @@ import UIKit
         checkedOvalPath.stroke()
         
         //// Bezier Drawing (Picture Number)
-        // TODO: Handle > 9
-        if (pictureNumber < 10) {
-            CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
-            let text = String(pictureNumber)
-            let font = UIFont.boldSystemFontOfSize(13.0)
-            let textAttributes: [NSObject: AnyObject] = [NSFontAttributeName: font]
-            let size = text.sizeWithAttributes(textAttributes)
-            
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineBreakMode = .ByTruncatingTail
-            paragraphStyle.alignment = .Center
-            let drawAttributes: [NSObject: AnyObject] = [
-                NSFontAttributeName: font,
-                NSParagraphStyleAttributeName: paragraphStyle,
-                NSForegroundColorAttributeName: UIColor.whiteColor()
-            ]
-            text.drawInRect(CGRectMake(CGRectGetMidX(checkmarkFrame) - size.width / 2.0,
-                CGRectGetMidY(checkmarkFrame) - size.height / 2.0,
-                size.width,
-                size.height), withAttributes: drawAttributes)
-        }
+        CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
+        let text = String(pictureNumber)
+        let font = UIFont.boldSystemFontOfSize(10.0)
+        let textAttributes: [NSObject: AnyObject] = [NSFontAttributeName: font]
+        let size = text.sizeWithAttributes(textAttributes)
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .ByTruncatingTail
+        paragraphStyle.alignment = .Center
+        let drawAttributes: [NSObject: AnyObject] = [
+            NSFontAttributeName: font,
+            NSParagraphStyleAttributeName: paragraphStyle,
+            NSForegroundColorAttributeName: UIColor.whiteColor()
+        ]
+        text.drawInRect(CGRectMake(CGRectGetMidX(checkmarkFrame) - size.width / 2.0,
+            CGRectGetMidY(checkmarkFrame) - size.height / 2.0,
+            size.width,
+            size.height), withAttributes: drawAttributes)
     }
 }
