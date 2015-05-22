@@ -373,8 +373,9 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
                         collectionView.insertItemsAtIndexPaths(insert)
                         collectionView.reloadItemsAtIndexPaths(change)
                     } else {
-                        // Reload
-                        collectionView.reloadSections(NSIndexSet(index: 0))
+                        // Reload & scroll to top if significant change
+                        collectionView.reloadData()
+                        collectionView.scrollToItemAtIndexPath(NSIndexPath(forItem: 0, inSection: 0), atScrollPosition: .None, animated: false)
                     }
                     
                     // Sync selection
