@@ -1,61 +1,72 @@
-![alt text](https://cloud.githubusercontent.com/assets/4034956/4519852/caadef06-4ccd-11e4-98f3-287ad6ee05db.gif "Demo gif")
+# BSImagePicker
+(build is failing because travis doesn't like Swift 1.2)<br />
+[![CI Status](http://img.shields.io/travis/Joakim Gyllstrom/BSImagePicker.svg?style=flat)](https://travis-ci.org/Joakim Gyllstrom/BSImagePicker)
+[![Version](https://img.shields.io/cocoapods/v/BSImagePicker.svg?style=flat)](http://cocoapods.org/pods/BSImagePicker)
+[![License](https://img.shields.io/cocoapods/l/BSImagePicker.svg?style=flat)](http://cocoapods.org/pods/BSImagePicker)
+[![Platform](https://img.shields.io/cocoapods/p/BSImagePicker.svg?style=flat)](http://cocoapods.org/pods/BSImagePicker)
 
-A mix between the native iOS 7 gallery and facebooks image picker.
+![alt text](https://raw.githubusercontent.com/mikaoj/BSImagePicker/develop/Misc/Gif/demo.gif "Demo gif")
 
-# Install
-## Pod
-Put this into your Podfile:
-```shell
-pod 'BSImagePicker', '~> 0.7'
-```
-# Use
-Import header
+A mix between the native iOS 8 gallery and facebooks image picker.
+
+## Usage
+
+To run the example project, clone the repo, and run `pod install` from the Example directory first.<br />
+To use it in you own project
+###### Objective-C
 ```objc
-#import <BSImagePickerController/BSImagePickerController.h>
+BSImagePickerViewController *imagePicker = [BSImagePickerViewController new];
+
+// Present image picker. Any of the blocks can be nil
+[self bs_presentImagePickerController:imagePicker
+                             animated:YES
+                               select:^(PHAsset * __nonnull asset) {
+                                 // User selected an asset.
+                                 // Do something with it, start upload perhaps?
+                               } deselect:^(PHAsset * __nonnull asset) {
+                                 // User deselected an assets.
+                                 // Do something, cancel upload?
+                               } cancel:^(NSArray * __nonnull assets) {
+                                 // User cancelled. And this where the assets currently selected.
+                               } finish:^(NSArray * __nonnull assets) {
+                                 // User finished with these assets
+                               } completion:nil];
+```
+###### Swift
+```swift
+let vc = BSImagePickerViewController()
+
+bs_presentImagePickerController(vc, animated: true,
+    select: { (asset: PHAsset) -> Void in
+      // User selected an asset.
+      // Do something with it, start upload perhaps?
+    }, deselect: { (asset: PHAsset) -> Void in
+      // User deselected an assets.
+      // Do something, cancel upload?
+    }, cancel: { (assets: [PHAsset]) -> Void in
+      // User cancelled. And this where the assets currently selected.
+    }, finish: { (assets: [PHAsset]) -> Void in
+      // User finished with these assets
+}, completion: nil)
 ```
 
-Present the image picker from a view controller
-```objc
-[self presentImagePickerController:anImagePicker
-                          animated:YES
-                        completion:nil
-                            toggle:^(ALAsset *asset, BOOL select) {
-                                if(select) {
-                                    NSLog(@"Image selected");
-                                } else {
-                                    NSLog(@"Image deselected");
-                                }
-                            }
-                            cancel:^(NSArray *assets) {
-                                NSLog(@"User canceled...!");
-                            } finish:^(NSArray *assets) {
-                                NSLog(@"User finished :)!");
-                            }];
-```
-All blocks are optional and can be nil, so you could for an instance just handle the finish case if you wanted. Why the toggle block then? Well, in my case I use it for starting image upload to give the apperance of a faster upload (many times it has already finished when user presses done.
-* Toggle get called with an ALAsset and a BOOL indicating if it was selected or deselected.
-* cancel gets called when the user cancels. It will have an array of ALAssets (if any).
-* finish gets called when the user finishes. It will have an array of ALAssets (if any).
+## Requirements
 
-Blocks are always called on the main thread.
+iOS 8
 
-### Customize (see BSImagePickerController.h)
-* You can disable previews by setting previewDisabled to YES.
-* Setting keepSelection to YES will keep your image selection after dismissing the controller.
-* Set maximumNumberOfImages to a value to limit selection to a certain number of images.
-* Set itemSize to change the size of photos and albums.
-* Tint color will change colors on buttons, album checkmark and photo checkmark.
-* Navigation bar tint color will also affect the album view.
-* Navigation bar foreground color will also affect text color in album cells.
+## Installation
 
-##### Example
-This will give you a dark picker
-```objc
-[anImagePicker.view setTintColor:[UIColor redColor]];
-[anImagePicker.navigationBar setBarTintColor:[UIColor blackColor]];
-[anImagePicker.view setBackgroundColor:[UIColor blackColor]];
-[anImagePicker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+BSImagePicker is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```ruby
+pod "BSImagePicker"
 ```
 
-# License
-MIT License (see LICENSE file)
+## Author
+
+Joakim Gyllström, joakim@backslashed.se
+
+## License
+
+BSImagePicker is available under the MIT license. See the LICENSE file for more info.
