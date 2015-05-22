@@ -24,6 +24,8 @@ import UIKit
 import Photos
 
 public class BSImagePickerViewController : UINavigationController {
+    public var maxNumberOfSelections = Int.max
+    
     internal var selectionClosure: ((asset: PHAsset) -> Void)?
     internal var deselectionClosure: ((asset: PHAsset) -> Void)?
     internal var cancelClosure: ((assets: [PHAsset]) -> Void)?
@@ -74,6 +76,7 @@ public class BSImagePickerViewController : UINavigationController {
         switch status {
         case .Authorized:
             // Sync and clear closures
+            photosViewController.maxNumberOfSelections = maxNumberOfSelections
             photosViewController.selectionClosure = selectionClosure
             photosViewController.deselectionClosure = deselectionClosure
             photosViewController.cancelClosure = cancelClosure
