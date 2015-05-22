@@ -1,11 +1,11 @@
 # BSImagePicker
 (build is failing because travis doesn't like Swift 1.2)<br />
-[![CI Status](http://img.shields.io/travis/Joakim Gyllstrom/BSImagePicker.svg?style=flat)](https://travis-ci.org/Joakim Gyllstrom/BSImagePicker)
+[![CI Status](http://img.shields.io/travis/mikaoj/BSImagePicker.svg?style=flat)](https://travis-ci.org/Joakim Gyllstrom/BSImagePicker)
 [![Version](https://img.shields.io/cocoapods/v/BSImagePicker.svg?style=flat)](http://cocoapods.org/pods/BSImagePicker)
 [![License](https://img.shields.io/cocoapods/l/BSImagePicker.svg?style=flat)](http://cocoapods.org/pods/BSImagePicker)
 [![Platform](https://img.shields.io/cocoapods/p/BSImagePicker.svg?style=flat)](http://cocoapods.org/pods/BSImagePicker)
 
-![alt text](https://raw.githubusercontent.com/mikaoj/BSImagePicker/develop/Misc/Gif/demo.gif "Demo gif")
+![alt text](Misc/Gif/demo.gif "Demo gif")
 
 A mix between the native iOS 8 gallery and facebooks image picker.
 
