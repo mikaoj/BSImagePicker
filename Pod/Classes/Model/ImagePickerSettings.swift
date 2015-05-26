@@ -32,23 +32,3 @@ public protocol BSImagePickerSettings {
     
     var maxNumberOfSelections: Int {get set}
 }
-
-internal class ImagePickerSettings : BSImagePickerSettings {
-    var selectionClosure: ((asset: PHAsset) -> Void)?
-    var deselectionClosure: ((asset: PHAsset) -> Void)?
-    var cancelClosure: ((assets: [PHAsset]) -> Void)?
-    var finishClosure: ((assets: [PHAsset]) -> Void)?
-    
-    var maxNumberOfSelections = Int.max
-    
-    static let sharedSettings = ImagePickerSettings()
-    
-    func reset() {
-        selectionClosure = nil
-        deselectionClosure = nil
-        cancelClosure = nil
-        finishClosure = nil
-        
-        maxNumberOfSelections = Int.max
-    }
-}
