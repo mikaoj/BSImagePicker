@@ -47,12 +47,10 @@ public class BSImagePickerViewController : UINavigationController, BSImagePicker
 
     required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        ImagePickerSettings.sharedSettings.reset()
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        ImagePickerSettings.sharedSettings.reset()
     }
     
     public override func loadView() {
@@ -88,43 +86,43 @@ public class BSImagePickerViewController : UINavigationController, BSImagePicker
     // MARK: ImagePickerSettings proxy
     public var selectionClosure: ((asset: PHAsset) -> Void)? {
         get {
-            return ImagePickerSettings.sharedSettings.selectionClosure
+            return photosViewController.selectionClosure
         }
         set {
-            ImagePickerSettings.sharedSettings.selectionClosure = newValue
+            photosViewController.selectionClosure = newValue
         }
     }
     public var deselectionClosure: ((asset: PHAsset) -> Void)? {
         get {
-            return ImagePickerSettings.sharedSettings.deselectionClosure
+            return photosViewController.deselectionClosure
         }
         set {
-            ImagePickerSettings.sharedSettings.deselectionClosure = newValue
+            photosViewController.deselectionClosure = newValue
         }
     }
     public var cancelClosure: ((assets: [PHAsset]) -> Void)? {
         get {
-            return ImagePickerSettings.sharedSettings.cancelClosure
+            return photosViewController.cancelClosure
         }
         set {
-            ImagePickerSettings.sharedSettings.cancelClosure = newValue
+            photosViewController.cancelClosure = newValue
         }
     }
     public var finishClosure: ((assets: [PHAsset]) -> Void)? {
         get {
-            return ImagePickerSettings.sharedSettings.finishClosure
+            return photosViewController.finishClosure
         }
         set {
-            ImagePickerSettings.sharedSettings.finishClosure = newValue
+            photosViewController.finishClosure = newValue
         }
     }
     
     public var maxNumberOfSelections: Int {
         get {
-            return ImagePickerSettings.sharedSettings.maxNumberOfSelections
+            return photosViewController.maxNumberOfSelections
         }
         set {
-            ImagePickerSettings.sharedSettings.maxNumberOfSelections = newValue
+            photosViewController.maxNumberOfSelections = newValue
         }
     }
 }

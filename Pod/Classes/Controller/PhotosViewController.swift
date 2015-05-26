@@ -43,7 +43,13 @@ extension UIButton {
     }
 }
 
-internal class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, AssetsDelegate, UINavigationControllerDelegate {    
+internal class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, AssetsDelegate, UINavigationControllerDelegate, BSImagePickerSettings {
+    var selectionClosure: ((asset: PHAsset) -> Void)?
+    var deselectionClosure: ((asset: PHAsset) -> Void)?
+    var cancelClosure: ((assets: [PHAsset]) -> Void)?
+    var finishClosure: ((assets: [PHAsset]) -> Void)?
+    var maxNumberOfSelections = Int.max
+    
     private let expandAnimator = ZoomAnimator()
     private let shrinkAnimator = ZoomAnimator()
     private var photosDataSource: PhotosDataSource?
