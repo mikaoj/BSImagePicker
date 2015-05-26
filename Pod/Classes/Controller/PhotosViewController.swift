@@ -172,7 +172,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     
     // MARK: Button actions
     func cancelButtonPressed(sender: UIBarButtonItem) {
-        if let closure = ImagePickerSettings.sharedSettings.cancelClosure, let assets = photosDataSource?.selectableFetchResult.selectedAssets {
+        if let closure = cancelClosure, let assets = photosDataSource?.selectableFetchResult.selectedAssets {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
                 closure(assets: assets)
             })
@@ -182,7 +182,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     }
     
     func doneButtonPressed(sender: UIBarButtonItem) {
-        if let closure = ImagePickerSettings.sharedSettings.finishClosure, let assets = photosDataSource?.selectableFetchResult.selectedAssets {
+        if let closure = finishClosure, let assets = photosDataSource?.selectableFetchResult.selectedAssets {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
                 closure(assets: assets)
             })
@@ -330,7 +330,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         updateDoneButton()
         
         // Call selection closure
-        if let closure = ImagePickerSettings.sharedSettings.selectionClosure, let asset = photosDataSource?.selectableFetchResult.results[indexPath.section][indexPath.row] as? PHAsset {
+        if let closure = selectionClosure, let asset = photosDataSource?.selectableFetchResult.results[indexPath.section][indexPath.row] as? PHAsset {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
                 closure(asset: asset)
             })
@@ -353,7 +353,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         }
         
         // Call deselection closure
-        if let closure = ImagePickerSettings.sharedSettings.deselectionClosure, let asset = photosDataSource?.selectableFetchResult.results[indexPath.section][indexPath.row] as? PHAsset {
+        if let closure = deselectionClosure, let asset = photosDataSource?.selectableFetchResult.results[indexPath.section][indexPath.row] as? PHAsset {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
                 closure(asset: asset)
             })
