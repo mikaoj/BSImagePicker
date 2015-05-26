@@ -310,7 +310,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     
     // MARK: UICollectionViewDelegate
     override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return isVisible && photosDataSource?.selectableFetchResult.selectedAssets.count < ImagePickerSettings.sharedSettings.maxNumberOfSelections
+        return isVisible && photosDataSource?.selectableFetchResult.selectedAssets.count < maxNumberOfSelections
     }
     
     override func collectionView(collectionView: UICollectionView, shouldDeselectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
