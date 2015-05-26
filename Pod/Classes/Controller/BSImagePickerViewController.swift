@@ -69,15 +69,15 @@ public class BSImagePickerViewController : UINavigationController, BSImagePicker
         switch status {
         case .Authorized:
             // We are authorized. Push photos view controller
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.viewControllers = []
-                self.pushViewController(self.photosViewController, animated: false)
-            })
+            viewControllers = []
+            pushViewController(self.photosViewController, animated: false)
             
         case .NotDetermined:
             // Ask user for permission
             PHPhotoLibrary.requestAuthorization({ (status) -> Void in
-                self.updateViewControllerToStatus(status)
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.updateViewControllerToStatus(status)
+                })
             })
         default: ()
         }
