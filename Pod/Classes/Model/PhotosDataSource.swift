@@ -23,50 +23,58 @@
 import UIKit
 import Photos
 
-internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDelegate {
+internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDelegate, Selectable, PHPhotoLibraryChangeObserver {
     internal var imageSize: CGSize = CGSizeZero
     internal var delegate: AssetsDelegate?
-    internal var selectableFetchResult: SelectableAssetsModel<PHAsset> {
-        get {
-            return _selectableFetchResult
-        }
+    internal subscript (idx: Int) -> PHFetchResult {
+        return _assetsModel[idx]
     }
     
     private let photoCellIdentifier = "photoCellIdentifier"
     private let photosManager = PHCachingImageManager()
     private let imageContentMode: PHImageContentMode = .AspectFill
-    private var _selectableFetchResult: SelectableAssetsModel<PHAsset>
+    private var _assetsModel: AssetsModel<PHAsset>
     
     override init() {
-        _selectableFetchResult = SelectableAssetsModel<PHAsset>(fetchResult: [])
+        _assetsModel = AssetsModel(fetchResult: [])
         
         super.init()
+        
+        PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
+    }
+    
+    deinit {
+        PHPhotoLibrary.sharedPhotoLibrary().unregisterChangeObserver(self)
     }
     
     // MARK: UICollectionViewDatasource
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return selectableFetchResult.results.count
+        return _assetsModel.count
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return selectableFetchResult.results[section].count
+        return _assetsModel[section].count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         UIView.setAnimationsEnabled(false)
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(photoCellIdentifier, forIndexPath: indexPath) as! PhotoCell
         
+        // Cancel any pending image requests
         if cell.tag != 0 {
             photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
         }
         
-        if let asset = selectableFetchResult.results[indexPath.section][indexPath.row] as? PHAsset {
+        if let asset = _assetsModel[indexPath.section][indexPath.row] as? PHAsset {
+            cell.asset = asset
+            
+            // Request image
             cell.tag = Int(photosManager.requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
                 cell.imageView.image = result
                 })
             
             // Set selection number
-            if let index = find(selectableFetchResult.selectedAssets, asset) {
+            if let index = find(_assetsModel.selections(), asset) {
                 cell.selectionNumber = index + 1
                 cell.selected = true
             } else {
@@ -81,7 +89,7 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
     }
     
     // MARK: AssetsDelegate
-    func didUpdateAssets(sender: NSObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
+    func didUpdateAssets(sender: AnyObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
         self.delegate?.didUpdateAssets(self, incrementalChange: incrementalChange, insert: insert, delete: delete, change: change)
     }
 
@@ -93,11 +101,37 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
         fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
         
         let fetchResult = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
-        let temporarySelection = selectableFetchResult.selectedAssets
-        _selectableFetchResult = SelectableAssetsModel<PHAsset>(fetchResult: [fetchResult])
-        selectableFetchResult.delegate = self
-        selectableFetchResult.selectedAssets = temporarySelection
+        let temporarySelection = _assetsModel.selections()
+        _assetsModel = AssetsModel(fetchResult: [fetchResult])
+        _assetsModel.delegate = self
+        _assetsModel.setSelections(temporarySelection)
         
         delegate?.didUpdateAssets(self, incrementalChange: false, insert: [], delete: [], change: [])
+    }
+    
+    // MARK: Selectable
+    func selectObjectAtIndexPath(indexPath: NSIndexPath) {
+        _assetsModel.selectObjectAtIndexPath(indexPath)
+    }
+    
+    func deselectObjectAtIndexPath(indexPath: NSIndexPath) {
+        _assetsModel.deselectObjectAtIndexPath(indexPath)
+    }
+    
+    func selectionCount() -> Int {
+        return _assetsModel.selectionCount()
+    }
+    
+    func selectedIndexPaths() -> [NSIndexPath] {
+        return _assetsModel.selectedIndexPaths()
+    }
+    
+    func selections() -> [PHAsset] {
+        return _assetsModel.selections()
+    }
+    
+    // PHPhotoLibraryChangeObserver
+    func photoLibraryDidChange(changeInstance: PHChange!) {
+        _assetsModel.photoLibraryDidChange(changeInstance)
     }
 }
