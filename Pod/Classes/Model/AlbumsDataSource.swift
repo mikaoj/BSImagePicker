@@ -23,15 +23,10 @@
 import UIKit
 import Photos
 
-internal class AlbumsDataSource: NSObject, UITableViewDataSource, AssetsDelegate {
+internal class AlbumsDataSource: NSObject, UITableViewDataSource, AssetsDelegate, Selectable, PHPhotoLibraryChangeObserver {
     internal var delegate: AssetsDelegate?
-    internal var selectableFetchResult: SelectableAssetsModel<PHAssetCollection> {
-        get {
-            return _selectableFetchResult
-        }
-    }
     
-    private var _selectableFetchResult: SelectableAssetsModel<PHAssetCollection>
+    private var _assetsModel: AssetsModel<PHAssetCollection>
     private let albumCellIdentifier = "albumCell"
     
     override init() {
@@ -43,29 +38,35 @@ internal class AlbumsDataSource: NSObject, UITableViewDataSource, AssetsDelegate
         // Albums fetch result
         let albumResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
         
-        _selectableFetchResult = SelectableAssetsModel<PHAssetCollection>(fetchResult: [cameraRollResult, albumResult])
+        _assetsModel = AssetsModel(fetchResult: [cameraRollResult, albumResult])
         
         super.init()
+        
+        PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
+    }
+    
+    deinit {
+        PHPhotoLibrary.sharedPhotoLibrary().unregisterChangeObserver(self)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return selectableFetchResult.results.count
+        return _assetsModel.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return selectableFetchResult.results[section].count
+        return _assetsModel[section].count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(albumCellIdentifier, forIndexPath: indexPath) as! AlbumCell
         
         // Fetch album
-        if let album = selectableFetchResult.results[indexPath.section][indexPath.row] as? PHAssetCollection {
+        if let album = _assetsModel[indexPath.section][indexPath.row] as? PHAssetCollection {
             // Title
             cell.albumTitleLabel.text = album.localizedTitle
             
             // Selected
-            cell.selected = contains(selectableFetchResult.selectedAssets, album)
+            cell.selected = contains(_assetsModel.selections(), album)
             
             // Selection style
             cell.selectionStyle = .None
@@ -114,7 +115,37 @@ internal class AlbumsDataSource: NSObject, UITableViewDataSource, AssetsDelegate
     }
     
     // MARK: AssetsDelegate
-    func didUpdateAssets(sender: NSObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
+    func didUpdateAssets(sender: AnyObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
         delegate?.didUpdateAssets(self, incrementalChange: incrementalChange, insert: insert, delete: delete, change: change)
+    }
+    
+    // MARK: Selectable
+    func selectObjectAtIndexPath(indexPath: NSIndexPath) {
+        // Only 1 selection allowed, so clear old selection
+        _assetsModel.removeSelections()
+        
+        // Selection new object
+        _assetsModel.selectObjectAtIndexPath(indexPath)
+    }
+    
+    func deselectObjectAtIndexPath(indexPath: NSIndexPath) {
+        // No deselection allowed
+    }
+    
+    func selectionCount() -> Int {
+        return _assetsModel.selectionCount()
+    }
+    
+    func selectedIndexPaths() -> [NSIndexPath] {
+        return _assetsModel.selectedIndexPaths()
+    }
+    
+    func selections() -> [PHAssetCollection] {
+        return _assetsModel.selections()
+    }
+    
+    // MARK: PHPhotoLibraryChangeObserver
+    func photoLibraryDidChange(changeInstance: PHChange!) {
+        _assetsModel.photoLibraryDidChange(changeInstance)
     }
 }

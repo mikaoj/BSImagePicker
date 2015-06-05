@@ -1,4 +1,3 @@
-//
 // The MIT License (MIT)
 //
 // Copyright (c) 2015 Joakim Gyllström
@@ -21,14 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import Foundation
 import Photos
 
-public protocol BSImagePickerSettings {
-    var selectionClosure: ((asset: PHAsset) -> Void)? {get set}
-    var deselectionClosure: ((asset: PHAsset) -> Void)? {get set}
-    var cancelClosure: ((assets: [PHAsset]) -> Void)? {get set}
-    var finishClosure: ((assets: [PHAsset]) -> Void)? {get set}
+internal protocol Selectable {
+    typealias T
     
-    var maxNumberOfSelections: Int {get set}
+    func selectObjectAtIndexPath(indexPath: NSIndexPath)
+    func deselectObjectAtIndexPath(indexPath: NSIndexPath)
+    func selectionCount() -> Int
+    func selectedIndexPaths() -> [NSIndexPath]
+    func selections() -> [T]
 }
