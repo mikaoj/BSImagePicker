@@ -115,13 +115,13 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         
         // Setup albums data source
         albumsDataSource = AlbumsDataSource()
-        albumsDataSource?.selectableFetchResult.selectResult(atIndexPath: NSIndexPath(forRow: 0, inSection: 0))
+        albumsDataSource?.selectObjectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
         albumsDataSource?.delegate = self
         
         photosDataSource = PhotosDataSource()
         
         // TODO: Break out into method. Is duplicated in didSelectTableView
-        if let album = albumsDataSource?.selectableFetchResult.selectedAssets.first {
+        if let album = albumsDataSource?.selections().first {
             // Update album title
             albumTitleView?.albumTitle = album.localizedTitle
             
@@ -172,7 +172,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     
     // MARK: Button actions
     func cancelButtonPressed(sender: UIBarButtonItem) {
-        if let closure = cancelClosure, let assets = photosDataSource?.selectableFetchResult.selectedAssets {
+        if let closure = cancelClosure, let assets = photosDataSource?.selections() {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
                 closure(assets: assets)
             })
@@ -182,7 +182,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     }
     
     func doneButtonPressed(sender: UIBarButtonItem) {
-        if let closure = finishClosure, let assets = photosDataSource?.selectableFetchResult.selectedAssets {
+        if let closure = finishClosure, let assets = photosDataSource?.selections() {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
                 closure(assets: assets)
             })
@@ -215,7 +215,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
             let location = sender.locationInView(collectionView)
             let indexPath = collectionView?.indexPathForItemAtPoint(location)
             
-            if let vc = previewViewContoller, let indexPath = indexPath, let cell = collectionView?.cellForItemAtIndexPath(indexPath) as? PhotoCell, let asset = photosDataSource?.selectableFetchResult.results[indexPath.section][indexPath.row] as? PHAsset {
+            if let vc = previewViewContoller, let indexPath = indexPath, let cell = collectionView?.cellForItemAtIndexPath(indexPath) as? PhotoCell, let asset = cell.asset {
                 // Setup fetch options to be synchronous
                 let options = PHImageRequestOptions()
                 options.synchronous = true
@@ -289,14 +289,11 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     
     // MARK: UITableViewDelegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // Clear previous selection
-        albumsDataSource?.selectableFetchResult.selectedAssets.removeAll(keepCapacity: true)
-        
         // Update selected album
-        albumsDataSource?.selectableFetchResult.selectResult(atIndexPath: indexPath)
+        albumsDataSource?.selectObjectAtIndexPath(indexPath)
         
         // Notify photos data source
-        if let album = albumsDataSource?.selectableFetchResult.selectedAssets.first {
+        if let album = albumsDataSource?.selections().first {
             // Update album title
             albumTitleView?.albumTitle = album.localizedTitle
             
@@ -310,7 +307,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     
     // MARK: UICollectionViewDelegate
     override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return isVisible && photosDataSource?.selectableFetchResult.selectedAssets.count < maxNumberOfSelections
+        return isVisible && photosDataSource?.selectionCount() < maxNumberOfSelections
     }
     
     override func collectionView(collectionView: UICollectionView, shouldDeselectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -319,10 +316,10 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         // Select asset)
-        photosDataSource?.selectableFetchResult.selectResult(atIndexPath: indexPath)
+        photosDataSource?.selectObjectAtIndexPath(indexPath)
         
         // Set selection number
-        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCell, let count = photosDataSource?.selectableFetchResult.selectedAssets.count {
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCell, let count = photosDataSource?.selectionCount() {
             cell.selectionNumber = count
         }
         
@@ -330,7 +327,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         updateDoneButton()
         
         // Call selection closure
-        if let closure = selectionClosure, let asset = photosDataSource?.selectableFetchResult.results[indexPath.section][indexPath.row] as? PHAsset {
+        if let closure = selectionClosure, let asset = photosDataSource?[indexPath.section][indexPath.row] as? PHAsset {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
                 closure(asset: asset)
             })
@@ -339,7 +336,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     
     override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         // Deselect asset
-        photosDataSource?.selectableFetchResult.deselectResult(atIndexPath: indexPath)
+        photosDataSource?.deselectObjectAtIndexPath(indexPath)
         
         // Update done button
         updateDoneButton()
@@ -347,13 +344,13 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         // Reload selected cells to update their selection number
         if let photosDataSource = photosDataSource {
             UIView.setAnimationsEnabled(false)
-            collectionView.reloadItemsAtIndexPaths(photosDataSource.selectableFetchResult.indexPathsForselectedAssets())
+            collectionView.reloadItemsAtIndexPaths(photosDataSource.selectedIndexPaths())
             syncSelectionInDataSource(photosDataSource, withCollectionView: collectionView)
             UIView.setAnimationsEnabled(true)
         }
         
         // Call deselection closure
-        if let closure = deselectionClosure, let asset = photosDataSource?.selectableFetchResult.results[indexPath.section][indexPath.row] as? PHAsset {
+        if let closure = deselectionClosure, let asset = photosDataSource?[indexPath.section][indexPath.row] as? PHAsset {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
                 closure(asset: asset)
             })
@@ -361,11 +358,11 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     }
     
     // MARK: AssetsDelegate
-    func didUpdateAssets(sender: NSObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
+    func didUpdateAssets(sender: AnyObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath]) {
         // May come on a background thread, so dispatch to main
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             // Reload table view or collection view?
-            if sender == self.photosDataSource {
+            if let sender = sender as? PhotosDataSource {
                 if let collectionView = self.collectionView {
                     if incrementalChange {
                         // Update
@@ -383,7 +380,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
                         self.syncSelectionInDataSource(photosDataSource, withCollectionView: collectionView)
                     }
                 }
-            } else if sender == self.albumsDataSource {
+            } else if let sender = sender as? AlbumsDataSource {
                 if incrementalChange {
                     // Update
                     self.albumsViewController?.tableView?.deleteRowsAtIndexPaths(delete, withRowAnimation: .Automatic)
@@ -400,7 +397,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     // MARK: Private helper methods
     func updateDoneButton() {
         // Get selection count
-        if let numberOfSelectedAssets = photosDataSource?.selectableFetchResult.selectedAssets.count {
+        if let numberOfSelectedAssets = photosDataSource?.selectionCount() {
             // Find right button
             if let subViews = navigationController?.navigationBar.subviews {
                 for view in subViews {
@@ -461,7 +458,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     
     func syncSelectionInDataSource(dataSource: PhotosDataSource, withCollectionView collectionView: UICollectionView) {
         // Get indexpaths of selected assets
-        let indexPaths = dataSource.selectableFetchResult.indexPathsForselectedAssets()
+        let indexPaths = dataSource.selectedIndexPaths()
         
         // Loop through them and set them as selected in the collection view
         for indexPath in indexPaths {
