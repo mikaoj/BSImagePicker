@@ -74,7 +74,7 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
                 })
             
             // Set selection number
-            if let index = find(_assetsModel.selections(), asset) {
+            if let index = _assetsModel.selections().indexOf(asset) {
                 cell.selectionNumber = index + 1
                 cell.selected = true
             } else {
@@ -131,7 +131,7 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
     }
     
     // PHPhotoLibraryChangeObserver
-    func photoLibraryDidChange(changeInstance: PHChange!) {
+    func photoLibraryDidChange(changeInstance: PHChange) {
         _assetsModel.photoLibraryDidChange(changeInstance)
     }
 }

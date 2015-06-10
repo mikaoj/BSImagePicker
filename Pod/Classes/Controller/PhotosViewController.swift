@@ -37,13 +37,14 @@ extension UIButton {
         self.enabled = true
         self.setTitle(title, forState: state)
         self.layoutIfNeeded()
+        self.enabled = wasEnabled
         
         // Enable animations
         UIView.setAnimationsEnabled(true)
     }
 }
 
-internal class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, AssetsDelegate, UINavigationControllerDelegate, BSImagePickerSettings {
+internal class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, AssetsDelegate, UINavigationControllerDelegate, BSImagePickerSettings {
     var selectionClosure: ((asset: PHAsset) -> Void)?
     var deselectionClosure: ((asset: PHAsset) -> Void)?
     var cancelClosure: ((assets: [PHAsset]) -> Void)?
@@ -121,9 +122,9 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         photosDataSource = PhotosDataSource()
         
         // TODO: Break out into method. Is duplicated in didSelectTableView
-        if let album = albumsDataSource?.selections().first {
+        if let album = albumsDataSource?.selections().first, let albumTitle = album.localizedTitle {
             // Update album title
-            albumTitleView?.albumTitle = album.localizedTitle
+            albumTitleView?.albumTitle = albumTitle
             
             // Pass it on to photos data source
             photosDataSource?.fetchResultsForAsset(album)
@@ -268,7 +269,6 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
             collectionViewFlowLayout.minimumInteritemSpacing = itemSpacing
             collectionViewFlowLayout.minimumLineSpacing = itemSpacing
             
-            let test = collectionView?.bounds.size.width
             let width = (collectionViewWidth / cellsPerRow) - itemSpacing
             let height = width
             let itemSize =  CGSize(width: width, height: height)
@@ -293,9 +293,9 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         albumsDataSource?.selectObjectAtIndexPath(indexPath)
         
         // Notify photos data source
-        if let album = albumsDataSource?.selections().first {
+        if let album = albumsDataSource?.selections().first, let albumTitle = album.localizedTitle {
             // Update album title
-            albumTitleView?.albumTitle = album.localizedTitle
+            albumTitleView?.albumTitle = albumTitle
             
             // Pass it on to photos data source
             photosDataSource?.fetchResultsForAsset(album)
@@ -362,7 +362,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         // May come on a background thread, so dispatch to main
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             // Reload table view or collection view?
-            if let sender = sender as? PhotosDataSource {
+            if let _ = sender as? PhotosDataSource {
                 if let collectionView = self.collectionView {
                     if incrementalChange {
                         // Update
@@ -380,7 +380,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
                         self.syncSelectionInDataSource(photosDataSource, withCollectionView: collectionView)
                     }
                 }
-            } else if let sender = sender as? AlbumsDataSource {
+            } else if let _ = sender as? AlbumsDataSource {
                 if incrementalChange {
                     // Update
                     self.albumsViewController?.tableView?.deleteRowsAtIndexPaths(delete, withRowAnimation: .Automatic)
@@ -437,8 +437,8 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         
         if let rightButton = navigationItem.rightBarButtonItem {
             // Store previous values
-            var wasRightEnabled = rightButton.enabled
-            var wasButtonEnabled = btn.enabled
+            let wasRightEnabled = rightButton.enabled
+            let wasButtonEnabled = btn.enabled
             
             // Set a known state for both buttons
             rightButton.enabled = false

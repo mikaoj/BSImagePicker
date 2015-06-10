@@ -70,13 +70,13 @@ import UIKit
         CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
         let text = String(pictureNumber)
         let font = UIFont.boldSystemFontOfSize(10.0)
-        let textAttributes: [NSObject: AnyObject] = [NSFontAttributeName: font]
+        let textAttributes: [String: AnyObject] = [NSFontAttributeName: font]
         let size = text.sizeWithAttributes(textAttributes)
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .ByTruncatingTail
         paragraphStyle.alignment = .Center
-        let drawAttributes: [NSObject: AnyObject] = [
+        let drawAttributes: [String: AnyObject] = [
             NSFontAttributeName: font,
             NSParagraphStyleAttributeName: paragraphStyle,
             NSForegroundColorAttributeName: UIColor.whiteColor()

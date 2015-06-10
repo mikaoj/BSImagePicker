@@ -41,7 +41,7 @@ internal class AssetsModel<T: AnyEquatableObject> : Selectable {
     
     // MARK: PHPhotoLibraryChangeObserver
     func photoLibraryDidChange(changeInstance: PHChange!) {
-        for (index, fetchResult) in enumerate(_results) {
+        for (index, fetchResult) in _results.enumerate() {
             // Check if there are changes to our fetch result
             if let collectionChanges = changeInstance.changeDetailsForFetchResult(fetchResult) {
                 // Get the new fetch result
@@ -50,28 +50,17 @@ internal class AssetsModel<T: AnyEquatableObject> : Selectable {
                 // Replace old result
                 _results[index] = newResult
                 
-                // Sometimes the properties on PHFetchResultChangeDetail are nil
-                // Work around it for now
-                let incrementalChange = collectionChanges.hasIncrementalChanges && collectionChanges.removedIndexes != nil && collectionChanges.insertedIndexes != nil && collectionChanges.changedIndexes != nil
-                
-                let removedIndexPaths: [NSIndexPath]
-                let insertedIndexPaths: [NSIndexPath]
-                let changedIndexPaths: [NSIndexPath]
-                
-                if incrementalChange {
+                if let removedIndexes = collectionChanges.removedIndexes, let insertedIndexes = collectionChanges.insertedIndexes, let changedIndexes = collectionChanges.changedIndexes where collectionChanges.hasIncrementalChanges == true {
                     // Incremental change, tell delegate what has been deleted, inserted and changed
-                    removedIndexPaths = indexPathsFromIndexSet(collectionChanges.removedIndexes, inSection: index)
-                    insertedIndexPaths = indexPathsFromIndexSet(collectionChanges.insertedIndexes, inSection: index)
-                    changedIndexPaths = indexPathsFromIndexSet(collectionChanges.changedIndexes, inSection: index)
+                    let removedIndexPaths = indexPathsFromIndexSet(removedIndexes, inSection: index)
+                    let insertedIndexPaths = indexPathsFromIndexSet(insertedIndexes, inSection: index)
+                    let changedIndexPaths = indexPathsFromIndexSet(changedIndexes, inSection: index)
+                    
+                    // Notify delegate
+                    delegate?.didUpdateAssets(self, incrementalChange: true, insert: insertedIndexPaths, delete: removedIndexPaths, change: changedIndexPaths)
                 } else {
-                    // No incremental change. Set empty arrays
-                    removedIndexPaths = []
-                    insertedIndexPaths = []
-                    changedIndexPaths = []
+                    delegate?.didUpdateAssets(self, incrementalChange: false, insert: [], delete: [], change: [])
                 }
-                
-                // Notify delegate
-                delegate?.didUpdateAssets(self, incrementalChange: incrementalChange, insert: insertedIndexPaths, delete: removedIndexPaths, change: changedIndexPaths)
             }
         }
     }
@@ -89,13 +78,13 @@ internal class AssetsModel<T: AnyEquatableObject> : Selectable {
     
     // MARK: Selectable
     func selectObjectAtIndexPath(indexPath: NSIndexPath) {
-        if let object = _results[indexPath.section][indexPath.row] as? T where contains(_selections, object) == false {
+        if let object = _results[indexPath.section][indexPath.row] as? T where _selections.contains(object) == false {
             _selections.append(object)
         }
     }
     
     func deselectObjectAtIndexPath(indexPath: NSIndexPath) {
-        if let object = _results[indexPath.section][indexPath.row] as? T, let index = find(_selections, object) {
+        if let object = _results[indexPath.section][indexPath.row] as? T, let index = _selections.indexOf(object) {
             _selections.removeAtIndex(index)
         }
     }
@@ -108,7 +97,7 @@ internal class AssetsModel<T: AnyEquatableObject> : Selectable {
         var indexPaths: [NSIndexPath] = []
         
         for object in _selections {
-            for (resultIndex, fetchResult) in enumerate(_results) {
+            for (resultIndex, fetchResult) in _results.enumerate() {
                 let index = fetchResult.indexOfObject(object)
                 if index != NSNotFound {
                     let indexPath = NSIndexPath(forItem: index, inSection: resultIndex)
