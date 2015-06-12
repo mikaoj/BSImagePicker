@@ -21,11 +21,14 @@
 // SOFTWARE.
 
 import UIKit
+import Photos
 
 internal class PhotoCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var selectionOverlayView: UIView!
     @IBOutlet weak var numberedSelectionView: NumberedSelectionView!
+    
+    weak var asset: PHAsset?
     
     var selectionNumber: Int {
         get {
