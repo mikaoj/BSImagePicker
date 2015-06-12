@@ -23,30 +23,20 @@
 import Foundation
 import Photos
 
-internal protocol AssetsDelegate {
-    func didUpdateAssets(sender: NSObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath])
-}
-
-internal class AssetsModel : NSObject, PHPhotoLibraryChangeObserver {
+internal class AssetsModel<T: AnyEquatableObject> : Selectable {
     internal var delegate: AssetsDelegate?
-    internal var results: [PHFetchResult] {
-        get {
-            return _results
-        }
+    internal subscript (idx: Int) -> PHFetchResult {
+        return _results[idx]
+    }
+    internal var count: Int {
+        return _results.count
     }
     
+    private var _selections = [T]()
     private var _results: [PHFetchResult]
     
     required init(fetchResult aFetchResult: [PHFetchResult]) {
         _results = aFetchResult
-        
-        super.init()
-        
-        PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
-    }
-    
-    deinit {
-        PHPhotoLibrary.sharedPhotoLibrary().unregisterChangeObserver(self)
     }
     
     // MARK: PHPhotoLibraryChangeObserver
@@ -60,24 +50,28 @@ internal class AssetsModel : NSObject, PHPhotoLibraryChangeObserver {
                 // Replace old result
                 _results[index] = newResult
                 
-                let removedIndexes: [NSIndexPath]
-                let insertedIndexes: [NSIndexPath]
-                let changedIndexes: [NSIndexPath]
+                // Sometimes the properties on PHFetchResultChangeDetail are nil
+                // Work around it for now
+                let incrementalChange = collectionChanges.hasIncrementalChanges && collectionChanges.removedIndexes != nil && collectionChanges.insertedIndexes != nil && collectionChanges.changedIndexes != nil
                 
-                if collectionChanges.hasIncrementalChanges {
+                let removedIndexPaths: [NSIndexPath]
+                let insertedIndexPaths: [NSIndexPath]
+                let changedIndexPaths: [NSIndexPath]
+                
+                if incrementalChange {
                     // Incremental change, tell delegate what has been deleted, inserted and changed
-                    removedIndexes = indexPathsFromIndexSet(collectionChanges.removedIndexes, inSection: index)
-                    insertedIndexes = indexPathsFromIndexSet(collectionChanges.insertedIndexes, inSection: index)
-                    changedIndexes = indexPathsFromIndexSet(collectionChanges.changedIndexes, inSection: index)
+                    removedIndexPaths = indexPathsFromIndexSet(collectionChanges.removedIndexes, inSection: index)
+                    insertedIndexPaths = indexPathsFromIndexSet(collectionChanges.insertedIndexes, inSection: index)
+                    changedIndexPaths = indexPathsFromIndexSet(collectionChanges.changedIndexes, inSection: index)
                 } else {
                     // No incremental change. Set empty arrays
-                    removedIndexes = []
-                    insertedIndexes = []
-                    changedIndexes = []
+                    removedIndexPaths = []
+                    insertedIndexPaths = []
+                    changedIndexPaths = []
                 }
                 
                 // Notify delegate
-                delegate?.didUpdateAssets(self, incrementalChange: collectionChanges.hasIncrementalChanges, insert: insertedIndexes, delete: removedIndexes, change: changedIndexes)
+                delegate?.didUpdateAssets(self, incrementalChange: incrementalChange, insert: insertedIndexPaths, delete: removedIndexPaths, change: changedIndexPaths)
             }
         }
     }
@@ -91,5 +85,50 @@ internal class AssetsModel : NSObject, PHPhotoLibraryChangeObserver {
         }
         
         return indexPaths
+    }
+    
+    // MARK: Selectable
+    func selectObjectAtIndexPath(indexPath: NSIndexPath) {
+        if let object = _results[indexPath.section][indexPath.row] as? T where contains(_selections, object) == false {
+            _selections.append(object)
+        }
+    }
+    
+    func deselectObjectAtIndexPath(indexPath: NSIndexPath) {
+        if let object = _results[indexPath.section][indexPath.row] as? T, let index = find(_selections, object) {
+            _selections.removeAtIndex(index)
+        }
+    }
+    
+    func selectionCount() -> Int {
+        return _selections.count
+    }
+    
+    func selectedIndexPaths() -> [NSIndexPath] {
+        var indexPaths: [NSIndexPath] = []
+        
+        for object in _selections {
+            for (resultIndex, fetchResult) in enumerate(_results) {
+                let index = fetchResult.indexOfObject(object)
+                if index != NSNotFound {
+                    let indexPath = NSIndexPath(forItem: index, inSection: resultIndex)
+                    indexPaths.append(indexPath)
+                }
+            }
+        }
+        
+        return indexPaths
+    }
+    
+    func selections() -> [T] {
+        return _selections
+    }
+    
+    func setSelections(newSelections: [T]) {
+        _selections = newSelections
+    }
+    
+    func removeSelections() {
+        _selections.removeAll(keepCapacity: true)
     }
 }
