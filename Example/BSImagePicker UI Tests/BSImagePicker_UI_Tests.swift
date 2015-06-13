@@ -43,4 +43,33 @@ class BSImagePicker_UI_Tests: XCTestCase {
         
         XCTAssert(app.navigationBars.buttons["Done"].enabled == true, "1 image selected, done button should be enabled")
     }
+    
+    func testDoneButtonDisabledEfterDeselecting() {
+        let app = XCUIApplication()
+        app.buttons["Button"].tap()
+
+        let cells = app.windows.childrenMatchingType(.Unknown).elementAtIndex(0).childrenMatchingType(.Unknown).elementAtIndex(0).cells
+        
+        // Select & deselect
+        cells.elementAtIndex(0).tap()
+        cells.elementAtIndex(0).tap()
+        
+        XCTAssert(app.navigationBars.buttons["Done"].enabled == false, "No images selected, done button should be disabled")
+    }
+    
+    func testStillSelectedAfterPreview() {
+        let app = XCUIApplication()
+        app.buttons["Button"].tap()
+        
+        let cells = app.windows.childrenMatchingType(.Unknown).elementAtIndex(0).childrenMatchingType(.Unknown).elementAtIndex(0).cells
+        
+        let firstCell = cells.elementAtIndex(0)
+        firstCell.tap()
+        
+        cells.elementAtIndex(4).pressForDuration(1.1);
+        app.navigationBars.buttons["Back"].tap()
+        
+        let selectedCell = cells.elementMatchingPredicate(NSPredicate(format: "selected == true"))        
+        XCTAssert(selectedCell.exists)
+    }
 }
