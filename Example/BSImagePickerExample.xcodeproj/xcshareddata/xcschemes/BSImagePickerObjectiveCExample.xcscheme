@@ -52,6 +52,16 @@
                ReferencedContainer = "container:BSImagePickerExample.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "55A443071B2B9F8D003C0EEA"
+               BuildableName = "BSImagePicker UI Tests.xctest"
+               BlueprintName = "BSImagePicker UI Tests"
+               ReferencedContainer = "container:BSImagePickerExample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

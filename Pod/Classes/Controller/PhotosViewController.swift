@@ -410,6 +410,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
                         // Update title
                         if numberOfSelectedAssets > 0 {
                             btn.bs_setTitle("\(doneBarButtonTitle!) (\(numberOfSelectedAssets))", forState: .Normal, animated: false)
+                            btn.accessibilityLabel = doneBarButtonTitle
                         } else {
                             btn.bs_setTitle(doneBarButtonTitle!, forState: .Normal, animated: false)
                         }
