@@ -8,7 +8,7 @@ cache: cocoapods
 podfile: Example/Podfile
 before_install:
  - gem install cocoapods --no-rdoc --no-ri --no-document # Since Travis is not always on latest version
- - pod install --project-directory=Example
+ - pod update --project-directory=Example
 install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
 script:
