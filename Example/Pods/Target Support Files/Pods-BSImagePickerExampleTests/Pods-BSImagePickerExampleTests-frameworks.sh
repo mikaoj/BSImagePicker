@@ -49,11 +49,9 @@ code_sign() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'BSImagePicker.framework'
-  install_framework 'FBSnapshotTestCase.framework'
   install_framework 'UIImageViewModeScaleAspect.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'BSImagePicker.framework'
-  install_framework 'FBSnapshotTestCase.framework'
   install_framework 'UIImageViewModeScaleAspect.framework'
 fi
