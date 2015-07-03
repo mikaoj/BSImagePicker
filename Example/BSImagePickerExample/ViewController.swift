@@ -33,6 +33,7 @@ class ViewController: UIViewController {
         vc.albumButton.tintColor = UIColor.greenColor()
         vc.cancelButton.tintColor = UIColor.redColor()
         vc.doneButton.tintColor = UIColor.purpleColor()
+        vc.selectionCharacter = "✓"
         
         bs_presentImagePickerController(vc, animated: true,
             select: { (asset: PHAsset) -> Void in

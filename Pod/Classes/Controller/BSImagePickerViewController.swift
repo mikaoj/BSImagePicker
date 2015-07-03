@@ -143,4 +143,13 @@ public class BSImagePickerViewController : UINavigationController, BSImagePicker
             return photosViewController.albumButton
         }
     }
+    
+    public var selectionCharacter: Character? {
+        get {
+            return photosViewController.selectionCharacter
+        }
+        set {
+            photosViewController.selectionCharacter = newValue
+        }
+    }
 }

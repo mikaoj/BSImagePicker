@@ -29,6 +29,7 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
     internal subscript (idx: Int) -> PHFetchResult {
         return _assetsModel[idx]
     }
+    var selectionCharacter: Character?
     
     private let photoCellIdentifier = "photoCellIdentifier"
     private let photosManager = PHCachingImageManager()
@@ -75,10 +76,14 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
             
             // Set selection number
             if let index = find(_assetsModel.selections(), asset) {
-                cell.selectionString = String(index + 1)
+                if let character = selectionCharacter {
+                    cell.selectionString = String(character)
+                } else {
+                    cell.selectionString = String(index + 1)
+                }
+                
                 cell.selected = true
             } else {
-                cell.selectionString = String(0)
                 cell.selected = false
             }
         }
