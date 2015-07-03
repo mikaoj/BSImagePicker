@@ -22,14 +22,9 @@
 
 import UIKit
 import XCTest
-import FBSnapshotTestCase
 import BSImagePicker
 
-class ImagePickerViewTests: FBSnapshotTestCase {
-
-    override func setUp() {
-        super.setUp()
-    }
+class ImagePickerViewTests: XCTestCase {
     
     func testNothing() {
         XCTAssert(true, "add view tests")
