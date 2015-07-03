@@ -13,7 +13,5 @@ end
 
 target 'BSImagePickerExampleTests', :exclusive => true do
   pod "BSImagePicker", :path => "../"
-
-  pod 'FBSnapshotTestCase'
 end
 

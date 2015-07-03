@@ -22,21 +22,16 @@
 
 import UIKit
 
-@IBDesignable internal class NumberedSelectionView: UIView {
-    internal var pictureNumber: Int = 0 {
+@IBDesignable internal class SelectionView: UIView {
+    internal var selectionString: String = "" {
         didSet {
-            if pictureNumber != oldValue {
+            if selectionString != oldValue {
                 setNeedsDisplay()
             }
         }
     }
     
     override func drawRect(rect: CGRect) {
-        // Only draw numbers greater than 0
-        if pictureNumber < 1 {
-            return
-        }
-        
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
         
@@ -68,10 +63,9 @@ import UIKit
         
         //// Bezier Drawing (Picture Number)
         CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
-        let text = String(pictureNumber)
         let font = UIFont.boldSystemFontOfSize(10.0)
         let textAttributes: [NSObject: AnyObject] = [NSFontAttributeName: font]
-        let size = text.sizeWithAttributes(textAttributes)
+        let size = selectionString.sizeWithAttributes(textAttributes)
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .ByTruncatingTail
@@ -81,7 +75,7 @@ import UIKit
             NSParagraphStyleAttributeName: paragraphStyle,
             NSForegroundColorAttributeName: UIColor.whiteColor()
         ]
-        text.drawInRect(CGRectMake(CGRectGetMidX(checkmarkFrame) - size.width / 2.0,
+        selectionString.drawInRect(CGRectMake(CGRectGetMidX(checkmarkFrame) - size.width / 2.0,
             CGRectGetMidY(checkmarkFrame) - size.height / 2.0,
             size.width,
             size.height), withAttributes: drawAttributes)

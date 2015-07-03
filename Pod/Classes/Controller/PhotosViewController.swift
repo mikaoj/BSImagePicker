@@ -332,7 +332,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         
         // Set selection number
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCell, let count = photosDataSource?.selectionCount() {
-            cell.selectionNumber = count
+            cell.selectionString = String(count)
         }
         
         // Update done button
