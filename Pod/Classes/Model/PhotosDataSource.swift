@@ -75,10 +75,10 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
             
             // Set selection number
             if let index = find(_assetsModel.selections(), asset) {
-                cell.selectionNumber = index + 1
+                cell.selectionString = String(index + 1)
                 cell.selected = true
             } else {
-                cell.selectionNumber = 0
+                cell.selectionString = String(0)
                 cell.selected = false
             }
         }

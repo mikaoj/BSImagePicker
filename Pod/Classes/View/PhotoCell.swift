@@ -26,17 +26,17 @@ import Photos
 internal class PhotoCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var selectionOverlayView: UIView!
-    @IBOutlet weak var numberedSelectionView: NumberedSelectionView!
+    @IBOutlet weak var selectionView: SelectionView!
     
     weak var asset: PHAsset?
     
-    var selectionNumber: Int {
+    var selectionString: String {
         get {
-            return numberedSelectionView.pictureNumber
+            return selectionView.selectionString
         }
         
         set {
-            numberedSelectionView.pictureNumber = newValue
+            selectionView.selectionString = newValue
         }
     }
     
@@ -70,10 +70,10 @@ internal class PhotoCell: UICollectionViewCell {
     
     private func updateAlpha(selected: Bool) {
         if selected == true {
-            self.numberedSelectionView.alpha = 1.0
+            self.selectionView.alpha = 1.0
             self.selectionOverlayView.alpha = 0.3
         } else {
-            self.numberedSelectionView.alpha = 0.0
+            self.selectionView.alpha = 0.0
             self.selectionOverlayView.alpha = 0.0
         }
     }

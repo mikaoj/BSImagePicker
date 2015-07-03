@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E17e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LMO-LS-VM1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="LMO-LS-VM1">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
@@ -33,7 +33,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ybD-Wz-CPT" customClass="NumberedSelectionView" customModule="BSImagePicker">
+                                        <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ybD-Wz-CPT" customClass="SelectionView" customModule="BSImagePicker">
                                             <rect key="frame" x="71" y="71" width="25" height="25"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -58,8 +58,8 @@
                                 </constraints>
                                 <connections>
                                     <outlet property="imageView" destination="9Dy-87-LZo" id="wr1-lN-u6M"/>
-                                    <outlet property="numberedSelectionView" destination="ybD-Wz-CPT" id="cZw-hE-VTx"/>
                                     <outlet property="selectionOverlayView" destination="F1c-31-W0b" id="aBM-SU-WQt"/>
+                                    <outlet property="selectionView" destination="ybD-Wz-CPT" id="Z1P-YG-ng5"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
