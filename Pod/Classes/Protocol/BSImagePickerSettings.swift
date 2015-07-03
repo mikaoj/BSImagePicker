@@ -62,4 +62,9 @@ public protocol BSImagePickerSettings {
     Album button
     */
     var albumButton: UIButton { get }
+    
+    /**
+    Character to use for selection. If nil, selection number will be used
+    */
+    var selectionCharacter: Character? { get set }
 }

@@ -65,6 +65,11 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
             return albumTitleView.albumButton
         }
     }
+    var selectionCharacter: Character? {
+        didSet {
+            photosDataSource?.selectionCharacter = selectionCharacter
+        }
+    }
     
     private let expandAnimator = ZoomAnimator()
     private let shrinkAnimator = ZoomAnimator()
@@ -131,6 +136,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         albumsDataSource?.delegate = self
         
         photosDataSource = PhotosDataSource()
+        photosDataSource?.selectionCharacter = selectionCharacter
         
         // TODO: Break out into method. Is duplicated in didSelectTableView
         if let album = albumsDataSource?.selections().first {
@@ -332,7 +338,11 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         
         // Set selection number
         if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCell, let count = photosDataSource?.selectionCount() {
-            cell.selectionString = String(count)
+            if let selectionCharacter = selectionCharacter {
+                cell.selectionString = String(selectionCharacter)
+            } else {
+                cell.selectionString = String(count)
+            }
         }
         
         // Update done button
