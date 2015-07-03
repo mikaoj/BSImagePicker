@@ -26,6 +26,26 @@ import Photos
 
 class ViewController: UIViewController {
     
+    @IBAction func showCustomImagePicker(sender: UIButton) {
+        let vc = BSImagePickerViewController()
+        vc.maxNumberOfSelections = 6
+        
+        vc.albumButton.tintColor = UIColor.greenColor()
+        vc.cancelButton.tintColor = UIColor.redColor()
+        vc.doneButton.tintColor = UIColor.purpleColor()
+        
+        bs_presentImagePickerController(vc, animated: true,
+            select: { (asset: PHAsset) -> Void in
+                println("Selected: \(asset)")
+            }, deselect: { (asset: PHAsset) -> Void in
+                println("Deselected: \(asset)")
+            }, cancel: { (assets: [PHAsset]) -> Void in
+                println("Cancel: \(assets)")
+            }, finish: { (assets: [PHAsset]) -> Void in
+                println("Finish: \(assets)")
+            }, completion: nil)
+    }
+    
     @IBAction func showImagePicker(sender: UIButton) {
         let vc = BSImagePickerViewController()
         vc.maxNumberOfSelections = 6
