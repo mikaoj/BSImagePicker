@@ -6,9 +6,9 @@ Pod::Spec.new do |s|
   A mix between the native iOS 8 gallery and facebooks image picker. Allows you to preview and select multiple images.
                        DESC
   s.homepage         = "https://github.com/mikaoj/BSImagePicker"
-  s.screenshots = ["https://raw.githubusercontent.com/mikaoj/BSImagePicker/develop/Misc/Screenshots/select_portrait.png",
-                   "https://raw.githubusercontent.com/mikaoj/BSImagePicker/develop/Misc/Screenshots/album_portrait.png",
-                   "https://raw.githubusercontent.com/mikaoj/BSImagePicker/develop/Misc/Screenshots/preview_portrait.png"]
+  s.screenshots = ["https://raw.githubusercontent.com/mikaoj/BSImagePicker/master/Misc/Screenshots/select_portrait.png",
+                   "https://raw.githubusercontent.com/mikaoj/BSImagePicker/master/Misc/Screenshots/album_portrait.png",
+                   "https://raw.githubusercontent.com/mikaoj/BSImagePicker/master/Misc/Screenshots/preview_portrait.png"]
   s.license          = 'MIT'
   s.author           = { "Joakim Gyllstrom" => "joakim@backslashed.se" }
   s.source           = { :git => "https://github.com/mikaoj/BSImagePicker.git", :tag => s.version.to_s }
