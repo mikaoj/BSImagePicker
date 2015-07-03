@@ -125,4 +125,22 @@ public class BSImagePickerViewController : UINavigationController, BSImagePicker
             photosViewController.maxNumberOfSelections = newValue
         }
     }
+    
+    public var cancelButton: UIBarButtonItem {
+        get {
+            return photosViewController.cancelButton
+        }
+    }
+    
+    public var doneButton: UIBarButtonItem {
+        get {
+            return photosViewController.doneButton
+        }
+    }
+    
+    public var albumButton: UIButton {
+        get {
+            return photosViewController.albumButton
+        }
+    }
 }

@@ -23,10 +23,43 @@
 import Photos
 
 public protocol BSImagePickerSettings {
+    /**
+    Closure that gets called on every selection.
+    */
     var selectionClosure: ((asset: PHAsset) -> Void)? {get set}
+    
+    /**
+    Closure that gets called on every deselection.
+    */
     var deselectionClosure: ((asset: PHAsset) -> Void)? {get set}
+    
+    /**
+    Closure that gets called when user cancels.
+    */
     var cancelClosure: ((assets: [PHAsset]) -> Void)? {get set}
+    
+    /**
+    Closure that gets called when user finishes.
+    */
     var finishClosure: ((assets: [PHAsset]) -> Void)? {get set}
     
+    /**
+    Max number of images user can select
+    */
     var maxNumberOfSelections: Int {get set}
+    
+    /**
+    Cancel button
+    */
+    var cancelButton: UIBarButtonItem { get }
+    
+    /**
+    Done button
+    */
+    var doneButton: UIBarButtonItem { get }
+    
+    /**
+    Album button
+    */
+    var albumButton: UIButton { get }
 }
