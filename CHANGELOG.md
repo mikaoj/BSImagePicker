@@ -1,3 +1,7 @@
+# 1.1.0
+* Exposed cancel, album and done buttons for you to customize
+* selectionCharacter property that you can set if you don’t want the numbered selection
+
 # 1.0.1
 * Fixed a crash with an IUO in the Photos framework
 
