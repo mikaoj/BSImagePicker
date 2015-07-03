@@ -44,11 +44,27 @@ extension UIButton {
 }
 
 internal class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, AssetsDelegate, UINavigationControllerDelegate, BSImagePickerSettings {
+    // MARK: BSImagePickerSettings
     var selectionClosure: ((asset: PHAsset) -> Void)?
     var deselectionClosure: ((asset: PHAsset) -> Void)?
     var cancelClosure: ((assets: [PHAsset]) -> Void)?
     var finishClosure: ((assets: [PHAsset]) -> Void)?
     var maxNumberOfSelections = Int.max
+    var cancelButton: UIBarButtonItem {
+        get {
+            return cancelBarButton
+        }
+    }
+    var doneButton: UIBarButtonItem {
+        get {
+            return doneBarButton
+        }
+    }
+    var albumButton: UIButton {
+        get {
+            return albumTitleView.albumButton
+        }
+    }
     
     private let expandAnimator = ZoomAnimator()
     private let shrinkAnimator = ZoomAnimator()
@@ -57,28 +73,24 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     private lazy var doneBarButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "doneButtonPressed:")
     }()
+    private lazy var cancelBarButton: UIBarButtonItem = {
+       return UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelButtonPressed:")
+    }()
     private var doneBarButtonTitle: String?
     private var isVisible = true
     
-    private lazy var bundle: NSBundle? = {
+    private lazy var bundle: NSBundle = {
         // Get path for BSImagePicker bundle
-        let bundlePath = NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")
-        let bundle: NSBundle?
-        
-        // Load bundle
-        if let bundlePath = bundlePath {
-            bundle = NSBundle(path: bundlePath)
-        } else {
-            bundle = nil
-        }
-        
-        return bundle
+        // Forcefull unwraps on purpose, if these aren't present the code wouldn't work as it should anyways
+        // So I'll accept the crash in that case :)
+        let bundlePath = NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")!
+        return NSBundle(path: bundlePath)!
     }()
     
-    private lazy var albumTitleView: AlbumTitleView? = {
-        let albumTitleView = self.bundle?.loadNibNamed("AlbumTitleView", owner: self, options: nil).first as? AlbumTitleView
+    private lazy var albumTitleView: AlbumTitleView = {
+        let albumTitleView = self.bundle.loadNibNamed("AlbumTitleView", owner: self, options: nil).first as! AlbumTitleView
         
-        albumTitleView?.albumButton.addTarget(self, action: "albumButtonPressed:", forControlEvents: .TouchUpInside)
+        albumTitleView.albumButton.addTarget(self, action: "albumButtonPressed:", forControlEvents: .TouchUpInside)
         
         return albumTitleView
     }()
@@ -123,7 +135,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         // TODO: Break out into method. Is duplicated in didSelectTableView
         if let album = albumsDataSource?.selections().first {
             // Update album title
-            albumTitleView?.albumTitle = album.localizedTitle
+            albumTitleView.albumTitle = album.localizedTitle
             
             // Pass it on to photos data source
             photosDataSource?.fetchResultsForAsset(album)
@@ -138,7 +150,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         collectionView?.allowsMultipleSelection = true
         
         // Add buttons
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelButtonPressed:")
+        navigationItem.leftBarButtonItem = cancelBarButton
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.titleView = albumTitleView
         
@@ -192,7 +204,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
     }
     
     func albumButtonPressed(sender: UIButton) {
-        if let albumsViewController = albumsViewController, let popVC = albumsViewController.popoverPresentationController, albumTitleView = albumTitleView {
+        if let albumsViewController = albumsViewController, let popVC = albumsViewController.popoverPresentationController {
             popVC.permittedArrowDirections = .Up
             popVC.sourceView = sender
             let senderRect = sender.convertRect(sender.frame, fromView: sender.superview)
@@ -295,7 +307,7 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         // Notify photos data source
         if let album = albumsDataSource?.selections().first {
             // Update album title
-            albumTitleView?.albumTitle = album.localizedTitle
+            albumTitleView.albumTitle = album.localizedTitle
             
             // Pass it on to photos data source
             photosDataSource?.fetchResultsForAsset(album)
