@@ -22,29 +22,45 @@
 
 import UIKit
 
-@IBDesignable internal class NumberedSelectionView: UIView {
-    internal var pictureNumber: Int = 0 {
+@IBDesignable internal class SelectionView: UIView {
+    var selectionString: String = "" {
         didSet {
-            if pictureNumber != oldValue {
+            if selectionString != oldValue {
                 setNeedsDisplay()
             }
         }
     }
     
-    override func drawRect(rect: CGRect) {
-        // Only draw numbers greater than 0
-        if pictureNumber < 1 {
-            return
-        }
+    var fillColor: UIColor!
+    var strokeColor: UIColor
+    var shadowColor: UIColor
+    lazy var textAttributes: [NSObject: AnyObject] = {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .ByTruncatingTail
+        paragraphStyle.alignment = .Center
+        return [
+            NSFontAttributeName: UIFont.boldSystemFontOfSize(10.0),
+            NSParagraphStyleAttributeName: paragraphStyle,
+            NSForegroundColorAttributeName: UIColor.whiteColor()
+        ]
+    }()
+
+    required init(coder aDecoder: NSCoder) {
+        strokeColor = UIColor.whiteColor()
+        shadowColor = UIColor.blackColor()
         
+        super.init(coder: aDecoder)
+        
+        fillColor = tintColor
+    }
+    
+    override func drawRect(rect: CGRect) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
         
         //// Color Declarations
-        let checkmarkBlue2 = tintColor
         
         //// Shadow Declarations
-        let shadow2 = UIColor.blackColor()
         let shadow2Offset = CGSize(width: 0.1, height: -0.1);
         let shadow2BlurRadius: CGFloat = 2.5;
         
@@ -57,33 +73,22 @@ import UIKit
         //// CheckedOval Drawing
         let checkedOvalPath = UIBezierPath(ovalInRect: CGRectMake(CGRectGetMinX(group) + floor(CGRectGetWidth(group) * 0.0 + 0.5), CGRectGetMinY(group) + floor(CGRectGetHeight(group) * 0.0 + 0.5), floor(CGRectGetWidth(group) * 1.0 + 0.5) - floor(CGRectGetWidth(group) * 0.0 + 0.5), floor(CGRectGetHeight(group) * 1.0 + 0.5) - floor(CGRectGetHeight(group) * 0.0 + 0.5)))
         CGContextSaveGState(context)
-        CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadow2.CGColor)
-        checkmarkBlue2.setFill()
+        CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadowColor.CGColor)
+        fillColor.setFill()
         checkedOvalPath.fill()
         CGContextRestoreGState(context)
         
-        UIColor.whiteColor().setStroke()
+        strokeColor.setStroke()
         checkedOvalPath.lineWidth = 1
         checkedOvalPath.stroke()
         
         //// Bezier Drawing (Picture Number)
         CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
-        let text = String(pictureNumber)
-        let font = UIFont.boldSystemFontOfSize(10.0)
-        let textAttributes: [NSObject: AnyObject] = [NSFontAttributeName: font]
-        let size = text.sizeWithAttributes(textAttributes)
-        
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = .ByTruncatingTail
-        paragraphStyle.alignment = .Center
-        let drawAttributes: [NSObject: AnyObject] = [
-            NSFontAttributeName: font,
-            NSParagraphStyleAttributeName: paragraphStyle,
-            NSForegroundColorAttributeName: UIColor.whiteColor()
-        ]
-        text.drawInRect(CGRectMake(CGRectGetMidX(checkmarkFrame) - size.width / 2.0,
+        let size = selectionString.sizeWithAttributes(textAttributes)
+
+        selectionString.drawInRect(CGRectMake(CGRectGetMidX(checkmarkFrame) - size.width / 2.0,
             CGRectGetMidY(checkmarkFrame) - size.height / 2.0,
             size.width,
-            size.height), withAttributes: drawAttributes)
+            size.height), withAttributes: textAttributes)
     }
 }
