@@ -23,26 +23,6 @@
 import UIKit
 import Photos
 
-// TODO: Handle no right to acces photos!
-// TODO: Put in separate file
-extension UIButton {
-    func bs_setTitle(title: String?, forState state: UIControlState, animated: Bool) {
-        // Store enabled
-        let wasEnabled = self.enabled
-        
-        // Disable/enable animations
-        UIView.setAnimationsEnabled(animated)
-        
-        // A little hack to set title without animation
-        self.enabled = true
-        self.setTitle(title, forState: state)
-        self.layoutIfNeeded()
-        
-        // Enable animations
-        UIView.setAnimationsEnabled(true)
-    }
-}
-
 internal class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, AssetsDelegate, UINavigationControllerDelegate {
     var selectionClosure: ((asset: PHAsset) -> Void)?
     var deselectionClosure: ((asset: PHAsset) -> Void)?
