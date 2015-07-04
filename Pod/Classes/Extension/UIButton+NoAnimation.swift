@@ -20,6 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+/**
+Extension on UIButton for settings the title without an animation
+*/
 extension UIButton {
     /**
     Sets title without an animation

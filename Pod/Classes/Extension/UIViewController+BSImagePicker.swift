@@ -23,6 +23,9 @@
 import UIKit
 import Photos
 
+/**
+Extension on UIViewController to simply presentation of BSImagePicker
+*/
 public extension UIViewController {
     /**
         Present a given image picker with closures, any of the closures can be nil.

@@ -20,19 +20,34 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import Foundation
 import Photos
 
+/**
+Bridge AnyObject and Equatable.
+TODO: When Swift 2 goes live, make this into a protocol extension
+*/
 protocol AnyEquatableObject : AnyObject, Equatable { }
 
+/**
+PHAsset Equatable
+*/
 extension PHAsset : AnyEquatableObject { }
 
+/**
+PHAsset Equatable
+*/
 public func ==(lhs: PHAsset, rhs: PHAsset) -> Bool {
     return lhs.isEqual(rhs)
 }
 
+/**
+PHAssetCollection Equatable
+*/
 extension PHAssetCollection : AnyEquatableObject { }
 
+/**
+PHAssetCollection Equatable
+*/
 public func ==(lhs: PHAssetCollection, rhs: PHAssetCollection) -> Bool {
     return lhs.isEqual(rhs)
 }

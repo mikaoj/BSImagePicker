@@ -23,6 +23,10 @@
 import UIKit
 import Photos
 
+/**
+BSImagePickerViewController.
+Use settings or buttons to customize it to your needs.
+*/
 public final class BSImagePickerViewController : UINavigationController, BSImagePickerSettings {
     private let settings = Settings()
     
@@ -89,6 +93,9 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     }
     
     // MARK: ImagePickerSettings proxy
+    /**
+    See BSImagePicketSettings for documentation
+    */
     public var maxNumberOfSelections: Int {
         get {
             return settings.maxNumberOfSelections
@@ -98,6 +105,9 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         }
     }
     
+    /**
+    See BSImagePicketSettings for documentation
+    */
     public var selectionCharacter: Character? {
         get {
             return settings.selectionCharacter
@@ -107,6 +117,9 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         }
     }
     
+    /**
+    See BSImagePicketSettings for documentation
+    */
     public var selectionFillColor: UIColor {
         get {
             return settings.selectionFillColor
@@ -115,6 +128,10 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
             settings.selectionFillColor = newValue
         }
     }
+    
+    /**
+    See BSImagePicketSettings for documentation
+    */
     public var selectionStrokeColor: UIColor {
         get {
             return settings.selectionStrokeColor
@@ -123,6 +140,10 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
             settings.selectionStrokeColor = newValue
         }
     }
+    
+    /**
+    See BSImagePicketSettings for documentation
+    */
     public var selectionShadowColor: UIColor {
         get {
             return settings.selectionShadowColor
@@ -131,6 +152,10 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
             settings.selectionShadowColor = newValue
         }
     }
+    
+    /**
+    See BSImagePicketSettings for documentation
+    */
     public var selectionTextAttributes: [NSObject: AnyObject] {
         get {
             return settings.selectionTextAttributes
@@ -139,6 +164,10 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
             settings.selectionTextAttributes = newValue
         }
     }
+    
+    /**
+    See BSImagePicketSettings for documentation
+    */
     public var cellsPerRow: (verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int {
         get {
             return settings.cellsPerRow
@@ -149,18 +178,27 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     }
     
     // MARK: Buttons
+    /**
+    Cancel button
+    */
     public var cancelButton: UIBarButtonItem {
         get {
             return photosViewController.cancelBarButton
         }
     }
     
+    /**
+    Done button
+    */
     public var doneButton: UIBarButtonItem {
         get {
             return photosViewController.doneBarButton
         }
     }
     
+    /**
+    Album button
+    */
     public var albumButton: UIButton {
         get {
             return photosViewController.albumTitleView.albumButton
