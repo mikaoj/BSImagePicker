@@ -1,3 +1,7 @@
+# 1.3.0
+* Setting for cells per row
+* Performance tweaks (final classes)
+
 # 1.2.0
 * More settings for you to tweak (relating to selection)
 
