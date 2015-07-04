@@ -20,36 +20,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import Photos
+import Foundation
+import UIKit
 
-public protocol BSImagePickerSettings {
-    /**
-    Max number of images user can select
-    */
-    var maxNumberOfSelections: Int { get set }
-    
-    /**
-    Character to use for selection. If nil, selection number will be used
-    */
-    var selectionCharacter: Character? { get set }
-    
-    /**
-    Inner circle color
-    */
-    var selectionFillColor: UIColor { get set }
-    
-    /**
-    Outer circle color
-    */
-    var selectionStrokeColor: UIColor { get set }
-    
-    /**
-    Shadow color
-    */
-    var selectionShadowColor: UIColor { get set }
-    
-    /**
-    Attributes for text inside circle. Color, font, etc
-    */
-    var selectionTextAttributes: [NSObject: AnyObject] { get set }
+class Settings : BSImagePickerSettings {
+    var maxNumberOfSelections: Int = Int.max
+    var selectionCharacter: Character? = nil
+    var selectionFillColor: UIColor = UIView().tintColor
+    var selectionStrokeColor: UIColor = UIColor.whiteColor()
+    var selectionShadowColor: UIColor = UIColor.blackColor()
+    var selectionTextAttributes: [NSObject: AnyObject] = {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .ByTruncatingTail
+        paragraphStyle.alignment = .Center
+        return [
+            NSFontAttributeName: UIFont.boldSystemFontOfSize(10.0),
+            NSParagraphStyleAttributeName: paragraphStyle,
+            NSForegroundColorAttributeName: UIColor.whiteColor()
+        ]
+    }()
 }
