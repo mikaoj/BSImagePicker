@@ -29,14 +29,15 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
     internal subscript (idx: Int) -> PHFetchResult {
         return _assetsModel[idx]
     }
-    var selectionCharacter: Character?
     
     private let photoCellIdentifier = "photoCellIdentifier"
     private let photosManager = PHCachingImageManager()
     private let imageContentMode: PHImageContentMode = .AspectFill
     private var _assetsModel: AssetsModel<PHAsset>
+    private let settings: BSImagePickerSettings
     
-    override init() {
+    required init(settings: BSImagePickerSettings) {
+        self.settings = settings
         _assetsModel = AssetsModel(fetchResult: [])
         
         super.init()
@@ -60,6 +61,7 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         UIView.setAnimationsEnabled(false)
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(photoCellIdentifier, forIndexPath: indexPath) as! PhotoCell
+        cell.settings = settings
         
         // Cancel any pending image requests
         if cell.tag != 0 {
@@ -76,7 +78,7 @@ internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDe
             
             // Set selection number
             if let index = find(_assetsModel.selections(), asset) {
-                if let character = selectionCharacter {
+                if let character = settings.selectionCharacter {
                     cell.selectionString = String(character)
                 } else {
                     cell.selectionString = String(index + 1)
