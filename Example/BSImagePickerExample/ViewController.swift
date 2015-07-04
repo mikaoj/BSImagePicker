@@ -38,6 +38,18 @@ class ViewController: UIViewController {
         vc.selectionStrokeColor = UIColor.yellowColor()
         vc.selectionShadowColor = UIColor.redColor()
         vc.selectionTextAttributes[NSForegroundColorAttributeName] = UIColor.lightGrayColor()
+        vc.cellsPerRow = {(verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int in
+            switch (verticalSize, horizontalSize) {
+            case (.Compact, .Regular): // iPhone5-6 portrait
+                return 2
+            case (.Compact, .Compact): // iPhone5-6 landscape
+                return 2
+            case (.Regular, .Regular): // iPad portrait/landscape
+                return 3
+            default:
+                return 2
+            }
+        }
         
         bs_presentImagePickerController(vc, animated: true,
             select: { (asset: PHAsset) -> Void in
