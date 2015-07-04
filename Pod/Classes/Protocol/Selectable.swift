@@ -22,7 +22,7 @@
 
 import Photos
 
-internal protocol Selectable {
+protocol Selectable {
     typealias T
     
     func selectObjectAtIndexPath(indexPath: NSIndexPath)

@@ -22,7 +22,7 @@
 
 import UIKit
 
-internal class AlbumCell: UITableViewCell {
+final class AlbumCell: UITableViewCell {
     @IBOutlet weak var firstImageView: UIImageView!
     @IBOutlet weak var secondImageView: UIImageView!
     @IBOutlet weak var thirdImageView: UIImageView!

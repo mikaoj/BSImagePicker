@@ -23,8 +23,8 @@
 import UIKit
 import Photos
 
-internal class AlbumsDataSource: NSObject, UITableViewDataSource, AssetsDelegate, Selectable, PHPhotoLibraryChangeObserver {
-    internal var delegate: AssetsDelegate?
+final class AlbumsDataSource: NSObject, UITableViewDataSource, AssetsDelegate, Selectable, PHPhotoLibraryChangeObserver {
+    var delegate: AssetsDelegate?
     
     private var _assetsModel: AssetsModel<PHAssetCollection>
     private let albumCellIdentifier = "albumCell"
