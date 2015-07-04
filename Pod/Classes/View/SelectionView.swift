@@ -31,28 +31,7 @@ import UIKit
         }
     }
     
-    var fillColor: UIColor!
-    var strokeColor: UIColor
-    var shadowColor: UIColor
-    lazy var textAttributes: [NSObject: AnyObject] = {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = .ByTruncatingTail
-        paragraphStyle.alignment = .Center
-        return [
-            NSFontAttributeName: UIFont.boldSystemFontOfSize(10.0),
-            NSParagraphStyleAttributeName: paragraphStyle,
-            NSForegroundColorAttributeName: UIColor.whiteColor()
-        ]
-    }()
-
-    required init(coder aDecoder: NSCoder) {
-        strokeColor = UIColor.whiteColor()
-        shadowColor = UIColor.blackColor()
-        
-        super.init(coder: aDecoder)
-        
-        fillColor = tintColor
-    }
+    var settings: BSImagePickerSettings = Settings()
     
     override func drawRect(rect: CGRect) {
         //// General Declarations
@@ -73,22 +52,22 @@ import UIKit
         //// CheckedOval Drawing
         let checkedOvalPath = UIBezierPath(ovalInRect: CGRectMake(CGRectGetMinX(group) + floor(CGRectGetWidth(group) * 0.0 + 0.5), CGRectGetMinY(group) + floor(CGRectGetHeight(group) * 0.0 + 0.5), floor(CGRectGetWidth(group) * 1.0 + 0.5) - floor(CGRectGetWidth(group) * 0.0 + 0.5), floor(CGRectGetHeight(group) * 1.0 + 0.5) - floor(CGRectGetHeight(group) * 0.0 + 0.5)))
         CGContextSaveGState(context)
-        CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, shadowColor.CGColor)
-        fillColor.setFill()
+        CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, settings.selectionShadowColor.CGColor)
+        settings.selectionFillColor.setFill()
         checkedOvalPath.fill()
         CGContextRestoreGState(context)
         
-        strokeColor.setStroke()
+        settings.selectionStrokeColor.setStroke()
         checkedOvalPath.lineWidth = 1
         checkedOvalPath.stroke()
         
         //// Bezier Drawing (Picture Number)
         CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
-        let size = selectionString.sizeWithAttributes(textAttributes)
+        let size = selectionString.sizeWithAttributes(settings.selectionTextAttributes)
 
         selectionString.drawInRect(CGRectMake(CGRectGetMidX(checkmarkFrame) - size.width / 2.0,
             CGRectGetMidY(checkmarkFrame) - size.height / 2.0,
             size.width,
-            size.height), withAttributes: textAttributes)
+            size.height), withAttributes: settings.selectionTextAttributes)
     }
 }

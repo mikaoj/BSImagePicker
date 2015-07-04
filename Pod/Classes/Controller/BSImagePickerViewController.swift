@@ -24,6 +24,8 @@ import UIKit
 import Photos
 
 public class BSImagePickerViewController : UINavigationController, BSImagePickerSettings {
+    private let settings = Settings()
+    
     internal lazy var photosViewController: PhotosViewController = {
         // Get path for BSImagePicker bundle
         let bundlePath = NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")
@@ -38,7 +40,10 @@ public class BSImagePickerViewController : UINavigationController, BSImagePicker
         
         let storyboard = UIStoryboard(name: "Photos", bundle: bundle)
         
-        return storyboard.instantiateInitialViewController() as! PhotosViewController
+        let controller = storyboard.instantiateInitialViewController() as! PhotosViewController
+        controller.settings = self.settings
+        
+        return controller
     }()
     
     public convenience init() {
@@ -84,7 +89,78 @@ public class BSImagePickerViewController : UINavigationController, BSImagePicker
     }
     
     // MARK: ImagePickerSettings proxy
-    public var selectionClosure: ((asset: PHAsset) -> Void)? {
+    public var maxNumberOfSelections: Int {
+        get {
+            return settings.maxNumberOfSelections
+        }
+        set {
+            settings.maxNumberOfSelections = newValue
+        }
+    }
+    
+    public var selectionCharacter: Character? {
+        get {
+            return settings.selectionCharacter
+        }
+        set {
+            settings.selectionCharacter = newValue
+        }
+    }
+    
+    public var selectionFillColor: UIColor {
+        get {
+            return settings.selectionFillColor
+        }
+        set {
+            settings.selectionFillColor = newValue
+        }
+    }
+    public var selectionStrokeColor: UIColor {
+        get {
+            return settings.selectionStrokeColor
+        }
+        set {
+            settings.selectionStrokeColor = newValue
+        }
+    }
+    public var selectionShadowColor: UIColor {
+        get {
+            return settings.selectionShadowColor
+        }
+        set {
+            settings.selectionShadowColor = newValue
+        }
+    }
+    public var selectionTextAttributes: [NSObject: AnyObject] {
+        get {
+            return settings.selectionTextAttributes
+        }
+        set {
+            settings.selectionTextAttributes = newValue
+        }
+    }
+    
+    // MARK: Buttons
+    public var cancelButton: UIBarButtonItem {
+        get {
+            return photosViewController.cancelBarButton
+        }
+    }
+    
+    public var doneButton: UIBarButtonItem {
+        get {
+            return photosViewController.doneBarButton
+        }
+    }
+    
+    public var albumButton: UIButton {
+        get {
+            return photosViewController.albumTitleView.albumButton
+        }
+    }
+    
+    // MARK: Closures
+    var selectionClosure: ((asset: PHAsset) -> Void)? {
         get {
             return photosViewController.selectionClosure
         }
@@ -92,7 +168,7 @@ public class BSImagePickerViewController : UINavigationController, BSImagePicker
             photosViewController.selectionClosure = newValue
         }
     }
-    public var deselectionClosure: ((asset: PHAsset) -> Void)? {
+    var deselectionClosure: ((asset: PHAsset) -> Void)? {
         get {
             return photosViewController.deselectionClosure
         }
@@ -100,7 +176,7 @@ public class BSImagePickerViewController : UINavigationController, BSImagePicker
             photosViewController.deselectionClosure = newValue
         }
     }
-    public var cancelClosure: ((assets: [PHAsset]) -> Void)? {
+    var cancelClosure: ((assets: [PHAsset]) -> Void)? {
         get {
             return photosViewController.cancelClosure
         }
@@ -108,48 +184,12 @@ public class BSImagePickerViewController : UINavigationController, BSImagePicker
             photosViewController.cancelClosure = newValue
         }
     }
-    public var finishClosure: ((assets: [PHAsset]) -> Void)? {
+    var finishClosure: ((assets: [PHAsset]) -> Void)? {
         get {
             return photosViewController.finishClosure
         }
         set {
             photosViewController.finishClosure = newValue
-        }
-    }
-    
-    public var maxNumberOfSelections: Int {
-        get {
-            return photosViewController.maxNumberOfSelections
-        }
-        set {
-            photosViewController.maxNumberOfSelections = newValue
-        }
-    }
-    
-    public var cancelButton: UIBarButtonItem {
-        get {
-            return photosViewController.cancelButton
-        }
-    }
-    
-    public var doneButton: UIBarButtonItem {
-        get {
-            return photosViewController.doneButton
-        }
-    }
-    
-    public var albumButton: UIButton {
-        get {
-            return photosViewController.albumButton
-        }
-    }
-    
-    public var selectionCharacter: Character? {
-        get {
-            return photosViewController.selectionCharacter
-        }
-        set {
-            photosViewController.selectionCharacter = newValue
         }
     }
 }
