@@ -1,5 +1,5 @@
 PODS:
-  - BSImagePicker (1.1.0):
+  - BSImagePicker (1.2.0):
     - UIImageViewModeScaleAspect (~> 1.3)
   - UIImageViewModeScaleAspect (1.3)
 
@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BSImagePicker: a98ef7005706a81e6add312a284f334912e99e2f
+  BSImagePicker: 1d01eb10fbd1067ab1191fd3db28ce7b4727995b
   UIImageViewModeScaleAspect: ec78901acfc20d3782154111a21d34390f8f71ad
 
 COCOAPODS: 0.37.2

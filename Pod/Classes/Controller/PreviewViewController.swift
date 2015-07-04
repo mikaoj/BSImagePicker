@@ -22,8 +22,8 @@
 
 import UIKit
 
-internal class PreviewViewController : UIViewController {
-    internal var imageView: UIImageView?
+final class PreviewViewController : UIViewController {
+    var imageView: UIImageView?
     private var fullscreen = false
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {

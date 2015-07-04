@@ -20,14 +20,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import Photos
-
-protocol Selectable {
-    typealias T
-    
-    func selectObjectAtIndexPath(indexPath: NSIndexPath)
-    func deselectObjectAtIndexPath(indexPath: NSIndexPath)
-    func selectionCount() -> Int
-    func selectedIndexPaths() -> [NSIndexPath]
-    func selections() -> [T]
+extension UIButton {
+    /**
+    Sets title without an animation
+    :param: title The String to use as title
+    :param: forState Which state it applies to
+    */
+    func bs_setTitleWithoutAnimation(title: String?, forState state: UIControlState) {
+        // Store enabled
+        let wasEnabled = self.enabled
+        
+        // Disable/enable animations
+        UIView.setAnimationsEnabled(false)
+        
+        // A little hack to set title without animation
+        self.enabled = true
+        self.setTitle(title, forState: state)
+        self.layoutIfNeeded()
+        
+        // Enable animations
+        UIView.setAnimationsEnabled(true)
+    }
 }

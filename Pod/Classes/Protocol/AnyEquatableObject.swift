@@ -23,7 +23,7 @@
 import Foundation
 import Photos
 
-internal protocol AnyEquatableObject : AnyObject, Equatable { }
+protocol AnyEquatableObject : AnyObject, Equatable { }
 
 extension PHAsset : AnyEquatableObject { }
 
