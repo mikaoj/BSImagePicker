@@ -1,3 +1,6 @@
+# 1.2.0
+* More settings for you to tweak (relating to selection)
+
 # 1.1.0
 * Exposed cancel, album and done buttons for you to customize
 * selectionCharacter property that you can set if you don’t want the numbered selection
