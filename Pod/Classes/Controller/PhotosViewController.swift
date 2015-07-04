@@ -224,31 +224,14 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         super.traitCollectionDidChange(previousTraitCollection)
         
         if let collectionViewFlowLayout = collectionViewLayout as? UICollectionViewFlowLayout, let collectionViewWidth = collectionView?.bounds.size.width, photosDataSource = photosDataSource {
-            let itemSpacing: CGFloat
-            let cellsPerRow: CGFloat
-            
-            switch (traitCollection.verticalSizeClass, traitCollection.horizontalSizeClass) {
-            case (.Compact, .Regular): // iPhone5-6 portrait
-                itemSpacing = 1.0
-                cellsPerRow = 3.0
-            case (.Compact, .Compact): // iPhone5-6 landscape
-                itemSpacing = 1.0
-                cellsPerRow = 5.0
-            case (.Regular, .Regular): // iPad portrait/landscape
-                itemSpacing = 1.0
-                cellsPerRow = 7.0
-            default:
-                itemSpacing = 1.0
-                cellsPerRow = 3.0
-            }
+            let itemSpacing: CGFloat = 1.0
+            let cellsPerRow = settings.cellsPerRow(verticalSize: traitCollection.verticalSizeClass, horizontalSize: traitCollection.horizontalSizeClass)
             
             collectionViewFlowLayout.minimumInteritemSpacing = itemSpacing
             collectionViewFlowLayout.minimumLineSpacing = itemSpacing
             
-            let test = collectionView?.bounds.size.width
-            let width = (collectionViewWidth / cellsPerRow) - itemSpacing
-            let height = width
-            let itemSize =  CGSize(width: width, height: height)
+            let width = (collectionViewWidth / CGFloat(cellsPerRow)) - itemSpacing
+            let itemSize =  CGSize(width: width, height: width)
             
             collectionViewFlowLayout.itemSize = itemSize
             photosDataSource.imageSize = itemSize

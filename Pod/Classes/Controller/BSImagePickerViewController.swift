@@ -139,6 +139,14 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
             settings.selectionTextAttributes = newValue
         }
     }
+    public var cellsPerRow: (verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int {
+        get {
+            return settings.cellsPerRow
+        }
+        set {
+            settings.cellsPerRow = newValue
+        }
+    }
     
     // MARK: Buttons
     public var cancelButton: UIBarButtonItem {

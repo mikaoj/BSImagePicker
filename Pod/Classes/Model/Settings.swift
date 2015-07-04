@@ -23,7 +23,7 @@
 import Foundation
 import UIKit
 
-class Settings : BSImagePickerSettings {
+final class Settings : BSImagePickerSettings {
     var maxNumberOfSelections: Int = Int.max
     var selectionCharacter: Character? = nil
     var selectionFillColor: UIColor = UIView().tintColor
@@ -39,4 +39,16 @@ class Settings : BSImagePickerSettings {
             NSForegroundColorAttributeName: UIColor.whiteColor()
         ]
     }()
+    var cellsPerRow: (verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int = {(verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int in
+        switch (verticalSize, horizontalSize) {
+        case (.Compact, .Regular): // iPhone5-6 portrait
+            return 3
+        case (.Compact, .Compact): // iPhone5-6 landscape
+            return 5
+        case (.Regular, .Regular): // iPad portrait/landscape
+            return 7
+        default:
+            return 3
+        }
+    }
 }
