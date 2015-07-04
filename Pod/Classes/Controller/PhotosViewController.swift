@@ -23,7 +23,7 @@
 import UIKit
 import Photos
 
-internal class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, AssetsDelegate, UINavigationControllerDelegate {
+final class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, AssetsDelegate, UINavigationControllerDelegate {
     var selectionClosure: ((asset: PHAsset) -> Void)?
     var deselectionClosure: ((asset: PHAsset) -> Void)?
     var cancelClosure: ((assets: [PHAsset]) -> Void)?
@@ -390,9 +390,9 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
                         
                         // Update title
                         if numberOfSelectedAssets > 0 {
-                            btn.bs_setTitle("\(doneBarButtonTitle!) (\(numberOfSelectedAssets))", forState: .Normal, animated: false)
+                            btn.bs_setTitleWithoutAnimation("\(doneBarButtonTitle!) (\(numberOfSelectedAssets))", forState: .Normal)
                         } else {
-                            btn.bs_setTitle(doneBarButtonTitle!, forState: .Normal, animated: false)
+                            btn.bs_setTitleWithoutAnimation(doneBarButtonTitle!, forState: .Normal)
                         }
                         
                         // Stop loop

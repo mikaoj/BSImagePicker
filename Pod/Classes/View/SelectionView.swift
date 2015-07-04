@@ -22,7 +22,7 @@
 
 import UIKit
 
-@IBDesignable internal class SelectionView: UIView {
+@IBDesignable final class SelectionView: UIView {
     var selectionString: String = "" {
         didSet {
             if selectionString != oldValue {

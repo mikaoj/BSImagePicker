@@ -23,10 +23,10 @@
 import UIKit
 import Photos
 
-internal class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDelegate, Selectable, PHPhotoLibraryChangeObserver {
-    internal var imageSize: CGSize = CGSizeZero
-    internal var delegate: AssetsDelegate?
-    internal subscript (idx: Int) -> PHFetchResult {
+final class PhotosDataSource : NSObject, UICollectionViewDataSource, AssetsDelegate, Selectable, PHPhotoLibraryChangeObserver {
+    var imageSize: CGSize = CGSizeZero
+    var delegate: AssetsDelegate?
+    subscript (idx: Int) -> PHFetchResult {
         return _assetsModel[idx]
     }
     
