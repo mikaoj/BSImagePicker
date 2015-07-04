@@ -23,27 +23,7 @@
 import UIKit
 import Photos
 
-// TODO: Handle no right to acces photos!
-// TODO: Put in separate file
-extension UIButton {
-    func bs_setTitle(title: String?, forState state: UIControlState, animated: Bool) {
-        // Store enabled
-        let wasEnabled = self.enabled
-        
-        // Disable/enable animations
-        UIView.setAnimationsEnabled(animated)
-        
-        // A little hack to set title without animation
-        self.enabled = true
-        self.setTitle(title, forState: state)
-        self.layoutIfNeeded()
-        
-        // Enable animations
-        UIView.setAnimationsEnabled(true)
-    }
-}
-
-internal class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, AssetsDelegate, UINavigationControllerDelegate {
+final class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, AssetsDelegate, UINavigationControllerDelegate {
     var selectionClosure: ((asset: PHAsset) -> Void)?
     var deselectionClosure: ((asset: PHAsset) -> Void)?
     var cancelClosure: ((assets: [PHAsset]) -> Void)?
@@ -244,31 +224,14 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
         super.traitCollectionDidChange(previousTraitCollection)
         
         if let collectionViewFlowLayout = collectionViewLayout as? UICollectionViewFlowLayout, let collectionViewWidth = collectionView?.bounds.size.width, photosDataSource = photosDataSource {
-            let itemSpacing: CGFloat
-            let cellsPerRow: CGFloat
-            
-            switch (traitCollection.verticalSizeClass, traitCollection.horizontalSizeClass) {
-            case (.Compact, .Regular): // iPhone5-6 portrait
-                itemSpacing = 1.0
-                cellsPerRow = 3.0
-            case (.Compact, .Compact): // iPhone5-6 landscape
-                itemSpacing = 1.0
-                cellsPerRow = 5.0
-            case (.Regular, .Regular): // iPad portrait/landscape
-                itemSpacing = 1.0
-                cellsPerRow = 7.0
-            default:
-                itemSpacing = 1.0
-                cellsPerRow = 3.0
-            }
+            let itemSpacing: CGFloat = 1.0
+            let cellsPerRow = settings.cellsPerRow(verticalSize: traitCollection.verticalSizeClass, horizontalSize: traitCollection.horizontalSizeClass)
             
             collectionViewFlowLayout.minimumInteritemSpacing = itemSpacing
             collectionViewFlowLayout.minimumLineSpacing = itemSpacing
             
-            let test = collectionView?.bounds.size.width
-            let width = (collectionViewWidth / cellsPerRow) - itemSpacing
-            let height = width
-            let itemSize =  CGSize(width: width, height: height)
+            let width = (collectionViewWidth / CGFloat(cellsPerRow)) - itemSpacing
+            let itemSize =  CGSize(width: width, height: width)
             
             collectionViewFlowLayout.itemSize = itemSize
             photosDataSource.imageSize = itemSize
@@ -410,9 +373,9 @@ internal class PhotosViewController : UICollectionViewController, UIPopoverPrese
                         
                         // Update title
                         if numberOfSelectedAssets > 0 {
-                            btn.bs_setTitle("\(doneBarButtonTitle!) (\(numberOfSelectedAssets))", forState: .Normal, animated: false)
+                            btn.bs_setTitleWithoutAnimation("\(doneBarButtonTitle!) (\(numberOfSelectedAssets))", forState: .Normal)
                         } else {
-                            btn.bs_setTitle(doneBarButtonTitle!, forState: .Normal, animated: false)
+                            btn.bs_setTitleWithoutAnimation(doneBarButtonTitle!, forState: .Normal)
                         }
                         
                         // Stop loop

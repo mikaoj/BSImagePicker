@@ -23,10 +23,10 @@
 import UIKit
 import Photos
 
-public class BSImagePickerViewController : UINavigationController, BSImagePickerSettings {
+public final class BSImagePickerViewController : UINavigationController, BSImagePickerSettings {
     private let settings = Settings()
     
-    internal lazy var photosViewController: PhotosViewController = {
+    lazy var photosViewController: PhotosViewController = {
         // Get path for BSImagePicker bundle
         let bundlePath = NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")
         let bundle: NSBundle?
@@ -137,6 +137,14 @@ public class BSImagePickerViewController : UINavigationController, BSImagePicker
         }
         set {
             settings.selectionTextAttributes = newValue
+        }
+    }
+    public var cellsPerRow: (verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int {
+        get {
+            return settings.cellsPerRow
+        }
+        set {
+            settings.cellsPerRow = newValue
         }
     }
     

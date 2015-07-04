@@ -23,12 +23,12 @@
 import Foundation
 import Photos
 
-internal class AssetsModel<T: AnyEquatableObject> : Selectable {
-    internal var delegate: AssetsDelegate?
-    internal subscript (idx: Int) -> PHFetchResult {
+final class AssetsModel<T: AnyEquatableObject> : Selectable {
+    var delegate: AssetsDelegate?
+    subscript (idx: Int) -> PHFetchResult {
         return _results[idx]
     }
-    internal var count: Int {
+    var count: Int {
         return _results.count
     }
     
@@ -76,7 +76,6 @@ internal class AssetsModel<T: AnyEquatableObject> : Selectable {
         }
     }
     
-    // TODO: Extension on NSIndexSet?
     private func indexPathsFromIndexSet(indexSet: NSIndexSet, inSection section: Int) -> [NSIndexPath] {
         var indexPaths: [NSIndexPath] = []
         

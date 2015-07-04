@@ -22,12 +22,12 @@
 
 import UIKit
 
-internal class AlbumTitleView: UIView {
+final class AlbumTitleView: UIView {
     @IBOutlet weak var albumButton: UIButton!
     
     private var context = 0
     
-    internal var albumTitle = "" {
+    var albumTitle = "" {
         didSet {
             if let imageView = self.albumButton.imageView, let titleLabel = self.albumButton.titleLabel {
                 // Set title on button
@@ -52,7 +52,7 @@ internal class AlbumTitleView: UIView {
         albumButton.setImage(arrowDownImage, forState: .Normal)
     }
     
-    internal lazy var arrowDownImage: UIImage? = {
+    lazy var arrowDownImage: UIImage? = {
         // Get path for BSImagePicker bundle
         let bundlePath = NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")
         let bundle: NSBundle?

@@ -22,6 +22,6 @@
 
 import Foundation
 
-internal protocol AssetsDelegate {
+protocol AssetsDelegate {
     func didUpdateAssets(sender: AnyObject, incrementalChange: Bool, insert: [NSIndexPath], delete: [NSIndexPath], change: [NSIndexPath])
 }
