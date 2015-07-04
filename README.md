@@ -49,6 +49,12 @@ bs_presentImagePickerController(vc, animated: true,
 }, completion: nil)
 ```
 
+## Customization
+
+You have access to the cancel, album and done button. Customize them as you would with any other UIBarButtonItem (cancel & finish) or UIButton (album).<br />
+There are also a few other settings you can tweak.They are documented in BSImagePickerSettings.<br />
+[Documentation @ cocoadocs](http://cocoadocs.org/docsets/BSImagePicker/)
+
 ## Requirements
 
 iOS 8
@@ -59,7 +65,7 @@ BSImagePicker is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "BSImagePicker", "~> 1.1.0"
+pod "BSImagePicker", "~> 1.2.0"
 ```
 
 ## Author
