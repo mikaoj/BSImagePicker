@@ -22,6 +22,9 @@
 
 import Photos
 
+/**
+BSImagePicker settings. Tweaks these to make BSImagePicker fit your needs
+*/
 public protocol BSImagePickerSettings {
     /**
     Max number of images user can select
