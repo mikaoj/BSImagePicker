@@ -34,6 +34,10 @@ class ViewController: UIViewController {
         vc.cancelButton.tintColor = UIColor.redColor()
         vc.doneButton.tintColor = UIColor.purpleColor()
         vc.selectionCharacter = "✓"
+        vc.selectionFillColor = UIColor.blackColor()
+        vc.selectionStrokeColor = UIColor.yellowColor()
+        vc.selectionShadowColor = UIColor.redColor()
+        vc.selectionTextAttributes[NSForegroundColorAttributeName] = UIColor.lightGrayColor()
         
         bs_presentImagePickerController(vc, animated: true,
             select: { (asset: PHAsset) -> Void in

@@ -29,6 +29,14 @@ internal class PhotoCell: UICollectionViewCell {
     @IBOutlet weak var selectionView: SelectionView!
     
     weak var asset: PHAsset?
+    var settings: BSImagePickerSettings {
+        get {
+            return selectionView.settings
+        }
+        set {
+            selectionView.settings = newValue
+        }
+    }
     
     var selectionString: String {
         get {
