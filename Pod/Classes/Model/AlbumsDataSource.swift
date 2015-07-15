@@ -42,6 +42,9 @@ final class AlbumsDataSource: NSObject, UITableViewDataSource, AssetsDelegate, S
         
         super.init()
         
+        // Default to select camera roll
+        selectObjectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
+        
         PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
     }
     
