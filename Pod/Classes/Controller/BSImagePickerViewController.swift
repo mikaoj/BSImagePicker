@@ -31,7 +31,15 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     private let settings = Settings()
     
     lazy var photosViewController: PhotosViewController = {
-        let albumsDataSource = AlbumsDataSource()
+        let fetchOptions = PHFetchOptions()
+        
+        // Camera roll fetch result
+        let cameraRollResult = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .SmartAlbumUserLibrary, options: fetchOptions)
+        
+        // Albums fetch result
+        let albumResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
+        
+        let albumsDataSource = AlbumsDataSource(assetCollectionFetchResults: [cameraRollResult, albumResult])
         let photosDataSource = PhotosDataSource(settings: self.settings)
         
         return PhotosViewController.instanceWithDataSource(photosDataSource, albumDataSource: albumsDataSource, settings: self.settings)

@@ -26,23 +26,15 @@ import Photos
 final class AlbumsDataSource: NSObject, UITableViewDataSource, AssetsDelegate, Selectable, PHPhotoLibraryChangeObserver {
     var delegate: AssetsDelegate?
     
-    private var _assetsModel: AssetsModel<PHAssetCollection>
+    private let _assetsModel: AssetsModel<PHAssetCollection>
     private let albumCellIdentifier = "albumCell"
     
-    override init() {
-        let fetchOptions = PHFetchOptions()
-        
-        // Camera roll fetch result
-        let cameraRollResult = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .SmartAlbumUserLibrary, options: fetchOptions)
-        
-        // Albums fetch result
-        let albumResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
-        
-        _assetsModel = AssetsModel(fetchResult: [cameraRollResult, albumResult])
+    required init(assetCollectionFetchResults: [PHFetchResult]) {
+        _assetsModel = AssetsModel(fetchResult: assetCollectionFetchResults)
         
         super.init()
         
-        // Default to select camera roll
+        // Default to select first collection
         selectObjectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
         
         PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
