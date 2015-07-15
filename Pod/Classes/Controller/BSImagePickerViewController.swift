@@ -45,45 +45,35 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         return PhotosViewController.instanceWithDataSource(photosDataSource, albumDataSource: albumsDataSource, settings: self.settings)
     }()
     
-    public convenience init() {
-        self.init(nibName: nil, bundle: nil)
-    }
-
-    required public init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    class func authorize(status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(), completion: () -> Void) {
+        switch status {
+        case .Authorized:
+            // We are authorized. Run block
+            completion()
+        case .NotDetermined:
+            // Ask user for permission
+            PHPhotoLibrary.requestAuthorization({ (status) -> Void in
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.authorize(status: status, completion: completion)
+                })
+            })
+        default: ()
+            // TODO: Show not authorized message
+        }
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    public convenience init() {
+        self.init(nibName: nil, bundle: nil)
     }
     
     public override func loadView() {
         super.loadView()
         
         view.backgroundColor = UIColor.whiteColor()
-    }
-    
-    public override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
         
-        updateViewControllerToStatus(PHPhotoLibrary.authorizationStatus())
-    }
-    
-    func updateViewControllerToStatus(status: PHAuthorizationStatus) {
-        switch status {
-        case .Authorized:
-            // We are authorized. Push photos view controller
-            viewControllers = []
-            pushViewController(self.photosViewController, animated: false)
-            
-        case .NotDetermined:
-            // Ask user for permission
-            PHPhotoLibrary.requestAuthorization({ (status) -> Void in
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.updateViewControllerToStatus(status)
-                })
-            })
-        default: ()
+        // Make sure we really are authorized
+        if PHPhotoLibrary.authorizationStatus() == .Authorized {
+            setViewControllers([photosViewController], animated: false)
         }
     }
     
