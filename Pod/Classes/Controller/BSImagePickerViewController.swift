@@ -31,23 +31,10 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     private let settings = Settings()
     
     lazy var photosViewController: PhotosViewController = {
-        // Get path for BSImagePicker bundle
-        let bundlePath = NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")
-        let bundle: NSBundle?
+        let albumsDataSource = AlbumsDataSource()
+        let photosDataSource = PhotosDataSource(settings: self.settings)
         
-        // Load bundle
-        if let bundlePath = bundlePath {
-            bundle = NSBundle(path: bundlePath)
-        } else {
-            bundle = nil
-        }
-        
-        let storyboard = UIStoryboard(name: "Photos", bundle: bundle)
-        
-        let controller = storyboard.instantiateInitialViewController() as! PhotosViewController
-        controller.settings = self.settings
-        
-        return controller
+        return PhotosViewController.instanceWithDataSource(photosDataSource, albumDataSource: albumsDataSource, settings: self.settings)
     }()
     
     public convenience init() {

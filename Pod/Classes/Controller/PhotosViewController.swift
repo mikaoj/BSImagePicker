@@ -29,8 +29,6 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     var cancelClosure: ((assets: [PHAsset]) -> Void)?
     var finishClosure: ((assets: [PHAsset]) -> Void)?
     
-    var settings: BSImagePickerSettings = Settings()
-    
     lazy var doneBarButton: UIBarButtonItem = {
         return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "doneButtonPressed:")
     }()
@@ -47,8 +45,12 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     
     private let expandAnimator = ZoomAnimator()
     private let shrinkAnimator = ZoomAnimator()
+    
     private var photosDataSource: PhotosDataSource?
     private var albumsDataSource: AlbumsDataSource?
+    
+    private var settings: BSImagePickerSettings = Settings()
+    
     private var doneBarButtonTitle: String?
     private var isVisible = true
     
@@ -75,13 +77,27 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     private lazy var previewViewContoller: PreviewViewController? = {
         return PreviewViewController(nibName: nil, bundle: nil)
     }()
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
 
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    class func instanceWithDataSource(photosDataSource: PhotosDataSource, albumDataSource: AlbumsDataSource, settings: Settings) -> PhotosViewController {
+        // Get path for BSImagePicker bundle
+        let bundlePath = NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")
+        let bundle: NSBundle?
+        
+        // Load bundle
+        if let bundlePath = bundlePath {
+            bundle = NSBundle(path: bundlePath)
+        } else {
+            bundle = nil
+        }
+        
+        let storyboard = UIStoryboard(name: "Photos", bundle: bundle)
+        
+        let controller = storyboard.instantiateInitialViewController() as! PhotosViewController
+        controller.albumsDataSource = albumDataSource
+        controller.photosDataSource = photosDataSource
+        controller.settings = settings
+        
+        return controller
     }
     
     override func loadView() {
@@ -91,11 +107,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         title = " "
         
         // Setup albums data source
-        albumsDataSource = AlbumsDataSource()
-        albumsDataSource?.selectObjectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
         albumsDataSource?.delegate = self
-        
-        photosDataSource = PhotosDataSource(settings: settings)
         
         // TODO: Break out into method. Is duplicated in didSelectTableView
         if let album = albumsDataSource?.selections().first {
