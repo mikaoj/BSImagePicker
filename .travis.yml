@@ -2,7 +2,6 @@
 # * http://www.objc.io/issue-6/travis-ci.html
 # * https://github.com/supermarin/xcpretty#usage
 
-osx_image: beta-xcode6.3
 language: objective-c
 cache: cocoapods
 podfile: Example/Podfile
