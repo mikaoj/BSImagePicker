@@ -30,6 +30,12 @@ Use settings or buttons to customize it to your needs.
 public final class BSImagePickerViewController : UINavigationController, BSImagePickerSettings {
     private let settings = Settings()
     
+    private var doneBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: nil, action: nil)
+    private var cancelBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: nil, action: nil)
+    private let albumTitleView: AlbumTitleView = bundle.loadNibNamed("AlbumTitleView", owner: nil, options: nil).first as! AlbumTitleView
+    
+    static let bundle: NSBundle = NSBundle(path: NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")!)!
+    
     lazy var photosViewController: PhotosViewController = {
         let fetchOptions = PHFetchOptions()
         
@@ -42,7 +48,12 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         let albumsDataSource = AlbumsDataSource(assetCollectionFetchResults: [cameraRollResult, albumResult])
         let photosDataSource = PhotosDataSource(settings: self.settings)
         
-        return PhotosViewController.instanceWithDataSource(photosDataSource, albumDataSource: albumsDataSource, settings: self.settings)
+        let vc = PhotosViewController.instanceWithDataSource(photosDataSource, albumDataSource: albumsDataSource, settings: self.settings)
+        vc.doneBarButton = self.doneBarButton
+        vc.cancelBarButton = self.cancelBarButton
+        vc.albumTitleView = self.albumTitleView
+        
+        return vc
     }()
     
     class func authorize(status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(), completion: () -> Void) {
@@ -168,7 +179,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     */
     public var cancelButton: UIBarButtonItem {
         get {
-            return photosViewController.cancelBarButton
+            return self.cancelBarButton
         }
     }
     
@@ -177,7 +188,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     */
     public var doneButton: UIBarButtonItem {
         get {
-            return photosViewController.doneBarButton
+            return self.doneBarButton
         }
     }
     
@@ -186,7 +197,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     */
     public var albumButton: UIButton {
         get {
-            return photosViewController.albumTitleView.albumButton
+            return self.albumTitleView.albumButton
         }
     }
     

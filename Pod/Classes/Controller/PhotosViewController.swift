@@ -29,19 +29,9 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     var cancelClosure: ((assets: [PHAsset]) -> Void)?
     var finishClosure: ((assets: [PHAsset]) -> Void)?
     
-    lazy var doneBarButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "doneButtonPressed:")
-    }()
-    lazy var cancelBarButton: UIBarButtonItem = {
-        return UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelButtonPressed:")
-    }()
-    lazy var albumTitleView: AlbumTitleView = {
-        let albumTitleView = self.bundle.loadNibNamed("AlbumTitleView", owner: self, options: nil).first as! AlbumTitleView
-        
-        albumTitleView.albumButton.addTarget(self, action: "albumButtonPressed:", forControlEvents: .TouchUpInside)
-        
-        return albumTitleView
-    }()
+    var doneBarButton: UIBarButtonItem?
+    var cancelBarButton: UIBarButtonItem?
+    var albumTitleView: AlbumTitleView?
     
     private let expandAnimator = ZoomAnimator()
     private let shrinkAnimator = ZoomAnimator()
@@ -54,16 +44,8 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     private var doneBarButtonTitle: String?
     private var isVisible = true
     
-    private lazy var bundle: NSBundle = {
-        // Get path for BSImagePicker bundle
-        // Forcefull unwraps on purpose, if these aren't present the code wouldn't work as it should anyways
-        // So I'll accept the crash in that case :)
-        let bundlePath = NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")!
-        return NSBundle(path: bundlePath)!
-    }()
-    
     private lazy var albumsViewController: AlbumsViewController? = {
-        let storyboard = UIStoryboard(name: "Albums", bundle: self.bundle)
+        let storyboard = UIStoryboard(name: "Albums", bundle: BSImagePickerViewController.bundle)
         
         let vc = storyboard.instantiateInitialViewController() as? AlbumsViewController
         vc?.modalPresentationStyle = .Popover
@@ -112,7 +94,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         // TODO: Break out into method. Is duplicated in didSelectTableView
         if let album = albumsDataSource?.selections().first {
             // Update album title
-            albumTitleView.albumTitle = album.localizedTitle
+            albumTitleView?.albumTitle = album.localizedTitle
             
             // Pass it on to photos data source
             photosDataSource?.fetchResultsForAsset(album)
@@ -126,7 +108,12 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         // Enable multiple selection
         collectionView?.allowsMultipleSelection = true
         
-        // Add buttons
+        // Set button actions and add them to navigation item
+        doneBarButton?.target = self
+        doneBarButton?.action = Selector("doneButtonPressed:")
+        cancelBarButton?.target = self
+        cancelBarButton?.action = Selector("cancelButtonPressed:")
+        albumTitleView?.albumButton.addTarget(self, action: Selector("albumButtonPressed:"), forControlEvents: .TouchUpInside)
         navigationItem.leftBarButtonItem = cancelBarButton
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.titleView = albumTitleView
@@ -185,7 +172,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
             popVC.permittedArrowDirections = .Up
             popVC.sourceView = sender
             let senderRect = sender.convertRect(sender.frame, fromView: sender.superview)
-            let sourceRect = CGRect(x: senderRect.origin.x, y: senderRect.origin.y + (albumTitleView.frame.size.height / 2), width: senderRect.size.width, height: senderRect.size.height)
+            let sourceRect = CGRect(x: senderRect.origin.x, y: senderRect.origin.y + (sender.frame.size.height / 2), width: senderRect.size.width, height: senderRect.size.height)
             popVC.sourceRect = sourceRect
             popVC.delegate = self
             albumsViewController.tableView.reloadData()
@@ -267,7 +254,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         // Notify photos data source
         if let album = albumsDataSource?.selections().first {
             // Update album title
-            albumTitleView.albumTitle = album.localizedTitle
+            albumTitleView?.albumTitle = album.localizedTitle
             
             // Pass it on to photos data source
             photosDataSource?.fetchResultsForAsset(album)
@@ -398,9 +385,9 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
             
             // Enabled
             if numberOfSelectedAssets > 0 {
-                doneBarButton.enabled = true
+                doneBarButton?.enabled = true
             } else {
-                doneBarButton.enabled = false
+                doneBarButton?.enabled = false
             }
         }
     }
