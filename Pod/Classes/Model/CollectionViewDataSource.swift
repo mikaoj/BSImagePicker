@@ -22,28 +22,24 @@
 
 import UIKit
 
-/**
-Extension on UIButton for settings the title without an animation
-*/
-extension UIButton {
-    /**
-    Sets title without an animation
-    :param: title The String to use as title
-    :param: forState Which state it applies to
-    */
-    func bs_setTitleWithoutAnimation(title: String?, forState state: UIControlState) {
-        // Store enabled
-        let wasEnabled = self.enabled
-        
-        // Disable/enable animations
-        UIView.setAnimationsEnabled(false)
-        
-        // A little hack to set title without animation
-        self.enabled = true
-        self.setTitle(title, forState: state)
-        self.layoutIfNeeded()
-        
-        // Enable animations
-        UIView.setAnimationsEnabled(true)
+final class CollectionViewDataSource : NSObject, UICollectionViewDataSource {
+    let dataSource: SelectableDataSource
+    let cellFactory: CollectionViewCellFactory
+    
+    init(dataSource aDataSource: SelectableDataSource, cellFactory aCellFactory: CollectionViewCellFactory) {
+        dataSource = aDataSource
+        cellFactory = aCellFactory
+    }
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return dataSource.sections
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSource.numberOfItemsInSection(section)
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        return cellFactory.cellForIndexPath(indexPath, withDataSource: dataSource, inCollectionView: collectionView)
     }
 }

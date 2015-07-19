@@ -45,10 +45,9 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         // Albums fetch result
         let albumResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
         
-        let albumsDataSource = AlbumsDataSource(assetCollectionFetchResults: [cameraRollResult, albumResult])
-        let photosDataSource = PhotosDataSource(settings: self.settings)
+        let fetchResultDataSource = FetchResultsDataSource(fetchResults: [cameraRollResult, albumResult])
         
-        let vc = PhotosViewController.instanceWithDataSource(photosDataSource, albumDataSource: albumsDataSource, settings: self.settings)
+        let vc = PhotosViewController(dataSource: fetchResultDataSource, settings: self.settings)
         vc.doneBarButton = self.doneBarButton
         vc.cancelBarButton = self.cancelBarButton
         vc.albumTitleView = self.albumTitleView
