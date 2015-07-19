@@ -1,3 +1,12 @@
+//
+//  FetchResultDataSource.swift
+//  Pods
+//
+//  Created by Joakim Gyllström on 2015-07-18.
+//
+//
+
+import Foundation
 // The MIT License (MIT)
 //
 // Copyright (c) 2015 Joakim Gyllström
@@ -20,35 +29,103 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import Foundation
 import Photos
 
-final class AssetsModel<T: AnyEquatableObject> : Selectable {
-    var delegate: AssetsDelegate?
-    subscript (idx: Int) -> PHFetchResult {
-        return _results[idx]
-    }
-    var count: Int {
-        return _results.count
+final class FetchResultsDataSource : NSObject, SelectableDataSource, PHPhotoLibraryChangeObserver {
+    private var fetchResults: [PHFetchResult]
+    private var resultSelections: [PHObject] = []
+    
+    var delegate: SelectableDataDelegate?
+    var allowsMultipleSelection: Bool = false
+    var maxNumberOfSelections: Int = Int.max
+    var selections: [PHObject] {
+        get {
+            return resultSelections
+        }
     }
     
-    private var _selections = [T]()
-    private var _results: [PHFetchResult]
+    var selectedIndexPaths: [NSIndexPath] {
+        get {
+            var indexPaths: [NSIndexPath] = []
+            
+            for object in resultSelections {
+                for (resultIndex, fetchResult) in enumerate(fetchResults) {
+                    let index = fetchResult.indexOfObject(object)
+                    if index != NSNotFound {
+                        let indexPath = NSIndexPath(forItem: index, inSection: resultIndex)
+                        indexPaths.append(indexPath)
+                    }
+                }
+            }
+            
+            return indexPaths
+        }
+    }
     
-    required init(fetchResult aFetchResult: [PHFetchResult]) {
-        _results = aFetchResult
+    convenience init(fetchResult: PHFetchResult) {
+        self.init(fetchResults: [fetchResult])
+    }
+    
+    required init(fetchResults: [PHFetchResult]) {
+        self.fetchResults = fetchResults
+        
+        super.init()
+        
+        PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
+    }
+    
+    deinit {
+        PHPhotoLibrary.sharedPhotoLibrary().unregisterChangeObserver(self)
+    }
+    
+    // MARK: SelectableDataSource
+    var sections: Int {
+        get {
+            return count(fetchResults)
+        }
+    }
+    
+    func numberOfItemsInSection(section: Int) -> Int {
+        return fetchResults[section].count
+    }
+    
+    func objectAtIndexPath(indexPath: NSIndexPath) -> PHObject {
+        return fetchResults[indexPath.section][indexPath.row] as! PHObject
+    }
+    
+    func selectObjectAtIndexPath(indexPath: NSIndexPath) {
+        if isObjectAtIndexPathSelected(indexPath) == false && resultSelections.count < maxNumberOfSelections {
+            if allowsMultipleSelection == false {
+                resultSelections.removeAll(keepCapacity: true)
+            }
+            
+            resultSelections.append(objectAtIndexPath(indexPath))
+        }
+    }
+    
+    func deselectObjectAtIndexPath(indexPath: NSIndexPath) {
+        let object = objectAtIndexPath(indexPath)
+        if let index = find(resultSelections, object) {
+            resultSelections.removeAtIndex(index)
+        }
+    }
+    
+    func isObjectAtIndexPathSelected(indexPath: NSIndexPath) -> Bool {
+        let object = objectAtIndexPath(indexPath)
+        
+        return contains(resultSelections, object)
     }
     
     // MARK: PHPhotoLibraryChangeObserver
     func photoLibraryDidChange(changeInstance: PHChange!) {
-        for (index, fetchResult) in enumerate(_results) {
+        for (index, fetchResult) in enumerate(fetchResults) {
             // Check if there are changes to our fetch result
             if let collectionChanges = changeInstance.changeDetailsForFetchResult(fetchResult) {
                 // Get the new fetch result
                 let newResult = collectionChanges.fetchResultAfterChanges as PHFetchResult
                 
                 // Replace old result
-                _results[index] = newResult
+                fetchResults[index] = newResult
                 
                 // Sometimes the properties on PHFetchResultChangeDetail are nil
                 // Work around it for now
@@ -71,7 +148,7 @@ final class AssetsModel<T: AnyEquatableObject> : Selectable {
                 }
                 
                 // Notify delegate
-                delegate?.didUpdateAssets(self, incrementalChange: incrementalChange, insert: insertedIndexPaths, delete: removedIndexPaths, change: changedIndexPaths)
+                delegate?.didUpdateData(self, incrementalChange: incrementalChange, insertions: insertedIndexPaths, deletions: removedIndexPaths, changes: changedIndexPaths)
             }
         }
     }
@@ -84,50 +161,5 @@ final class AssetsModel<T: AnyEquatableObject> : Selectable {
         }
         
         return indexPaths
-    }
-    
-    // MARK: Selectable
-    func selectObjectAtIndexPath(indexPath: NSIndexPath) {
-        if let object = _results[indexPath.section][indexPath.row] as? T where contains(_selections, object) == false {
-            _selections.append(object)
-        }
-    }
-    
-    func deselectObjectAtIndexPath(indexPath: NSIndexPath) {
-        if let object = _results[indexPath.section][indexPath.row] as? T, let index = find(_selections, object) {
-            _selections.removeAtIndex(index)
-        }
-    }
-    
-    func selectionCount() -> Int {
-        return _selections.count
-    }
-    
-    func selectedIndexPaths() -> [NSIndexPath] {
-        var indexPaths: [NSIndexPath] = []
-        
-        for object in _selections {
-            for (resultIndex, fetchResult) in enumerate(_results) {
-                let index = fetchResult.indexOfObject(object)
-                if index != NSNotFound {
-                    let indexPath = NSIndexPath(forItem: index, inSection: resultIndex)
-                    indexPaths.append(indexPath)
-                }
-            }
-        }
-        
-        return indexPaths
-    }
-    
-    func selections() -> [T] {
-        return _selections
-    }
-    
-    func setSelections(newSelections: [T]) {
-        _selections = newSelections
-    }
-    
-    func removeSelections() {
-        _selections.removeAll(keepCapacity: true)
     }
 }

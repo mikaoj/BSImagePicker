@@ -20,14 +20,26 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import Photos
+import UIKit
 
-protocol Selectable {
-    typealias T
+final class TableViewDataSource : NSObject, UITableViewDataSource {
+    let dataSource: SelectableDataSource
+    let cellFactory: TableViewCellFactory
     
-    func selectObjectAtIndexPath(indexPath: NSIndexPath)
-    func deselectObjectAtIndexPath(indexPath: NSIndexPath)
-    func selectionCount() -> Int
-    func selectedIndexPaths() -> [NSIndexPath]
-    func selections() -> [T]
+    init(dataSource aDataSource: SelectableDataSource, cellFactory aCellFactory: TableViewCellFactory) {
+        dataSource = aDataSource
+        cellFactory = aCellFactory
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return dataSource.sections
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataSource.numberOfItemsInSection(section)
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        return cellFactory.cellForIndexPath(indexPath, withDataSource: dataSource, inTableView: tableView)
+    }
 }
