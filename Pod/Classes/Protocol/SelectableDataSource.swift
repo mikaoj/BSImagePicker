@@ -23,20 +23,58 @@
 import Foundation
 import Photos
 
+/**
+Selectable data source protocol. Based on index paths and coupled to Photos for now...
+*/
 protocol SelectableDataSource : NSObjectProtocol {
+    /**
+    Data source delegate (notify if any updates have been done, etc).
+    */
     var delegate: SelectableDataDelegate? { get set }
     
+    /**
+    Number of sections in the data source
+    */
     var sections: Int { get }
     
-    func numberOfItemsInSection(section: Int) -> Int
+    /**
+    Number of objects for a given section.
+    */
+    func numberOfObjectsInSection(section: Int) -> Int
+    /**
+    Get object at given index path.
+    */
     func objectAtIndexPath(indexPath: NSIndexPath) -> PHObject
     
+    /**
+    Does this data source allow multiple selection?. 
+    true: Selection is allowed up to maxNumberOfSelections.
+    false: On selection previous selection will be deselected.
+    */
     var allowsMultipleSelection: Bool { get set }
+    /**
+    How many selections are allowed?
+    */
     var maxNumberOfSelections: Int { get set }
-    var selections: [PHObject] { get }
+    /**
+    All selected objects
+    */
+    var allSelections: [PHObject] { get }
+    /**
+    Index paths for all selections
+    */
     var selectedIndexPaths: [NSIndexPath] { get }
     
+    /**
+    Select an object
+    */
     func selectObjectAtIndexPath(indexPath: NSIndexPath)
+    /**
+    Deselect an object
+    */
     func deselectObjectAtIndexPath(indexPath: NSIndexPath)
+    /**
+    Check if selected
+    */
     func isObjectAtIndexPathSelected(indexPath: NSIndexPath) -> Bool
 }

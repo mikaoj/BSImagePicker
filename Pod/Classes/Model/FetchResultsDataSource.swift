@@ -1,12 +1,3 @@
-//
-//  FetchResultDataSource.swift
-//  Pods
-//
-//  Created by Joakim Gyllström on 2015-07-18.
-//
-//
-
-import Foundation
 // The MIT License (MIT)
 //
 // Copyright (c) 2015 Joakim Gyllström
@@ -31,6 +22,10 @@ import Foundation
 
 import Photos
 
+/**
+Class wrapping fetch results as an selectable data source.
+It will register itself as an change observer. So be sure to set yourself as delegate to get notified about updates.
+*/
 final class FetchResultsDataSource : NSObject, SelectableDataSource, PHPhotoLibraryChangeObserver {
     private var fetchResults: [PHFetchResult]
     private var resultSelections: [PHObject] = []
@@ -38,7 +33,7 @@ final class FetchResultsDataSource : NSObject, SelectableDataSource, PHPhotoLibr
     var delegate: SelectableDataDelegate?
     var allowsMultipleSelection: Bool = false
     var maxNumberOfSelections: Int = Int.max
-    var selections: [PHObject] {
+    var allSelections: [PHObject] {
         get {
             return resultSelections
         }
@@ -85,7 +80,7 @@ final class FetchResultsDataSource : NSObject, SelectableDataSource, PHPhotoLibr
         }
     }
     
-    func numberOfItemsInSection(section: Int) -> Int {
+    func numberOfObjectsInSection(section: Int) -> Int {
         return fetchResults[section].count
     }
     

@@ -23,6 +23,9 @@
 import UIKit
 import Photos
 
+/**
+Cell factory for photos
+*/
 final class PhotoCellFactory : CollectionViewCellFactory {
     private let photoCellIdentifier = "photoCellIdentifier"
     private let photosManager = PHCachingImageManager.defaultManager()
@@ -57,7 +60,7 @@ final class PhotoCellFactory : CollectionViewCellFactory {
             })
             
             // Set selection number
-            if let index = find(dataSource.selections, asset) {
+            if let index = find(dataSource.allSelections, asset) {
                 if let character = settings?.selectionCharacter {
                     cell.selectionString = String(character)
                 } else {

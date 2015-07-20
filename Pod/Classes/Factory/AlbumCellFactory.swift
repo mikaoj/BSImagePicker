@@ -23,6 +23,9 @@
 import UIKit
 import Photos
 
+/**
+Cell factory for albums
+*/
 final class AlbumCellFactory : TableViewCellFactory {
     private let albumCellIdentifier = "albumCell"
     

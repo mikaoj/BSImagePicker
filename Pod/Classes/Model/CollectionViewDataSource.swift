@@ -22,24 +22,27 @@
 
 import UIKit
 
+/**
+Gives UICollectionViewDataSource functionality with a given data source and cell factory
+*/
 final class CollectionViewDataSource : NSObject, UICollectionViewDataSource {
-    let dataSource: SelectableDataSource
+    let data: SelectableDataSource
     let cellFactory: CollectionViewCellFactory
     
     init(dataSource aDataSource: SelectableDataSource, cellFactory aCellFactory: CollectionViewCellFactory) {
-        dataSource = aDataSource
+        data = aDataSource
         cellFactory = aCellFactory
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return dataSource.sections
+        return data.sections
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.numberOfItemsInSection(section)
+        return data.numberOfObjectsInSection(section)
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        return cellFactory.cellForIndexPath(indexPath, withDataSource: dataSource, inCollectionView: collectionView)
+        return cellFactory.cellForIndexPath(indexPath, withDataSource: data, inCollectionView: collectionView)
     }
 }
