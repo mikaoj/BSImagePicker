@@ -22,24 +22,27 @@
 
 import UIKit
 
+/**
+Implements the UITableViewDataSource protocol with a data source and cell factory
+*/
 final class TableViewDataSource : NSObject, UITableViewDataSource {
-    let dataSource: SelectableDataSource
+    let data: SelectableDataSource
     let cellFactory: TableViewCellFactory
     
     init(dataSource aDataSource: SelectableDataSource, cellFactory aCellFactory: TableViewCellFactory) {
-        dataSource = aDataSource
+        data = aDataSource
         cellFactory = aCellFactory
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return dataSource.sections
+        return data.sections
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.numberOfItemsInSection(section)
+        return data.numberOfObjectsInSection(section)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return cellFactory.cellForIndexPath(indexPath, withDataSource: dataSource, inTableView: tableView)
+        return cellFactory.cellForIndexPath(indexPath, withDataSource: data, inTableView: tableView)
     }
 }
