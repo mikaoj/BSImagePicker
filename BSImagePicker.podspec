@@ -33,7 +33,6 @@ Pod::Spec.new do |s|
   s.subspec 'Camera' do |camera|
     camera.source_files = 'Pod/Camera/Classes/**/*'
 
-    camera.dependency 'BSImagePicker/Core'
     camera.dependency 'LLSimpleCamera', '~> 3.0.0'
   end
 end

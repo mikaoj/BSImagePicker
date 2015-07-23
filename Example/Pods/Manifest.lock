@@ -1,6 +1,12 @@
 PODS:
-  - BSImagePicker (1.3.0):
+  - BSImagePicker (1.4.0):
+    - BSImagePicker/Camera (= 1.4.0)
+    - BSImagePicker/Core (= 1.4.0)
+  - BSImagePicker/Camera (1.4.0):
+    - LLSimpleCamera (~> 3.0.0)
+  - BSImagePicker/Core (1.4.0):
     - UIImageViewModeScaleAspect (~> 1.3)
+  - LLSimpleCamera (3.0.0)
   - UIImageViewModeScaleAspect (1.3)
 
 DEPENDENCIES:
@@ -11,7 +17,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BSImagePicker: e18aecc260a70c941ba78217dae40365e62d1212
+  BSImagePicker: c9ecb6cc8f14cd2f72ad3ce0020893a6f4a73f40
+  LLSimpleCamera: 3c41b46917f9ca53b91ef9c0cf24a75ce0ab4cd8
   UIImageViewModeScaleAspect: ec78901acfc20d3782154111a21d34390f8f71ad
 
 COCOAPODS: 0.38.0

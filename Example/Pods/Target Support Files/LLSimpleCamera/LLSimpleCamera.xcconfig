@@ -1,0 +1,1 @@
+LLSIMPLECAMERA_OTHER_LDFLAGS = -framework "AVFoundation"

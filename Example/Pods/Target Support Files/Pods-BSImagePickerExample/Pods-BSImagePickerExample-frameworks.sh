@@ -53,9 +53,11 @@ code_sign_if_enabled() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Pods-BSImagePickerExample/BSImagePicker.framework'
+  install_framework 'Pods-BSImagePickerExample/LLSimpleCamera.framework'
   install_framework 'Pods-BSImagePickerExample/UIImageViewModeScaleAspect.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Pods-BSImagePickerExample/BSImagePicker.framework'
+  install_framework 'Pods-BSImagePickerExample/LLSimpleCamera.framework'
   install_framework 'Pods-BSImagePickerExample/UIImageViewModeScaleAspect.framework'
 fi
