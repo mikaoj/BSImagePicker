@@ -1,6 +1,0 @@
-framework module BSImagePicker {
-  umbrella header "Pods-BSImagePickerExampleTests-BSImagePicker-umbrella.h"
-
-  export *
-  module * { export * }
-}

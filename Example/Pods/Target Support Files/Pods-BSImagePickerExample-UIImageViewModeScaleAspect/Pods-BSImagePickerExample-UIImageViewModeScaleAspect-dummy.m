@@ -1,5 +1,0 @@
-#import <Foundation/Foundation.h>
-@interface PodsDummy_Pods_BSImagePickerExample_UIImageViewModeScaleAspect : NSObject
-@end
-@implementation PodsDummy_Pods_BSImagePickerExample_UIImageViewModeScaleAspect
-@end
