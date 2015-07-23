@@ -20,11 +20,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import XCTest
+import UIKit
 
-class ImagePickerViewTests: XCTestCase {
-    
-    func testNothing() {
-        XCTAssert(true, "add view tests")
-    }
+//TODO: Make functions static
+/**
+Collection view factory protocol
+*/
+protocol CollectionViewCellFactory {
+    /**
+    Registers the collection view for any nibs, classes, etc it needs to know about.
+    :param: collectionView The collection view to register
+    */
+    func registerCellIdentifiersForCollectionView(collectionView: UICollectionView?)
+    /**
+    Get an collection view cell
+    :param: indexPath The index path for cell
+    :param: withDataSource The data source to fetch data from
+    :param: inCollectionView Collection view to show cell in.
+    */
+    func cellForIndexPath(indexPath: NSIndexPath, withDataSource dataSource: SelectableDataSource, inCollectionView collectionView: UICollectionView) -> UICollectionViewCell
 }

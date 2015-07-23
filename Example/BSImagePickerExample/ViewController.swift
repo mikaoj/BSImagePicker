@@ -26,6 +26,55 @@ import Photos
 
 class ViewController: UIViewController {
     
+    @IBAction func showImagePicker(sender: UIButton) {
+        let vc = BSImagePickerViewController()
+        vc.maxNumberOfSelections = 6
+        
+        bs_presentImagePickerController(vc, animated: true,
+            select: { (asset: PHAsset) -> Void in
+                println("Selected: \(asset)")
+            }, deselect: { (asset: PHAsset) -> Void in
+                println("Deselected: \(asset)")
+            }, cancel: { (assets: [PHAsset]) -> Void in
+                println("Cancel: \(assets)")
+            }, finish: { (assets: [PHAsset]) -> Void in
+                println("Finish: \(assets)")
+            }, completion: nil)
+    }
+    
+    @IBAction func showCustomDataSourcePicker(sender: UIButton) {
+        // Find some PHAssets to use. In the real world these would probably come from the camera
+        // Or some other source. If you want to use your own fetch results for the picker, there is an initalizer for that as well
+        // You can also supply an array of assets that should be selected on presentation
+        let fetchOptions = PHFetchOptions()
+        
+        // Camera roll collection
+        let cameraRollCollection = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .SmartAlbumUserLibrary, options: fetchOptions).objectAtIndex(0) as! PHAssetCollection
+        
+        // Pick out 3 PHAssets
+        let assets = PHAsset.fetchAssetsInAssetCollection(cameraRollCollection, options: fetchOptions)
+        let first = assets.objectAtIndex(0) as! PHAsset
+        let second = assets.objectAtIndex(1) as! PHAsset
+        let third = assets.objectAtIndex(2) as! PHAsset
+        
+        // Create transient asset collection
+        let selectedAssets = [first, second, third]
+        let transientCollection = PHAssetCollection.transientAssetCollectionWithAssets(selectedAssets, title: "Custom assets")
+        
+        let vc = BSImagePickerViewController(assetCollection: transientCollection, selections: selectedAssets)
+        
+        bs_presentImagePickerController(vc, animated: true,
+            select: { (asset: PHAsset) -> Void in
+                println("Selected: \(asset)")
+            }, deselect: { (asset: PHAsset) -> Void in
+                println("Deselected: \(asset)")
+            }, cancel: { (assets: [PHAsset]) -> Void in
+                println("Cancel: \(assets)")
+            }, finish: { (assets: [PHAsset]) -> Void in
+                println("Finish: \(assets)")
+            }, completion: nil)
+    }
+    
     @IBAction func showCustomImagePicker(sender: UIButton) {
         let vc = BSImagePickerViewController()
         vc.maxNumberOfSelections = 6
@@ -61,22 +110,6 @@ class ViewController: UIViewController {
             }, finish: { (assets: [PHAsset]) -> Void in
                 println("Finish: \(assets)")
             }, completion: nil)
-    }
-    
-    @IBAction func showImagePicker(sender: UIButton) {
-        let vc = BSImagePickerViewController()
-        vc.maxNumberOfSelections = 6
-        
-        bs_presentImagePickerController(vc, animated: true,
-            select: { (asset: PHAsset) -> Void in
-                println("Selected: \(asset)")
-            }, deselect: { (asset: PHAsset) -> Void in
-                println("Deselected: \(asset)")
-            }, cancel: { (assets: [PHAsset]) -> Void in
-                println("Cancel: \(assets)")
-            }, finish: { (assets: [PHAsset]) -> Void in
-                println("Finish: \(assets)")
-        }, completion: nil)
     }
 }
 

@@ -20,11 +20,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import XCTest
+import Foundation
 
-class ImagePickerViewTests: XCTestCase {
-    
-    func testNothing() {
-        XCTAssert(true, "add view tests")
-    }
+/**
+Keep track of whats happening in your selectable data source by implementing this protocol and settings yourself as delegate.
+*/
+public protocol SelectableDataDelegate {
+    /**
+    Called when there has been changes in the data source.
+    :param: dataSource The data source with updates
+    :param: incrementalChange If true there has been incremental change and you should updated given index paths. If false reload your entire view.
+    :param: insertions Index paths with insertions
+    :param: deletions Index paths with deletions
+    :param: changes Index paths with changes
+    */
+    func didUpdateData(dataSource: SelectableDataSource, incrementalChange: Bool, insertions: [NSIndexPath], deletions: [NSIndexPath], changes: [NSIndexPath])
 }
