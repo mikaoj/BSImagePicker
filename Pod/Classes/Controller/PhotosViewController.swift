@@ -86,6 +86,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         super.loadView()
         
         // Setup collection view
+        // TODO: Settings
         collectionView?.backgroundColor = UIColor.whiteColor()
         photoCellFactory.registerCellIdentifiersForCollectionView(collectionView)
         
@@ -401,7 +402,12 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         albumTitleView?.albumTitle = album.localizedTitle
         
         // Set up a photo data source with album
-        let dataSource = FetchResultsDataSource(fetchResult: PHAsset.fetchAssetsInAssetCollection(album, options: PHFetchOptions()))
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [
+            NSSortDescriptor(key: "creationDate", ascending: false)
+        ]
+        fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
+        let dataSource = FetchResultsDataSource(fetchResult: PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions))
         photosDataSource = CollectionViewDataSource(dataSource: dataSource, cellFactory: photoCellFactory)
         
         // Hook up data source

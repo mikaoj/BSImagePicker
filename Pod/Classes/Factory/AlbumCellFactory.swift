@@ -48,7 +48,6 @@ final class AlbumCellFactory : TableViewCellFactory {
             fetchOptions.sortDescriptors = [
                 NSSortDescriptor(key: "creationDate", ascending: false)
             ]
-            // TODO: Limit result to 3 images
             fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
             
             PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
