@@ -55,6 +55,10 @@ You have access to the cancel, album and done button. Customize them as you woul
 There are also a few other settings you can tweak.They are documented in BSImagePickerSettings.<br />
 [Documentation @ cocoadocs](http://cocoadocs.org/docsets/BSImagePicker/)
 
+## Custom fetch results
+
+Not happy with the fetch results (camera roll and albums) that BSImagePicker uses as default? You can initialize it with your own!
+
 ## Requirements
 
 iOS 8
