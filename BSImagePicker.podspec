@@ -16,16 +16,24 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '8.0'
   s.requires_arc = true
 
-  s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'BSImagePicker' => ['Pod/Assets/*.png',
-                        'Pod/Assets/*.xib',
-                        'Pod/Assets/*.storyboard',
-                        'Pod/Assets/*.xcassets',
-                        'Pod/Assets/*.png']
-  }
+  s.subspec 'Core' do |core|
+    core.source_files = 'Pod/Core/Classes/**/*'
+    core.resource_bundles = {
+      'BSImagePicker' => ['Pod/Core/Assets/*.png',
+                          'Pod/Core/Assets/*.xib',
+                          'Pod/Core/Assets/*.storyboard',
+                          'Pod/Core/Assets/*.xcassets',
+                          'Pod/Core/Assets/*.png']
+    }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  s.frameworks = 'UIKit', 'Photos'
-  s.dependency 'UIImageViewModeScaleAspect', '~> 1.3'
+    core.frameworks = 'UIKit', 'Photos'
+    core.dependency 'UIImageViewModeScaleAspect', '~> 1.3'
+  end
+  
+  s.subspec 'Camera' do |camera|
+    camera.source_files = 'Pod/Camera/Classes/**/*'
+
+    camera.dependency 'BSImagePicker/Core'
+    camera.dependency 'LLSimpleCamera', '~> 3.0.0'
+  end
 end
