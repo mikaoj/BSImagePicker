@@ -1,6 +1,0 @@
-framework module UIImageViewModeScaleAspect {
-  umbrella header "Pods-BSImagePickerExampleTests-UIImageViewModeScaleAspect-umbrella.h"
-
-  export *
-  module * { export * }
-}
