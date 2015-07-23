@@ -33,21 +33,13 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     private var doneBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: nil, action: nil)
     private var cancelBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: nil, action: nil)
     private let albumTitleView: AlbumTitleView = bundle.loadNibNamed("AlbumTitleView", owner: nil, options: nil).first as! AlbumTitleView
+    private let dataSource: SelectableDataSource
     
     static let bundle: NSBundle = NSBundle(path: NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")!)!
     
     lazy var photosViewController: PhotosViewController = {
-        let fetchOptions = PHFetchOptions()
+        let vc = PhotosViewController(dataSource: self.dataSource, settings: self.settings)
         
-        // Camera roll fetch result
-        let cameraRollResult = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .SmartAlbumUserLibrary, options: fetchOptions)
-        
-        // Albums fetch result
-        let albumResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
-        
-        let fetchResultDataSource = FetchResultsDataSource(fetchResults: [cameraRollResult, albumResult])
-        
-        let vc = PhotosViewController(dataSource: fetchResultDataSource, settings: self.settings)
         vc.doneBarButton = self.doneBarButton
         vc.cancelBarButton = self.cancelBarButton
         vc.albumTitleView = self.albumTitleView
@@ -92,19 +84,66 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         }
     }
     
+    /**
+    Want it to show your own custom fetch results? Make sure the fetch results are of PHAssetCollections
+    :param: fetchResults PHFetchResult of PHAssetCollections
+    */
+    public convenience init(fetchResults: [PHFetchResult]) {
+        self.init(dataSource: FetchResultsDataSource(fetchResults: fetchResults))
+    }
+    
+    /**
+    Do you have an asset collection you want to select from? Use this initializer!
+    :param: assetCollection The PHAssetCollection you want to select from
+    */
+    public convenience init(assetCollection: PHAssetCollection) {
+        self.init(dataSource: AssetCollectionDataSource(assetCollection: assetCollection))
+    }
+    
+    /**
+    Sets up an classic image picker with results from camera roll and albums
+    */
     public convenience init() {
-        self.init(nibName: nil, bundle: nil)
+        self.init(dataSource: nil)
+    }
+    
+    public required init(dataSource: SelectableDataSource?) {
+        if let dataSource = dataSource {
+            self.dataSource = dataSource
+        } else {
+            self.dataSource = BSImagePickerViewController.defaultDataSource()
+        }
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required public init(coder aDecoder: NSCoder) {
+        dataSource = BSImagePickerViewController.defaultDataSource()
+        super.init(coder: aDecoder)
     }
     
     public override func loadView() {
         super.loadView()
         
+        // TODO: Settings
         view.backgroundColor = UIColor.whiteColor()
         
         // Make sure we really are authorized
         if PHPhotoLibrary.authorizationStatus() == .Authorized {
             setViewControllers([photosViewController], animated: false)
         }
+    }
+    
+    private static func defaultDataSource() -> SelectableDataSource {
+        let fetchOptions = PHFetchOptions()
+        
+        // Camera roll fetch result
+        let cameraRollResult = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .SmartAlbumUserLibrary, options: fetchOptions)
+        
+        // Albums fetch result
+        let albumResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
+        
+        return FetchResultsDataSource(fetchResults: [cameraRollResult, albumResult])
     }
     
     // MARK: ImagePickerSettings proxy

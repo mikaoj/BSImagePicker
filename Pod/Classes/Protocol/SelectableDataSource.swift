@@ -26,7 +26,7 @@ import Photos
 /**
 Selectable data source protocol. Based on index paths and coupled to Photos for now...
 */
-protocol SelectableDataSource : NSObjectProtocol {
+public protocol SelectableDataSource : NSObjectProtocol {
     /**
     Data source delegate (notify if any updates have been done, etc).
     */
