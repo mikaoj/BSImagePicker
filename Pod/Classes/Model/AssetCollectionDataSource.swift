@@ -24,24 +24,15 @@ import Photos
 
 final class AssetCollectionDataSource : NSObject, SelectableDataSource {
     private var assetCollection: PHAssetCollection
-    private var selectedCollection: PHAssetCollection?
+    var selections: [PHObject] = []
     
     var delegate: SelectableDataDelegate?
     var allowsMultipleSelection: Bool = false
     var maxNumberOfSelections: Int = 1
-    var allSelections: [PHObject] {
-        get {
-            if let selectedCollection = selectedCollection {
-                return [selectedCollection]
-            } else {
-                return []
-            }
-        }
-    }
     
     var selectedIndexPaths: [NSIndexPath] {
         get {
-            if let selectedCollection = selectedCollection {
+            if selections.count > 0 {
                 return [NSIndexPath(forItem: 0, inSection: 0)]
             } else {
                 return []
@@ -73,16 +64,16 @@ final class AssetCollectionDataSource : NSObject, SelectableDataSource {
     
     func selectObjectAtIndexPath(indexPath: NSIndexPath) {
         assert(indexPath.section < 1 && indexPath.row < 1, "AssetCollectionDataSource can only contain 1 section and row")
-        selectedCollection = assetCollection
+        selections = [assetCollection]
     }
     
     func deselectObjectAtIndexPath(indexPath: NSIndexPath) {
         assert(indexPath.section < 1 && indexPath.row < 1, "AssetCollectionDataSource can only contain 1 section and row")
-        selectedCollection = nil
+        selections = []
     }
     
     func isObjectAtIndexPathSelected(indexPath: NSIndexPath) -> Bool {
         assert(indexPath.section < 1 && indexPath.row < 1, "AssetCollectionDataSource can only contain 1 section and row")
-        return selectedCollection != nil
+        return selections.count > 0
     }
 }

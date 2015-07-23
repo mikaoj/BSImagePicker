@@ -95,9 +95,10 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     /**
     Do you have an asset collection you want to select from? Use this initializer!
     :param: assetCollection The PHAssetCollection you want to select from
+    :param: selections Selected assets
     */
-    public convenience init(assetCollection: PHAssetCollection) {
-        self.init(dataSource: AssetCollectionDataSource(assetCollection: assetCollection))
+    public convenience init(assetCollection: PHAssetCollection, selections: [PHAsset] = []) {
+        self.init(dataSource: AssetCollectionDataSource(assetCollection: assetCollection), selections: selections)
     }
     
     /**
@@ -107,7 +108,12 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         self.init(dataSource: nil)
     }
     
-    public required init(dataSource: SelectableDataSource?) {
+    /**
+    You should probably use one of the convenience inits
+    :param: dataSource The data source for the albums
+    :param: selections Any PHAsset you want to seed the picker with as selected
+    */
+    public required init(dataSource: SelectableDataSource?, selections: [PHAsset] = []) {
         if let dataSource = dataSource {
             self.dataSource = dataSource
         } else {
@@ -117,11 +123,17 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         super.init(nibName: nil, bundle: nil)
     }
 
+    /**
+    https://www.youtube.com/watch?v=dQw4w9WgXcQ
+    */
     required public init(coder aDecoder: NSCoder) {
         dataSource = BSImagePickerViewController.defaultDataSource()
         super.init(coder: aDecoder)
     }
     
+    /**
+    Load view. See apple documentation
+    */
     public override func loadView() {
         super.loadView()
         

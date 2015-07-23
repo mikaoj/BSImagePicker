@@ -28,22 +28,17 @@ It will register itself as an change observer. So be sure to set yourself as del
 */
 final class FetchResultsDataSource : NSObject, SelectableDataSource, PHPhotoLibraryChangeObserver {
     private var fetchResults: [PHFetchResult]
-    private var resultSelections: [PHObject] = []
+    var selections: [PHObject] = []
     
     var delegate: SelectableDataDelegate?
     var allowsMultipleSelection: Bool = false
     var maxNumberOfSelections: Int = Int.max
-    var allSelections: [PHObject] {
-        get {
-            return resultSelections
-        }
-    }
     
     var selectedIndexPaths: [NSIndexPath] {
         get {
             var indexPaths: [NSIndexPath] = []
             
-            for object in resultSelections {
+            for object in selections {
                 for (resultIndex, fetchResult) in enumerate(fetchResults) {
                     let index = fetchResult.indexOfObject(object)
                     if index != NSNotFound {
@@ -89,26 +84,26 @@ final class FetchResultsDataSource : NSObject, SelectableDataSource, PHPhotoLibr
     }
     
     func selectObjectAtIndexPath(indexPath: NSIndexPath) {
-        if isObjectAtIndexPathSelected(indexPath) == false && resultSelections.count < maxNumberOfSelections {
+        if isObjectAtIndexPathSelected(indexPath) == false && selections.count < maxNumberOfSelections {
             if allowsMultipleSelection == false {
-                resultSelections.removeAll(keepCapacity: true)
+                selections.removeAll(keepCapacity: true)
             }
             
-            resultSelections.append(objectAtIndexPath(indexPath))
+            selections.append(objectAtIndexPath(indexPath))
         }
     }
     
     func deselectObjectAtIndexPath(indexPath: NSIndexPath) {
         let object = objectAtIndexPath(indexPath)
-        if let index = find(resultSelections, object) {
-            resultSelections.removeAtIndex(index)
+        if let index = find(selections, object) {
+            selections.removeAtIndex(index)
         }
     }
     
     func isObjectAtIndexPathSelected(indexPath: NSIndexPath) -> Bool {
         let object = objectAtIndexPath(indexPath)
         
-        return contains(resultSelections, object)
+        return contains(selections, object)
     }
     
     // MARK: PHPhotoLibraryChangeObserver
