@@ -60,7 +60,7 @@ final class PhotoCellFactory : CollectionViewCellFactory {
             })
             
             // Set selection number
-            if let index = find(dataSource.allSelections, asset) {
+            if let index = find(dataSource.selections, asset) {
                 if let character = settings?.selectionCharacter {
                     cell.selectionString = String(character)
                 } else {

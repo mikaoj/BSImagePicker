@@ -59,7 +59,7 @@ public protocol SelectableDataSource : NSObjectProtocol {
     /**
     All selected objects
     */
-    var allSelections: [PHObject] { get }
+    var selections: [PHObject] { get set }
     /**
     Index paths for all selections
     */

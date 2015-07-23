@@ -62,7 +62,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         return PreviewViewController(nibName: nil, bundle: nil)
     }()
     
-    required init(dataSource: SelectableDataSource, settings aSettings: BSImagePickerSettings) {
+    required init(dataSource: SelectableDataSource, settings aSettings: BSImagePickerSettings, selections: [PHAsset] = []) {
         albumsDataSource = TableViewDataSource(dataSource: dataSource, cellFactory: albumCellFactory)
         settings = aSettings
         
@@ -72,6 +72,11 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         
         // Default is to have first album selected
         albumsDataSource.data.selectObjectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
+        
+        if let album = albumsDataSource.data.selections.first as? PHAssetCollection {
+            initializePhotosDataSource(album)
+            photosDataSource?.data.selections = selections
+        }
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -92,10 +97,6 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         
         // Set an empty title to get < back button
         title = " "
-
-        if let album = albumsDataSource.data.allSelections.first as? PHAssetCollection {
-            updateWithSelectedAlbum(album)
-        }
         
         // Set button actions and add them to navigation item
         doneBarButton?.target = self
@@ -106,6 +107,11 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         navigationItem.leftBarButtonItem = cancelBarButton
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.titleView = albumTitleView
+
+        if let album = albumsDataSource.data.selections.first as? PHAssetCollection {
+            updateAlbumTitle(album)
+            synchronizeCollectionView()
+        }
         
         // Add long press recognizer
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "collectionViewLongPressed:")
@@ -125,7 +131,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     
     // MARK: Button actions
     func cancelButtonPressed(sender: UIBarButtonItem) {
-        if let closure = cancelClosure, let assets = photosDataSource?.data.allSelections as? [PHAsset] {
+        if let closure = cancelClosure, let assets = photosDataSource?.data.selections as? [PHAsset] {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
                 closure(assets: assets)
             })
@@ -135,7 +141,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     }
     
     func doneButtonPressed(sender: UIBarButtonItem) {
-        if let closure = finishClosure, let assets = photosDataSource?.data.allSelections as? [PHAsset] {
+        if let closure = finishClosure, let assets = photosDataSource?.data.selections as? [PHAsset] {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
                 closure(assets: assets)
             })
@@ -229,8 +235,10 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         albumsDataSource.data.selectObjectAtIndexPath(indexPath)
         
         // Notify photos data source
-        if let album = albumsDataSource.data.allSelections.first as? PHAssetCollection {
-            updateWithSelectedAlbum(album)
+        if let album = albumsDataSource.data.selections.first as? PHAssetCollection {
+            initializePhotosDataSource(album)
+            updateAlbumTitle(album)
+            synchronizeCollectionView()
         }
         
         // Dismiss album selection
@@ -239,7 +247,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     
     // MARK: UICollectionViewDelegate
     override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return photosDataSource?.data.allSelections.count < settings.maxNumberOfSelections
+        return photosDataSource?.data.selections.count < settings.maxNumberOfSelections
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -247,7 +255,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         photosDataSource?.data.selectObjectAtIndexPath(indexPath)
         
         // Set selection number
-        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCell, let count = photosDataSource?.data.allSelections.count {
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCell, let count = photosDataSource?.data.selections.count {
             if let selectionCharacter = settings.selectionCharacter {
                 cell.selectionString = String(selectionCharacter)
             } else {
@@ -329,7 +337,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     // MARK: Private helper methods
     func updateDoneButton() {
         // Get selection count
-        if let numberOfSelectedAssets = photosDataSource?.data.allSelections.count {
+        if let numberOfSelectedAssets = photosDataSource?.data.selections.count {
             // Find right button
             if let subViews = navigationController?.navigationBar.subviews {
                 for view in subViews {
@@ -397,10 +405,12 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         }
     }
     
-    private func updateWithSelectedAlbum(album: PHAssetCollection) {
+    private func updateAlbumTitle(album: PHAssetCollection) {
         // Update album title
         albumTitleView?.albumTitle = album.localizedTitle
-        
+    }
+    
+    private func initializePhotosDataSource(album: PHAssetCollection) {
         // Set up a photo data source with album
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [
@@ -408,8 +418,17 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         ]
         fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
         let dataSource = FetchResultsDataSource(fetchResult: PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions))
-        photosDataSource = CollectionViewDataSource(dataSource: dataSource, cellFactory: photoCellFactory)
+        let newDataSource = CollectionViewDataSource(dataSource: dataSource, cellFactory: photoCellFactory)
         
+        // Keep selection
+        if let photosDataSource = photosDataSource {
+            newDataSource.data.selections = photosDataSource.data.selections
+        }
+        
+        photosDataSource = newDataSource
+    }
+    
+    func synchronizeCollectionView() {
         // Hook up data source
         collectionView?.dataSource = photosDataSource
         collectionView?.delegate = self
