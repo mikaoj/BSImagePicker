@@ -20,11 +20,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import XCTest
+import UIKit
 
-class ImagePickerViewTests: XCTestCase {
+/**
+Implements the UITableViewDataSource protocol with a data source and cell factory
+*/
+final class TableViewDataSource : NSObject, UITableViewDataSource {
+    let data: SelectableDataSource
+    let cellFactory: TableViewCellFactory
     
-    func testNothing() {
-        XCTAssert(true, "add view tests")
+    init(dataSource aDataSource: SelectableDataSource, cellFactory aCellFactory: TableViewCellFactory) {
+        data = aDataSource
+        cellFactory = aCellFactory
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return data.sections
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.numberOfObjectsInSection(section)
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        return cellFactory.cellForIndexPath(indexPath, withDataSource: data, inTableView: tableView)
     }
 }

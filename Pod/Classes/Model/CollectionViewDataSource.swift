@@ -20,11 +20,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import XCTest
+import UIKit
 
-class ImagePickerViewTests: XCTestCase {
+/**
+Gives UICollectionViewDataSource functionality with a given data source and cell factory
+*/
+final class CollectionViewDataSource : NSObject, UICollectionViewDataSource {
+    let data: SelectableDataSource
+    let cellFactory: CollectionViewCellFactory
     
-    func testNothing() {
-        XCTAssert(true, "add view tests")
+    init(dataSource aDataSource: SelectableDataSource, cellFactory aCellFactory: CollectionViewCellFactory) {
+        data = aDataSource
+        cellFactory = aCellFactory
+    }
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return data.sections
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return data.numberOfObjectsInSection(section)
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        return cellFactory.cellForIndexPath(indexPath, withDataSource: data, inCollectionView: collectionView)
     }
 }
