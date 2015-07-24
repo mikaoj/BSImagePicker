@@ -23,7 +23,7 @@
 import UIKit
 
 @IBDesignable final class SelectionView: UIView {
-    var selectionString: String = "" {
+    var selectionString: NSString = "" {
         didSet {
             if selectionString != oldValue {
                 setNeedsDisplay()

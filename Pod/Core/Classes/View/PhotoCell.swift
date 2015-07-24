@@ -40,7 +40,7 @@ final class PhotoCell: UICollectionViewCell {
     
     var selectionString: String {
         get {
-            return selectionView.selectionString
+            return String(selectionView.selectionString)
         }
         
         set {

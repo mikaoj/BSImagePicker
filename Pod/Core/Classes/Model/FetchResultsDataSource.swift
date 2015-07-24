@@ -39,7 +39,7 @@ final class FetchResultsDataSource : NSObject, SelectableDataSource, PHPhotoLibr
             var indexPaths: [NSIndexPath] = []
             
             for object in selections {
-                for (resultIndex, fetchResult) in enumerate(fetchResults) {
+                for (resultIndex, fetchResult) in fetchResults.enumerate() {
                     let index = fetchResult.indexOfObject(object)
                     if index != NSNotFound {
                         let indexPath = NSIndexPath(forItem: index, inSection: resultIndex)
@@ -71,7 +71,7 @@ final class FetchResultsDataSource : NSObject, SelectableDataSource, PHPhotoLibr
     // MARK: SelectableDataSource
     var sections: Int {
         get {
-            return count(fetchResults)
+            return fetchResults.count
         }
     }
     
@@ -95,7 +95,7 @@ final class FetchResultsDataSource : NSObject, SelectableDataSource, PHPhotoLibr
     
     func deselectObjectAtIndexPath(indexPath: NSIndexPath) {
         let object = objectAtIndexPath(indexPath)
-        if let index = find(selections, object) {
+        if let index = selections.indexOf(object) {
             selections.removeAtIndex(index)
         }
     }
@@ -103,12 +103,12 @@ final class FetchResultsDataSource : NSObject, SelectableDataSource, PHPhotoLibr
     func isObjectAtIndexPathSelected(indexPath: NSIndexPath) -> Bool {
         let object = objectAtIndexPath(indexPath)
         
-        return contains(selections, object)
+        return selections.contains(object)
     }
     
     // MARK: PHPhotoLibraryChangeObserver
-    func photoLibraryDidChange(changeInstance: PHChange!) {
-        for (index, fetchResult) in enumerate(fetchResults) {
+    func photoLibraryDidChange(changeInstance: PHChange) {
+        for (index, fetchResult) in fetchResults.enumerate() {
             // Check if there are changes to our fetch result
             if let collectionChanges = changeInstance.changeDetailsForFetchResult(fetchResult) {
                 // Get the new fetch result
@@ -117,28 +117,15 @@ final class FetchResultsDataSource : NSObject, SelectableDataSource, PHPhotoLibr
                 // Replace old result
                 fetchResults[index] = newResult
                 
-                // Sometimes the properties on PHFetchResultChangeDetail are nil
-                // Work around it for now
-                let incrementalChange = collectionChanges.hasIncrementalChanges && collectionChanges.removedIndexes != nil && collectionChanges.insertedIndexes != nil && collectionChanges.changedIndexes != nil
-                
-                let removedIndexPaths: [NSIndexPath]
-                let insertedIndexPaths: [NSIndexPath]
-                let changedIndexPaths: [NSIndexPath]
-                
-                if incrementalChange {
-                    // Incremental change, tell delegate what has been deleted, inserted and changed
-                    removedIndexPaths = indexPathsFromIndexSet(collectionChanges.removedIndexes, inSection: index)
-                    insertedIndexPaths = indexPathsFromIndexSet(collectionChanges.insertedIndexes, inSection: index)
-                    changedIndexPaths = indexPathsFromIndexSet(collectionChanges.changedIndexes, inSection: index)
+                if let insertedIndexes = collectionChanges.insertedIndexes, let deletedIndexes = collectionChanges.removedIndexes, let changedIndexes = collectionChanges.changedIndexes where collectionChanges.hasIncrementalChanges {
+                    let insertedIndexPaths = indexPathsFromIndexSet(insertedIndexes, inSection: index)
+                    let deletedIndexPaths = indexPathsFromIndexSet(deletedIndexes, inSection: index)
+                    let changedIndexPaths = indexPathsFromIndexSet(changedIndexes, inSection: index)
+                    
+                    self.delegate?.didUpdateData(self, incrementalChange: true, insertions: insertedIndexPaths, deletions: deletedIndexPaths, changes: changedIndexPaths)
                 } else {
-                    // No incremental change. Set empty arrays
-                    removedIndexPaths = []
-                    insertedIndexPaths = []
-                    changedIndexPaths = []
+                    self.delegate?.didUpdateData(self, incrementalChange: false, insertions: [], deletions: [], changes: [])
                 }
-                
-                // Notify delegate
-                delegate?.didUpdateData(self, incrementalChange: incrementalChange, insertions: insertedIndexPaths, deletions: removedIndexPaths, changes: changedIndexPaths)
             }
         }
     }
