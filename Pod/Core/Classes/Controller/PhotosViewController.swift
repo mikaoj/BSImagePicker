@@ -23,7 +23,7 @@
 import UIKit
 import Photos
 
-final class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UINavigationControllerDelegate, SelectableDataDelegate {
+final class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UINavigationControllerDelegate, DataDelegate {
     var selectionClosure: ((asset: PHAsset) -> Void)?
     var deselectionClosure: ((asset: PHAsset) -> Void)?
     var cancelClosure: ((assets: [PHAsset]) -> Void)?

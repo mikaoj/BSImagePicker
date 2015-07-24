@@ -30,7 +30,7 @@ final class FetchResultsDataSource : NSObject, SelectableDataSource, PHPhotoLibr
     private var fetchResults: [PHFetchResult]
     var selections: [PHObject] = []
     
-    var delegate: SelectableDataDelegate?
+    var delegate: DataDelegate?
     var allowsMultipleSelection: Bool = false
     var maxNumberOfSelections: Int = Int.max
     

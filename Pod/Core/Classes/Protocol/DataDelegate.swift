@@ -25,7 +25,7 @@ import Foundation
 /**
 Keep track of whats happening in your selectable data source by implementing this protocol and settings yourself as delegate.
 */
-public protocol SelectableDataDelegate {
+public protocol DataDelegate {
     /**
     Called when there has been changes in the data source.
     - parameter dataSource: The data source with updates

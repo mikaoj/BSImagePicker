@@ -26,7 +26,7 @@ final class AssetCollectionDataSource : NSObject, SelectableDataSource {
     private var assetCollection: PHAssetCollection
     var selections: [PHObject] = []
     
-    var delegate: SelectableDataDelegate?
+    var delegate: DataDelegate?
     var allowsMultipleSelection: Bool = false
     var maxNumberOfSelections: Int = 1
     
