@@ -60,7 +60,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     }()
     
     required init(dataSource: SelectableDataSource, settings aSettings: BSImagePickerSettings, selections: [PHAsset] = []) {
-        albumsDataSource = TableViewDataSource(dataSource: dataSource, cellFactory: albumCellFactory)
+        albumsDataSource = TableViewDataSource(dataSource: dataSource)
         settings = aSettings
         
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -76,7 +76,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     }
 
     required init?(coder aDecoder: NSCoder) {
-        albumsDataSource = TableViewDataSource(dataSource: FetchResultsDataSource(fetchResults: []), cellFactory: albumCellFactory)
+        albumsDataSource = TableViewDataSource(dataSource: FetchResultsDataSource(fetchResults: []))
         albumsDataSource.data.allowsMultipleSelection = false
         settings = Settings()
         
@@ -90,7 +90,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         // TODO: Settings
         collectionView?.backgroundColor = UIColor.whiteColor()
         PhotoCellFactory.registerCellIdentifiersForCollectionView(collectionView)
-        albumCellFactory.registerCellIdentifiersForTableView(albumsViewController.tableView)
+        AlbumCellFactory.registerCellIdentifiersForTableView(albumsViewController.tableView)
         
         // Set an empty title to get < back button
         title = " "

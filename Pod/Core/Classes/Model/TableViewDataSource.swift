@@ -27,11 +27,9 @@ Implements the UITableViewDataSource protocol with a data source and cell factor
 */
 final class TableViewDataSource : NSObject, UITableViewDataSource {
     let data: SelectableDataSource
-    let cellFactory: TableViewCellFactory
     
-    init(dataSource aDataSource: SelectableDataSource, cellFactory aCellFactory: TableViewCellFactory) {
+    init(dataSource aDataSource: SelectableDataSource) {
         data = aDataSource
-        cellFactory = aCellFactory
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -43,6 +41,6 @@ final class TableViewDataSource : NSObject, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        return cellFactory.cellForIndexPath(indexPath, withDataSource: data, inTableView: tableView)
+        return AlbumCellFactory.cellForIndexPath(indexPath, withObject: data.objectAtIndexPath(indexPath), inTableView: tableView)
     }
 }
