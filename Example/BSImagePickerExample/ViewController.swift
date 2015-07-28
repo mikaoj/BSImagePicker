@@ -32,13 +32,13 @@ class ViewController: UIViewController {
         
         bs_presentImagePickerController(vc, animated: true,
             select: { (asset: PHAsset) -> Void in
-                println("Selected: \(asset)")
+                print("Selected: \(asset)")
             }, deselect: { (asset: PHAsset) -> Void in
-                println("Deselected: \(asset)")
+                print("Deselected: \(asset)")
             }, cancel: { (assets: [PHAsset]) -> Void in
-                println("Cancel: \(assets)")
+                print("Cancel: \(assets)")
             }, finish: { (assets: [PHAsset]) -> Void in
-                println("Finish: \(assets)")
+                print("Finish: \(assets)")
             }, completion: nil)
     }
     
@@ -61,18 +61,18 @@ class ViewController: UIViewController {
         let selectedAssets = [first, second, third]
         let transientCollection = PHAssetCollection.transientAssetCollectionWithAssets(selectedAssets, title: "Custom assets")
         
-        let vc = BSImagePickerViewController(assetCollection: transientCollection, selections: selectedAssets)
-        
-        bs_presentImagePickerController(vc, animated: true,
-            select: { (asset: PHAsset) -> Void in
-                println("Selected: \(asset)")
-            }, deselect: { (asset: PHAsset) -> Void in
-                println("Deselected: \(asset)")
-            }, cancel: { (assets: [PHAsset]) -> Void in
-                println("Cancel: \(assets)")
-            }, finish: { (assets: [PHAsset]) -> Void in
-                println("Finish: \(assets)")
-            }, completion: nil)
+//        let vc = BSImagePickerViewController(assetCollection: transientCollection, selections: selectedAssets)
+//        
+//        bs_presentImagePickerController(vc, animated: true,
+//            select: { (asset: PHAsset) -> Void in
+//                print("Selected: \(asset)")
+//            }, deselect: { (asset: PHAsset) -> Void in
+//                print("Deselected: \(asset)")
+//            }, cancel: { (assets: [PHAsset]) -> Void in
+//                print("Cancel: \(assets)")
+//            }, finish: { (assets: [PHAsset]) -> Void in
+//                print("Finish: \(assets)")
+//            }, completion: nil)
     }
     
     @IBAction func showCustomImagePicker(sender: UIButton) {
@@ -102,13 +102,13 @@ class ViewController: UIViewController {
         
         bs_presentImagePickerController(vc, animated: true,
             select: { (asset: PHAsset) -> Void in
-                println("Selected: \(asset)")
+                print("Selected: \(asset)")
             }, deselect: { (asset: PHAsset) -> Void in
-                println("Deselected: \(asset)")
+                print("Deselected: \(asset)")
             }, cancel: { (assets: [PHAsset]) -> Void in
-                println("Cancel: \(assets)")
+                print("Cancel: \(assets)")
             }, finish: { (assets: [PHAsset]) -> Void in
-                println("Finish: \(assets)")
+                print("Finish: \(assets)")
             }, completion: nil)
     }
 }
