@@ -46,14 +46,12 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     
     private var doneBarButtonTitle: String?
     
-    private lazy var albumsViewController: AlbumsViewController? = {
-        let storyboard = UIStoryboard(name: "Albums", bundle: BSImagePickerViewController.bundle)
-        
-        let vc = storyboard.instantiateInitialViewController() as? AlbumsViewController
-        vc?.modalPresentationStyle = .Popover
-        vc?.preferredContentSize = CGSize(width: 320, height: 300)
-        vc?.tableView.dataSource = self.albumsDataSource
-        vc?.tableView.delegate = self
+    private lazy var albumsViewController: AlbumsViewController = {
+        let vc = AlbumsViewController(style: .Plain)
+        vc.modalPresentationStyle = .Popover
+        vc.preferredContentSize = CGSize(width: 320, height: 300)
+        vc.tableView.dataSource = self.albumsDataSource
+        vc.tableView.delegate = self
         
         return vc
     }()
@@ -94,6 +92,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         // TODO: Settings
         collectionView?.backgroundColor = UIColor.whiteColor()
         photoCellFactory.registerCellIdentifiersForCollectionView(collectionView)
+        albumCellFactory.registerCellIdentifiersForTableView(albumsViewController.tableView)
         
         // Set an empty title to get < back button
         title = " "
@@ -151,7 +150,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     }
     
     func albumButtonPressed(sender: UIButton) {
-        if let albumsViewController = albumsViewController, let popVC = albumsViewController.popoverPresentationController {
+        if let popVC = albumsViewController.popoverPresentationController {
             popVC.permittedArrowDirections = .Up
             popVC.sourceView = sender
             let senderRect = sender.convertRect(sender.frame, fromView: sender.superview)
@@ -242,7 +241,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         }
         
         // Dismiss album selection
-        albumsViewController?.dismissViewControllerAnimated(true, completion: nil)
+        albumsViewController.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: UICollectionViewDelegate
@@ -323,12 +322,12 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
             } else if sender.isEqual(self.albumsDataSource.data) {
                 if incrementalChange {
                     // Update
-                    self.albumsViewController?.tableView?.deleteRowsAtIndexPaths(delete, withRowAnimation: .Automatic)
-                    self.albumsViewController?.tableView?.insertRowsAtIndexPaths(insert, withRowAnimation: .Automatic)
-                    self.albumsViewController?.tableView?.reloadRowsAtIndexPaths(change, withRowAnimation: .Automatic)
+                    self.albumsViewController.tableView?.deleteRowsAtIndexPaths(delete, withRowAnimation: .Automatic)
+                    self.albumsViewController.tableView?.insertRowsAtIndexPaths(insert, withRowAnimation: .Automatic)
+                    self.albumsViewController.tableView?.reloadRowsAtIndexPaths(change, withRowAnimation: .Automatic)
                 } else {
                     // Reload
-                    self.albumsViewController?.tableView?.reloadData()
+                    self.albumsViewController.tableView?.reloadData()
                 }
             }
         })

@@ -29,13 +29,17 @@ Cell factory for albums
 final class AlbumCellFactory : TableViewCellFactory {
     private let albumCellIdentifier = "albumCell"
     
+    func registerCellIdentifiersForTableView(tableView: UITableView?) {
+        tableView?.registerNib(UINib(nibName: "AlbumCell", bundle: BSImagePickerViewController.bundle), forCellReuseIdentifier: albumCellIdentifier)
+    }
+    
     func cellForIndexPath(indexPath: NSIndexPath, withDataSource dataSource: SelectableDataSource, inTableView tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(albumCellIdentifier, forIndexPath: indexPath) as! AlbumCell
         
         // Fetch album
         if let album = dataSource.objectAtIndexPath(indexPath) as? PHAssetCollection {
             // Title
-            cell.albumTitleLabel.text = album.localizedTitle
+            cell.albumTitleLabel?.text = album.localizedTitle
             
             // Selected
             cell.selected = dataSource.isObjectAtIndexPathSelected(indexPath)
@@ -57,18 +61,18 @@ final class AlbumCellFactory : TableViewCellFactory {
                     switch idx {
                     case 0:
                         PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                            cell.firstImageView.image = result
-                            cell.secondImageView.image = result
-                            cell.thirdImageView.image = result
+                            cell.firstImageView?.image = result
+                            cell.secondImageView?.image = result
+                            cell.thirdImageView?.image = result
                         }
                     case 1:
                         PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                            cell.secondImageView.image = result
-                            cell.thirdImageView.image = result
+                            cell.secondImageView?.image = result
+                            cell.thirdImageView?.image = result
                         }
                     case 2:
                         PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                            cell.thirdImageView.image = result
+                            cell.thirdImageView?.image = result
                         }
                         
                     default:

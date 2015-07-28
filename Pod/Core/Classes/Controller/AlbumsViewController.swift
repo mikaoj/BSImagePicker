@@ -32,5 +32,9 @@ final class AlbumsViewController: UITableViewController {
         visualEffectView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         tableView.backgroundView = visualEffectView
         tableView.backgroundColor = UIColor.clearColor()
+        
+        tableView.estimatedRowHeight = 101.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.separatorColor = UIColor.clearColor()
     }
 }
