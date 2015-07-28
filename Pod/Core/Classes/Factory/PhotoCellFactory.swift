@@ -26,52 +26,54 @@ import Photos
 /**
 Cell factory for photos
 */
-final class PhotoCellFactory : CollectionViewCellFactory {
-    private let photoCellIdentifier = "photoCellIdentifier"
-    private let photosManager = PHCachingImageManager.defaultManager()
+struct PhotoCellFactory : CollectionViewCellFactory {
+    private static let photoCellIdentifier = "photoCellIdentifier"
+    private static let imageContentMode: PHImageContentMode = .AspectFill
     
-    private let imageContentMode: PHImageContentMode = .AspectFill
-    
-    var settings: BSImagePickerSettings?
-    var imageSize: CGSize = CGSizeZero
-    
-    func registerCellIdentifiersForCollectionView(collectionView: UICollectionView?) {
+    static func registerCellIdentifiersForCollectionView(collectionView: UICollectionView?) {
         collectionView?.registerNib(UINib(nibName: "PhotoCell", bundle: BSImagePickerViewController.bundle), forCellWithReuseIdentifier: photoCellIdentifier)
     }
     
-    func cellForIndexPath(indexPath: NSIndexPath, withDataSource dataSource: SelectableDataSource, inCollectionView collectionView: UICollectionView) -> UICollectionViewCell {
+    static func cellForIndexPath(indexPath: NSIndexPath, withObject object: AnyObject, inCollectionView collectionView: UICollectionView) -> UICollectionViewCell {
+        guard let asset = object as? PHAsset, let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return UICollectionViewCell()
+        }
+        
+        let photosManager = PHCachingImageManager.defaultManager()
+        let imageSize = collectionViewFlowLayout.itemSize
+        
         UIView.setAnimationsEnabled(false)
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(photoCellIdentifier, forIndexPath: indexPath) as! PhotoCell
-        if let settings = settings {
-            cell.settings = settings
-        }
+        // TODO: Find other way to inject settings into cell
+//        if let settings = settings {
+//            cell.settings = settings
+//        }
         
         // Cancel any pending image requests
         if cell.tag != 0 {
             photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
         }
         
-        if let asset = dataSource.objectAtIndexPath(indexPath) as? PHAsset {
-            cell.asset = asset
-            
-            // Request image
-            cell.tag = Int(photosManager.requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                cell.imageView.image = result
+        cell.asset = asset
+        
+        // Request image
+        cell.tag = Int(photosManager.requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+            cell.imageView.image = result
             })
-            
-            // Set selection number
-            if let index = dataSource.selections.indexOf(asset) {
-                if let character = settings?.selectionCharacter {
-                    cell.selectionString = String(character)
-                } else {
-                    cell.selectionString = String(index + 1)
-                }
-                
-                cell.selected = true
-            } else {
-                cell.selected = false
-            }
-        }
+        
+        // Set selection number
+        // TODO: Add selections number stuff again. Use selectedIndexPaths in collectionView?
+//        if let index = dataSource.selections.indexOf(asset) {
+//            if let character = settings?.selectionCharacter {
+//                cell.selectionString = String(character)
+//            } else {
+//                cell.selectionString = String(index + 1)
+//            }
+//            
+//            cell.selected = true
+//        } else {
+//            cell.selected = false
+//        }
         
         UIView.setAnimationsEnabled(true)
         

@@ -36,10 +36,9 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     private let expandAnimator = ZoomAnimator()
     private let shrinkAnimator = ZoomAnimator()
     
-    private var photosDataSource: CollectionViewDataSource?
+    private var photosDataSource: UICollectionViewDataSource?
     private var albumsDataSource: TableViewDataSource
     
-    private let photoCellFactory = PhotoCellFactory()
     private let albumCellFactory = AlbumCellFactory()
     
     private let settings: BSImagePickerSettings
@@ -73,7 +72,6 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         
         if let album = albumsDataSource.data.selections.first as? PHAssetCollection {
             initializePhotosDataSource(album)
-            photosDataSource?.data.selections = selections
         }
     }
 
@@ -91,7 +89,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         // Setup collection view
         // TODO: Settings
         collectionView?.backgroundColor = UIColor.whiteColor()
-        photoCellFactory.registerCellIdentifiersForCollectionView(collectionView)
+        PhotoCellFactory.registerCellIdentifiersForCollectionView(collectionView)
         albumCellFactory.registerCellIdentifiersForTableView(albumsViewController.tableView)
         
         // Set an empty title to get < back button
@@ -130,21 +128,21 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     
     // MARK: Button actions
     func cancelButtonPressed(sender: UIBarButtonItem) {
-        if let closure = cancelClosure, let assets = photosDataSource?.data.selections as? [PHAsset] {
-            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-                closure(assets: assets)
-            })
-        }
+//        if let closure = cancelClosure, let assets = photosDataSource?.data.selections as? [PHAsset] {
+//            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
+//                closure(assets: assets)
+//            })
+//        }
         
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     func doneButtonPressed(sender: UIBarButtonItem) {
-        if let closure = finishClosure, let assets = photosDataSource?.data.selections as? [PHAsset] {
-            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-                closure(assets: assets)
-            })
-        }
+//        if let closure = finishClosure, let assets = photosDataSource?.data.selections as? [PHAsset] {
+//            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
+//                closure(assets: assets)
+//            })
+//        }
         
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -215,7 +213,6 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
             let itemSize =  CGSize(width: width, height: width)
             
             collectionViewFlowLayout.itemSize = itemSize
-            photoCellFactory.imageSize = itemSize
         }
     }
     
@@ -246,15 +243,17 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     
     // MARK: UICollectionViewDelegate
     override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return photosDataSource?.data.selections.count < settings.maxNumberOfSelections
+        // TODO: Implement new bounds check
+        return true
+//        return photosDataSource?.data.selections.count < settings.maxNumberOfSelections
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         // Select asset)
-        photosDataSource?.data.selectObjectAtIndexPath(indexPath)
+//        photosDataSource?.data.selectObjectAtIndexPath(indexPath)
         
         // Set selection number
-        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCell, let count = photosDataSource?.data.selections.count {
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCell, let count = collectionView.indexPathsForSelectedItems()?.count {
             if let selectionCharacter = settings.selectionCharacter {
                 cell.selectionString = String(selectionCharacter)
             } else {
@@ -266,34 +265,35 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         updateDoneButton()
         
         // Call selection closure
-        if let closure = selectionClosure, let asset = photosDataSource?.data.objectAtIndexPath(indexPath) as? PHAsset {
-            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-                closure(asset: asset)
-            })
-        }
+        // TODO: Method for getting object from data source
+//        if let closure = selectionClosure, let asset = photosDataSource?.objectAtIndexPath(indexPath) as? PHAsset {
+//            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
+//                closure(asset: asset)
+//            })
+//        }
     }
     
     override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         // Deselect asset
-        photosDataSource?.data.deselectObjectAtIndexPath(indexPath)
+//        photosDataSource?.data.deselectObjectAtIndexPath(indexPath)
         
         // Update done button
         updateDoneButton()
         
         // Reload selected cells to update their selection number
-        if let photosDataSource = photosDataSource {
-            UIView.setAnimationsEnabled(false)
-            collectionView.reloadItemsAtIndexPaths(photosDataSource.data.selectedIndexPaths)
-            syncSelectionInDataSource(photosDataSource.data, withCollectionView: collectionView)
-            UIView.setAnimationsEnabled(true)
-        }
-        
-        // Call deselection closure
-        if let closure = deselectionClosure, let asset = photosDataSource?.data.objectAtIndexPath(indexPath) as? PHAsset {
-            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-                closure(asset: asset)
-            })
-        }
+//        if let photosDataSource = photosDataSource {
+//            UIView.setAnimationsEnabled(false)
+//            collectionView.reloadItemsAtIndexPaths(photosDataSource.data.selectedIndexPaths)
+//            syncSelectionInDataSource(photosDataSource.data, withCollectionView: collectionView)
+//            UIView.setAnimationsEnabled(true)
+//        }
+//        
+//        // Call deselection closure
+//        if let closure = deselectionClosure, let asset = photosDataSource?.data.objectAtIndexPath(indexPath) as? PHAsset {
+//            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
+//                closure(asset: asset)
+//            })
+//        }
     }
     
     // MARK: Selectable data delegate
@@ -301,7 +301,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         // May come on a background thread, so dispatch to main
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             // Reload table view or collection view?
-            if sender.isEqual(self.photosDataSource?.data)  {
+            if sender.isEqual(self.photosDataSource)  {
                 if let collectionView = self.collectionView {
                     if incrementalChange {
                         // Update
@@ -316,7 +316,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
                     
                     // Sync selection
                     if let photosDataSource = self.photosDataSource {
-                        self.syncSelectionInDataSource(photosDataSource.data, withCollectionView: collectionView)
+//                        self.syncSelectionInDataSource(photosDataSource.data, withCollectionView: collectionView)
                     }
                 }
             } else if sender.isEqual(self.albumsDataSource.data) {
@@ -336,7 +336,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     // MARK: Private helper methods
     func updateDoneButton() {
         // Get selection count
-        if let numberOfSelectedAssets = photosDataSource?.data.selections.count {
+        if let numberOfSelectedAssets = collectionView?.indexPathsForSelectedItems()?.count {
             // Find right button
             if let subViews = navigationController?.navigationBar.subviews {
                 for view in subViews {
@@ -418,30 +418,20 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
             NSSortDescriptor(key: "creationDate", ascending: false)
         ]
         fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
-        let dataSource = FetchResultsDataSource(fetchResult: PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions))
-        let newDataSource = CollectionViewDataSource(dataSource: dataSource, cellFactory: photoCellFactory)
-        
-        // Keep selection
-        if let photosDataSource = photosDataSource {
-            newDataSource.data.selections = photosDataSource.data.selections
-        }
-        
-        photosDataSource = newDataSource
+        photosDataSource = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
     }
     
     func synchronizeCollectionView() {
         // Hook up data source
         collectionView?.dataSource = photosDataSource
         collectionView?.delegate = self
-        photosDataSource?.data.delegate = self
         
         // Enable multiple selection
-        photosDataSource?.data.allowsMultipleSelection = true
         collectionView?.allowsMultipleSelection = true
         
         // Reload and sync selections
         collectionView?.reloadData()
-        syncSelectionInDataSource(photosDataSource!.data, withCollectionView: collectionView!)
+//        syncSelectionInDataSource(photosDataSource!.data, withCollectionView: collectionView!)
     }
     
     // MARK: UINavigationControllerDelegate
