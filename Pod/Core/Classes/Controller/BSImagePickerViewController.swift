@@ -33,13 +33,14 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     private var doneBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: nil, action: nil)
     private var cancelBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: nil, action: nil)
     private let albumTitleView: AlbumTitleView = bundle.loadNibNamed("AlbumTitleView", owner: nil, options: nil).first as! AlbumTitleView
-    private let dataSource: SelectableDataSource
+    private let dataSource: [PHFetchResult]
     private let selections: [PHAsset]
     
     static let bundle: NSBundle = NSBundle(path: NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")!)!
     
     lazy var photosViewController: PhotosViewController = {
-        let vc = PhotosViewController(dataSource: self.dataSource, settings: self.settings, selections: self.selections)
+        let dataSource = AggregatedDataSource(dataSources: self.dataSource)
+        let vc = PhotosViewController(dataSource: dataSource, settings: self.settings, selections: self.selections)
         
         vc.doneBarButton = self.doneBarButton
         vc.cancelBarButton = self.cancelBarButton
@@ -90,7 +91,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     - parameter fetchResults: PHFetchResult of PHAssetCollections
     */
     public convenience init(fetchResults: [PHFetchResult]) {
-        self.init(dataSource: FetchResultsDataSource(fetchResults: fetchResults))
+        self.init(dataSource: fetchResults)
     }
     
     /**
@@ -105,7 +106,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     - parameter dataSource: The data source for the albums
     - parameter selections: Any PHAsset you want to seed the picker with as selected
     */
-    public required init(dataSource: SelectableDataSource?, selections: [PHAsset] = []) {
+    public required init(dataSource: [PHFetchResult]?, selections: [PHAsset] = []) {
         if let dataSource = dataSource {
             self.dataSource = dataSource
         } else {
@@ -141,7 +142,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         }
     }
     
-    private static func defaultDataSource() -> SelectableDataSource {
+    private static func defaultDataSource() -> [PHFetchResult] {
         let fetchOptions = PHFetchOptions()
         
         // Camera roll fetch result
@@ -150,7 +151,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         // Albums fetch result
         let albumResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
         
-        return FetchResultsDataSource(fetchResults: [cameraRollResult, albumResult])
+        return [cameraRollResult, albumResult]
     }
     
     // MARK: ImagePickerSettings proxy

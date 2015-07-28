@@ -26,7 +26,7 @@ import Photos
 /**
 Cell factory for albums
 */
-final class AlbumCellFactory : TableViewCellFactory {
+struct AlbumCellFactory : TableViewCellFactory {
     private static let albumCellIdentifier = "albumCell"
     
     static func registerCellIdentifiersForTableView(tableView: UITableView?) {

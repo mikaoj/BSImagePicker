@@ -37,7 +37,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     private let shrinkAnimator = ZoomAnimator()
     
     private var photosDataSource: UICollectionViewDataSource?
-    private var albumsDataSource: TableViewDataSource
+    private var albumsDataSource: UITableViewDataSource?
     
     private let albumCellFactory = AlbumCellFactory()
     
@@ -59,25 +59,14 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         return PreviewViewController(nibName: nil, bundle: nil)
     }()
     
-    required init(dataSource: SelectableDataSource, settings aSettings: BSImagePickerSettings, selections: [PHAsset] = []) {
-        albumsDataSource = TableViewDataSource(dataSource: dataSource)
+    required init(dataSource: UITableViewDataSource, settings aSettings: BSImagePickerSettings, selections: [PHAsset] = []) {
+        albumsDataSource = dataSource
         settings = aSettings
         
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
-        
-        albumsDataSource.data.delegate = self
-        
-        // Default is to have first album selected
-        albumsDataSource.data.selectObjectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
-        
-        if let album = albumsDataSource.data.selections.first as? PHAssetCollection {
-            initializePhotosDataSource(album)
-        }
     }
 
     required init?(coder aDecoder: NSCoder) {
-        albumsDataSource = TableViewDataSource(dataSource: FetchResultsDataSource(fetchResults: []))
-        albumsDataSource.data.allowsMultipleSelection = false
         settings = Settings()
         
         super.init(coder: aDecoder)
@@ -105,10 +94,8 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.titleView = albumTitleView
 
-        if let album = albumsDataSource.data.selections.first as? PHAssetCollection {
-            updateAlbumTitle(album)
+//            updateAlbumTitle(album)
             synchronizeCollectionView()
-        }
         
         // Add long press recognizer
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "collectionViewLongPressed:")
@@ -227,15 +214,15 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     
     // MARK: UITableViewDelegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // Update selected album
-        albumsDataSource.data.selectObjectAtIndexPath(indexPath)
-        
-        // Notify photos data source
-        if let album = albumsDataSource.data.selections.first as? PHAssetCollection {
-            initializePhotosDataSource(album)
-            updateAlbumTitle(album)
-            synchronizeCollectionView()
-        }
+//        // Update selected album
+//        albumsDataSource.data.selectObjectAtIndexPath(indexPath)
+//        
+//        // Notify photos data source
+//        if let album = albumsDataSource.data.selections.first as? PHAssetCollection {
+//            initializePhotosDataSource(album)
+//            updateAlbumTitle(album)
+//            synchronizeCollectionView()
+//        }
         
         // Dismiss album selection
         albumsViewController.dismissViewControllerAnimated(true, completion: nil)
@@ -319,7 +306,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
 //                        self.syncSelectionInDataSource(photosDataSource.data, withCollectionView: collectionView)
                     }
                 }
-            } else if sender.isEqual(self.albumsDataSource.data) {
+            } else if sender.isEqual(self.albumsDataSource) {
                 if incrementalChange {
                     // Update
                     self.albumsViewController.tableView?.deleteRowsAtIndexPaths(delete, withRowAnimation: .Automatic)
