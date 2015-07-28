@@ -36,7 +36,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     private let expandAnimator = ZoomAnimator()
     private let shrinkAnimator = ZoomAnimator()
     
-    private var photosDataSource: UICollectionViewDataSource?
+    private var photosDataSource: AggregatedCollectionViewDataSource<PHFetchResult>
     private var albumsDataSource: AggregatedTableViewDataSource<PHFetchResult>
     
     private let albumCellFactory = AlbumCellFactory()
@@ -61,6 +61,21 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     
     required init(fetchResults: [PHFetchResult], settings aSettings: BSImagePickerSettings, selections: [PHAsset] = []) {
         albumsDataSource = AggregatedTableViewDataSource(dataSources: fetchResults)
+        
+        let photosDataSources: [PHFetchResult]
+        if let album = albumsDataSource.dataSources.first?.firstObject as? PHAssetCollection {
+            // Set up a photo data source with album
+            let fetchOptions = PHFetchOptions()
+            fetchOptions.sortDescriptors = [
+                NSSortDescriptor(key: "creationDate", ascending: false)
+            ]
+            fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
+            let fetchResult = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
+            photosDataSources = [fetchResult]
+        } else {
+            photosDataSources = []
+        }
+        photosDataSource = AggregatedCollectionViewDataSource(dataSources: photosDataSources)
         settings = aSettings
         
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -69,6 +84,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     required init?(coder aDecoder: NSCoder) {
         settings = Settings()
         albumsDataSource = AggregatedTableViewDataSource(dataSources: [])
+        photosDataSource = AggregatedCollectionViewDataSource(dataSources: [])
         
         super.init(coder: aDecoder)
     }
@@ -303,9 +319,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
                     }
                     
                     // Sync selection
-                    if let photosDataSource = self.photosDataSource {
 //                        self.syncSelectionInDataSource(photosDataSource.data, withCollectionView: collectionView)
-                    }
                 }
             } else if sender.isEqual(self.albumsDataSource) {
                 if incrementalChange {
@@ -399,15 +413,15 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         }
     }
     
-    private func initializePhotosDataSource(album: PHAssetCollection) {
-        // Set up a photo data source with album
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [
-            NSSortDescriptor(key: "creationDate", ascending: false)
-        ]
-        fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
-        photosDataSource = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
-    }
+//    private func initializePhotosDataSource(album: PHAssetCollection) {
+//        // Set up a photo data source with album
+//        let fetchOptions = PHFetchOptions()
+//        fetchOptions.sortDescriptors = [
+//            NSSortDescriptor(key: "creationDate", ascending: false)
+//        ]
+//        fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
+//        photosDataSource = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
+//    }
     
     func synchronizeCollectionView() {
         // Hook up data source
