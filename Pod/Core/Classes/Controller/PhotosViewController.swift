@@ -37,7 +37,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     private let shrinkAnimator = ZoomAnimator()
     
     private var photosDataSource: UICollectionViewDataSource?
-    private var albumsDataSource: UITableViewDataSource?
+    private var albumsDataSource: AggregatedTableViewDataSource<PHFetchResult>
     
     private let albumCellFactory = AlbumCellFactory()
     
@@ -59,8 +59,8 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         return PreviewViewController(nibName: nil, bundle: nil)
     }()
     
-    required init(dataSource: UITableViewDataSource, settings aSettings: BSImagePickerSettings, selections: [PHAsset] = []) {
-        albumsDataSource = dataSource
+    required init(fetchResults: [PHFetchResult], settings aSettings: BSImagePickerSettings, selections: [PHAsset] = []) {
+        albumsDataSource = AggregatedTableViewDataSource(dataSources: fetchResults)
         settings = aSettings
         
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -68,6 +68,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
 
     required init?(coder aDecoder: NSCoder) {
         settings = Settings()
+        albumsDataSource = AggregatedTableViewDataSource(dataSources: [])
         
         super.init(coder: aDecoder)
     }

@@ -39,8 +39,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     static let bundle: NSBundle = NSBundle(path: NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")!)!
     
     lazy var photosViewController: PhotosViewController = {
-        let dataSource = AggregatedDataSource(dataSources: self.dataSource)
-        let vc = PhotosViewController(dataSource: dataSource, settings: self.settings, selections: self.selections)
+        let vc = PhotosViewController(fetchResults: self.dataSource, settings: self.settings, selections: self.selections)
         
         vc.doneBarButton = self.doneBarButton
         vc.cancelBarButton = self.cancelBarButton
