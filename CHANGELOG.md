@@ -1,3 +1,6 @@
+# 1.4.1
+* Fixed crash when presenting for the first time
+
 # 1.4.0
 * Allows you to initialize the picker with your own fetch results or asset collection. And an array of assets that should be selected on presentation.
 
