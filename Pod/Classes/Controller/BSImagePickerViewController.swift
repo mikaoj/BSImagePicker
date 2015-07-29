@@ -33,13 +33,20 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     private var doneBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: nil, action: nil)
     private var cancelBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: nil, action: nil)
     private let albumTitleView: AlbumTitleView = bundle.loadNibNamed("AlbumTitleView", owner: nil, options: nil).first as! AlbumTitleView
-    private let dataSource: SelectableDataSource
+    private var dataSource: SelectableDataSource?
     private let selections: [PHAsset]
     
     static let bundle: NSBundle = NSBundle(path: NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")!)!
     
     lazy var photosViewController: PhotosViewController = {
-        let vc = PhotosViewController(dataSource: self.dataSource, settings: self.settings, selections: self.selections)
+        let dataSource: SelectableDataSource
+        if self.dataSource != nil {
+            dataSource = self.dataSource!
+        } else {
+            dataSource = BSImagePickerViewController.defaultDataSource()
+        }
+        
+        let vc = PhotosViewController(dataSource: dataSource, settings: self.settings, selections: self.selections)
         
         vc.doneBarButton = self.doneBarButton
         vc.cancelBarButton = self.cancelBarButton
@@ -117,8 +124,6 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     public required init(dataSource: SelectableDataSource?, selections: [PHAsset] = []) {
         if let dataSource = dataSource {
             self.dataSource = dataSource
-        } else {
-            self.dataSource = BSImagePickerViewController.defaultDataSource()
         }
         
         self.selections = selections
