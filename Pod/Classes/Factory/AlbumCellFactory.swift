@@ -50,33 +50,32 @@ final class AlbumCellFactory : TableViewCellFactory {
             ]
             fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
             
-            PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
-            if let result = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions) {
-                result.enumerateObjectsUsingBlock { (object, idx, stop) in
-                    if let asset = object as? PHAsset {
-                        let imageSize = CGSize(width: 79, height: 79)
-                        let imageContentMode: PHImageContentMode = .AspectFill
-                        switch idx {
-                        case 0:
-                            PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                                cell.firstImageView.image = result
-                                cell.secondImageView.image = result
-                                cell.thirdImageView.image = result
-                            }
-                        case 1:
-                            PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                                cell.secondImageView.image = result
-                                cell.thirdImageView.image = result
-                            }
-                        case 2:
-                            PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                                cell.thirdImageView.image = result
-                            }
-                            
-                        default:
-                            // Stop enumeration
-                            stop.initialize(true)
+            let result = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
+
+            result.enumerateObjectsUsingBlock { (object, idx, stop) in
+                if let asset = object as? PHAsset {
+                    let imageSize = CGSize(width: 79, height: 79)
+                    let imageContentMode: PHImageContentMode = .AspectFill
+                    switch idx {
+                    case 0:
+                        PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+                            cell.firstImageView.image = result
+                            cell.secondImageView.image = result
+                            cell.thirdImageView.image = result
                         }
+                    case 1:
+                        PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+                            cell.secondImageView.image = result
+                            cell.thirdImageView.image = result
+                        }
+                    case 2:
+                        PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+                            cell.thirdImageView.image = result
+                        }
+                        
+                    default:
+                        // Stop enumeration
+                        stop.initialize(true)
                     }
                 }
             }

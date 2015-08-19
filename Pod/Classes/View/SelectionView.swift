@@ -7,7 +7,7 @@
 // in the Software without restriction, including without limitation the rights
 // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 // copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+// furnished to do so, subject to the following conditions:/Users/hkal/Projects/BSImagePicker/Pod/Classes/View/SelectionView.swift
 //
 // The above copyright notice and this permission notice shall be included in all
 // copies or substantial portions of the Software.
@@ -63,11 +63,11 @@ import UIKit
         
         //// Bezier Drawing (Picture Number)
         CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
-        let size = selectionString.sizeWithAttributes(settings.selectionTextAttributes)
+        let size = selectionString.sizeWithAttributes(settings.selectionTextAttributes as? [String : AnyObject])
 
         selectionString.drawInRect(CGRectMake(CGRectGetMidX(checkmarkFrame) - size.width / 2.0,
             CGRectGetMidY(checkmarkFrame) - size.height / 2.0,
             size.width,
-            size.height), withAttributes: settings.selectionTextAttributes)
+            size.height), withAttributes: settings.selectionTextAttributes as? [String : AnyObject])
     }
 }

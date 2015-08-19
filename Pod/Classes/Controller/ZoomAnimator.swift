@@ -33,19 +33,22 @@ final class ZoomAnimator : NSObject, UIViewControllerAnimatedTransitioning {
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         // Get to and from view controller
-        if let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey), let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey), let sourceImageView = sourceImageView, let destinationImageView = destinationImageView, let containerView = transitionContext.containerView() {
+        if let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey), let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey), let sourceImageView = sourceImageView, let destinationImageView = destinationImageView {
             // Disable selection so we don't select anything while the push animation is running
             fromViewController.view?.userInteractionEnabled = false
+            
+            // Get views
+            let containerView = transitionContext.containerView()
             
             // Setup views
             sourceImageView.hidden = true
             destinationImageView.hidden = true
             toViewController.view.alpha = 0.0
             fromViewController.view.alpha = 1.0
-            containerView.backgroundColor = toViewController.view.backgroundColor
+            containerView!.backgroundColor = toViewController.view.backgroundColor
             
             // Setup scaling image
-            let scalingFrame = containerView.convertRect(sourceImageView.frame, fromView: sourceImageView.superview)
+            let scalingFrame = containerView!.convertRect(sourceImageView.frame, fromView: sourceImageView.superview)
             let scalingImage = UIImageViewModeScaleAspect(frame: scalingFrame)
             scalingImage.contentMode = sourceImageView.contentMode
             scalingImage.image = sourceImageView.image
@@ -59,8 +62,8 @@ final class ZoomAnimator : NSObject, UIViewControllerAnimatedTransitioning {
             }
             
             // Add views to container view
-            containerView.addSubview(toViewController.view)
-            containerView.addSubview(scalingImage)
+            containerView!.addSubview(toViewController.view)
+            containerView!.addSubview(scalingImage)
             
             // Animate
             UIView.animateWithDuration(transitionDuration(transitionContext),
