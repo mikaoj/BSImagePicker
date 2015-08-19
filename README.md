@@ -1,6 +1,5 @@
 # BSImagePicker
-(build is failing because travis doesn't like Swift 1.2)<br />
-[![CI Status](http://img.shields.io/travis/mikaoj/BSImagePicker.svg?style=flat)](https://travis-ci.org/Joakim Gyllstrom/BSImagePicker)
+[![CI Status](http://img.shields.io/travis/mikaoj/BSImagePicker.svg?style=flat)](https://travis-ci.org/mikaoj/BSImagePicker)
 [![Version](https://img.shields.io/cocoapods/v/BSImagePicker.svg?style=flat)](http://cocoapods.org/pods/BSImagePicker)
 [![License](https://img.shields.io/cocoapods/l/BSImagePicker.svg?style=flat)](http://cocoapods.org/pods/BSImagePicker)
 [![Platform](https://img.shields.io/cocoapods/p/BSImagePicker.svg?style=flat)](http://cocoapods.org/pods/BSImagePicker)
@@ -50,6 +49,16 @@ bs_presentImagePickerController(vc, animated: true,
 }, completion: nil)
 ```
 
+## Customization
+
+You have access to the cancel, album and done button. Customize them as you would with any other UIBarButtonItem (cancel & finish) or UIButton (album).<br />
+There are also a few other settings you can tweak.They are documented in BSImagePickerSettings.<br />
+[Documentation @ cocoadocs](http://cocoadocs.org/docsets/BSImagePicker/)
+
+## Custom fetch results
+
+Not happy with the fetch results (camera roll and albums) that BSImagePicker uses as default? You can initialize it with your own!
+
 ## Requirements
 
 iOS 8
@@ -60,7 +69,7 @@ BSImagePicker is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "BSImagePicker"
+pod "BSImagePicker", "~> 1.4.0"
 ```
 
 ## Author

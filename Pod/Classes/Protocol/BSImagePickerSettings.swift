@@ -22,11 +22,42 @@
 
 import Photos
 
+/**
+BSImagePicker settings. Tweaks these to make BSImagePicker fit your needs
+*/
 public protocol BSImagePickerSettings {
-    var selectionClosure: ((asset: PHAsset) -> Void)? {get set}
-    var deselectionClosure: ((asset: PHAsset) -> Void)? {get set}
-    var cancelClosure: ((assets: [PHAsset]) -> Void)? {get set}
-    var finishClosure: ((assets: [PHAsset]) -> Void)? {get set}
+    /**
+    Max number of images user can select
+    */
+    var maxNumberOfSelections: Int { get set }
     
-    var maxNumberOfSelections: Int {get set}
+    /**
+    Character to use for selection. If nil, selection number will be used
+    */
+    var selectionCharacter: Character? { get set }
+    
+    /**
+    Inner circle color
+    */
+    var selectionFillColor: UIColor { get set }
+    
+    /**
+    Outer circle color
+    */
+    var selectionStrokeColor: UIColor { get set }
+    
+    /**
+    Shadow color
+    */
+    var selectionShadowColor: UIColor { get set }
+    
+    /**
+    Attributes for text inside circle. Color, font, etc
+    */
+    var selectionTextAttributes: [NSObject: AnyObject] { get set }
+    
+    /**
+    Return how many cells per row you want to show for the given size classes
+    */
+    var cellsPerRow: (verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int { get set }
 }

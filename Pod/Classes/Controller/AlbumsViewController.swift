@@ -22,7 +22,7 @@
 
 import UIKit
 
-internal class AlbumsViewController: UITableViewController {
+final class AlbumsViewController: UITableViewController {
     override func loadView() {
         super.loadView()
         
