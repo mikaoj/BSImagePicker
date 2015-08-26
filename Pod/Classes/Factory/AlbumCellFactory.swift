@@ -31,6 +31,8 @@ final class AlbumCellFactory : TableViewCellFactory {
     
     func cellForIndexPath(indexPath: NSIndexPath, withDataSource dataSource: SelectableDataSource, inTableView tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(albumCellIdentifier, forIndexPath: indexPath) as! AlbumCell
+        let cachingManager = PHCachingImageManager.defaultManager() as! PHCachingImageManager
+        cachingManager.allowsCachingHighQualityImages = false
         
         // Fetch album
         if let album = dataSource.objectAtIndexPath(indexPath) as? PHAssetCollection {
@@ -44,40 +46,66 @@ final class AlbumCellFactory : TableViewCellFactory {
             cell.selectionStyle = .None
             
             // Set images
+            let imageSize = CGSize(width: 79, height: 79)
+            let imageContentMode: PHImageContentMode = .AspectFill
             let fetchOptions = PHFetchOptions()
             fetchOptions.sortDescriptors = [
                 NSSortDescriptor(key: "creationDate", ascending: false)
             ]
             fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
             
-            PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
-            if let result = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions) {
-                result.enumerateObjectsUsingBlock { (object, idx, stop) in
-                    if let asset = object as? PHAsset {
-                        let imageSize = CGSize(width: 79, height: 79)
-                        let imageContentMode: PHImageContentMode = .AspectFill
-                        switch idx {
-                        case 0:
-                            PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                                cell.firstImageView.image = result
-                                cell.secondImageView.image = result
-                                cell.thirdImageView.image = result
-                            }
-                        case 1:
-                            PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                                cell.secondImageView.image = result
-                                cell.thirdImageView.image = result
-                            }
-                        case 2:
-                            PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                                cell.thirdImageView.image = result
-                            }
-                            
-                        default:
-                            // Stop enumeration
-                            stop.initialize(true)
+            if let result :PHFetchResult = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions) {
+                if (result.count == 0) {
+                    cell.firstImageView.image = nil
+                    cell.secondImageView.image = nil
+                    cell.thirdImageView.image = nil
+                    return cell
+                } else if (result.count == 1) {
+                    if let asset = result.firstObject as? PHAsset {
+                        cachingManager.requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+                            cell.firstImageView.image = result
+                            cell.secondImageView.image = nil
+                            cell.thirdImageView.image = nil
                         }
                     }
+                } else if (result.count == 2) {
+                    if let asset1 = result.firstObject as? PHAsset {
+                        cachingManager.requestImageForAsset(asset1, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+                            cell.firstImageView.image = result
+                        }
+                    }
+                    if let asset2 = result.lastObject as? PHAsset {
+                        cachingManager.requestImageForAsset(asset2, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+                            cell.secondImageView.image = result
+                        }
+                    }
+                    cell.thirdImageView.image = nil
+                } else {
+                    let indexes = NSIndexSet(indexesInRange: NSMakeRange(0, 3))
+                    result.enumerateObjectsAtIndexes(indexes, options: nil, usingBlock: { (object, idx, stop) in
+                        switch idx {
+                        case 0:
+                            if let asset = object as? PHAsset {
+                                cachingManager.requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+                                    cell.firstImageView.image = result
+                                }
+                            }
+                        case 1:
+                            if let asset = object as? PHAsset {
+                                cachingManager.requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+                                    cell.secondImageView.image = result
+                                }
+                            }
+                        case 2:
+                            if let asset = object as? PHAsset {
+                                cachingManager.requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+                                    cell.thirdImageView.image = result
+                                }
+                            }
+                        default:
+                            break
+                        }
+                    })
                 }
             }
         }
