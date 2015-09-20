@@ -23,7 +23,7 @@
 import UIKit
 import Photos
 
-final class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UICollectionViewDelegate, UINavigationControllerDelegate, SelectableDataDelegate {
+final class PhotosViewController : UICollectionViewController, UIPopoverPresentationControllerDelegate, UITableViewDelegate, UINavigationControllerDelegate, SelectableDataDelegate {
     var selectionClosure: ((asset: PHAsset) -> Void)?
     var deselectionClosure: ((asset: PHAsset) -> Void)?
     var cancelClosure: ((assets: [PHAsset]) -> Void)?
@@ -79,7 +79,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         }
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         albumsDataSource = TableViewDataSource(dataSource: FetchResultsDataSource(fetchResults: []), cellFactory: albumCellFactory)
         albumsDataSource.data.allowsMultipleSelection = false
         settings = Settings()
@@ -407,7 +407,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     
     private func updateAlbumTitle(album: PHAssetCollection) {
         // Update album title
-        albumTitleView?.albumTitle = album.localizedTitle
+        albumTitleView?.albumTitle = album.localizedTitle!
     }
     
     private func initializePhotosDataSource(album: PHAssetCollection) {
