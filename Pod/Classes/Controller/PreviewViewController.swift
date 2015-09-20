@@ -33,7 +33,7 @@ final class PreviewViewController : UIViewController {
         
         imageView = UIImageView(frame: view.bounds)
         imageView?.contentMode = .ScaleAspectFit
-        imageView?.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        imageView?.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         view.addSubview(imageView!)
         
         let tapRecognizer = UITapGestureRecognizer()
@@ -42,7 +42,7 @@ final class PreviewViewController : UIViewController {
         view.addGestureRecognizer(tapRecognizer)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     

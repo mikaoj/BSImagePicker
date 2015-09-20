@@ -64,7 +64,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
             // Ask user for permission
             PHPhotoLibrary.requestAuthorization({ (status) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.authorize(status: status, fromViewController: fromViewController, completion: completion)
+                    self.authorize(status, fromViewController: fromViewController, completion: completion)
                 })
             })
         default: ()
@@ -134,7 +134,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     /**
     https://www.youtube.com/watch?v=dQw4w9WgXcQ
     */
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         dataSource = BSImagePickerViewController.defaultDataSource()
         selections = []
         super.init(coder: aDecoder)
