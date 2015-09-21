@@ -231,7 +231,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     /**
     See BSImagePicketSettings for documentation
     */
-    public var selectionTextAttributes: [NSObject: AnyObject] {
+    public var selectionTextAttributes: [String: AnyObject] {
         get {
             return settings.selectionTextAttributes
         }
