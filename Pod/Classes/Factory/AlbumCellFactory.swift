@@ -31,6 +31,8 @@ final class AlbumCellFactory : TableViewCellFactory {
     
     func cellForIndexPath(indexPath: NSIndexPath, withDataSource dataSource: SelectableDataSource, inTableView tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(albumCellIdentifier, forIndexPath: indexPath) as! AlbumCell
+        let cachingManager = PHCachingImageManager.defaultManager() as! PHCachingImageManager
+        cachingManager.allowsCachingHighQualityImages = false
         
         // Fetch album
         if let album = dataSource.objectAtIndexPath(indexPath) as? PHAssetCollection {
@@ -43,7 +45,6 @@ final class AlbumCellFactory : TableViewCellFactory {
             // Selection style
             cell.selectionStyle = .None
             
-            // Set images
             let fetchOptions = PHFetchOptions()
             fetchOptions.sortDescriptors = [
                 NSSortDescriptor(key: "creationDate", ascending: false)
@@ -77,9 +78,9 @@ final class AlbumCellFactory : TableViewCellFactory {
                             // Stop enumeration
                             stop.initialize(true)
                         }
-                    }
                 }
             }
+        }
         
         return cell
     }
