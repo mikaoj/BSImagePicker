@@ -68,6 +68,8 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
         
+        photoCellFactory.settings = settings
+        
         albumsDataSource.data.delegate = self
         
         // Default is to have first album selected
@@ -205,7 +207,7 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        if let collectionViewFlowLayout = collectionViewLayout as? UICollectionViewFlowLayout, let collectionViewWidth = collectionView?.bounds.size.width, photosDataSource = photosDataSource {
+        if let collectionViewFlowLayout = collectionViewLayout as? UICollectionViewFlowLayout, let collectionViewWidth = collectionView?.bounds.size.width {
             let itemSpacing: CGFloat = 1.0
             let cellsPerRow = settings.cellsPerRow(verticalSize: traitCollection.verticalSizeClass, horizontalSize: traitCollection.horizontalSizeClass)
             
@@ -347,11 +349,13 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
                             doneBarButtonTitle = btn.titleForState(.Normal)
                         }
                         
-                        // Update title
-                        if numberOfSelectedAssets > 0 {
-                            btn.bs_setTitleWithoutAnimation("\(doneBarButtonTitle!) (\(numberOfSelectedAssets))", forState: .Normal)
-                        } else {
-                            btn.bs_setTitleWithoutAnimation(doneBarButtonTitle!, forState: .Normal)
+                        if let doneBarButtonTitle = doneBarButtonTitle {
+                            // Update title
+                            if numberOfSelectedAssets > 0 {
+                                btn.bs_setTitleWithoutAnimation("\(doneBarButtonTitle) (\(numberOfSelectedAssets))", forState: .Normal)
+                            } else {
+                                btn.bs_setTitleWithoutAnimation(doneBarButtonTitle, forState: .Normal)
+                            }
                         }
                         
                         // Stop loop
@@ -376,8 +380,8 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         
         if let rightButton = navigationItem.rightBarButtonItem {
             // Store previous values
-            var wasRightEnabled = rightButton.enabled
-            var wasButtonEnabled = btn.enabled
+            let wasRightEnabled = rightButton.enabled
+            let wasButtonEnabled = btn.enabled
             
             // Set a known state for both buttons
             rightButton.enabled = false
@@ -406,8 +410,10 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     }
     
     private func updateAlbumTitle(album: PHAssetCollection) {
-        // Update album title
-        albumTitleView?.albumTitle = album.localizedTitle!
+        if let title = album.localizedTitle {
+            // Update album title
+            albumTitleView?.albumTitle = title
+        }
     }
     
     private func initializePhotosDataSource(album: PHAssetCollection) {
