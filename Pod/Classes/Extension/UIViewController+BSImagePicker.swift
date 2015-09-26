@@ -30,13 +30,13 @@ public extension UIViewController {
     /**
         Present a given image picker with closures, any of the closures can be nil.
     
-        :param: imagePicker a BSImagePickerViewController to present
-        :param: animated To animate the presentation or not
-        :param: select Closure to call when user selects an asset or nil
-        :param: deselect Closure to call when user deselects an asset or nil
-        :param: cancel Closure to call when user cancels or nil
-        :param: finish Closure to call when user finishes or nil
-        :param: completion presentation completed closure or nil
+        - parameter imagePicker: a BSImagePickerViewController to present
+        - parameter animated: To animate the presentation or not
+        - parameter select: Closure to call when user selects an asset or nil
+        - parameter deselect: Closure to call when user deselects an asset or nil
+        - parameter cancel: Closure to call when user cancels or nil
+        - parameter finish: Closure to call when user finishes or nil
+        - parameter completion: presentation completed closure or nil
     */
     func bs_presentImagePickerController(imagePicker: BSImagePickerViewController, animated: Bool, select: ((asset: PHAsset) -> Void)?, deselect: ((asset: PHAsset) -> Void)?, cancel: (([PHAsset]) -> Void)?, finish: (([PHAsset]) -> Void)?, completion: (() -> Void)?) {
         BSImagePickerViewController.authorize(fromViewController: self) { () -> Void in
