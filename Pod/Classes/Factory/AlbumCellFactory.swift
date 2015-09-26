@@ -31,8 +31,8 @@ final class AlbumCellFactory : TableViewCellFactory {
     
     func cellForIndexPath(indexPath: NSIndexPath, withDataSource dataSource: SelectableDataSource, inTableView tableView: UITableView) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(albumCellIdentifier, forIndexPath: indexPath) as! AlbumCell
-        let cachingManager = PHCachingImageManager.defaultManager() as! PHCachingImageManager
-        cachingManager.allowsCachingHighQualityImages = false
+        let cachingManager = PHCachingImageManager.defaultManager() as? PHCachingImageManager
+        cachingManager?.allowsCachingHighQualityImages = false
         
         // Fetch album
         if let album = dataSource.objectAtIndexPath(indexPath) as? PHAssetCollection {

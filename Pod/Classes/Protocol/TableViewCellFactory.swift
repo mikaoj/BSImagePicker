@@ -27,9 +27,9 @@ Protocol to implement if you want to call yourself an table view cell factory.
 */
 protocol TableViewCellFactory {
     /**
-    :param: indexPath Index path for cell
-    :param: withDataSource The data source to use
-    :param: tableView Table view that will show the cell
+    - parameter indexPath: Index path for cell
+    - parameter withDataSource: The data source to use
+    - parameter tableView: Table view that will show the cell
     */
     func cellForIndexPath(indexPath: NSIndexPath, withDataSource dataSource: SelectableDataSource, inTableView tableView: UITableView) -> UITableViewCell
 }
