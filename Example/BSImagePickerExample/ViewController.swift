@@ -32,13 +32,13 @@ class ViewController: UIViewController {
         
         bs_presentImagePickerController(vc, animated: true,
             select: { (asset: PHAsset) -> Void in
-                println("Selected: \(asset)")
+                print("Selected: \(asset)")
             }, deselect: { (asset: PHAsset) -> Void in
-                println("Deselected: \(asset)")
+                print("Deselected: \(asset)")
             }, cancel: { (assets: [PHAsset]) -> Void in
-                println("Cancel: \(assets)")
+                print("Cancel: \(assets)")
             }, finish: { (assets: [PHAsset]) -> Void in
-                println("Finish: \(assets)")
+                print("Finish: \(assets)")
             }, completion: nil)
     }
     
@@ -65,13 +65,13 @@ class ViewController: UIViewController {
         
         bs_presentImagePickerController(vc, animated: true,
             select: { (asset: PHAsset) -> Void in
-                println("Selected: \(asset)")
+                print("Selected: \(asset)")
             }, deselect: { (asset: PHAsset) -> Void in
-                println("Deselected: \(asset)")
+                print("Deselected: \(asset)")
             }, cancel: { (assets: [PHAsset]) -> Void in
-                println("Cancel: \(assets)")
+                print("Cancel: \(assets)")
             }, finish: { (assets: [PHAsset]) -> Void in
-                println("Finish: \(assets)")
+                print("Finish: \(assets)")
             }, completion: nil)
     }
     
@@ -102,13 +102,13 @@ class ViewController: UIViewController {
         
         bs_presentImagePickerController(vc, animated: true,
             select: { (asset: PHAsset) -> Void in
-                println("Selected: \(asset)")
+                print("Selected: \(asset)")
             }, deselect: { (asset: PHAsset) -> Void in
-                println("Deselected: \(asset)")
+                print("Deselected: \(asset)")
             }, cancel: { (assets: [PHAsset]) -> Void in
-                println("Cancel: \(assets)")
+                print("Cancel: \(assets)")
             }, finish: { (assets: [PHAsset]) -> Void in
-                println("Finish: \(assets)")
+                print("Finish: \(assets)")
             }, completion: nil)
     }
 }

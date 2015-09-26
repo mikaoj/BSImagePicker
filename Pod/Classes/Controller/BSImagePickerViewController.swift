@@ -64,7 +64,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
             // Ask user for permission
             PHPhotoLibrary.requestAuthorization({ (status) -> Void in
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    self.authorize(status: status, fromViewController: fromViewController, completion: completion)
+                    self.authorize(status, fromViewController: fromViewController, completion: completion)
                 })
             })
         default: ()
@@ -94,7 +94,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     
     /**
     Want it to show your own custom fetch results? Make sure the fetch results are of PHAssetCollections
-    :param: fetchResults PHFetchResult of PHAssetCollections
+    - parameter fetchResults: PHFetchResult of PHAssetCollections
     */
     public convenience init(fetchResults: [PHFetchResult]) {
         self.init(dataSource: FetchResultsDataSource(fetchResults: fetchResults))
@@ -102,8 +102,8 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     
     /**
     Do you have an asset collection you want to select from? Use this initializer!
-    :param: assetCollection The PHAssetCollection you want to select from
-    :param: selections Selected assets
+    - parameter assetCollection: The PHAssetCollection you want to select from
+    - parameter selections: Selected assets
     */
     public convenience init(assetCollection: PHAssetCollection, selections: [PHAsset] = []) {
         self.init(dataSource: AssetCollectionDataSource(assetCollection: assetCollection), selections: selections)
@@ -118,8 +118,8 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     
     /**
     You should probably use one of the convenience inits
-    :param: dataSource The data source for the albums
-    :param: selections Any PHAsset you want to seed the picker with as selected
+    - parameter dataSource: The data source for the albums
+    - parameter selections: Any PHAsset you want to seed the picker with as selected
     */
     public required init(dataSource: SelectableDataSource?, selections: [PHAsset] = []) {
         if let dataSource = dataSource {
@@ -134,7 +134,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     /**
     https://www.youtube.com/watch?v=dQw4w9WgXcQ
     */
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         dataSource = BSImagePickerViewController.defaultDataSource()
         selections = []
         super.init(coder: aDecoder)
@@ -231,7 +231,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     /**
     See BSImagePicketSettings for documentation
     */
-    public var selectionTextAttributes: [NSObject: AnyObject] {
+    public var selectionTextAttributes: [String: AnyObject] {
         get {
             return settings.selectionTextAttributes
         }

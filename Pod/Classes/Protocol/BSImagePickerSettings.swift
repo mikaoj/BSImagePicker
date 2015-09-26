@@ -54,7 +54,7 @@ public protocol BSImagePickerSettings {
     /**
     Attributes for text inside circle. Color, font, etc
     */
-    var selectionTextAttributes: [NSObject: AnyObject] { get set }
+    var selectionTextAttributes: [String: AnyObject] { get set }
     
     /**
     Return how many cells per row you want to show for the given size classes

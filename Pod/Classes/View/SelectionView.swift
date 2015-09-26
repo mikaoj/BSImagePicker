@@ -63,6 +63,7 @@ import UIKit
         
         //// Bezier Drawing (Picture Number)
         CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
+        
         let size = selectionString.sizeWithAttributes(settings.selectionTextAttributes)
 
         selectionString.drawInRect(CGRectMake(CGRectGetMidX(checkmarkFrame) - size.width / 2.0,
