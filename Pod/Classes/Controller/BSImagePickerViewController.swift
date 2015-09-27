@@ -101,15 +101,6 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     }
     
     /**
-    Do you have an asset collection you want to select from? Use this initializer!
-    - parameter assetCollection: The PHAssetCollection you want to select from
-    - parameter selections: Selected assets
-    */
-    public convenience init(assetCollection: PHAssetCollection, selections: [PHAsset] = []) {
-        self.init(dataSource: AssetCollectionDataSource(assetCollection: assetCollection), selections: selections)
-    }
-    
-    /**
     Sets up an classic image picker with results from camera roll and albums
     */
     public convenience init() {
@@ -121,7 +112,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     - parameter dataSource: The data source for the albums
     - parameter selections: Any PHAsset you want to seed the picker with as selected
     */
-    public required init(dataSource: SelectableDataSource?, selections: [PHAsset] = []) {
+    private init(dataSource: SelectableDataSource?, selections: [PHAsset] = []) {
         if let dataSource = dataSource {
             self.dataSource = dataSource
         }
@@ -249,6 +240,18 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         }
         set {
             settings.cellsPerRow = newValue
+        }
+    }
+    
+    /**
+    See BSImagePicketSettings for documentation
+    */
+    public var takePhotos: Bool {
+        get {
+            return settings.takePhotos
+        }
+        set {
+            settings.takePhotos = newValue
         }
     }
     
