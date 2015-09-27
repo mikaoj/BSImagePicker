@@ -36,13 +36,10 @@ final class PhotosViewController : UICollectionViewController, SelectableDataDel
     let expandAnimator = ZoomAnimator()
     let shrinkAnimator = ZoomAnimator()
     
-    private var photosDataSource: CollectionViewDataSource?
-    private var albumsDataSource: TableViewDataSource
+    private var photosDataSource: PhotoDataSource?
+    private var albumsDataSource: AlbumDataSource
     private let cameraDataSource = CameraDataSource()
     private var composedDataSource: ComposedDataSource?
-    
-    let photoCellFactory = PhotoCellFactory()
-    let albumCellFactory = AlbumCellFactory()
     
     let settings: BSImagePickerSettings
     
@@ -62,12 +59,10 @@ final class PhotosViewController : UICollectionViewController, SelectableDataDel
     }()
     
     required init(dataSource: SelectableDataSource, settings aSettings: BSImagePickerSettings, selections: [PHAsset] = []) {
-        albumsDataSource = TableViewDataSource(dataSource: dataSource, cellFactory: albumCellFactory)
+        albumsDataSource = AlbumDataSource(dataSource: dataSource)
         settings = aSettings
         
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
-        
-        photoCellFactory.settings = settings
         
         albumsDataSource.data.delegate = self
         
@@ -81,7 +76,7 @@ final class PhotosViewController : UICollectionViewController, SelectableDataDel
     }
 
     required init?(coder aDecoder: NSCoder) {
-        albumsDataSource = TableViewDataSource(dataSource: FetchResultsDataSource(fetchResults: []), cellFactory: albumCellFactory)
+        albumsDataSource = AlbumDataSource(dataSource: FetchResultsDataSource(fetchResults: []))
         albumsDataSource.data.allowsMultipleSelection = false
         settings = Settings()
         
@@ -94,7 +89,7 @@ final class PhotosViewController : UICollectionViewController, SelectableDataDel
         // Setup collection view
         // TODO: Settings
         collectionView?.backgroundColor = UIColor.whiteColor()
-        photoCellFactory.registerCellIdentifiersForCollectionView(collectionView)
+        photosDataSource?.registerCellIdentifiersForCollectionView(collectionView)
         let nib = UINib(nibName: "CameraCell", bundle: BSImagePickerViewController.bundle)
         collectionView?.registerNib(nib, forCellWithReuseIdentifier: "cameraCellIdentifier")
         
@@ -336,7 +331,7 @@ final class PhotosViewController : UICollectionViewController, SelectableDataDel
         ]
         fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
         let dataSource = FetchResultsDataSource(fetchResult: PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions))
-        let newDataSource = CollectionViewDataSource(dataSource: dataSource, cellFactory: photoCellFactory)
+        let newDataSource = PhotoDataSource(dataSource: dataSource, settings: settings)
         
         // Keep selection
         if let photosDataSource = photosDataSource {
@@ -479,7 +474,7 @@ extension PhotosViewController {
             let itemSize =  CGSize(width: width, height: width)
             
             collectionViewFlowLayout.itemSize = itemSize
-            photoCellFactory.imageSize = itemSize
+            photosDataSource?.imageSize = itemSize
         }
     }
 }
