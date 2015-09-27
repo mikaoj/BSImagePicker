@@ -32,5 +32,8 @@ final class AlbumsViewController: UITableViewController {
         visualEffectView.autoresizingMask = [.FlexibleWidth , .FlexibleHeight]
         tableView.backgroundView = visualEffectView
         tableView.backgroundColor = UIColor.clearColor()
+        
+        modalPresentationStyle = .Popover
+        preferredContentSize = CGSize(width: 320, height: 300)
     }
 }
