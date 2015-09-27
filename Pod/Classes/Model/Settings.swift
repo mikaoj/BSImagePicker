@@ -50,4 +50,6 @@ final class Settings : BSImagePickerSettings {
             return 3
         }
     }
+    
+    var takePhotos: Bool = true
 }

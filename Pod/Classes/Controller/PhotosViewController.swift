@@ -38,6 +38,8 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     
     private var photosDataSource: CollectionViewDataSource?
     private var albumsDataSource: TableViewDataSource
+    private let cameraDataSource = CameraDataSource()
+    private var composedDataSource: ComposedDataSource?
     
     private let photoCellFactory = PhotoCellFactory()
     private let albumCellFactory = AlbumCellFactory()
@@ -96,6 +98,8 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
         // TODO: Settings
         collectionView?.backgroundColor = UIColor.whiteColor()
         photoCellFactory.registerCellIdentifiersForCollectionView(collectionView)
+        let nib = UINib(nibName: "CameraCell", bundle: BSImagePickerViewController.bundle)
+        collectionView?.registerNib(nib, forCellWithReuseIdentifier: "cameraCellIdentifier")
         
         // Set an empty title to get < back button
         title = " "
@@ -435,18 +439,23 @@ final class PhotosViewController : UICollectionViewController, UIPopoverPresenta
     }
     
     func synchronizeCollectionView() {
+        guard let photosDataSource = photosDataSource else {
+            return
+        }
+        
         // Hook up data source
-        collectionView?.dataSource = photosDataSource
+        composedDataSource = ComposedDataSource(dataSources: [cameraDataSource, photosDataSource])
+        collectionView?.dataSource = composedDataSource
         collectionView?.delegate = self
-        photosDataSource?.data.delegate = self
+        photosDataSource.data.delegate = self
         
         // Enable multiple selection
-        photosDataSource?.data.allowsMultipleSelection = true
+        photosDataSource.data.allowsMultipleSelection = true
         collectionView?.allowsMultipleSelection = true
         
         // Reload and sync selections
         collectionView?.reloadData()
-        syncSelectionInDataSource(photosDataSource!.data, withCollectionView: collectionView!)
+        syncSelectionInDataSource(photosDataSource.data, withCollectionView: collectionView!)
     }
     
     // MARK: UINavigationControllerDelegate
