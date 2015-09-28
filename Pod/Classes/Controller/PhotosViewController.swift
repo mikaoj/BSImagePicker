@@ -62,7 +62,7 @@ final class PhotosViewController : UICollectionViewController, SelectableDataDel
         albumsDataSource = AlbumDataSource(dataSource: dataSource)
         settings = aSettings
         
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
+        super.init(collectionViewLayout: NoSectionBreakCollectionViewLayout())
         
         albumsDataSource.data.delegate = self
         
@@ -90,8 +90,7 @@ final class PhotosViewController : UICollectionViewController, SelectableDataDel
         // TODO: Settings
         collectionView?.backgroundColor = UIColor.whiteColor()
         photosDataSource?.registerCellIdentifiersForCollectionView(collectionView)
-        let nib = UINib(nibName: "CameraCell", bundle: BSImagePickerViewController.bundle)
-        collectionView?.registerNib(nib, forCellWithReuseIdentifier: "cameraCellIdentifier")
+        cameraDataSource.registerCellIdentifiersForCollectionView(collectionView)
         
         // Set an empty title to get < back button
         title = " "
@@ -365,6 +364,10 @@ final class PhotosViewController : UICollectionViewController, SelectableDataDel
 // MARK: UICollectionViewDelegate
 extension PhotosViewController {
     override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
+        guard let composedDataSource = composedDataSource where composedDataSource.dataSources[indexPath.section].isEqual(photosDataSource) else {
+            return true
+        }
+        
         return photosDataSource?.data.selections.count < settings.maxNumberOfSelections
     }
     
@@ -374,7 +377,8 @@ extension PhotosViewController {
         }
         
         // Select asset)
-        photosDataSource?.data.selectObjectAtIndexPath(indexPath)
+        let correctedIndexPath = NSIndexPath(forItem: indexPath.row, inSection: 0)
+        photosDataSource?.data.selectObjectAtIndexPath(correctedIndexPath)
         
         // Set selection number
         if let selectionCharacter = settings.selectionCharacter {
@@ -387,7 +391,7 @@ extension PhotosViewController {
         updateDoneButton()
         
         // Call selection closure
-        if let closure = selectionClosure, let asset = photosDataSource?.data.objectAtIndexPath(indexPath) as? PHAsset {
+        if let closure = selectionClosure, let asset = photosDataSource?.data.objectAtIndexPath(correctedIndexPath) as? PHAsset {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
                 closure(asset: asset)
             })
@@ -395,8 +399,10 @@ extension PhotosViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        let correctedIndexPath = NSIndexPath(forItem: indexPath.row, inSection: 0)
+        
         // Deselect asset
-        photosDataSource?.data.deselectObjectAtIndexPath(indexPath)
+        photosDataSource?.data.deselectObjectAtIndexPath(correctedIndexPath)
         
         // Update done button
         updateDoneButton()
@@ -410,7 +416,7 @@ extension PhotosViewController {
         }
         
         // Call deselection closure
-        if let closure = deselectionClosure, let asset = photosDataSource?.data.objectAtIndexPath(indexPath) as? PHAsset {
+        if let closure = deselectionClosure, let asset = photosDataSource?.data.objectAtIndexPath(correctedIndexPath) as? PHAsset {
             dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
                 closure(asset: asset)
             })
@@ -463,12 +469,13 @@ extension PhotosViewController {
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        if let collectionViewFlowLayout = collectionViewLayout as? UICollectionViewFlowLayout, let collectionViewWidth = collectionView?.bounds.size.width {
+        if let collectionViewFlowLayout = collectionViewLayout as? NoSectionBreakCollectionViewLayout, let collectionViewWidth = collectionView?.bounds.size.width {
             let itemSpacing: CGFloat = 1.0
             let cellsPerRow = settings.cellsPerRow(verticalSize: traitCollection.verticalSizeClass, horizontalSize: traitCollection.horizontalSizeClass)
             
             collectionViewFlowLayout.minimumInteritemSpacing = itemSpacing
             collectionViewFlowLayout.minimumLineSpacing = itemSpacing
+            collectionViewFlowLayout.cellsPerRow = cellsPerRow
             
             let width = (collectionViewWidth / CGFloat(cellsPerRow)) - itemSpacing
             let itemSize =  CGSize(width: width, height: width)

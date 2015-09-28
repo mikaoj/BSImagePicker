@@ -69,7 +69,7 @@ BSImagePicker is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "BSImagePicker", "~> 1.4"
+pod "BSImagePicker", "~> 2.0"
 ```
 
 ## Author

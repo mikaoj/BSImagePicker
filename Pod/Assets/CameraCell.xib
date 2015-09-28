@@ -20,6 +20,7 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="qvQ-jD-B52" secondAttribute="trailing" id="bMH-5D-RYe"/>
                 <constraint firstItem="qvQ-jD-B52" firstAttribute="top" secondItem="dx2-jd-nta" secondAttribute="top" id="bwE-TQ-qO6"/>
@@ -33,6 +34,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="add_photo.png" width="26" height="26"/>
+        <image name="add_photo.png" width="25" height="25"/>
     </resources>
 </document>
