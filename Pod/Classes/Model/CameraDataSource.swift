@@ -24,7 +24,8 @@ import UIKit
 
 final class CameraDataSource: NSObject, UICollectionViewDataSource {
     let cameraCellIdentifier = "cameraCellIdentifier"
-    let cameraAvailable = UIImagePickerController.isSourceTypeAvailable(.Camera)
+//    let cameraAvailable = UIImagePickerController.isSourceTypeAvailable(.Camera)
+    let cameraAvailable = true
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return Int(cameraAvailable)
@@ -36,5 +37,9 @@ final class CameraDataSource: NSObject, UICollectionViewDataSource {
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         return collectionView.dequeueReusableCellWithReuseIdentifier(cameraCellIdentifier, forIndexPath: indexPath)
+    }
+    
+    func registerCellIdentifiersForCollectionView(collectionView: UICollectionView?) {
+        collectionView?.registerNib(UINib(nibName: "CameraCell", bundle: BSImagePickerViewController.bundle), forCellWithReuseIdentifier: cameraCellIdentifier)
     }
 }
