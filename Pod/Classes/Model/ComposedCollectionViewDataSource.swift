@@ -22,21 +22,27 @@
 
 import UIKit
 
-//TODO: Make functions static
 /**
-Collection view factory protocol
+Takes multiple UICollectionViewDataSources and joins them into one section
 */
-protocol CollectionViewCellFactory {
-    /**
-    Registers the collection view for any nibs, classes, etc it needs to know about.
-    - parameter collectionView: The collection view to register
-    */
-    func registerCellIdentifiersForCollectionView(collectionView: UICollectionView?)
-    /**
-    Get an collection view cell
-    - parameter indexPath: The index path for cell
-    - parameter withDataSource: The data source to fetch data from
-    - parameter inCollectionView: Collection view to show cell in.
-    */
-    func cellForIndexPath(indexPath: NSIndexPath, withDataSource dataSource: SelectableDataSource, inCollectionView collectionView: UICollectionView) -> UICollectionViewCell
+class ComposedDataSource: NSObject, UICollectionViewDataSource {
+    let dataSources: [UICollectionViewDataSource]
+    
+    init(dataSources: [UICollectionViewDataSource]) {
+        self.dataSources = dataSources
+        
+        super.init()
+    }
+    
+    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+        return dataSources.count
+    }
+    
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSources[section].collectionView(collectionView, numberOfItemsInSection: 0)
+    }
+    
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        return dataSources[indexPath.section].collectionView(collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: indexPath.row, inSection: 0))
+    }
 }
