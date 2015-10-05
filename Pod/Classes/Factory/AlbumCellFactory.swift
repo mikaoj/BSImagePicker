@@ -51,7 +51,6 @@ final class AlbumCellFactory : TableViewCellFactory {
             ]
             fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
             
-            PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
             let result = PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions)
                 result.enumerateObjectsUsingBlock { (object, idx, stop) in
                     if let asset = object as? PHAsset {
