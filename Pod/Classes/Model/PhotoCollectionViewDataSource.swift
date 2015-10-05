@@ -26,7 +26,7 @@ import Photos
 /**
 Gives UICollectionViewDataSource functionality with a given data source and cell factory
 */
-final class PhotoDataSource : NSObject, UICollectionViewDataSource {
+final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource {
     let data: SelectableDataSource
     
     private let photoCellIdentifier = "photoCellIdentifier"
