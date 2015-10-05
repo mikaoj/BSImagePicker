@@ -22,7 +22,7 @@
 
 import UIKit
 
-final class CameraDataSource: NSObject, UICollectionViewDataSource {
+final class CameraCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     let cameraCellIdentifier = "cameraCellIdentifier"
 //    let cameraAvailable = UIImagePickerController.isSourceTypeAvailable(.Camera)
     let cameraAvailable = true

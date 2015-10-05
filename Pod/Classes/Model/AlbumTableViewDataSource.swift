@@ -26,7 +26,7 @@ import Photos
 /**
 Implements the UITableViewDataSource protocol with a data source and cell factory
 */
-final class AlbumDataSource : NSObject, UITableViewDataSource {
+final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
     let data: SelectableDataSource
     private let albumCellIdentifier = "albumCell"
     

@@ -26,7 +26,7 @@ import Photos
 Class wrapping fetch results as an selectable data source.
 It will register itself as an change observer. So be sure to set yourself as delegate to get notified about updates.
 */
-final class FetchResultsDataSource : NSObject, SelectableDataSource, PHPhotoLibraryChangeObserver {
+final class FetchResultsSelectableDataSource : NSObject, SelectableDataSource {
     private var fetchResults: [PHFetchResult]
     var selections: [PHObject] = []
     
@@ -105,8 +105,10 @@ final class FetchResultsDataSource : NSObject, SelectableDataSource, PHPhotoLibr
         
         return selections.contains(object)
     }
-    
-    // MARK: PHPhotoLibraryChangeObserver
+}
+
+// MARK: PHPhotoLibraryChangeObserver
+extension FetchResultsSelectableDataSource: PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(changeInstance: PHChange) {
         for (index, fetchResult) in fetchResults.enumerate() {
             // Check if there are changes to our fetch result
