@@ -25,7 +25,7 @@ import UIKit
 /**
 Takes multiple UICollectionViewDataSources and joins them into one section
 */
-class ComposedDataSource: NSObject, UICollectionViewDataSource {
+class ComposedCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     let dataSources: [UICollectionViewDataSource]
     
     init(dataSources: [UICollectionViewDataSource]) {

@@ -36,10 +36,10 @@ final class PhotosViewController : UICollectionViewController, SelectableDataDel
     let expandAnimator = ZoomAnimator()
     let shrinkAnimator = ZoomAnimator()
     
-    private var photosDataSource: PhotoDataSource?
-    private var albumsDataSource: AlbumDataSource
-    private let cameraDataSource = CameraDataSource()
-    private var composedDataSource: ComposedDataSource?
+    private var photosDataSource: PhotoCollectionViewDataSource?
+    private var albumsDataSource: AlbumTableViewDataSource
+    private let cameraDataSource = CameraCollectionViewDataSource()
+    private var composedDataSource: ComposedCollectionViewDataSource?
     
     let settings: BSImagePickerSettings
     
@@ -59,7 +59,7 @@ final class PhotosViewController : UICollectionViewController, SelectableDataDel
     }()
     
     required init(dataSource: SelectableDataSource, settings aSettings: BSImagePickerSettings, selections: [PHAsset] = []) {
-        albumsDataSource = AlbumDataSource(dataSource: dataSource)
+        albumsDataSource = AlbumTableViewDataSource(dataSource: dataSource)
         settings = aSettings
         
         super.init(collectionViewLayout: NoSectionBreakCollectionViewLayout())
@@ -76,7 +76,7 @@ final class PhotosViewController : UICollectionViewController, SelectableDataDel
     }
 
     required init?(coder aDecoder: NSCoder) {
-        albumsDataSource = AlbumDataSource(dataSource: FetchResultsDataSource(fetchResults: []))
+        albumsDataSource = AlbumTableViewDataSource(dataSource: FetchResultsSelectableDataSource(fetchResults: []))
         albumsDataSource.data.allowsMultipleSelection = false
         settings = Settings()
         
@@ -329,8 +329,8 @@ final class PhotosViewController : UICollectionViewController, SelectableDataDel
             NSSortDescriptor(key: "creationDate", ascending: false)
         ]
         fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
-        let dataSource = FetchResultsDataSource(fetchResult: PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions))
-        let newDataSource = PhotoDataSource(dataSource: dataSource, settings: settings)
+        let dataSource = FetchResultsSelectableDataSource(fetchResult: PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions))
+        let newDataSource = PhotoCollectionViewDataSource(dataSource: dataSource, settings: settings)
         
         // Keep selection
         if let photosDataSource = photosDataSource {
@@ -346,7 +346,7 @@ final class PhotosViewController : UICollectionViewController, SelectableDataDel
         }
         
         // Hook up data source
-        composedDataSource = ComposedDataSource(dataSources: [cameraDataSource, photosDataSource])
+        composedDataSource = ComposedCollectionViewDataSource(dataSources: [cameraDataSource, photosDataSource])
         collectionView?.dataSource = composedDataSource
         collectionView?.delegate = self
         photosDataSource.data.delegate = self
@@ -486,3 +486,13 @@ extension PhotosViewController {
     }
 }
 
+// MARK: UIImagePickerControllerDelegate
+extension PhotosViewController: UIImagePickerControllerDelegate {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+}

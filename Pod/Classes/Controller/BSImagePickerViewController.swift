@@ -97,7 +97,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     - parameter fetchResults: PHFetchResult of PHAssetCollections
     */
     public convenience init(fetchResults: [PHFetchResult]) {
-        self.init(dataSource: FetchResultsDataSource(fetchResults: fetchResults))
+        self.init(dataSource: FetchResultsSelectableDataSource(fetchResults: fetchResults))
     }
     
     /**
@@ -155,7 +155,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         // Albums fetch result
         let albumResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
         
-        return FetchResultsDataSource(fetchResults: [cameraRollResult, albumResult])
+        return FetchResultsSelectableDataSource(fetchResults: [cameraRollResult, albumResult])
     }
     
     // MARK: ImagePickerSettings proxy
