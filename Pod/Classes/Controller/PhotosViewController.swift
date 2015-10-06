@@ -205,7 +205,7 @@ final class PhotosViewController : UICollectionViewController, SelectableDataDel
     }
     
     // MARK: Selectable data delegate
-    func didUpdateData(sender: SelectableDataSource, incrementalChange: Bool, insertions insert: [NSIndexPath], deletions delete: [NSIndexPath], changes change: [NSIndexPath]) {
+    func didUpdateData(sender: SelectableDataSource, incrementalChange: Bool, insertions: [NSIndexPath]?, deletions: [NSIndexPath]?, changes: [NSIndexPath]?) {
         // May come on a background thread, so dispatch to main
         dispatch_async(dispatch_get_main_queue(), { () -> Void in
             // Reload table view or collection view?
@@ -213,11 +213,11 @@ final class PhotosViewController : UICollectionViewController, SelectableDataDel
                 guard let collectionView = self.collectionView else {
                     return
                 }
-                if incrementalChange {
+                if let insertions = insertions, let changes = changes, let deletions = deletions where incrementalChange == true {
                     // Update
-                    collectionView.deleteItemsAtIndexPaths(delete)
-                    collectionView.insertItemsAtIndexPaths(insert)
-                    collectionView.reloadItemsAtIndexPaths(change)
+                    collectionView.deleteItemsAtIndexPaths(deletions)
+                    collectionView.insertItemsAtIndexPaths(insertions)
+                    collectionView.reloadItemsAtIndexPaths(changes)
                 } else {
                     // Reload & scroll to top if significant change
                     collectionView.reloadData()
@@ -229,11 +229,11 @@ final class PhotosViewController : UICollectionViewController, SelectableDataDel
                     self.syncSelectionInDataSource(photosDataSource.data, withCollectionView: collectionView)
                 }
             } else if sender.isEqual(self.albumsDataSource.data) {
-                if incrementalChange {
+                if let insertions = insertions, let changes = changes, let deletions = deletions where incrementalChange == true {
                     // Update
-                    self.albumsViewController.tableView?.deleteRowsAtIndexPaths(delete, withRowAnimation: .Automatic)
-                    self.albumsViewController.tableView?.insertRowsAtIndexPaths(insert, withRowAnimation: .Automatic)
-                    self.albumsViewController.tableView?.reloadRowsAtIndexPaths(change, withRowAnimation: .Automatic)
+                    self.albumsViewController.tableView?.deleteRowsAtIndexPaths(deletions, withRowAnimation: .Automatic)
+                    self.albumsViewController.tableView?.insertRowsAtIndexPaths(insertions, withRowAnimation: .Automatic)
+                    self.albumsViewController.tableView?.reloadRowsAtIndexPaths(changes, withRowAnimation: .Automatic)
                 } else {
                     // Reload
                     self.albumsViewController.tableView?.reloadData()

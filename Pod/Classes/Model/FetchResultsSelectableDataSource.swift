@@ -112,46 +112,18 @@ extension FetchResultsSelectableDataSource: PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(changeInstance: PHChange) {
         for (index, fetchResult) in fetchResults.enumerate() {
             // Check if there are changes to our fetch result
-            if let collectionChanges = changeInstance.changeDetailsForFetchResult(fetchResult) {
-                // Get the new fetch result
-                let newResult = collectionChanges.fetchResultAfterChanges as PHFetchResult
-                
-                // Replace old result
-                fetchResults[index] = newResult
-                
-                // Sometimes the properties on PHFetchResultChangeDetail are nil
-                // Work around it for now
-                let incrementalChange = collectionChanges.hasIncrementalChanges && collectionChanges.removedIndexes != nil && collectionChanges.insertedIndexes != nil && collectionChanges.changedIndexes != nil
-                
-                let removedIndexPaths: [NSIndexPath]
-                let insertedIndexPaths: [NSIndexPath]
-                let changedIndexPaths: [NSIndexPath]
-                
-                if incrementalChange {
-                    // Incremental change, tell delegate what has been deleted, inserted and changed
-                    removedIndexPaths = indexPathsFromIndexSet(collectionChanges.removedIndexes!, inSection: index)
-                    insertedIndexPaths = indexPathsFromIndexSet(collectionChanges.insertedIndexes!, inSection: index)
-                    changedIndexPaths = indexPathsFromIndexSet(collectionChanges.changedIndexes!, inSection: index)
-                } else {
-                    // No incremental change. Set empty arrays
-                    removedIndexPaths = []
-                    insertedIndexPaths = []
-                    changedIndexPaths = []
-                }
-                
-                // Notify delegate
-                delegate?.didUpdateData(self, incrementalChange: incrementalChange, insertions: insertedIndexPaths, deletions: removedIndexPaths, changes: changedIndexPaths)
+            guard let collectionChanges = changeInstance.changeDetailsForFetchResult(fetchResult) else {
+                continue
             }
+            
+            // Get the new fetch result
+            let newResult = collectionChanges.fetchResultAfterChanges as PHFetchResult
+            
+            // Replace old result
+            fetchResults[index] = newResult
+            
+            // Notify delegate
+            delegate?.didUpdateData(self, incrementalChange: collectionChanges.hasIncrementalChanges, insertions: collectionChanges.insertedIndexes?.bs_indexPathsForSection(index), deletions: collectionChanges.removedIndexes?.bs_indexPathsForSection(index), changes: collectionChanges.changedIndexes?.bs_indexPathsForSection(index))
         }
-    }
-    
-    private func indexPathsFromIndexSet(indexSet: NSIndexSet, inSection section: Int) -> [NSIndexPath] {
-        var indexPaths: [NSIndexPath] = []
-        
-        indexSet.enumerateIndexesUsingBlock { (index, _) -> Void in
-            indexPaths.append(NSIndexPath(forItem: index, inSection: section))
-        }
-        
-        return indexPaths
     }
 }
