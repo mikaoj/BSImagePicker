@@ -22,17 +22,14 @@
 
 import Foundation
 
-/**
-Keep track of whats happening in your selectable data source by implementing this protocol and settings yourself as delegate.
-*/
-public protocol SelectableDataDelegate {
-    /**
-    Called when there has been changes in the data source.
-    - parameter dataSource: The data source with updates
-    - parameter incrementalChange: If true there has been incremental change and you should updated given index paths. If false reload your entire view.
-    - parameter insertions: Index paths with insertions
-    - parameter deletions: Index paths with deletions
-    - parameter changes: Index paths with changes
-    */
-    func didUpdateData(dataSource: SelectableDataSource, incrementalChange: Bool, insertions: [NSIndexPath]?, deletions: [NSIndexPath]?, changes: [NSIndexPath]?)
+extension NSIndexSet {
+    func bs_indexPathsForSection(section: Int) -> [NSIndexPath] {
+        var indexPaths: [NSIndexPath] = []
+        
+        enumerateIndexesUsingBlock { (index, _) -> Void in
+            indexPaths.append(NSIndexPath(forItem: index, inSection: section))
+        }
+        
+        return indexPaths
+    }
 }
