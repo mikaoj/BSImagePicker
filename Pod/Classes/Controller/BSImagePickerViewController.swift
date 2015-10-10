@@ -33,20 +33,13 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     private var doneBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: nil, action: nil)
     private var cancelBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: nil, action: nil)
     private let albumTitleView: AlbumTitleView = bundle.loadNibNamed("AlbumTitleView", owner: nil, options: nil).first as! AlbumTitleView
-    private var dataSource: SelectableDataSource?
-    private let selections: [PHAsset]
     
     static let bundle: NSBundle = NSBundle(path: NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")!)!
     
+    let fetchResults: [PHFetchResult]
+    
     lazy var photosViewController: PhotosViewController = {
-        let dataSource: SelectableDataSource
-        if self.dataSource != nil {
-            dataSource = self.dataSource!
-        } else {
-            dataSource = BSImagePickerViewController.defaultDataSource()
-        }
-        
-        let vc = PhotosViewController(dataSource: dataSource, settings: self.settings, selections: self.selections)
+        let vc = PhotosViewController(fetchResults: self.fetchResults, settings: self.settings)
         
         vc.doneBarButton = self.doneBarButton
         vc.cancelBarButton = self.cancelBarButton
@@ -93,32 +86,26 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     }
     
     /**
-    Want it to show your own custom fetch results? Make sure the fetch results are of PHAssetCollections
-    - parameter fetchResults: PHFetchResult of PHAssetCollections
-    */
-    public convenience init(fetchResults: [PHFetchResult]) {
-        self.init(dataSource: FetchResultsSelectableDataSource(fetchResults: fetchResults))
-    }
-    
-    /**
     Sets up an classic image picker with results from camera roll and albums
     */
     public convenience init() {
-        self.init(dataSource: nil)
+        let fetchOptions = PHFetchOptions()
+        
+        // Camera roll fetch result
+        let cameraRollResult = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .SmartAlbumUserLibrary, options: fetchOptions)
+        
+        // Albums fetch result
+        let albumResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
+        
+        self.init(fetchResults: [cameraRollResult, albumResult])
     }
     
     /**
     You should probably use one of the convenience inits
-    - parameter dataSource: The data source for the albums
-    - parameter selections: Any PHAsset you want to seed the picker with as selected
+    - parameter fetchResults: The fetch results to use
     */
-    private init(dataSource: SelectableDataSource?, selections: [PHAsset] = []) {
-        if let dataSource = dataSource {
-            self.dataSource = dataSource
-        }
-        
-        self.selections = selections
-        
+    public init(fetchResults: [PHFetchResult]) {
+        self.fetchResults = fetchResults
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -126,9 +113,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     https://www.youtube.com/watch?v=dQw4w9WgXcQ
     */
     required public init?(coder aDecoder: NSCoder) {
-        dataSource = BSImagePickerViewController.defaultDataSource()
-        selections = []
-        super.init(coder: aDecoder)
+        fatalError("herp derp")
     }
     
     /**
@@ -144,18 +129,6 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         if PHPhotoLibrary.authorizationStatus() == .Authorized {
             setViewControllers([photosViewController], animated: false)
         }
-    }
-    
-    private static func defaultDataSource() -> SelectableDataSource {
-        let fetchOptions = PHFetchOptions()
-        
-        // Camera roll fetch result
-        let cameraRollResult = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .SmartAlbumUserLibrary, options: fetchOptions)
-        
-        // Albums fetch result
-        let albumResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
-        
-        return FetchResultsSelectableDataSource(fetchResults: [cameraRollResult, albumResult])
     }
     
     // MARK: ImagePickerSettings proxy

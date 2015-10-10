@@ -27,21 +27,21 @@ import Photos
 Implements the UITableViewDataSource protocol with a data source and cell factory
 */
 final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
-    let data: SelectableDataSource
+    let fetchResults: [PHFetchResult]
     private let albumCellIdentifier = "albumCell"
     
-    init(dataSource aDataSource: SelectableDataSource) {
-        data = aDataSource
+    init(fetchResults: [PHFetchResult]) {
+        self.fetchResults = fetchResults
         
         super.init()
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return data.sections
+        return fetchResults.count
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.numberOfObjectsInSection(section)
+        return fetchResults[section].count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -50,12 +50,9 @@ final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
         cachingManager?.allowsCachingHighQualityImages = false
         
         // Fetch album
-        if let album = data.objectAtIndexPath(indexPath) as? PHAssetCollection {
+        if let album = fetchResults[indexPath.section][indexPath.row] as? PHAssetCollection {
             // Title
             cell.albumTitleLabel.text = album.localizedTitle
-            
-            // Selected
-            cell.selected = data.isObjectAtIndexPathSelected(indexPath)
             
             // Selection style
             cell.selectionStyle = .None
