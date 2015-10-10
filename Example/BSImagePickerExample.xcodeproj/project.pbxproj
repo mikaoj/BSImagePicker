@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		46CC8786E44A11A032FC5CEB /* Pods_BSImagePickerExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF874AB2D329493E738A236 /* Pods_BSImagePickerExampleTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		46CC8786E44A11A032FC5CEB /* Pods_BSImagePickerExampleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3FF874AB2D329493E738A236 /* Pods_BSImagePickerExampleTests.framework */; };
 		5573E9021AECAC0600A82E74 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573E9011AECAC0600A82E74 /* AppDelegate.swift */; };
 		5573E9041AECAC0600A82E74 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5573E9031AECAC0600A82E74 /* ViewController.swift */; };
 		5573E9071AECAC0600A82E74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5573E9051AECAC0600A82E74 /* Main.storyboard */; };
@@ -20,8 +20,8 @@
 		5588349F1B0E3243000FF4FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5588349E1B0E3243000FF4FE /* Images.xcassets */; };
 		558834A21B0E3243000FF4FE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 558834A01B0E3243000FF4FE /* LaunchScreen.xib */; };
 		558834BB1B0E38F2000FF4FE /* ImagePickerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558834BA1B0E38F2000FF4FE /* ImagePickerViewTests.swift */; };
-		80F38842667288D37FB63AEF /* Pods_BSImagePickerObjectiveCExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26515536695B76E37CF65B2B /* Pods_BSImagePickerObjectiveCExample.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		D74D4C8F5A343AF7AA961268 /* Pods_BSImagePickerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0315608F4D5EF6DAB50AEA52 /* Pods_BSImagePickerExample.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		80F38842667288D37FB63AEF /* Pods_BSImagePickerObjectiveCExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26515536695B76E37CF65B2B /* Pods_BSImagePickerObjectiveCExample.framework */; };
+		D74D4C8F5A343AF7AA961268 /* Pods_BSImagePickerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0315608F4D5EF6DAB50AEA52 /* Pods_BSImagePickerExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
