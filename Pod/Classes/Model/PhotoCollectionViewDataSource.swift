@@ -27,7 +27,7 @@ import Photos
 Gives UICollectionViewDataSource functionality with a given data source and cell factory
 */
 final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource {
-    let data: SelectableDataSource
+    let fetchResult: PHFetchResult
     
     private let photoCellIdentifier = "photoCellIdentifier"
     private let photosManager = PHCachingImageManager.defaultManager()
@@ -36,19 +36,19 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
     let settings: BSImagePickerSettings?
     var imageSize: CGSize = CGSizeZero
     
-    init(dataSource aDataSource: SelectableDataSource, settings: BSImagePickerSettings?) {
-        data = aDataSource
+    init(fetchResult: PHFetchResult, settings: BSImagePickerSettings?) {
+        self.fetchResult = fetchResult
         self.settings = settings
         
         super.init()
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return data.sections
+        return 1
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.numberOfObjectsInSection(section)
+        return fetchResult.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -63,26 +63,27 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
             photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
         }
         
-        if let asset = data.objectAtIndexPath(indexPath) as? PHAsset {
+        if let asset = fetchResult[indexPath.row] as? PHAsset {
             cell.asset = asset
             
             // Request image
             cell.tag = Int(photosManager.requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
                 cell.imageView.image = result
-                })
+            })
             
             // Set selection number
-            if let index = data.selections.indexOf(asset) {
-                if let character = settings?.selectionCharacter {
-                    cell.selectionString = String(character)
-                } else {
-                    cell.selectionString = String(index + 1)
-                }
-                
-                cell.selected = true
-            } else {
-                cell.selected = false
-            }
+            // TODO: Solve selection number
+//            if let index = data.selections.indexOf(asset) {
+//                if let character = settings?.selectionCharacter {
+//                    cell.selectionString = String(character)
+//                } else {
+//                    cell.selectionString = String(index + 1)
+//                }
+//                
+//                cell.selected = true
+//            } else {
+//                cell.selected = false
+//            }
         }
         
         UIView.setAnimationsEnabled(true)
