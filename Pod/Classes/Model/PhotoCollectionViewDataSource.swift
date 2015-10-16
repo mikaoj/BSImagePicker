@@ -27,6 +27,7 @@ import Photos
 Gives UICollectionViewDataSource functionality with a given data source and cell factory
 */
 final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource {
+    var selections = [PHAsset]()
     let fetchResult: PHFetchResult
     
     private let photoCellIdentifier = "photoCellIdentifier"
@@ -72,18 +73,17 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
             })
             
             // Set selection number
-            // TODO: Solve selection number
-//            if let index = data.selections.indexOf(asset) {
-//                if let character = settings?.selectionCharacter {
-//                    cell.selectionString = String(character)
-//                } else {
-//                    cell.selectionString = String(index + 1)
-//                }
-//                
-//                cell.selected = true
-//            } else {
-//                cell.selected = false
-//            }
+            if let asset = fetchResult[indexPath.row] as? PHAsset, let index = selections.indexOf(asset) {
+                if let character = settings?.selectionCharacter {
+                    cell.selectionString = String(character)
+                } else {
+                    cell.selectionString = String(index+1)
+                }
+                
+                cell.selected = true
+            } else {
+                cell.selected = false
+            }
         }
         
         UIView.setAnimationsEnabled(true)
