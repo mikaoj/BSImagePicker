@@ -22,7 +22,14 @@
 
 import Foundation
 
+/**
+Extension for creating index paths from an index set
+*/
 extension NSIndexSet {
+    /**
+    - parameter section: The section for the created NSIndexPaths
+    - return: An array with NSIndexPaths
+    */
     func bs_indexPathsForSection(section: Int) -> [NSIndexPath] {
         var indexPaths: [NSIndexPath] = []
         
