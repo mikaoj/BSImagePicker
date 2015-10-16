@@ -445,7 +445,28 @@ extension PhotosViewController {
 // MARK: UIImagePickerControllerDelegate
 extension PhotosViewController: UIImagePickerControllerDelegate {
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        picker.dismissViewControllerAnimated(true, completion: nil)
+        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage, let collectionView = collectionView else {
+            picker.dismissViewControllerAnimated(true, completion: nil)
+            return
+        }
+        
+        var placeholder: PHObjectPlaceholder?
+        PHPhotoLibrary.sharedPhotoLibrary().performChanges({
+            let request = PHAssetChangeRequest.creationRequestForAssetFromImage(image)
+            placeholder = request.placeholderForCreatedAsset
+            }, completionHandler: { success, error in
+                guard let placeholder = placeholder, let asset = PHAsset.fetchAssetsWithLocalIdentifiers([placeholder.localIdentifier], options: nil).firstObject as? PHAsset where success == true else {
+                    picker.dismissViewControllerAnimated(true, completion: nil)
+                    return
+                }
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.photosDataSource?.selections.append(asset)
+                    self.updateDoneButton()
+                    
+                    picker.dismissViewControllerAnimated(true, completion: nil)
+                }
+        })
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
