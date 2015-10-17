@@ -29,7 +29,6 @@
 
 /* Begin PBXFileReference section */
 		0315608F4D5EF6DAB50AEA52 /* Pods_BSImagePickerExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BSImagePickerExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		26515536695B76E37CF65B2B /* Pods_BSImagePickerObjectiveCExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BSImagePickerObjectiveCExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		35E4EBD638F46064234F70BB /* Pods-BSImagePickerExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePickerExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePickerExampleTests/Pods-BSImagePickerExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		3FF874AB2D329493E738A236 /* Pods_BSImagePickerExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BSImagePickerExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5573E8FC1AECAC0600A82E74 /* BSImagePickerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BSImagePickerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,8 +43,6 @@
 		558834B91B0E38F1000FF4FE /* BSImagePickerExampleTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BSImagePickerExampleTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		558834BA1B0E38F2000FF4FE /* ImagePickerViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewTests.swift; sourceTree = "<group>"; };
 		88F135AD834589F5E7D74C2E /* Pods-BSImagePickerExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePickerExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePickerExample/Pods-BSImagePickerExample.debug.xcconfig"; sourceTree = "<group>"; };
-		936B0C5304B03DC95C5D8AC2 /* Pods-BSImagePickerObjectiveCExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePickerObjectiveCExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePickerObjectiveCExample/Pods-BSImagePickerObjectiveCExample.release.xcconfig"; sourceTree = "<group>"; };
-		A440C84D4FFF450C1D203AB3 /* Pods-BSImagePickerObjectiveCExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePickerObjectiveCExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePickerObjectiveCExample/Pods-BSImagePickerObjectiveCExample.debug.xcconfig"; sourceTree = "<group>"; };
 		B412693E67BE2E3E285BEF61 /* Pods-BSImagePickerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePickerExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePickerExample/Pods-BSImagePickerExample.release.xcconfig"; sourceTree = "<group>"; };
 		F379D3C2022B2FB0CCB9469C /* Pods-BSImagePickerExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePickerExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePickerExampleTests/Pods-BSImagePickerExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -75,7 +72,6 @@
 			children = (
 				0315608F4D5EF6DAB50AEA52 /* Pods_BSImagePickerExample.framework */,
 				3FF874AB2D329493E738A236 /* Pods_BSImagePickerExampleTests.framework */,
-				26515536695B76E37CF65B2B /* Pods_BSImagePickerObjectiveCExample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -87,8 +83,6 @@
 				B412693E67BE2E3E285BEF61 /* Pods-BSImagePickerExample.release.xcconfig */,
 				F379D3C2022B2FB0CCB9469C /* Pods-BSImagePickerExampleTests.debug.xcconfig */,
 				35E4EBD638F46064234F70BB /* Pods-BSImagePickerExampleTests.release.xcconfig */,
-				A440C84D4FFF450C1D203AB3 /* Pods-BSImagePickerObjectiveCExample.debug.xcconfig */,
-				936B0C5304B03DC95C5D8AC2 /* Pods-BSImagePickerObjectiveCExample.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
