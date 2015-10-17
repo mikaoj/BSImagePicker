@@ -38,7 +38,7 @@ final class PhotosViewController : UICollectionViewController {
     
     private var photosDataSource: PhotoCollectionViewDataSource?
     private var albumsDataSource: AlbumTableViewDataSource
-    private let cameraDataSource = CameraCollectionViewDataSource()
+    private let cameraDataSource: CameraCollectionViewDataSource
     private var composedDataSource: ComposedCollectionViewDataSource?
     
     let settings: BSImagePickerSettings
@@ -60,13 +60,20 @@ final class PhotosViewController : UICollectionViewController {
     
     required init(fetchResults: [PHFetchResult], settings aSettings: BSImagePickerSettings) {
         albumsDataSource = AlbumTableViewDataSource(fetchResults: fetchResults)
+        cameraDataSource = CameraCollectionViewDataSource(settings: aSettings)
         settings = aSettings
         
         super.init(collectionViewLayout: NoSectionBreakCollectionViewLayout())
+        
+        PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("b0rk: initWithCoder not implemented")
+    }
+    
+    deinit {
+        PHPhotoLibrary.sharedPhotoLibrary().unregisterChangeObserver(self)
     }
     
     override func loadView() {
@@ -285,7 +292,11 @@ final class PhotosViewController : UICollectionViewController {
             NSSortDescriptor(key: "creationDate", ascending: false)
         ]
         fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
-        let newDataSource = PhotoCollectionViewDataSource(fetchResult: PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions), settings: settings)
+        initializePhotosDataSourceWithFetchResult(PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions))
+    }
+    
+    func initializePhotosDataSourceWithFetchResult(fetchResult: PHFetchResult) {
+        let newDataSource = PhotoCollectionViewDataSource(fetchResult: fetchResult, settings: settings)
         
         // Transfer image size
         // TODO: Move image size to settings
@@ -445,7 +456,7 @@ extension PhotosViewController {
 // MARK: UIImagePickerControllerDelegate
 extension PhotosViewController: UIImagePickerControllerDelegate {
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage, let collectionView = collectionView else {
+        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else {
             picker.dismissViewControllerAnimated(true, completion: nil)
             return
         }
@@ -471,5 +482,45 @@ extension PhotosViewController: UIImagePickerControllerDelegate {
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
+// MARK: PHPhotoLibraryChangeObserver
+extension PhotosViewController: PHPhotoLibraryChangeObserver {
+    func photoLibraryDidChange(changeInstance: PHChange) {
+        guard let photosDataSource = photosDataSource, let collectionView = collectionView else {
+            return
+        }
+        
+        if let photosChanges = changeInstance.changeDetailsForFetchResult(photosDataSource.fetchResult) {
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                // Update fetch result
+                self.initializePhotosDataSourceWithFetchResult(photosChanges.fetchResultAfterChanges)
+                
+                // Update collection view
+                if photosChanges.hasIncrementalChanges {
+                    if let removed = photosChanges.removedIndexes {
+                        collectionView.deleteItemsAtIndexPaths(removed.bs_indexPathsForSection(1))
+                    }
+                    
+                    if let inserted = photosChanges.insertedIndexes {
+                        collectionView.insertItemsAtIndexPaths(inserted.bs_indexPathsForSection(1))
+                    }
+                    
+                    if let changed = photosChanges.changedIndexes {
+                        collectionView.reloadItemsAtIndexPaths(changed.bs_indexPathsForSection(1))
+                    }
+                } else {
+                    collectionView.reloadData()
+                }
+                
+                // TODO: Handle case where selected asset has been removed/updated/etc
+                
+                // Sync selection
+                self.synchronizeSelectionInCollectionView(collectionView)
+            })
+        }
+        
+        // TODO: Changes in albums
     }
 }
