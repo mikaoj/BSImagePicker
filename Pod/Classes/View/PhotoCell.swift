@@ -23,6 +23,9 @@
 import UIKit
 import Photos
 
+/**
+The photo cell.
+*/
 final class PhotoCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var selectionOverlayView: UIView!

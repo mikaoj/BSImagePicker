@@ -8,9 +8,10 @@
 
 import UIKit
 
+/**
+*/
 final class CameraCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()
