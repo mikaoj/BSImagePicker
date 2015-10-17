@@ -7,10 +7,6 @@ target 'BSImagePickerExample', :exclusive => true do
   pod "BSImagePicker", :path => "../"
 end
 
-target 'BSImagePickerObjectiveCExample', :exclusive => true do
-  pod "BSImagePicker", :path => "../"
-end
-
 target 'BSImagePickerExampleTests', :exclusive => true do
   pod "BSImagePicker", :path => "../"
 end
