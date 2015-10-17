@@ -6,7 +6,7 @@
 
 ![alt text](Misc/Gif/demo.gif "Demo gif")
 
-A mix between the native iOS 8 gallery and facebooks image picker. Use this as a replacement for UIImagePickerController for allowing selection of multiple pictures and taking photos.
+A mix between the native iOS 8 gallery and facebooks image picker. It is intended as a replacement for UIImagePickerController for both selecting and taking photos.
 
 ## Usage
 
