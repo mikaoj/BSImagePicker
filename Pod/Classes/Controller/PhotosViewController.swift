@@ -332,6 +332,7 @@ extension PhotosViewController {
             let cameraController = UIImagePickerController()
             cameraController.allowsEditing = false
             cameraController.sourceType = .Camera
+            cameraController.delegate = self
             
             self.presentViewController(cameraController, animated: true, completion: nil)
             
@@ -392,6 +393,22 @@ extension PhotosViewController {
                 closure(asset: asset)
             })
         }
+    }
+    
+    override func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        guard let cell = cell as? CameraCell else {
+            return
+        }
+        
+        cell.startLiveBackground()
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
+        guard let cell = cell as? CameraCell else {
+            return
+        }
+        
+        cell.stopLiveBackground()
     }
 }
 
