@@ -489,8 +489,16 @@ extension PhotosViewController: UIImagePickerControllerDelegate {
                 }
                 
                 dispatch_async(dispatch_get_main_queue()) {
+                    // TODO: move to a function. this is duplicated in didSelect
                     self.photosDataSource?.selections.append(asset)
                     self.updateDoneButton()
+                    
+                    // Call selection closure
+                    if let closure = self.selectionClosure {
+                        dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
+                            closure(asset: asset)
+                        })
+                    }
                     
                     picker.dismissViewControllerAnimated(true, completion: nil)
                 }
@@ -505,38 +513,52 @@ extension PhotosViewController: UIImagePickerControllerDelegate {
 // MARK: PHPhotoLibraryChangeObserver
 extension PhotosViewController: PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(changeInstance: PHChange) {
+        print("changessss")
         guard let photosDataSource = photosDataSource, let collectionView = collectionView else {
             return
         }
         
-        if let photosChanges = changeInstance.changeDetailsForFetchResult(photosDataSource.fetchResult) {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                // Update fetch result
-                self.initializePhotosDataSourceWithFetchResult(photosChanges.fetchResultAfterChanges)
-                
+        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            if let photosChanges = changeInstance.changeDetailsForFetchResult(photosDataSource.fetchResult) {
                 // Update collection view
-                if photosChanges.hasIncrementalChanges {
+                // Alright...we get spammed with change notifications, even when there are none. So guard against it
+                if photosChanges.hasIncrementalChanges && (photosChanges.removedIndexes?.count > 0 || photosChanges.insertedIndexes?.count > 0 || photosChanges.changedIndexes?.count > 0) {
+                    print("incremental")
+                    // Update fetch result
+                    photosDataSource.fetchResult = photosChanges.fetchResultAfterChanges
+                    
                     if let removed = photosChanges.removedIndexes {
+                        print("removed")
                         collectionView.deleteItemsAtIndexPaths(removed.bs_indexPathsForSection(1))
                     }
                     
                     if let inserted = photosChanges.insertedIndexes {
+                        print("inserted")
                         collectionView.insertItemsAtIndexPaths(inserted.bs_indexPathsForSection(1))
                     }
                     
-                    if let changed = photosChanges.changedIndexes {
-                        collectionView.reloadItemsAtIndexPaths(changed.bs_indexPathsForSection(1))
-                    }
-                } else {
+                    // Changes is causing issues right now...fix me later
+                    // TODO: FIX
+                    //                    if let changed = photosChanges.changedIndexes {
+                    //                        print("changed")
+                    //                        collectionView.reloadItemsAtIndexPaths(changed.bs_indexPathsForSection(1))
+                    //                    }
+                    
+                    // Sync selection
+                    self.synchronizeSelectionInCollectionView(collectionView)
+                } else if photosChanges.hasIncrementalChanges == false {
+                    print("reeeeload!")
+                    // Update fetch result
+                    photosDataSource.fetchResult = photosChanges.fetchResultAfterChanges
+                    
                     collectionView.reloadData()
+                    
+                    // Sync selection
+                    self.synchronizeSelectionInCollectionView(collectionView)
                 }
-                
-                // TODO: Handle case where selected asset has been removed/updated/etc
-                
-                // Sync selection
-                self.synchronizeSelectionInCollectionView(collectionView)
-            })
-        }
+            }
+        })
+        
         
         // TODO: Changes in albums
     }

@@ -28,7 +28,7 @@ Gives UICollectionViewDataSource functionality with a given data source and cell
 */
 final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource {
     var selections = [PHAsset]()
-    let fetchResult: PHFetchResult
+    var fetchResult: PHFetchResult
     
     private let photoCellIdentifier = "photoCellIdentifier"
     private let photosManager = PHCachingImageManager.defaultManager()
