@@ -22,6 +22,9 @@
 
 import UIKit
 
+/**
+Used as an overlay on selected cells
+*/
 @IBDesignable final class SelectionView: UIView {
     var selectionString: String = "" {
         didSet {

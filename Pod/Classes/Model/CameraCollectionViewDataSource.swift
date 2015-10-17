@@ -22,6 +22,9 @@
 
 import UIKit
 
+/**
+Data source for the camera cell. Will not show up if your device doesn't support camera or you have turned it off in settings
+*/
 final class CameraCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     let cameraCellIdentifier = "cameraCellIdentifier"
     let cameraAvailable = UIImagePickerController.isSourceTypeAvailable(.Camera)
