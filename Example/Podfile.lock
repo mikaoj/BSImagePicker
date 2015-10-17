@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BSImagePicker: 6a8f3f804a3cdbf0b16deeee420fc83602261c6d
+  BSImagePicker: ebb45e3380a8540622012c9be7c73f111d28977f
   UIImageViewModeScaleAspect: ec78901acfc20d3782154111a21d34390f8f71ad
 
 COCOAPODS: 0.39.0
