@@ -24,15 +24,21 @@ import UIKit
 
 final class CameraCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     let cameraCellIdentifier = "cameraCellIdentifier"
-//    let cameraAvailable = UIImagePickerController.isSourceTypeAvailable(.Camera)
-    let cameraAvailable = true
+    let cameraAvailable = UIImagePickerController.isSourceTypeAvailable(.Camera)
+    let settings: BSImagePickerSettings
+    
+    init(settings: BSImagePickerSettings) {
+        self.settings = settings
+        
+        super.init()
+    }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return Int(cameraAvailable)
+        return Int(cameraAvailable && settings.takePhotos)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Int(cameraAvailable)
+        return Int(cameraAvailable && settings.takePhotos)
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
