@@ -1,6 +1,8 @@
 PODS:
   - BSImagePicker (2.0.0):
+    - RDHCollectionViewGridLayout (~> 1.2)
     - UIImageViewModeScaleAspect (~> 1.3)
+  - RDHCollectionViewGridLayout (1.2.2)
   - UIImageViewModeScaleAspect (1.3)
 
 DEPENDENCIES:
@@ -11,7 +13,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BSImagePicker: ebb45e3380a8540622012c9be7c73f111d28977f
+  BSImagePicker: bce50ce53f3be7f9822ce8a96d84a92885981bc1
+  RDHCollectionViewGridLayout: 9a0a574d47335101a417acee7ab9cb030373641b
   UIImageViewModeScaleAspect: ec78901acfc20d3782154111a21d34390f8f71ad
 
 COCOAPODS: 0.39.0

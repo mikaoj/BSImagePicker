@@ -38,6 +38,9 @@
   "dependencies": {
     "UIImageViewModeScaleAspect": [
       "~> 1.3"
+    ],
+    "RDHCollectionViewGridLayout": [
+      " ~> 1.2"
     ]
   }
 }

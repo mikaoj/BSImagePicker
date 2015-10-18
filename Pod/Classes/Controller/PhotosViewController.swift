@@ -22,6 +22,7 @@
 
 import UIKit
 import Photos
+import RDHCollectionViewGridLayout
 
 final class PhotosViewController : UICollectionViewController {    
     var selectionClosure: ((asset: PHAsset) -> Void)?
@@ -63,7 +64,7 @@ final class PhotosViewController : UICollectionViewController {
         cameraDataSource = CameraCollectionViewDataSource(settings: aSettings)
         settings = aSettings
         
-        super.init(collectionViewLayout: NoSectionBreakCollectionViewLayout())
+        super.init(collectionViewLayout: RDHCollectionViewGridLayout())
         
         PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
     }
@@ -400,15 +401,7 @@ extension PhotosViewController {
             return
         }
         
-        cell.startLiveBackground()
-    }
-    
-    override func collectionView(collectionView: UICollectionView, didEndDisplayingCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-        guard let cell = cell as? CameraCell else {
-            return
-        }
-        
-        cell.stopLiveBackground()
+        cell.startLiveBackground() // Start live background
     }
 }
 
@@ -453,18 +446,18 @@ extension PhotosViewController {
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        if let collectionViewFlowLayout = collectionViewLayout as? NoSectionBreakCollectionViewLayout, let collectionViewWidth = collectionView?.bounds.size.width {
+        if let collectionViewFlowLayout = collectionViewLayout as? RDHCollectionViewGridLayout, let collectionViewWidth = collectionView?.bounds.size.width {
             let itemSpacing: CGFloat = 1.0
             let cellsPerRow = settings.cellsPerRow(verticalSize: traitCollection.verticalSizeClass, horizontalSize: traitCollection.horizontalSizeClass)
             
-            collectionViewFlowLayout.minimumInteritemSpacing = itemSpacing
-            collectionViewFlowLayout.minimumLineSpacing = itemSpacing
-            collectionViewFlowLayout.cellsPerRow = cellsPerRow
+            collectionViewFlowLayout.itemSpacing = itemSpacing
+            collectionViewFlowLayout.lineSpacing = itemSpacing
+            collectionViewFlowLayout.lineItemCount = UInt(cellsPerRow)
+            collectionViewFlowLayout.sectionsStartOnNewLine = false
             
             let width = (collectionViewWidth / CGFloat(cellsPerRow)) - itemSpacing
             let itemSize =  CGSize(width: width, height: width)
             
-            collectionViewFlowLayout.itemSize = itemSize
             photosDataSource?.imageSize = itemSize
         }
     }
@@ -513,7 +506,6 @@ extension PhotosViewController: UIImagePickerControllerDelegate {
 // MARK: PHPhotoLibraryChangeObserver
 extension PhotosViewController: PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(changeInstance: PHChange) {
-        print("changessss")
         guard let photosDataSource = photosDataSource, let collectionView = collectionView else {
             return
         }
@@ -523,21 +515,23 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
                 // Update collection view
                 // Alright...we get spammed with change notifications, even when there are none. So guard against it
                 if photosChanges.hasIncrementalChanges && (photosChanges.removedIndexes?.count > 0 || photosChanges.insertedIndexes?.count > 0 || photosChanges.changedIndexes?.count > 0) {
-                    print("incremental")
                     // Update fetch result
                     photosDataSource.fetchResult = photosChanges.fetchResultAfterChanges
                     
                     if let removed = photosChanges.removedIndexes {
-                        print("removed")
                         collectionView.deleteItemsAtIndexPaths(removed.bs_indexPathsForSection(1))
                     }
                     
                     if let inserted = photosChanges.insertedIndexes {
-                        print("inserted")
                         collectionView.insertItemsAtIndexPaths(inserted.bs_indexPathsForSection(1))
                     }
                     
                     // Changes is causing issues right now...fix me later
+                    // Example of issue:
+                    // 1. Take a new photo
+                    // 2. We will get a change telling to insert that asset
+                    // 3. While it's being inserted we get a bunch of change request for that same asset
+                    // 4. It flickers when reloading it while being inserted
                     // TODO: FIX
                     //                    if let changed = photosChanges.changedIndexes {
                     //                        print("changed")
@@ -547,7 +541,6 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
                     // Sync selection
                     self.synchronizeSelectionInCollectionView(collectionView)
                 } else if photosChanges.hasIncrementalChanges == false {
-                    print("reeeeload!")
                     // Update fetch result
                     photosDataSource.fetchResult = photosChanges.fetchResultAfterChanges
                     

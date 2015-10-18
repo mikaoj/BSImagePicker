@@ -1,0 +1,6 @@
+framework module RDHCollectionViewGridLayout {
+  umbrella header "RDHCollectionViewGridLayout-umbrella.h"
+
+  export *
+  module * { export * }
+}
