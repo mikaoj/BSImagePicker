@@ -25,16 +25,22 @@ final class CameraCell: UICollectionViewCell {
         // Apply tint to image
         imageView.image = imageView.image?.imageWithRenderingMode(.AlwaysTemplate)
         
-        // TODO: Only if we have access to camera
+        // Don't trigger camera access for the background
+        guard AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == .Authorized else {
+            return
+        }
+        
         do {
             // Prepare avcapture session
             session = AVCaptureSession()
             session?.sessionPreset = AVCaptureSessionPresetMedium
             
+            // Hook upp device
             let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
             let input = try AVCaptureDeviceInput(device: device)
             session?.addInput(input)
             
+            // Setup capture layer
             if let captureLayer = AVCaptureVideoPreviewLayer(session: session) {
                 captureLayer.frame = bounds
                 captureLayer.videoGravity = AVLayerVideoGravityResizeAspectFill

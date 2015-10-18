@@ -85,9 +85,11 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-BSImagePickerExample/BSImagePicker.framework"
+  install_framework "Pods-BSImagePickerExample/RDHCollectionViewGridLayout.framework"
   install_framework "Pods-BSImagePickerExample/UIImageViewModeScaleAspect.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-BSImagePickerExample/BSImagePicker.framework"
+  install_framework "Pods-BSImagePickerExample/RDHCollectionViewGridLayout.framework"
   install_framework "Pods-BSImagePickerExample/UIImageViewModeScaleAspect.framework"
 fi
