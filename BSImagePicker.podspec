@@ -29,4 +29,5 @@ Pod::Spec.new do |s|
   # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit', 'Photos'
   s.dependency 'UIImageViewModeScaleAspect', '~> 1.3'
+  s.dependency 'BSGridCollectionViewLayout', '~> 1.0'
 end

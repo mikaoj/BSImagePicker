@@ -4,7 +4,6 @@ use_frameworks!
 platform :ios, '8.0'
 
 pod "BSImagePicker", :path => "../"
-pod "BSSquareGridCollectionViewLayout", :path => "../../BSSquareGridCollectionViewLayout"
 
 target 'BSImagePickerExample', :exclusive => true do
 end

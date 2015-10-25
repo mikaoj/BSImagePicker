@@ -15,7 +15,6 @@
 		5573E90C1AECAC0600A82E74 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5573E90A1AECAC0600A82E74 /* LaunchScreen.xib */; };
 		558834BB1B0E38F2000FF4FE /* ImagePickerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558834BA1B0E38F2000FF4FE /* ImagePickerViewTests.swift */; };
 		A434D8498B9F8B19D84F67A3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA62689E8B98BBFFA207B7ED /* Pods.framework */; };
-		D74D4C8F5A343AF7AA961268 /* Pods_BSImagePickerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0315608F4D5EF6DAB50AEA52 /* Pods_BSImagePickerExample.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +55,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D74D4C8F5A343AF7AA961268 /* Pods_BSImagePickerExample.framework in Frameworks */,
 				A434D8498B9F8B19D84F67A3 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

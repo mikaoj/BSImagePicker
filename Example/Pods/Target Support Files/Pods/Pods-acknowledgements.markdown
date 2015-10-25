@@ -1,7 +1,7 @@
 # Acknowledgements
 This application makes use of the following third party libraries:
 
-## BSImagePicker
+## BSGridCollectionViewLayout
 
 Copyright (c) 2015 Joakim Gyllstrom <joakim@backslashed.se>
 
@@ -24,7 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-## BSSquareGridCollectionViewLayout
+## BSImagePicker
 
 Copyright (c) 2015 Joakim Gyllstrom <joakim@backslashed.se>
 
