@@ -3,11 +3,12 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 platform :ios, '8.0'
 
+pod "BSImagePicker", :path => "../"
+pod "BSSquareGridCollectionViewLayout", :path => "../../BSSquareGridCollectionViewLayout"
+
 target 'BSImagePickerExample', :exclusive => true do
-  pod "BSImagePicker", :path => "../"
 end
 
 target 'BSImagePickerExampleTests', :exclusive => true do
-  pod "BSImagePicker", :path => "../"
 end
 

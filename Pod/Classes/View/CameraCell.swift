@@ -61,13 +61,13 @@ final class CameraCell: UICollectionViewCell {
     
     func startLiveBackground() {
         dispatch_async(sessionQueue) { () -> Void in
-            session?.startRunning()
+            self.session?.startRunning()
         }
     }
     
     func stopLiveBackground() {
         dispatch_async(sessionQueue) { () -> Void in
-            session?.stopRunning()
+            self.session?.stopRunning()
         }
     }
 }

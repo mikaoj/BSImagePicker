@@ -22,7 +22,7 @@
 
 import UIKit
 import Photos
-import RDHCollectionViewGridLayout
+import BSSquareGridCollectionViewLayout
 
 final class PhotosViewController : UICollectionViewController {    
     var selectionClosure: ((asset: PHAsset) -> Void)?
@@ -64,7 +64,7 @@ final class PhotosViewController : UICollectionViewController {
         cameraDataSource = CameraCollectionViewDataSource(settings: aSettings)
         settings = aSettings
         
-        super.init(collectionViewLayout: RDHCollectionViewGridLayout())
+        super.init(collectionViewLayout: SquareGridCollectionViewLayout())
         
         PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
     }
@@ -126,6 +126,7 @@ final class PhotosViewController : UICollectionViewController {
     // MARK: Button actions
     func cancelButtonPressed(sender: UIBarButtonItem) {
         guard let closure = cancelClosure, let photosDataSource = photosDataSource else {
+            dismissViewControllerAnimated(true, completion: nil)
             return
         }
         
@@ -138,6 +139,7 @@ final class PhotosViewController : UICollectionViewController {
     
     func doneButtonPressed(sender: UIBarButtonItem) {
         guard let closure = finishClosure, let photosDataSource = photosDataSource else {
+            dismissViewControllerAnimated(true, completion: nil)
             return
         }
         
@@ -446,19 +448,14 @@ extension PhotosViewController {
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        if let collectionViewFlowLayout = collectionViewLayout as? RDHCollectionViewGridLayout, let collectionViewWidth = collectionView?.bounds.size.width {
-            let itemSpacing: CGFloat = 1.0
+        if let collectionViewFlowLayout = collectionViewLayout as? SquareGridCollectionViewLayout {
+            let itemSpacing: CGFloat = 2.0
             let cellsPerRow = settings.cellsPerRow(verticalSize: traitCollection.verticalSizeClass, horizontalSize: traitCollection.horizontalSizeClass)
             
             collectionViewFlowLayout.itemSpacing = itemSpacing
-            collectionViewFlowLayout.lineSpacing = itemSpacing
-            collectionViewFlowLayout.lineItemCount = UInt(cellsPerRow)
-            collectionViewFlowLayout.sectionsStartOnNewLine = false
+            collectionViewFlowLayout.itemsPerRow = cellsPerRow
             
-            let width = (collectionViewWidth / CGFloat(cellsPerRow)) - itemSpacing
-            let itemSize =  CGSize(width: width, height: width)
-            
-            photosDataSource?.imageSize = itemSize
+            photosDataSource?.imageSize = collectionViewFlowLayout.itemSize
         }
     }
 }

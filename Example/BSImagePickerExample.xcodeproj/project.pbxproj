@@ -14,6 +14,7 @@
 		5573E9091AECAC0600A82E74 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5573E9081AECAC0600A82E74 /* Images.xcassets */; };
 		5573E90C1AECAC0600A82E74 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5573E90A1AECAC0600A82E74 /* LaunchScreen.xib */; };
 		558834BB1B0E38F2000FF4FE /* ImagePickerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558834BA1B0E38F2000FF4FE /* ImagePickerViewTests.swift */; };
+		A434D8498B9F8B19D84F67A3 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA62689E8B98BBFFA207B7ED /* Pods.framework */; };
 		D74D4C8F5A343AF7AA961268 /* Pods_BSImagePickerExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0315608F4D5EF6DAB50AEA52 /* Pods_BSImagePickerExample.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,8 +43,11 @@
 		5573E9161AECAC0600A82E74 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		558834B91B0E38F1000FF4FE /* BSImagePickerExampleTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BSImagePickerExampleTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		558834BA1B0E38F2000FF4FE /* ImagePickerViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewTests.swift; sourceTree = "<group>"; };
+		673DD6B1F8A0E848D88E0978 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		88F135AD834589F5E7D74C2E /* Pods-BSImagePickerExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePickerExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePickerExample/Pods-BSImagePickerExample.debug.xcconfig"; sourceTree = "<group>"; };
 		B412693E67BE2E3E285BEF61 /* Pods-BSImagePickerExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePickerExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePickerExample/Pods-BSImagePickerExample.release.xcconfig"; sourceTree = "<group>"; };
+		E6820703FA150D60AD66C64C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		EA62689E8B98BBFFA207B7ED /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F379D3C2022B2FB0CCB9469C /* Pods-BSImagePickerExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePickerExampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePickerExampleTests/Pods-BSImagePickerExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -53,6 +57,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D74D4C8F5A343AF7AA961268 /* Pods_BSImagePickerExample.framework in Frameworks */,
+				A434D8498B9F8B19D84F67A3 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,6 +77,7 @@
 			children = (
 				0315608F4D5EF6DAB50AEA52 /* Pods_BSImagePickerExample.framework */,
 				3FF874AB2D329493E738A236 /* Pods_BSImagePickerExampleTests.framework */,
+				EA62689E8B98BBFFA207B7ED /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -83,6 +89,8 @@
 				B412693E67BE2E3E285BEF61 /* Pods-BSImagePickerExample.release.xcconfig */,
 				F379D3C2022B2FB0CCB9469C /* Pods-BSImagePickerExampleTests.debug.xcconfig */,
 				35E4EBD638F46064234F70BB /* Pods-BSImagePickerExampleTests.release.xcconfig */,
+				E6820703FA150D60AD66C64C /* Pods.debug.xcconfig */,
+				673DD6B1F8A0E848D88E0978 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -263,7 +271,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BSImagePickerExample/Pods-BSImagePickerExample-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		628FF45EA1D552771184F086 /* Copy Pods Resources */ = {
@@ -338,7 +346,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BSImagePickerExample/Pods-BSImagePickerExample-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -477,7 +485,7 @@
 		};
 		5573E91C1AECAC0600A82E74 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 88F135AD834589F5E7D74C2E /* Pods-BSImagePickerExample.debug.xcconfig */;
+			baseConfigurationReference = E6820703FA150D60AD66C64C /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -492,7 +500,7 @@
 		};
 		5573E91D1AECAC0600A82E74 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B412693E67BE2E3E285BEF61 /* Pods-BSImagePickerExample.release.xcconfig */;
+			baseConfigurationReference = 673DD6B1F8A0E848D88E0978 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -507,7 +515,6 @@
 		};
 		5573E91F1AECAC0600A82E74 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F379D3C2022B2FB0CCB9469C /* Pods-BSImagePickerExampleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -527,7 +534,6 @@
 		};
 		5573E9201AECAC0600A82E74 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35E4EBD638F46064234F70BB /* Pods-BSImagePickerExampleTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
