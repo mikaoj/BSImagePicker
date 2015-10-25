@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '4558330FC02D3415BB86DC51'
-               BlueprintName = 'BSImagePicker'
+               BlueprintIdentifier = 'CD74321ACE8CE2AE0C748DE0'
+               BlueprintName = 'BSSquareGridCollectionViewLayout'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'BSImagePicker.framework'>
+               BuildableName = 'BSSquareGridCollectionViewLayout.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

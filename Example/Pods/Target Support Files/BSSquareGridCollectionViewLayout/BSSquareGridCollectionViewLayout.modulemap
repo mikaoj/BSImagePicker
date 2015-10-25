@@ -1,0 +1,6 @@
+framework module BSSquareGridCollectionViewLayout {
+  umbrella header "BSSquareGridCollectionViewLayout-umbrella.h"
+
+  export *
+  module * { export * }
+}
