@@ -22,7 +22,7 @@
 
 import UIKit
 import Photos
-import BSSquareGridCollectionViewLayout
+import BSGridCollectionViewLayout
 
 final class PhotosViewController : UICollectionViewController {    
     var selectionClosure: ((asset: PHAsset) -> Void)?
@@ -64,7 +64,7 @@ final class PhotosViewController : UICollectionViewController {
         cameraDataSource = CameraCollectionViewDataSource(settings: aSettings)
         settings = aSettings
         
-        super.init(collectionViewLayout: SquareGridCollectionViewLayout())
+        super.init(collectionViewLayout: GridCollectionViewLayout())
         
         PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
     }
@@ -448,7 +448,7 @@ extension PhotosViewController {
     override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         
-        if let collectionViewFlowLayout = collectionViewLayout as? SquareGridCollectionViewLayout {
+        if let collectionViewFlowLayout = collectionViewLayout as? GridCollectionViewLayout {
             let itemSpacing: CGFloat = 2.0
             let cellsPerRow = settings.cellsPerRow(verticalSize: traitCollection.verticalSizeClass, horizontalSize: traitCollection.horizontalSizeClass)
             
@@ -456,6 +456,8 @@ extension PhotosViewController {
             collectionViewFlowLayout.itemsPerRow = cellsPerRow
             
             photosDataSource?.imageSize = collectionViewFlowLayout.itemSize
+            
+            updateDoneButton()
         }
     }
 }
