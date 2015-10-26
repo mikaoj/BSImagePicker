@@ -14,46 +14,44 @@ let firstDataSourceTag = 1
 let secondDataSourceTag = 2
 
 class ComposedDataSourceTest: XCTestCase {
-    var composedDataSource: ComposedCollectionViewDataSource
+    var composedDataSource: ComposedCollectionViewDataSource!
+    let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
+    
     override func setUp() {
         super.setUp()
         
         composedDataSource = ComposedCollectionViewDataSource(dataSources: [FirstDataSource(), SecondDataSource()])
     }
     
-    override init() {
-        super.init()
-    }
-    
     func testNoDataSourcesSectionCount() {
-        XCTAssert(ComposedCollectionViewDataSource(dataSources: []).numberOfSectionsInCollectionView(UICollectionView()) == 0)
+        XCTAssert(ComposedCollectionViewDataSource(dataSources: []).numberOfSectionsInCollectionView(collectionView) == 0)
     }
     
     func testOneDataSourceSectionCount() {
-        XCTAssert(ComposedCollectionViewDataSource(dataSources: [FirstDataSource()]).numberOfSectionsInCollectionView(UICollectionView()) == 1)
+        XCTAssert(ComposedCollectionViewDataSource(dataSources: [FirstDataSource()]).numberOfSectionsInCollectionView(collectionView) == 1)
     }
     
     func testTwoDataSourcesSectionCount() {
-        XCTAssert(composedDataSource.numberOfSectionsInCollectionView(UICollectionView()) == 2)
+        XCTAssert(composedDataSource.numberOfSectionsInCollectionView(collectionView) == 2)
     }
     
     func testFirstSectionItemCount() {
-        XCTAssert(composedDataSource.collectionView(UICollectionView(), numberOfItemsInSection: 0) == 2)
+        XCTAssert(composedDataSource.collectionView(collectionView, numberOfItemsInSection: 0) == 2)
     }
     
     func testSecondSectionItemCount() {
-        XCTAssert(composedDataSource.collectionView(UICollectionView(), numberOfItemsInSection: 1) == 3)
+        XCTAssert(composedDataSource.collectionView(collectionView, numberOfItemsInSection: 1) == 3)
     }
     
     func testFirstSectionCell() {
-        XCTAssert(composedDataSource.collectionView(UICollectionView(), cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)).tag == firstDataSourceTag)
-        XCTAssert(composedDataSource.collectionView(UICollectionView(), cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 0)).tag == firstDataSourceTag)
+        XCTAssert(composedDataSource.collectionView(collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)).tag == firstDataSourceTag)
+        XCTAssert(composedDataSource.collectionView(collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 0)).tag == firstDataSourceTag)
     }
     
     func testSecondSectionCell() {
-        XCTAssert(composedDataSource.collectionView(UICollectionView(), cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 1)).tag == secondDataSourceTag)
-        XCTAssert(composedDataSource.collectionView(UICollectionView(), cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 1)).tag == secondDataSourceTag)
-        XCTAssert(composedDataSource.collectionView(UICollectionView(), cellForItemAtIndexPath: NSIndexPath(forItem: 2, inSection: 1)).tag == secondDataSourceTag)
+        XCTAssert(composedDataSource.collectionView(collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 1)).tag == secondDataSourceTag)
+        XCTAssert(composedDataSource.collectionView(collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 1)).tag == secondDataSourceTag)
+        XCTAssert(composedDataSource.collectionView(collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 2, inSection: 1)).tag == secondDataSourceTag)
     }
 }
 
