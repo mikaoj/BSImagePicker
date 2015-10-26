@@ -14,10 +14,24 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5573E8FB1AECAC0600A82E74"
-               BuildableName = "BSImagePickerExample.app"
-               BlueprintName = "BSImagePickerExample"
-               ReferencedContainer = "container:BSImagePickerExample.xcodeproj">
+               BlueprintIdentifier = "607FACCF1AFB9204008FA782"
+               BuildableName = "BSImagePicker_Example.app"
+               BlueprintName = "BSImagePicker_Example"
+               ReferencedContainer = "container:BSImagePicker.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "607FACE41AFB9204008FA782"
+               BuildableName = "BSImagePicker_Tests.xctest"
+               BlueprintName = "BSImagePicker_Tests"
+               ReferencedContainer = "container:BSImagePicker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,20 +46,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "5573E9101AECAC0600A82E74"
-               BuildableName = "BSImagePickerExampleTests.xctest"
-               BlueprintName = "BSImagePickerExampleTests"
-               ReferencedContainer = "container:BSImagePickerExample.xcodeproj">
+               BlueprintIdentifier = "607FACE41AFB9204008FA782"
+               BuildableName = "BSImagePicker_Tests.xctest"
+               BlueprintName = "BSImagePicker_Tests"
+               ReferencedContainer = "container:BSImagePicker.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5573E8FB1AECAC0600A82E74"
-            BuildableName = "BSImagePickerExample.app"
-            BlueprintName = "BSImagePickerExample"
-            ReferencedContainer = "container:BSImagePickerExample.xcodeproj">
+            BlueprintIdentifier = "607FACCF1AFB9204008FA782"
+            BuildableName = "BSImagePicker_Example.app"
+            BlueprintName = "BSImagePicker_Example"
+            ReferencedContainer = "container:BSImagePicker.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -65,10 +79,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5573E8FB1AECAC0600A82E74"
-            BuildableName = "BSImagePickerExample.app"
-            BlueprintName = "BSImagePickerExample"
-            ReferencedContainer = "container:BSImagePickerExample.xcodeproj">
+            BlueprintIdentifier = "607FACCF1AFB9204008FA782"
+            BuildableName = "BSImagePicker_Example.app"
+            BlueprintName = "BSImagePicker_Example"
+            ReferencedContainer = "container:BSImagePicker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -84,10 +98,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "5573E8FB1AECAC0600A82E74"
-            BuildableName = "BSImagePickerExample.app"
-            BlueprintName = "BSImagePickerExample"
-            ReferencedContainer = "container:BSImagePickerExample.xcodeproj">
+            BlueprintIdentifier = "607FACCF1AFB9204008FA782"
+            BuildableName = "BSImagePicker_Example.app"
+            BlueprintName = "BSImagePicker_Example"
+            ReferencedContainer = "container:BSImagePicker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
