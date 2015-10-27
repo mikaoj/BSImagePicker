@@ -61,7 +61,7 @@ final class PhotosViewController : UICollectionViewController {
     
     required init(fetchResults: [PHFetchResult], settings aSettings: BSImagePickerSettings) {
         albumsDataSource = AlbumTableViewDataSource(fetchResults: fetchResults)
-        cameraDataSource = CameraCollectionViewDataSource(settings: aSettings)
+        cameraDataSource = CameraCollectionViewDataSource(settings: aSettings, cameraAvailable: UIImagePickerController.isSourceTypeAvailable(.Camera))
         settings = aSettings
         
         super.init(collectionViewLayout: GridCollectionViewLayout())
