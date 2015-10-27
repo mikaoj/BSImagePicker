@@ -11,6 +11,7 @@
 		55B9A6111BDE386600F3F01E /* ImagePickerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B9A60D1BDE384700F3F01E /* ImagePickerViewTests.swift */; };
 		55C0CEB31BDFA18600DAEC04 /* NSIndexSetIndexPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C0CEB11BDFA14400DAEC04 /* NSIndexSetIndexPathTests.swift */; };
 		55C0CEB51BDFA54000DAEC04 /* CameraDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C0CEB41BDFA54000DAEC04 /* CameraDataSourceTests.swift */; };
+		55E273EB1BE004F2006006A7 /* BSImagePicker_UI_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E273EA1BE004F2006006A7 /* BSImagePicker_UI_Tests.swift */; };
 		60710EB0AE28F260B83F069D /* Pods_BSImagePicker_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6203656AA607BABA233302B1 /* Pods_BSImagePicker_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -21,6 +22,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		55E273ED1BE004F2006006A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 607FACCF1AFB9204008FA782;
+			remoteInfo = BSImagePicker_Example;
+		};
 		607FACE61AFB9204008FA782 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 607FACC81AFB9204008FA782 /* Project object */;
@@ -40,6 +48,9 @@
 		55B9A60D1BDE384700F3F01E /* ImagePickerViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewTests.swift; sourceTree = "<group>"; };
 		55C0CEB11BDFA14400DAEC04 /* NSIndexSetIndexPathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSIndexSetIndexPathTests.swift; sourceTree = "<group>"; };
 		55C0CEB41BDFA54000DAEC04 /* CameraDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraDataSourceTests.swift; sourceTree = "<group>"; };
+		55E273E81BE004F2006006A7 /* BSImagePicker_UI_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BSImagePicker_UI_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		55E273EA1BE004F2006006A7 /* BSImagePicker_UI_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BSImagePicker_UI_Tests.swift; sourceTree = "<group>"; };
+		55E273EC1BE004F2006006A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* BSImagePicker_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BSImagePicker_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +67,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		55E273E51BE004F2006006A7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCD1AFB9204008FA782 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -86,12 +104,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		55E273E91BE004F2006006A7 /* BSImagePicker_UI_Tests */ = {
+			isa = PBXGroup;
+			children = (
+				55E273EA1BE004F2006006A7 /* BSImagePicker_UI_Tests.swift */,
+				55E273EC1BE004F2006006A7 /* Info.plist */,
+			);
+			path = BSImagePicker_UI_Tests;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for BSImagePicker */,
 				607FACE81AFB9204008FA782 /* Tests */,
+				55E273E91BE004F2006006A7 /* BSImagePicker_UI_Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				38D40730BF40EE6C8CF30362 /* Pods */,
 				81DCAD663FBDC7B2B702E402 /* Frameworks */,
@@ -103,6 +131,7 @@
 			children = (
 				607FACD01AFB9204008FA782 /* BSImagePicker_Example.app */,
 				607FACE51AFB9204008FA782 /* BSImagePicker_Tests.xctest */,
+				55E273E81BE004F2006006A7 /* BSImagePicker_UI_Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -171,6 +200,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		55E273E71BE004F2006006A7 /* BSImagePicker_UI_Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55E273F11BE004F2006006A7 /* Build configuration list for PBXNativeTarget "BSImagePicker_UI_Tests" */;
+			buildPhases = (
+				55E273E41BE004F2006006A7 /* Sources */,
+				55E273E51BE004F2006006A7 /* Frameworks */,
+				55E273E61BE004F2006006A7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55E273EE1BE004F2006006A7 /* PBXTargetDependency */,
+			);
+			name = BSImagePicker_UI_Tests;
+			productName = BSImagePicker_UI_Tests;
+			productReference = 55E273E81BE004F2006006A7 /* BSImagePicker_UI_Tests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		607FACCF1AFB9204008FA782 /* BSImagePicker_Example */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "BSImagePicker_Example" */;
@@ -222,6 +269,10 @@
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
+					55E273E71BE004F2006006A7 = {
+						CreatedOnToolsVersion = 7.1;
+						TestTargetID = 607FACCF1AFB9204008FA782;
+					};
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						DevelopmentTeam = HYC2YX7U64;
@@ -247,11 +298,19 @@
 			targets = (
 				607FACCF1AFB9204008FA782 /* BSImagePicker_Example */,
 				607FACE41AFB9204008FA782 /* BSImagePicker_Tests */,
+				55E273E71BE004F2006006A7 /* BSImagePicker_UI_Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		55E273E61BE004F2006006A7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCE1AFB9204008FA782 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -365,6 +424,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		55E273E41BE004F2006006A7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55E273EB1BE004F2006006A7 /* BSImagePicker_UI_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		607FACCC1AFB9204008FA782 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -388,6 +455,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		55E273EE1BE004F2006006A7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 607FACCF1AFB9204008FA782 /* BSImagePicker_Example */;
+			targetProxy = 55E273ED1BE004F2006006A7 /* PBXContainerItemProxy */;
+		};
 		607FACE71AFB9204008FA782 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 607FACCF1AFB9204008FA782 /* BSImagePicker_Example */;
@@ -415,6 +487,33 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		55E273EF1BE004F2006006A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = BSImagePicker_UI_Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "se.backslashed.BSImagePicker-UI-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = BSImagePicker_Example;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		55E273F01BE004F2006006A7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = BSImagePicker_UI_Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "se.backslashed.BSImagePicker-UI-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = BSImagePicker_Example;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
 		607FACED1AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -560,6 +659,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		55E273F11BE004F2006006A7 /* Build configuration list for PBXNativeTarget "BSImagePicker_UI_Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55E273EF1BE004F2006006A7 /* Debug */,
+				55E273F01BE004F2006006A7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "BSImagePicker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
