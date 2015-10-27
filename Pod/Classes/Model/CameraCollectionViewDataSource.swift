@@ -27,11 +27,12 @@ Data source for the camera cell. Will not show up if your device doesn't support
 */
 final class CameraCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     let cameraCellIdentifier = "cameraCellIdentifier"
-    let cameraAvailable = UIImagePickerController.isSourceTypeAvailable(.Camera)
+    let cameraAvailable: Bool
     let settings: BSImagePickerSettings
     
-    init(settings: BSImagePickerSettings) {
+    init(settings: BSImagePickerSettings, cameraAvailable: Bool) {
         self.settings = settings
+        self.cameraAvailable = cameraAvailable
         
         super.init()
     }

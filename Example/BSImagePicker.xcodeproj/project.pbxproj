@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		55B9A6101BDE386200F3F01E /* ComposedDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B9A60C1BDE384700F3F01E /* ComposedDataSourceTests.swift */; };
 		55B9A6111BDE386600F3F01E /* ImagePickerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B9A60D1BDE384700F3F01E /* ImagePickerViewTests.swift */; };
+		55C0CEB31BDFA18600DAEC04 /* NSIndexSetIndexPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C0CEB11BDFA14400DAEC04 /* NSIndexSetIndexPathTests.swift */; };
+		55C0CEB51BDFA54000DAEC04 /* CameraDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C0CEB41BDFA54000DAEC04 /* CameraDataSourceTests.swift */; };
 		60710EB0AE28F260B83F069D /* Pods_BSImagePicker_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6203656AA607BABA233302B1 /* Pods_BSImagePicker_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -36,6 +38,8 @@
 		4B086EE37EB94CBE8A11C6F1 /* Pods_BSImagePicker_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BSImagePicker_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		55B9A60C1BDE384700F3F01E /* ComposedDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposedDataSourceTests.swift; sourceTree = "<group>"; };
 		55B9A60D1BDE384700F3F01E /* ImagePickerViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewTests.swift; sourceTree = "<group>"; };
+		55C0CEB11BDFA14400DAEC04 /* NSIndexSetIndexPathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSIndexSetIndexPathTests.swift; sourceTree = "<group>"; };
+		55C0CEB41BDFA54000DAEC04 /* CameraDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraDataSourceTests.swift; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* BSImagePicker_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BSImagePicker_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +135,8 @@
 				55B9A60C1BDE384700F3F01E /* ComposedDataSourceTests.swift */,
 				55B9A60D1BDE384700F3F01E /* ImagePickerViewTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
+				55C0CEB11BDFA14400DAEC04 /* NSIndexSetIndexPathTests.swift */,
+				55C0CEB41BDFA54000DAEC04 /* CameraDataSourceTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -373,6 +379,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				55B9A6111BDE386600F3F01E /* ImagePickerViewTests.swift in Sources */,
+				55C0CEB51BDFA54000DAEC04 /* CameraDataSourceTests.swift in Sources */,
+				55C0CEB31BDFA18600DAEC04 /* NSIndexSetIndexPathTests.swift in Sources */,
 				55B9A6101BDE386200F3F01E /* ComposedDataSourceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
