@@ -32,14 +32,14 @@ class BSImagePicker_UI_Tests: XCTestCase {
     func testDoneButtonDisabledOnStartup() {
         let app = XCUIApplication()
         app.buttons["Image picker"].tap()
-        XCTAssert(app.navigationBars.buttons["Done"].enabled == false)
+        XCTAssert(app.navigationBars.buttons.elementBoundByIndex(3).enabled == false)
     }
     
     func testDoneButtonEnabledAfterSelection() {
         let app = XCUIApplication()
         app.buttons["Image picker"].tap()
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.tap()
-        XCTAssert(app.navigationBars.buttons["Done (1)"].enabled == true)
+        XCTAssert(app.navigationBars.buttons.elementBoundByIndex(3).enabled == true)
     }
     
     func testDoneButtonDisabledAfterDeselection() {
@@ -47,7 +47,7 @@ class BSImagePicker_UI_Tests: XCTestCase {
         app.buttons["Image picker"].tap()
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.tap()
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.tap()
-        XCTAssert(app.navigationBars.buttons["Done"].enabled == false)
+        XCTAssert(app.navigationBars.buttons.elementBoundByIndex(3).enabled == false)
     }
     
     func testLongpressPreview() {
@@ -56,6 +56,6 @@ class BSImagePicker_UI_Tests: XCTestCase {
         app.buttons["Image picker"].tap()
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.pressForDuration(1.0);
         app.navigationBars.buttons["Back"].tap()
-        XCTAssert(app.navigationBars.buttons["Done"].enabled == false)
+        XCTAssert(app.navigationBars.buttons.elementBoundByIndex(3).enabled == false)
     }
 }
