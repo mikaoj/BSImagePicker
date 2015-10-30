@@ -29,6 +29,12 @@ bs_presentImagePickerController(vc, animated: true,
       // User finished with these assets
 }, completion: nil)
 ```
+## Features
+* Multiple selection.
+* Switch albums.
+* No localization needed (uses icons or system localizations).
+* Take photos (it isn't enabled by default, so set takePhotos to true if you want it).
+* Customizable - check out BSImagePickerSettings to see what you can tweak.
 
 ## Customization
 
