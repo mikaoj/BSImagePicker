@@ -197,9 +197,11 @@ final class PhotosViewController : UICollectionViewController {
                 navigationController?.pushViewController(vc, animated: true)
             }
             
-            // Re-enable recognizer
-            sender.enabled = true
-            collectionView?.userInteractionEnabled = true
+            // Re-enable recognizer, after animation is done
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(expandAnimator.transitionDuration(nil) * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), { () -> Void in
+                sender.enabled = true
+                self.collectionView?.userInteractionEnabled = true
+            })
         }
     }
     
@@ -342,7 +344,7 @@ extension PhotosViewController {
             return false
         }
         
-        return photosDataSource!.selections.count < settings.maxNumberOfSelections
+        return collectionView.userInteractionEnabled && photosDataSource!.selections.count < settings.maxNumberOfSelections
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
