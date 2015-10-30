@@ -6,31 +6,12 @@
 
 ![alt text](Misc/Gif/demo.gif "Demo gif")
 
-A mix between the native iOS 8 gallery and facebooks image picker.
+A mix between the native iOS 8 gallery and facebooks image picker. It is intended as a replacement for UIImagePickerController for both selecting and taking photos.
 
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.<br />
 To use it in you own project
-###### Objective-C
-```objc
-BSImagePickerViewController *imagePicker = [BSImagePickerViewController new];
-
-// Present image picker. Any of the blocks can be nil
-[self bs_presentImagePickerController:imagePicker
-                             animated:YES
-                               select:^(PHAsset * __nonnull asset) {
-                                 // User selected an asset.
-                                 // Do something with it, start upload perhaps?
-                               } deselect:^(PHAsset * __nonnull asset) {
-                                 // User deselected an assets.
-                                 // Do something, cancel upload?
-                               } cancel:^(NSArray * __nonnull assets) {
-                                 // User cancelled. And this where the assets currently selected.
-                               } finish:^(NSArray * __nonnull assets) {
-                                 // User finished with these assets
-                               } completion:nil];
-```
 ###### Swift
 ```swift
 let vc = BSImagePickerViewController()
@@ -48,6 +29,12 @@ bs_presentImagePickerController(vc, animated: true,
       // User finished with these assets
 }, completion: nil)
 ```
+## Features
+* Multiple selection.
+* Switch albums.
+* No localization needed (uses icons or system localizations).
+* Take photos (it isn't enabled by default, so set takePhotos to true if you want it).
+* Customizable - check out BSImagePickerSettings to see what you can tweak.
 
 ## Customization
 
@@ -69,7 +56,7 @@ BSImagePicker is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "BSImagePicker", "~> 1.4"
+pod "BSImagePicker", "~> 2.0"
 ```
 
 ## Author

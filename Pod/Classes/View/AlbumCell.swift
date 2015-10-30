@@ -22,6 +22,9 @@
 
 import UIKit
 
+/**
+Cell for photo albums in the albums drop down menu
+*/
 final class AlbumCell: UITableViewCell {
     @IBOutlet weak var firstImageView: UIImageView!
     @IBOutlet weak var secondImageView: UIImageView!
