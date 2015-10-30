@@ -58,11 +58,11 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         return vc
     }()
     
-    class func authorize(status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(), fromViewController: UIViewController, completion: () -> Void) {
+    class func authorize(status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(), fromViewController: UIViewController, completion: (authorized: Bool) -> Void) {
         switch status {
         case .Authorized:
             // We are authorized. Run block
-            completion()
+            completion(authorized: true)
         case .NotDetermined:
             // Ask user for permission
             PHPhotoLibrary.requestAuthorization({ (status) -> Void in
@@ -72,25 +72,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
             })
         default: ()
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                // Set up alert controller with some default strings. These should probably be overriden in application localizeable strings.
-                // If you don't enjoy my Swenglish that is ^^
-                let alertController = UIAlertController(title: NSLocalizedString("imagePickerNoCameraAccessTitle", value: "Can't access Photos", comment: "Alert view title"),
-                    message: NSLocalizedString("imagePickerNoCameraAccessMessage", value: "You need to enable Photos access in application settings.", comment: "Alert view message"),
-                    preferredStyle: .Alert)
-                
-                let cancelAction = UIAlertAction(title: NSLocalizedString("imagePickerNoCameraAccessCancelButton", value: "Cancel", comment: "Cancel button title"), style: .Cancel, handler:nil)
-                
-                let settingsAction = UIAlertAction(title: NSLocalizedString("imagePickerNoCameraAccessSettingsButton", value: "Settings", comment: "Settings button title"), style: .Default, handler: { (action) -> Void in
-                    let url = NSURL(string: UIApplicationOpenSettingsURLString)
-                    if let url = url where UIApplication.sharedApplication().canOpenURL(url) {
-                        UIApplication.sharedApplication().openURL(url)
-                    }
-                })
-                
-                alertController.addAction(cancelAction)
-                alertController.addAction(settingsAction)
-                
-                fromViewController.presentViewController(alertController, animated: true, completion: nil)
+                completion(authorized: false)
             })
         }
     }
