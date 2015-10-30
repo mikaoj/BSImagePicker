@@ -36,7 +36,17 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     
     static let bundle: NSBundle = NSBundle(path: NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")!)!
     
-    let fetchResults: [PHFetchResult]
+    lazy var fetchResults: [PHFetchResult] = {
+        let fetchOptions = PHFetchOptions()
+        
+        // Camera roll fetch result
+        let cameraRollResult = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .SmartAlbumUserLibrary, options: fetchOptions)
+        
+        // Albums fetch result
+        let albumResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
+        
+        return [cameraRollResult, albumResult]
+    }()
     
     lazy var photosViewController: PhotosViewController = {
         let vc = PhotosViewController(fetchResults: self.fetchResults, settings: self.settings)
@@ -89,24 +99,19 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     Sets up an classic image picker with results from camera roll and albums
     */
     public convenience init() {
-        let fetchOptions = PHFetchOptions()
-        
-        // Camera roll fetch result
-        let cameraRollResult = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .SmartAlbumUserLibrary, options: fetchOptions)
-        
-        // Albums fetch result
-        let albumResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
-        
-        self.init(fetchResults: [cameraRollResult, albumResult])
+        self.init(fetchResults: nil)
     }
     
     /**
     You should probably use one of the convenience inits
     - parameter fetchResults: The fetch results to use
     */
-    public init(fetchResults: [PHFetchResult]) {
-        self.fetchResults = fetchResults
+    public init(fetchResults: [PHFetchResult]?) {
         super.init(nibName: nil, bundle: nil)
+        
+        if let fetchResults = fetchResults {
+            self.fetchResults = fetchResults
+        }
     }
 
     /**
