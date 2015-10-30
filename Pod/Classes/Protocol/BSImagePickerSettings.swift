@@ -60,4 +60,9 @@ public protocol BSImagePickerSettings {
     Return how many cells per row you want to show for the given size classes
     */
     var cellsPerRow: (verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int { get set }
+    
+    /**
+    Toggle take photos
+    */
+    var takePhotos: Bool { get set }
 }

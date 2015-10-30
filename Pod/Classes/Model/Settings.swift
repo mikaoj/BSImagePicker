@@ -22,6 +22,9 @@
 
 import UIKit
 
+/**
+The settings object that gets passed around between classes for keeping...settings ^^
+*/
 final class Settings : BSImagePickerSettings {
     var maxNumberOfSelections: Int = Int.max
     var selectionCharacter: Character? = nil
@@ -50,4 +53,6 @@ final class Settings : BSImagePickerSettings {
             return 3
         }
     }
+    
+    var takePhotos: Bool = false
 }
