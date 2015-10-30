@@ -1,3 +1,6 @@
+# 2.0.0
+* Take photos
+
 # 1.4.3
 * Fixed a bug where album assets where fetch twice
 
