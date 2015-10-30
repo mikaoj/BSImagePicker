@@ -31,6 +31,7 @@ bs_presentImagePickerController(vc, animated: true,
 ```
 ## Features
 * Multiple selection.
+* Fullscreen preview
 * Switch albums.
 * No localization needed (uses icons or system localizations).
 * Take photos (it isn't enabled by default, so set takePhotos to true if you want it).
