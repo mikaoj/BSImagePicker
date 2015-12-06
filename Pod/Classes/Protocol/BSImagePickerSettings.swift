@@ -65,4 +65,10 @@ public protocol BSImagePickerSettings {
     Toggle take photos
     */
     var takePhotos: Bool { get set }
+    
+    /**
+     Icon to show in take photo cell. 
+     If you use a black image tint color will be applied to it.
+    */
+    var takePhotoIcon: UIImage? { get set }
 }

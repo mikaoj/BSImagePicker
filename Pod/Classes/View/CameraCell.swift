@@ -14,6 +14,14 @@ import AVFoundation
 final class CameraCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var cameraBackground: UIView!
+    var takePhotoIcon: UIImage? {
+        didSet {
+            imageView.image = takePhotoIcon
+            
+            // Apply tint to image
+            imageView.image = imageView.image?.imageWithRenderingMode(.AlwaysTemplate)
+        }
+    }
     
     var session: AVCaptureSession?
     var captureLayer: AVCaptureVideoPreviewLayer?
@@ -21,9 +29,6 @@ final class CameraCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        // Apply tint to image
-        imageView.image = imageView.image?.imageWithRenderingMode(.AlwaysTemplate)
         
         // Don't trigger camera access for the background
         guard AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == .Authorized else {

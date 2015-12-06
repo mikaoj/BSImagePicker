@@ -215,6 +215,15 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         }
     }
     
+    public var takePhotoIcon: UIImage? {
+        get {
+            return settings.takePhotoIcon
+        }
+        set {
+            settings.takePhotoIcon = newValue
+        }
+    }
+    
     // MARK: Buttons
     /**
     Cancel button
