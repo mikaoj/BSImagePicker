@@ -37,11 +37,17 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
     let settings: BSImagePickerSettings?
     var imageSize: CGSize = CGSizeZero
     
-  init(fetchResult: PHFetchResult, selections: [PHAsset]? = nil, settings: BSImagePickerSettings?) {
+  init(fetchResult: PHFetchResult, selections: PHFetchResult? = nil, settings: BSImagePickerSettings?) {
         self.fetchResult = fetchResult
         self.settings = settings
         if let selections = selections {
-            self.selections = selections
+            var selectionsArray = [PHAsset]()
+            selections.enumerateObjectsUsingBlock { (asset, idx, stop) -> Void in
+                if let asset = asset as? PHAsset {
+                    selectionsArray.append(asset)
+                }
+            }
+            self.selections = selectionsArray
         }
     
         super.init()
