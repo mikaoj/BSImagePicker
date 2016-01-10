@@ -48,15 +48,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         return [cameraRollResult, albumResult]
     }()
     
-    lazy var photosViewController: PhotosViewController = {
-        let vc = PhotosViewController(fetchResults: self.fetchResults, settings: self.settings)
-        
-        vc.doneBarButton = self.doneBarButton
-        vc.cancelBarButton = self.cancelBarButton
-        vc.albumTitleView = self.albumTitleView
-        
-        return vc
-    }()
+    var photosViewController: PhotosViewController!
     
     class func authorize(status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(), fromViewController: UIViewController, completion: (authorized: Bool) -> Void) {
         switch status {
@@ -79,21 +71,37 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     
     /**
     Sets up an classic image picker with results from camera roll and albums
+    - parameter defaultSelections: The assets to set as selected initially
     */
-    public convenience init() {
-        self.init(fetchResults: nil)
+    public convenience init(defaultSelections: [PHAsset]? = nil) {
+        self.init(fetchResults: nil, defaultSelections: defaultSelections)
     }
     
     /**
     You should probably use one of the convenience inits
     - parameter fetchResults: The fetch results to use
+    - parameter defaultSelections: The assets to set as selected initially
     */
-    public init(fetchResults: [PHFetchResult]?) {
+    public init(fetchResults: [PHFetchResult]?, defaultSelections: [PHAsset]?) {
         super.init(nibName: nil, bundle: nil)
         
         if let fetchResults = fetchResults {
             self.fetchResults = fetchResults
         }
+        
+        initializePhotosViewController(defaultSelections)
+    }
+    
+    private func initializePhotosViewController(defaultSelections: [PHAsset]?) {
+        let vc = PhotosViewController(fetchResults: self.fetchResults,
+            defaultSelections: defaultSelections,
+            settings: self.settings)
+        
+        vc.doneBarButton = self.doneBarButton
+        vc.cancelBarButton = self.cancelBarButton
+        vc.albumTitleView = self.albumTitleView
+        
+        self.photosViewController = vc
     }
 
     /**
