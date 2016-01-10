@@ -73,7 +73,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     Sets up an classic image picker with results from camera roll and albums
     - parameter defaultSelections: The assets to set as selected initially
     */
-    public convenience init(defaultSelections: [PHAsset]? = nil) {
+    public convenience init(defaultSelections: PHFetchResult? = nil) {
         self.init(fetchResults: nil, defaultSelections: defaultSelections)
     }
     
@@ -82,7 +82,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     - parameter fetchResults: The fetch results to use
     - parameter defaultSelections: The assets to set as selected initially
     */
-    public init(fetchResults: [PHFetchResult]?, defaultSelections: [PHAsset]?) {
+    public init(fetchResults: [PHFetchResult]?, defaultSelections: PHFetchResult?) {
         super.init(nibName: nil, bundle: nil)
         
         if let fetchResults = fetchResults {
@@ -92,7 +92,7 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         initializePhotosViewController(defaultSelections)
     }
     
-    private func initializePhotosViewController(defaultSelections: [PHAsset]?) {
+    private func initializePhotosViewController(defaultSelections: PHFetchResult?) {
         let vc = PhotosViewController(fetchResults: self.fetchResults,
             defaultSelections: defaultSelections,
             settings: self.settings)

@@ -42,7 +42,7 @@ final class PhotosViewController : UICollectionViewController {
     private let cameraDataSource: CameraCollectionViewDataSource
     private var composedDataSource: ComposedCollectionViewDataSource?
     
-    private var defaultSelections: [PHAsset]?
+    private var defaultSelections: PHFetchResult?
     
     let settings: BSImagePickerSettings
     
@@ -61,7 +61,7 @@ final class PhotosViewController : UICollectionViewController {
         return PreviewViewController(nibName: nil, bundle: nil)
     }()
     
-    required init(fetchResults: [PHFetchResult], defaultSelections: [PHAsset]? = nil, settings aSettings: BSImagePickerSettings) {
+    required init(fetchResults: [PHFetchResult], defaultSelections: PHFetchResult? = nil, settings aSettings: BSImagePickerSettings) {
         albumsDataSource = AlbumTableViewDataSource(fetchResults: fetchResults)
         cameraDataSource = CameraCollectionViewDataSource(settings: aSettings, cameraAvailable: UIImagePickerController.isSourceTypeAvailable(.Camera))
         self.defaultSelections = defaultSelections
@@ -293,17 +293,17 @@ final class PhotosViewController : UICollectionViewController {
         }
     }
     
-  func initializePhotosDataSource(album: PHAssetCollection, selections: [PHAsset]? = nil) {
+  func initializePhotosDataSource(album: PHAssetCollection, selections: PHFetchResult? = nil) {
         // Set up a photo data source with album
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: false)
         ]
         fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.Image.rawValue)
-        initializePhotosDataSourceWithFetchResult(PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions))
+        initializePhotosDataSourceWithFetchResult(PHAsset.fetchAssetsInAssetCollection(album, options: fetchOptions), selections: selections)
     }
     
-    func initializePhotosDataSourceWithFetchResult(fetchResult: PHFetchResult, selections: [PHAsset]? = nil) {
+    func initializePhotosDataSourceWithFetchResult(fetchResult: PHFetchResult, selections: PHFetchResult? = nil) {
         let newDataSource = PhotoCollectionViewDataSource(fetchResult: fetchResult, selections: selections, settings: settings)
         
         // Transfer image size
