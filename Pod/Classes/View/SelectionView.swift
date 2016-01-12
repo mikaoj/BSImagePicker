@@ -22,6 +22,9 @@
 
 import UIKit
 
+/**
+Used as an overlay on selected cells
+*/
 @IBDesignable final class SelectionView: UIView {
     var selectionString: String = "" {
         didSet {
@@ -63,6 +66,7 @@ import UIKit
         
         //// Bezier Drawing (Picture Number)
         CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
+        
         let size = selectionString.sizeWithAttributes(settings.selectionTextAttributes)
 
         selectionString.drawInRect(CGRectMake(CGRectGetMidX(checkmarkFrame) - size.width / 2.0,

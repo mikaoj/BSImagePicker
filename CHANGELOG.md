@@ -1,3 +1,13 @@
+# 2.0.0
+* Take photos
+
+# 1.4.3
+* Fixed a bug where album assets where fetch twice
+
+# 1.4.2
+* Converted to Swift 2
+* Fixed a bug where settings (like selection color) didn’t get passed along to the cell
+
 # 1.4.1
 * Fixed crash when presenting for the first time
 
