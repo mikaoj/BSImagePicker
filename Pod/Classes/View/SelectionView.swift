@@ -64,9 +64,22 @@ Used as an overlay on selected cells
         checkedOvalPath.lineWidth = 1
         checkedOvalPath.stroke()
         
-        //// Bezier Drawing (Picture Number)
+        
         CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
         
+        //// Check mark for single assets
+        if (settings.maxNumberOfSelections == 1) {
+            CGContextSetStrokeColorWithColor(context, UIColor.whiteColor().CGColor)
+            
+            let checkPath = UIBezierPath()
+            checkPath.moveToPoint(CGPoint(x: 7, y: 12.5))
+            checkPath.addLineToPoint(CGPoint(x: 11, y: 16))
+            checkPath.addLineToPoint(CGPoint(x: 17.5, y: 9.5))
+            checkPath.stroke()
+            return;
+        }
+        
+        //// Bezier Drawing (Picture Number)
         let size = selectionString.sizeWithAttributes(settings.selectionTextAttributes)
 
         selectionString.drawInRect(CGRectMake(CGRectGetMidX(checkmarkFrame) - size.width / 2.0,
