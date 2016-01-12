@@ -22,13 +22,16 @@
 
 import UIKit
 
+/**
+The settings object that gets passed around between classes for keeping...settings ^^
+*/
 final class Settings : BSImagePickerSettings {
     var maxNumberOfSelections: Int = Int.max
     var selectionCharacter: Character? = nil
     var selectionFillColor: UIColor = UIView().tintColor
     var selectionStrokeColor: UIColor = UIColor.whiteColor()
     var selectionShadowColor: UIColor = UIColor.blackColor()
-    var selectionTextAttributes: [NSObject: AnyObject] = {
+    var selectionTextAttributes: [String: AnyObject] = {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .ByTruncatingTail
         paragraphStyle.alignment = .Center
@@ -50,4 +53,8 @@ final class Settings : BSImagePickerSettings {
             return 3
         }
     }
+    
+    var takePhotos: Bool = false
+    
+    var takePhotoIcon: UIImage? = UIImage(named: "add_photo", inBundle: BSImagePickerViewController.bundle, compatibleWithTraitCollection: nil)
 }

@@ -29,8 +29,11 @@ final class AlbumsViewController: UITableViewController {
         // Add a little bit of blur to the background
         let visualEffectView = UIVisualEffectView(effect: UIVibrancyEffect(forBlurEffect: UIBlurEffect(style: .Light)))
         visualEffectView.frame = tableView.bounds
-        visualEffectView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        visualEffectView.autoresizingMask = [.FlexibleWidth , .FlexibleHeight]
         tableView.backgroundView = visualEffectView
         tableView.backgroundColor = UIColor.clearColor()
+        
+        modalPresentationStyle = .Popover
+        preferredContentSize = CGSize(width: 320, height: 300)
     }
 }

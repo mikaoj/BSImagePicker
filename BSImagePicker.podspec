@@ -1,9 +1,10 @@
 Pod::Spec.new do |s|
   s.name             = "BSImagePicker"
-  s.version          = "1.4.1"
-  s.summary          = "BSImagePicker is a multiple image picker for iOS 8."
+  s.version          = "2.1.0"
+  s.summary          = "BSImagePicker is a multiple image picker for iOS 8. UIImagePickerController replacement"
   s.description      = <<-DESC
   A mix between the native iOS 8 gallery and facebooks image picker. Allows you to preview and select multiple images.
+  It is intended as a replacement for UIImagePickerController for both selecting and taking photos.
                        DESC
   s.homepage         = "https://github.com/mikaoj/BSImagePicker"
   s.screenshots = ["https://raw.githubusercontent.com/mikaoj/BSImagePicker/master/Misc/Screenshots/select_portrait.png",
@@ -25,7 +26,7 @@ Pod::Spec.new do |s|
                         'Pod/Assets/*.png']
   }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit', 'Photos'
   s.dependency 'UIImageViewModeScaleAspect', '~> 1.3'
+  s.dependency 'BSGridCollectionViewLayout', '~> 1.0'
 end
