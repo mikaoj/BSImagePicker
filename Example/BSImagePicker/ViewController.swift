@@ -79,5 +79,32 @@ class ViewController: UIViewController {
                 print("Finish: \(assets)")
             }, completion: nil)
     }
+  
+    @IBAction func showImagePickerWithSelectedAssets(sender: UIButton) {
+        let allAssets = PHAsset.fetchAssetsWithMediaType(PHAssetMediaType.Image, options: nil)
+        var evenAssetIds = [String]()
+      
+        allAssets.enumerateObjectsUsingBlock { (asset, idx, stop) -> Void in
+          if let asset = asset as? PHAsset where idx % 2 == 0 {
+            evenAssetIds.append(asset.localIdentifier)
+          }
+        }
+      
+        let evenAssets = PHAsset.fetchAssetsWithLocalIdentifiers(evenAssetIds, options: nil)
+      
+        let vc = BSImagePickerViewController(defaultSelections: evenAssets)
+      
+        bs_presentImagePickerController(vc, animated: true,
+          select: { (asset: PHAsset) -> Void in
+            print("Selected: \(asset)")
+          }, deselect: { (asset: PHAsset) -> Void in
+            print("Deselected: \(asset)")
+          }, cancel: { (assets: [PHAsset]) -> Void in
+            print("Cancel: \(assets)")
+          }, finish: { (assets: [PHAsset]) -> Void in
+            print("Finish: \(assets)")
+          }, completion: nil)
+      
+    }
 }
 
