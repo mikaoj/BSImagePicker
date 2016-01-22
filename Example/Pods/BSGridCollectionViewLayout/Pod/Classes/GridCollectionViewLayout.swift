@@ -75,6 +75,9 @@ public final class GridCollectionViewLayout: UICollectionViewLayout {
         _itemSize = estimatedItemSize()
     }
 
+    /**
+     See UICollectionViewLayout documentation
+     */
     public override func collectionViewContentSize() -> CGSize {
         guard let collectionView = collectionView where rows > 0 else {
             return CGSizeZero
@@ -84,12 +87,18 @@ public final class GridCollectionViewLayout: UICollectionViewLayout {
         return CGSize(width: collectionView.bounds.width, height: height)
     }
 
+    /**
+     See UICollectionViewLayout documentation
+     */
     public override func layoutAttributesForElementsInRect(rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         return indexPathsInRect(rect).map { (indexPath) -> UICollectionViewLayoutAttributes in
             return self.layoutAttributesForItemAtIndexPath(indexPath)! // TODO: Fix forcefull unwrap
         }
     }
 
+    /**
+     See UICollectionViewLayout documentation
+     */
     public override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
         let itemIndex = flatIndex(indexPath) // index among total number of items
         let rowIndex = itemIndex % itemsPerRow // index within it's row
@@ -106,12 +115,21 @@ public final class GridCollectionViewLayout: UICollectionViewLayout {
         return attribute
     }
 
+    /**
+     See UICollectionViewLayout documentation
+     */
     public override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {
         return true
     }
 
     // No decoration or supplementary views
+    /**
+    See UICollectionViewLayout documentation
+    */
     public override func layoutAttributesForDecorationViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? { return nil }
+    /**
+     See UICollectionViewLayout documentation
+     */
     public override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? { return nil }
 }
 
@@ -130,7 +148,7 @@ extension GridCollectionViewLayout {
         let endIndex = (endRow * itemsPerRow + itemsPerRow > items) ? items-1 : endRow * itemsPerRow
 
         var indexPaths = [NSIndexPath]()
-        for var index = startIndex; index < endIndex; ++index {
+        for var index = startIndex; index <= endIndex; ++index {
             indexPaths.append(indexPathFromFlatIndex(index))
         }
 
