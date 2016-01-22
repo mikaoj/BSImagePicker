@@ -219,15 +219,20 @@ final class PhotosViewController : UICollectionViewController {
                         doneBarButtonTitle = btn.titleForState(.Normal)
                     }
                     
+                    // Update title
                     if let doneBarButtonTitle = doneBarButtonTitle {
-                        // Update title
-                        if photosDataSource.selections.count > 0 {
+                        // Special case if we have selected 1 image and that is
+                        // the max number of allowed selections
+                        if (photosDataSource.selections.count == 1 && self.settings.maxNumberOfSelections == 1) {
+                            btn.bs_setTitleWithoutAnimation("\(doneBarButtonTitle)", forState: .Normal)
+                        } else if photosDataSource.selections.count > 0 {
                             btn.bs_setTitleWithoutAnimation("\(doneBarButtonTitle) (\(photosDataSource.selections.count))", forState: .Normal)
-                            doneBarButton?.enabled = true
                         } else {
                             btn.bs_setTitleWithoutAnimation(doneBarButtonTitle, forState: .Normal)
-                            doneBarButton?.enabled = false
                         }
+                        
+                        // Enabled?
+                        doneBarButton?.enabled = photosDataSource.selections.count > 0
                     }
                     
                     // Stop loop
