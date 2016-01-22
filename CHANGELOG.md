@@ -1,3 +1,12 @@
+# 2.2.0
+* Set default selection [AnthonyMDev]
+* Special case when max allowed selections is 1 [taberrr]
+* UI Test fix [barrault01]
+* Carthage support
+
+# 2.1.0
+* Set camera icon
+
 # 2.0.0
 * Take photos
 
