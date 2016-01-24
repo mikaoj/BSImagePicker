@@ -27,7 +27,7 @@ import Photos
 BSImagePickerViewController.
 Use settings or buttons to customize it to your needs.
 */
-public final class BSImagePickerViewController : UINavigationController, BSImagePickerSettings {
+public class BSImagePickerViewController : UINavigationController, BSImagePickerSettings {
     private let settings = Settings()
     
     private var doneBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: nil, action: nil)
