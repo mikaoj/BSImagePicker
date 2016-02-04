@@ -30,7 +30,12 @@ public protocol BSImagePickerSettings {
     Max number of images user can select
     */
     var maxNumberOfSelections: Int { get set }
-    
+	
+	/**
+	Closure called when `maxNumberOfSelections` is reached
+	*/
+	var maximumSelectionReached: (() -> Void)? { get set }
+	
     /**
     Character to use for selection. If nil, selection number will be used
     */
