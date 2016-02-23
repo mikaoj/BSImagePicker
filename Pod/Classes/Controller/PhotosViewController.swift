@@ -24,11 +24,18 @@ import UIKit
 import Photos
 import BSGridCollectionViewLayout
 
-final class PhotosViewController : UICollectionViewController {    
-    var selectionClosure: ((asset: PHAsset) -> Void)?
-    var deselectionClosure: ((asset: PHAsset) -> Void)?
-    var cancelClosure: ((assets: [PHAsset]) -> Void)?
-    var finishClosure: ((assets: [PHAsset]) -> Void)?
+/**
+The selected object array.
+it could contain PHAsset and UIImage objects.
+Needed to apply the correct selection number to a cell from within a datasource
+*/
+internal var bs_selectedObjects = [AnyObject]() // could be PHAsset or UIImage
+
+final class PhotosViewController : UICollectionViewController {
+    var selectionClosure: ((asset: AnyObject) -> Void)?
+    var deselectionClosure: ((asset: AnyObject) -> Void)?
+    var cancelClosure: ((assets: [AnyObject]) -> Void)?
+    var finishClosure: ((assets: [AnyObject]) -> Void)?
     
     var doneBarButton: UIBarButtonItem?
     var cancelBarButton: UIBarButtonItem?
@@ -38,6 +45,7 @@ final class PhotosViewController : UICollectionViewController {
     let shrinkAnimator = ZoomAnimator()
     
     private var photosDataSource: PhotoCollectionViewDataSource?
+    private var sandboxPhotosDataSource: SandboxPhotoCollectionViewDataSource?
     private var albumsDataSource: AlbumTableViewDataSource
     private let cameraDataSource: CameraCollectionViewDataSource
     private var composedDataSource: ComposedCollectionViewDataSource?
@@ -102,7 +110,9 @@ final class PhotosViewController : UICollectionViewController {
 
         if let album = albumsDataSource.fetchResults.first?.firstObject as? PHAssetCollection {
             initializePhotosDataSource(album, selections: defaultSelections)
+            initializeSandboxPhotosDataSource()
             updateAlbumTitle(album)
+            hookupDataSources()
             synchronizeCollectionView()
         }
         
@@ -116,6 +126,7 @@ final class PhotosViewController : UICollectionViewController {
         
         // Register cells
         photosDataSource?.registerCellIdentifiersForCollectionView(collectionView)
+        sandboxPhotosDataSource?.registerCellIdentifiersForCollectionView(collectionView)
         cameraDataSource.registerCellIdentifiersForCollectionView(collectionView)
     }
     
@@ -128,26 +139,31 @@ final class PhotosViewController : UICollectionViewController {
     
     // MARK: Button actions
     func cancelButtonPressed(sender: UIBarButtonItem) {
-        guard let closure = cancelClosure, let photosDataSource = photosDataSource else {
+
+        guard let closure = cancelClosure else {
+            bs_selectedObjects.removeAll()
             dismissViewControllerAnimated(true, completion: nil)
             return
         }
         
         dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-            closure(assets: photosDataSource.selections)
+            closure(assets: bs_selectedObjects)
+            bs_selectedObjects.removeAll()
         })
         
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     func doneButtonPressed(sender: UIBarButtonItem) {
-        guard let closure = finishClosure, let photosDataSource = photosDataSource else {
+        guard let closure = finishClosure else {
+            bs_selectedObjects.removeAll()
             dismissViewControllerAnimated(true, completion: nil)
             return
         }
-        
+
         dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-            closure(assets: photosDataSource.selections)
+            closure(assets: bs_selectedObjects)
+            bs_selectedObjects.removeAll()
         })
         
         dismissViewControllerAnimated(true, completion: nil)
@@ -179,16 +195,19 @@ final class PhotosViewController : UICollectionViewController {
             let location = sender.locationInView(collectionView)
             let indexPath = collectionView?.indexPathForItemAtPoint(location)
             
-            if let vc = previewViewContoller, let indexPath = indexPath, let cell = collectionView?.cellForItemAtIndexPath(indexPath) as? PhotoCell, let asset = cell.asset {
-                // Setup fetch options to be synchronous
-                let options = PHImageRequestOptions()
-                options.synchronous = true
+            if let vc = previewViewContoller, let indexPath = indexPath, let cell = collectionView?.cellForItemAtIndexPath(indexPath) as? PhotoCell {
                 
-                // Load image for preview
-                if let imageView = vc.imageView {
+                if let asset = cell.asset, let imageView = vc.imageView {
+                    // Setup fetch options to be synchronous
+                    let options = PHImageRequestOptions()
+                    options.synchronous = true
+                    
+                    // Load image for preview
                     PHCachingImageManager.defaultManager().requestImageForAsset(asset, targetSize:imageView.frame.size, contentMode: .AspectFit, options: options) { (result, _) in
                         imageView.image = result
                     }
+                } else if let image = cell.image, let imageView = vc.imageView {
+                    imageView.image = image
                 }
                 
                 // Setup animation
@@ -211,7 +230,7 @@ final class PhotosViewController : UICollectionViewController {
     // MARK: Private helper methods
     func updateDoneButton() {
         // Find right button
-        if let subViews = navigationController?.navigationBar.subviews, let photosDataSource = photosDataSource {
+        if let subViews = navigationController?.navigationBar.subviews {
             for view in subViews {
                 if let btn = view as? UIButton where checkIfRightButtonItem(btn) {
                     // Store original title if we havn't got it
@@ -223,16 +242,16 @@ final class PhotosViewController : UICollectionViewController {
                     if let doneBarButtonTitle = doneBarButtonTitle {
                         // Special case if we have selected 1 image and that is
                         // the max number of allowed selections
-                        if (photosDataSource.selections.count == 1 && self.settings.maxNumberOfSelections == 1) {
+                        if (bs_selectedObjects.count == 1 && self.settings.maxNumberOfSelections == 1) {
                             btn.bs_setTitleWithoutAnimation("\(doneBarButtonTitle)", forState: .Normal)
-                        } else if photosDataSource.selections.count > 0 {
-                            btn.bs_setTitleWithoutAnimation("\(doneBarButtonTitle) (\(photosDataSource.selections.count))", forState: .Normal)
+                        } else if bs_selectedObjects.count > 0 {
+                            btn.bs_setTitleWithoutAnimation("\(doneBarButtonTitle) (\(bs_selectedObjects.count))", forState: .Normal)
                         } else {
                             btn.bs_setTitleWithoutAnimation(doneBarButtonTitle, forState: .Normal)
                         }
                         
                         // Enabled?
-                        doneBarButton?.enabled = photosDataSource.selections.count > 0
+                        doneBarButton?.enabled = bs_selectedObjects.count > 0
                     }
                     
                     // Stop loop
@@ -274,16 +293,24 @@ final class PhotosViewController : UICollectionViewController {
         }
         
         // Get indexes of the selected assets
-        let mutableIndexSet = NSMutableIndexSet()
-        for object in photosDataSource.selections {
-            let index = photosDataSource.fetchResult.indexOfObject(object)
-            if index != NSNotFound {
-                mutableIndexSet.addIndex(index)
+        let mutableIndexSetAsset = NSMutableIndexSet()
+        let mutableIndexSetImage = NSMutableIndexSet()
+
+        for object in bs_selectedObjects {
+            if let asset = object as? PHAsset {
+                let index = photosDataSource.fetchResult.indexOfObject(asset)
+                if index != NSNotFound {
+                    mutableIndexSetAsset.addIndex(index)
+                }
+            } else if let img = object as? UIImage, let index = sandboxPhotosDataSource?.sandboxImage.indexOf(img) where index != NSNotFound {
+                mutableIndexSetImage.addIndex(index)
             }
         }
-        
+
         // Convert into index paths
-        let indexPaths = mutableIndexSet.bs_indexPathsForSection(1)
+        let indexPathsAsset = mutableIndexSetAsset.bs_indexPathsForSection(2)
+        let indexPathsImage = mutableIndexSetImage.bs_indexPathsForSection(1)
+        let indexPaths = indexPathsAsset + indexPathsImage
         
         // Loop through them and set them as selected in the collection view
         for indexPath in indexPaths {
@@ -296,6 +323,28 @@ final class PhotosViewController : UICollectionViewController {
             // Update album title
             albumTitleView?.albumTitle = title
         }
+    }
+    
+    func hookupDataSources() {
+        guard let photosDataSource = photosDataSource, let sandboxPhotosDataSource = sandboxPhotosDataSource else {
+            return
+        }
+        
+        // Hook up data source
+        composedDataSource = ComposedCollectionViewDataSource(dataSources: [cameraDataSource, sandboxPhotosDataSource, photosDataSource])
+        collectionView?.dataSource = composedDataSource
+        collectionView?.delegate = self
+    }
+    
+    func initializeSandboxPhotosDataSource() {
+        // Set up a photo data source
+        let newDataSource = SandboxPhotoCollectionViewDataSource(settings: settings)
+        
+        if let sandboxPhotosDataSource = sandboxPhotosDataSource {
+            newDataSource.selectionsImage = sandboxPhotosDataSource.selectionsImage
+        }
+        
+        sandboxPhotosDataSource = newDataSource
     }
     
   func initializePhotosDataSource(album: PHAssetCollection, selections: PHFetchResult? = nil) {
@@ -319,11 +368,6 @@ final class PhotosViewController : UICollectionViewController {
         }
         
         photosDataSource = newDataSource
-        
-        // Hook up data source
-        composedDataSource = ComposedCollectionViewDataSource(dataSources: [cameraDataSource, newDataSource])
-        collectionView?.dataSource = composedDataSource
-        collectionView?.delegate = self
     }
     
     func synchronizeCollectionView() {
@@ -351,44 +395,85 @@ extension PhotosViewController {
             
             return false
         }
-        
-        return collectionView.userInteractionEnabled && photosDataSource!.selections.count < settings.maxNumberOfSelections
+        let shouldSelect = bs_selectedObjects.count < settings.maxNumberOfSelections
+        return collectionView.userInteractionEnabled && shouldSelect
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        guard let photosDataSource = photosDataSource, let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCell, let asset = photosDataSource.fetchResult.objectAtIndex(indexPath.row) as? PHAsset else {
+        guard let dataSource = composedDataSource?.dataSources[indexPath.section], let cell = collectionView.cellForItemAtIndexPath(indexPath) as? PhotoCell else {
             return
         }
         
-        // Select asset if not already selected
-        photosDataSource.selections.append(asset)
+        // check datasource type
+        if let photosDataSource = dataSource as? PhotoCollectionViewDataSource, let asset = photosDataSource.fetchResult.objectAtIndex(indexPath.row) as? PHAsset {
+            // Select asset if not already selected
+            photosDataSource.selections.append(asset)
+            bs_selectedObjects.append(asset)
+            
+            // Call selection closure
+            if let closure = selectionClosure {
+                dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
+                    closure(asset: asset)
+                })
+            }
+        } else if let sandboxPhotosDataSource = dataSource as? SandboxPhotoCollectionViewDataSource, let image = sandboxPhotosDataSource.sandboxImage[indexPath.row] as UIImage? {
+            // Select image if not already selected
+            sandboxPhotosDataSource.selectionsImage.append(image)
+            bs_selectedObjects.append(image)
+            // Call selection closure
+            if let closure = selectionClosure {
+                dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
+                    closure(asset: image)
+                })
+            }
+        } else {
+            return
+        }
         
         // Set selection number
         if let selectionCharacter = settings.selectionCharacter {
             cell.selectionString = String(selectionCharacter)
         } else {
-            cell.selectionString = String(photosDataSource.selections.count)
+            cell.selectionString = String(bs_selectedObjects.count)
         }
         
         // Update done button
         updateDoneButton()
-        
-        // Call selection closure
-        if let closure = selectionClosure {
-            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-                closure(asset: asset)
-            })
-        }
+
     }
     
     override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        guard let photosDataSource = photosDataSource, let asset = photosDataSource.fetchResult.objectAtIndex(indexPath.row) as? PHAsset, let index = photosDataSource.selections.indexOf(asset) else {
+        guard let dataSource = composedDataSource?.dataSources[indexPath.section] else {
             return
         }
         
-        // Deselect asset
-        photosDataSource.selections.removeAtIndex(index)
-        
+        // check datasource type
+        if let photosDataSource = dataSource as? PhotoCollectionViewDataSource, let asset = photosDataSource.fetchResult.objectAtIndex(indexPath.row) as? PHAsset, let index = bs_selectedObjects.indexOf({photosDataSource.matchingAsset(obj: $0, asset: asset)}), let indexDataSource = photosDataSource.selections.indexOf(asset) {
+            // Deselect asset
+            photosDataSource.selections.removeAtIndex(indexDataSource)
+            bs_selectedObjects.removeAtIndex(index)
+            
+            // Call deselection closure
+            if let closure = deselectionClosure {
+                dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
+                    closure(asset: asset)
+                })
+            }
+        } else if let sandboxPhotosDataSource = dataSource as? SandboxPhotoCollectionViewDataSource, let image = sandboxPhotosDataSource.sandboxImage[indexPath.row] as UIImage?, let index = bs_selectedObjects.indexOf({sandboxPhotosDataSource.matchingImage(obj: $0, image: image)}), let indexDataSource = sandboxPhotosDataSource.selectionsImage.indexOf(image) {
+            // Select image if not already selected
+            sandboxPhotosDataSource.selectionsImage.removeAtIndex(indexDataSource)
+            bs_selectedObjects.removeAtIndex(index)
+            
+            // Call deselection closure
+            if let closure = deselectionClosure {
+                dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
+                    closure(asset: image)
+                })
+            }
+        } else {
+            return
+        }
+
         // Update done button
         updateDoneButton()
         
@@ -398,13 +483,6 @@ extension PhotosViewController {
             collectionView.reloadItemsAtIndexPaths(selectedIndexPaths)
             synchronizeSelectionInCollectionView(collectionView)
             UIView.setAnimationsEnabled(true)
-        }
-        
-        // Call deselection closure
-        if let closure = deselectionClosure {
-            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
-                closure(asset: asset)
-            })
         }
     }
     
@@ -444,6 +522,7 @@ extension PhotosViewController: UITableViewDelegate {
         // Update photos data source
         if let album = albumsDataSource.fetchResults[indexPath.section][indexPath.row] as? PHAssetCollection {
             initializePhotosDataSource(album)
+            hookupDataSources()
             updateAlbumTitle(album)
             synchronizeCollectionView()
         }
@@ -480,6 +559,36 @@ extension PhotosViewController: UIImagePickerControllerDelegate {
             return
         }
         
+        if !settings.sandboxPhotoMode {
+            addToPhotoLibrary(image, picker: picker)
+        } else {
+            holdPhotoInMemory(image, picker: picker)
+        }
+        
+    }
+    
+    func holdPhotoInMemory(image:UIImage, picker: UIImagePickerController) {
+        if bs_selectedObjects.count < settings.maxNumberOfSelections {
+            bs_selectedObjects.append(image)
+            sandboxPhotosDataSource?.selectionsImage.append(image)
+        }
+        sandboxPhotosDataSource?.sandboxImage.append(image)
+        
+        updateDoneButton()
+
+        // Call selection closure
+        if let closure = self.selectionClosure {
+            dispatch_async(dispatch_get_global_queue(0, 0), { () -> Void in
+                closure(asset: image)
+            })
+        }
+
+        synchronizeCollectionView()
+        
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func addToPhotoLibrary(image:UIImage, picker: UIImagePickerController) {
         var placeholder: PHObjectPlaceholder?
         PHPhotoLibrary.sharedPhotoLibrary().performChanges({
             let request = PHAssetChangeRequest.creationRequestForAssetFromImage(image)
@@ -492,7 +601,10 @@ extension PhotosViewController: UIImagePickerControllerDelegate {
                 
                 dispatch_async(dispatch_get_main_queue()) {
                     // TODO: move to a function. this is duplicated in didSelect
-                    self.photosDataSource?.selections.append(asset)
+                    if bs_selectedObjects.count < self.settings.maxNumberOfSelections {
+                        bs_selectedObjects.append(asset)
+                        self.photosDataSource?.selections.append(asset)
+                    }
                     self.updateDoneButton()
                     
                     // Call selection closure
@@ -528,11 +640,11 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
                     photosDataSource.fetchResult = photosChanges.fetchResultAfterChanges
                     
                     if let removed = photosChanges.removedIndexes {
-                        collectionView.deleteItemsAtIndexPaths(removed.bs_indexPathsForSection(1))
+                        collectionView.deleteItemsAtIndexPaths(removed.bs_indexPathsForSection(2))
                     }
                     
                     if let inserted = photosChanges.insertedIndexes {
-                        collectionView.insertItemsAtIndexPaths(inserted.bs_indexPathsForSection(1))
+                        collectionView.insertItemsAtIndexPaths(inserted.bs_indexPathsForSection(2))
                     }
                     
                     // Changes is causing issues right now...fix me later

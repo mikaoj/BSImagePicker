@@ -24,41 +24,26 @@ import UIKit
 import Photos
 
 /**
-Gives UICollectionViewDataSource functionality with a given data source and cell factory
-*/
-final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource {
+ Gives UICollectionViewDataSource functionality with a given data source and cell factory
+ */
+final class SandboxPhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource {
 
-    var selections = [PHAsset]()
-    var fetchResult: PHFetchResult
+    var selectionsImage = [UIImage]()
+    var sandboxImage = [UIImage]()
     
     private let photoCellIdentifier = "photoCellIdentifier"
-    private let photosManager = PHCachingImageManager.defaultManager()
-    private let imageContentMode: PHImageContentMode = .AspectFill
     
     let settings: BSImagePickerSettings?
-    var imageSize: CGSize = CGSizeZero
     
-    let matchingAsset : ((obj:AnyObject, asset:PHAsset) -> Bool) = { obj, asset in
-        if let obj = obj as? PHAsset where obj == asset{
+    let matchingImage : ((obj:AnyObject, image:UIImage) -> Bool) = { obj, image in
+        if let obj = obj as? UIImage where obj == image {
             return true
         }
         return false
     }
     
-    init(fetchResult: PHFetchResult, selections: PHFetchResult? = nil, settings: BSImagePickerSettings?) {
-        self.fetchResult = fetchResult
+    init(settings: BSImagePickerSettings?) {
         self.settings = settings
-        if let selections = selections {
-            var selectionsArray = [PHAsset]()
-            selections.enumerateObjectsUsingBlock { (asset, idx, stop) -> Void in
-                if let asset = asset as? PHAsset {
-                    selectionsArray.append(asset)
-                }
-            }
-            bs_selectedObjects = selectionsArray
-            self.selections = selectionsArray
-        }
-    
         super.init()
     }
     
@@ -67,7 +52,7 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fetchResult.count
+        return sandboxImage.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -76,32 +61,23 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
         if let settings = settings {
             cell.settings = settings
         }
+
+        let img = sandboxImage[indexPath.row]
         
-        // Cancel any pending image requests
-        if cell.tag != 0 {
-            photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
-        }
+        cell.image = img
+        cell.imageView.image = img
         
-        if let asset = fetchResult[indexPath.row] as? PHAsset {
-            cell.asset = asset
-            
-            // Request image
-            cell.tag = Int(photosManager.requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                cell.imageView.image = result
-                })
-            
-            // Set selection number
-            if let asset = fetchResult[indexPath.row] as? PHAsset, let index = bs_selectedObjects.indexOf({ matchingAsset(obj: $0, asset: asset) }) {
-                if let character = settings?.selectionCharacter {
-                    cell.selectionString = String(character)
-                } else {
-                    cell.selectionString = String(index+1)
-                }
-                
-                cell.selected = true
+        // Set selection number
+        if let index = bs_selectedObjects.indexOf({matchingImage(obj: $0, image: img)}) {
+            if let character = settings?.selectionCharacter {
+                cell.selectionString = String(character)
             } else {
-                cell.selected = false
+                cell.selectionString = String(index+1)
             }
+            
+            cell.selected = true
+        } else {
+            cell.selected = false
         }
         
         UIView.setAnimationsEnabled(true)
