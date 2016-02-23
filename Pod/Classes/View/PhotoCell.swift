@@ -31,6 +31,7 @@ final class PhotoCell: UICollectionViewCell {
     @IBOutlet weak var selectionOverlayView: UIView!
     @IBOutlet weak var selectionView: SelectionView!
     
+    weak var image: UIImage? // used in sandboxmode only
     weak var asset: PHAsset?
     var settings: BSImagePickerSettings {
         get {

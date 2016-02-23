@@ -38,7 +38,7 @@ public extension UIViewController {
         - parameter finish: Closure to call when user finishes or nil
         - parameter completion: presentation completed closure or nil
     */
-    func bs_presentImagePickerController(imagePicker: BSImagePickerViewController, animated: Bool, select: ((asset: PHAsset) -> Void)?, deselect: ((asset: PHAsset) -> Void)?, cancel: (([PHAsset]) -> Void)?, finish: (([PHAsset]) -> Void)?, completion: (() -> Void)?) {
+    func bs_presentImagePickerController(imagePicker: BSImagePickerViewController, animated: Bool, select: ((asset: AnyObject) -> Void)?, deselect: ((asset: AnyObject) -> Void)?, cancel: (([AnyObject]) -> Void)?, finish: (([AnyObject]) -> Void)?, completion: (() -> Void)?) {
         BSImagePickerViewController.authorize(fromViewController: self) { (authorized) -> Void in
             // Make sure we are authorized before proceding
             guard authorized == true else {

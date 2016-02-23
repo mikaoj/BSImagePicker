@@ -26,6 +26,12 @@ import Photos
 BSImagePicker settings. Tweaks these to make BSImagePicker fit your needs
 */
 public protocol BSImagePickerSettings {
+    
+    /**
+     Toggle Sandbox mode when taking photos
+    */
+    var sandboxPhotoMode: Bool { get set }
+    
     /**
     Max number of images user can select
     */

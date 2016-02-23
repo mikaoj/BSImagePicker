@@ -29,15 +29,32 @@ class ViewController: UIViewController {
     @IBAction func showImagePicker(sender: UIButton) {
         let vc = BSImagePickerViewController()
         vc.maxNumberOfSelections = 6
+            
+        bs_presentImagePickerController(vc, animated: true,
+            select: { (asset: AnyObject) -> Void in
+                print("Selected: \(asset)")
+            }, deselect: { (asset: AnyObject) -> Void in
+                print("Deselected: \(asset)")
+            }, cancel: { (assets: [AnyObject]) -> Void in
+                print("Cancel: \(assets)")
+            }, finish: { (assets: [AnyObject]) -> Void in
+                print("Finish: \(assets)")
+            }, completion: nil)
+    }
+    
+    @IBAction func showSandboxImagePicker(sender: UIButton) {
+        let vc = BSImagePickerViewController()
+        vc.maxNumberOfSelections = 6
+        vc.sandboxPhotoMode = true
         
         bs_presentImagePickerController(vc, animated: true,
-            select: { (asset: PHAsset) -> Void in
+            select: { (asset: AnyObject) -> Void in
                 print("Selected: \(asset)")
-            }, deselect: { (asset: PHAsset) -> Void in
+            }, deselect: { (asset: AnyObject) -> Void in
                 print("Deselected: \(asset)")
-            }, cancel: { (assets: [PHAsset]) -> Void in
+            }, cancel: { (assets: [AnyObject]) -> Void in
                 print("Cancel: \(assets)")
-            }, finish: { (assets: [PHAsset]) -> Void in
+            }, finish: { (assets: [AnyObject]) -> Void in
                 print("Finish: \(assets)")
             }, completion: nil)
     }
@@ -46,6 +63,7 @@ class ViewController: UIViewController {
         let vc = BSImagePickerViewController()
         vc.maxNumberOfSelections = 6
         vc.takePhotoIcon = UIImage(named: "chat")
+        vc.takePhotos = true
         
         vc.albumButton.tintColor = UIColor.greenColor()
         vc.cancelButton.tintColor = UIColor.redColor()
@@ -69,13 +87,13 @@ class ViewController: UIViewController {
         }
         
         bs_presentImagePickerController(vc, animated: true,
-            select: { (asset: PHAsset) -> Void in
+            select: { (asset: AnyObject) -> Void in
                 print("Selected: \(asset)")
-            }, deselect: { (asset: PHAsset) -> Void in
+            }, deselect: { (asset: AnyObject) -> Void in
                 print("Deselected: \(asset)")
-            }, cancel: { (assets: [PHAsset]) -> Void in
+            }, cancel: { (assets: [AnyObject]) -> Void in
                 print("Cancel: \(assets)")
-            }, finish: { (assets: [PHAsset]) -> Void in
+            }, finish: { (assets: [AnyObject]) -> Void in
                 print("Finish: \(assets)")
             }, completion: nil)
     }
@@ -95,13 +113,13 @@ class ViewController: UIViewController {
         let vc = BSImagePickerViewController(defaultSelections: evenAssets)
       
         bs_presentImagePickerController(vc, animated: true,
-          select: { (asset: PHAsset) -> Void in
+          select: { (asset: AnyObject) -> Void in
             print("Selected: \(asset)")
-          }, deselect: { (asset: PHAsset) -> Void in
+          }, deselect: { (asset: AnyObject) -> Void in
             print("Deselected: \(asset)")
-          }, cancel: { (assets: [PHAsset]) -> Void in
+          }, cancel: { (assets: [AnyObject]) -> Void in
             print("Cancel: \(assets)")
-          }, finish: { (assets: [PHAsset]) -> Void in
+          }, finish: { (assets: [AnyObject]) -> Void in
             print("Finish: \(assets)")
           }, completion: nil)
       

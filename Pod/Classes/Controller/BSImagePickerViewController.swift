@@ -130,6 +130,22 @@ public class BSImagePickerViewController : UINavigationController, BSImagePicker
     /**
     See BSImagePicketSettings for documentation
     */
+    public var sandboxPhotoMode: Bool {
+        get {
+            return settings.sandboxPhotoMode
+        }
+        set {
+            if newValue {
+                // sandboxPhotoMode can't exist without take photo enabled
+                settings.takePhotos = true
+            }
+            settings.sandboxPhotoMode = newValue
+        }
+    }
+    
+    /**
+    See BSImagePicketSettings for documentation
+    */
     public var maxNumberOfSelections: Int {
         get {
             return settings.maxNumberOfSelections
@@ -261,7 +277,7 @@ public class BSImagePickerViewController : UINavigationController, BSImagePicker
     }
     
     // MARK: Closures
-    var selectionClosure: ((asset: PHAsset) -> Void)? {
+    var selectionClosure: ((asset: AnyObject) -> Void)? {
         get {
             return photosViewController.selectionClosure
         }
@@ -269,7 +285,7 @@ public class BSImagePickerViewController : UINavigationController, BSImagePicker
             photosViewController.selectionClosure = newValue
         }
     }
-    var deselectionClosure: ((asset: PHAsset) -> Void)? {
+    var deselectionClosure: ((asset: AnyObject) -> Void)? {
         get {
             return photosViewController.deselectionClosure
         }
@@ -277,7 +293,7 @@ public class BSImagePickerViewController : UINavigationController, BSImagePicker
             photosViewController.deselectionClosure = newValue
         }
     }
-    var cancelClosure: ((assets: [PHAsset]) -> Void)? {
+    var cancelClosure: ((assets: [AnyObject]) -> Void)? {
         get {
             return photosViewController.cancelClosure
         }
@@ -285,7 +301,7 @@ public class BSImagePickerViewController : UINavigationController, BSImagePicker
             photosViewController.cancelClosure = newValue
         }
     }
-    var finishClosure: ((assets: [PHAsset]) -> Void)? {
+    var finishClosure: ((assets: [AnyObject]) -> Void)? {
         get {
             return photosViewController.finishClosure
         }
