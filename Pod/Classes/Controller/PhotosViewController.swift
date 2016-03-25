@@ -92,10 +92,10 @@ final class PhotosViewController : UICollectionViewController {
         
         // Set button actions and add them to navigation item
         doneBarButton?.target = self
-        doneBarButton?.action = Selector("doneButtonPressed:")
+        doneBarButton?.action = #selector(PhotosViewController.doneButtonPressed(_:))
         cancelBarButton?.target = self
-        cancelBarButton?.action = Selector("cancelButtonPressed:")
-        albumTitleView?.albumButton?.addTarget(self, action: Selector("albumButtonPressed:"), forControlEvents: .TouchUpInside)
+        cancelBarButton?.action = #selector(PhotosViewController.cancelButtonPressed(_:))
+        albumTitleView?.albumButton?.addTarget(self, action: #selector(PhotosViewController.albumButtonPressed(_:)), forControlEvents: .TouchUpInside)
         navigationItem.leftBarButtonItem = cancelBarButton
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.titleView = albumTitleView
@@ -107,7 +107,7 @@ final class PhotosViewController : UICollectionViewController {
         }
         
         // Add long press recognizer
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "collectionViewLongPressed:")
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(PhotosViewController.collectionViewLongPressed(_:)))
         longPressRecognizer.minimumPressDuration = 0.5
         collectionView?.addGestureRecognizer(longPressRecognizer)
         

@@ -1,6 +1,7 @@
 # 2.3.0
 * Initialize PhotosViewController AFTER we have permission to access photos.
 * Buttons are now public vars.
+* Fixed Swift 2.2 deprecation warnings
 
 # 2.2.0
 * Set default selection (by [AnthonyMDev])

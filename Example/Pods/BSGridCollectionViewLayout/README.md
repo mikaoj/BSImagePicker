@@ -25,7 +25,7 @@ BSGridCollectionViewLayout is available through [CocoaPods](http://cocoapods.org
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "BSGridCollectionViewLayout", "~> 1.0"
+pod "BSGridCollectionViewLayout", "~> 1.1.0"
 ```
 
 ## Author

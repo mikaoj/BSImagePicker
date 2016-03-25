@@ -146,11 +146,8 @@ extension GridCollectionViewLayout {
 
         let startIndex = startRow * itemsPerRow
         let endIndex = (endRow * itemsPerRow + itemsPerRow > items) ? items-1 : endRow * itemsPerRow
-
-        var indexPaths = [NSIndexPath]()
-        for var index = startIndex; index <= endIndex; ++index {
-            indexPaths.append(indexPathFromFlatIndex(index))
-        }
+        
+        let indexPaths = (startIndex...endIndex).map { indexPathFromFlatIndex($0) }
 
         return indexPaths
     }
@@ -164,14 +161,8 @@ extension GridCollectionViewLayout {
         guard let collectionView = collectionView else {
             return 0
         }
-
-        var index = indexPath.row
-
-        for var section = 0; section < indexPath.section; ++section {
-            index += collectionView.numberOfItemsInSection(section)
-        }
-
-        return index
+        
+        return (0..<indexPath.section).reduce(indexPath.row) { $0 + collectionView.numberOfItemsInSection($1)}
     }
 
     /**
@@ -216,14 +207,8 @@ extension GridCollectionViewLayout {
         guard let collectionView = collectionView else {
             return 0
         }
-
-        let sections = collectionView.numberOfSections()
-        items = 0
-        for var section = 0; section < sections; ++section { // TODO: Use flatIndex function
-            items += collectionView.numberOfItemsInSection(section)
-        }
-
-        return items
+        
+        return (0..<collectionView.numberOfSections()).reduce(0, combine: {$0 + collectionView.numberOfItemsInSection($1)})
     }
 
     /**
