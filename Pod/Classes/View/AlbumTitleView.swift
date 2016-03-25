@@ -32,9 +32,9 @@ final class AlbumTitleView: UIView {
     
     var albumTitle = "" {
         didSet {
-            if let imageView = self.albumButton.imageView, let titleLabel = self.albumButton.titleLabel {
+            if let imageView = self.albumButton?.imageView, let titleLabel = self.albumButton?.titleLabel {
                 // Set title on button
-                albumButton.setTitle(self.albumTitle, forState: .Normal)
+                albumButton?.setTitle(self.albumTitle, forState: .Normal)
                 
                 // Also set title directly to label, since it isn't done right away when setting button title
                 // And we need to know its width to calculate insets
@@ -42,8 +42,8 @@ final class AlbumTitleView: UIView {
                 titleLabel.sizeToFit()
                 
                 // Adjust insets to right align image
-                albumButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageView.bounds.size.width, bottom: 0, right: imageView.bounds.size.width)
-                albumButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: titleLabel.bounds.size.width + 4, bottom: 0, right: -(titleLabel.bounds.size.width + 4))
+                albumButton?.titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageView.bounds.size.width, bottom: 0, right: imageView.bounds.size.width)
+                albumButton?.imageEdgeInsets = UIEdgeInsets(top: 0, left: titleLabel.bounds.size.width + 4, bottom: 0, right: -(titleLabel.bounds.size.width + 4))
             }
         }
     }
@@ -52,7 +52,7 @@ final class AlbumTitleView: UIView {
         super.awakeFromNib()
         
         // Set image
-        albumButton.setImage(arrowDownImage, forState: .Normal)
+        albumButton?.setImage(arrowDownImage, forState: .Normal)
     }
     
     lazy var arrowDownImage: UIImage? = {

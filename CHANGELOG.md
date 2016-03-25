@@ -1,3 +1,7 @@
+# 2.3.0
+* Initialize PhotosViewController AFTER we have permission to access photos.
+* Buttons are now public vars.
+
 # 2.2.0
 * Set default selection (by [AnthonyMDev])
 * Special case when max allowed selections is 1 (by [taberrr])
