@@ -95,7 +95,7 @@ final class PhotosViewController : UICollectionViewController {
         doneBarButton?.action = Selector("doneButtonPressed:")
         cancelBarButton?.target = self
         cancelBarButton?.action = Selector("cancelButtonPressed:")
-        albumTitleView?.albumButton.addTarget(self, action: Selector("albumButtonPressed:"), forControlEvents: .TouchUpInside)
+        albumTitleView?.albumButton?.addTarget(self, action: Selector("albumButtonPressed:"), forControlEvents: .TouchUpInside)
         navigationItem.leftBarButtonItem = cancelBarButton
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.titleView = albumTitleView
