@@ -25,6 +25,7 @@ import UIKit
 /**
 Provides a grid collection view layout
 */
+@objc(BSGridCollectionViewLayout)
 public final class GridCollectionViewLayout: UICollectionViewLayout {
     /**
     Spacing between items (horizontal and vertical)
@@ -140,16 +141,78 @@ extension GridCollectionViewLayout {
      - returns: An array of indexPaths for that rect
      */
     func indexPathsInRect(rect: CGRect) -> [NSIndexPath] {
+        // Make sure we have items/rows
+        guard items > 0 && rows > 0 else { return [] }
+        
         let rowHeight = estimatedRowHeight()
-        let startRow = (rect.origin.y / rowHeight < 0) ? 0 : Int(rect.origin.y / rowHeight)
-        let endRow = ((rect.origin.y + rect.height) / rowHeight > CGFloat(rows)) ? rows : Int((rect.origin.y + rect.height) / rowHeight) + 1
+        
+        let startRow = GridCollectionViewLayout.firstRowInRect(rect, withRowHeight: rowHeight)
+        let endRow = GridCollectionViewLayout.lastRowInRect(rect, withRowHeight: rowHeight, max: rows)
 
-        let startIndex = startRow * itemsPerRow
-        let endIndex = (endRow * itemsPerRow + itemsPerRow > items) ? items-1 : endRow * itemsPerRow
+        let startIndex = GridCollectionViewLayout.firstIndexInRow(startRow, withItemsPerRow: itemsPerRow)
+        let endIndex = GridCollectionViewLayout.lastIndexInRow(endRow, withItemsPerRow: itemsPerRow, numberOfItems: items)
         
         let indexPaths = (startIndex...endIndex).map { indexPathFromFlatIndex($0) }
 
         return indexPaths
+    }
+    
+    /**
+     Calculates which row index would be first for a given rect.
+     - parameter rect: The rect to check
+     - parameter rowHeight: Height for a row
+     - returns: First row index
+     */
+    static func firstRowInRect(rect: CGRect, withRowHeight rowHeight: CGFloat) -> Int {
+        if rect.origin.y / rowHeight < 0 {
+            return 0
+        } else {
+            return Int(rect.origin.y / rowHeight)
+        }
+    }
+    
+    /**
+     Calculates which row index would be last for a given rect.
+     - parameter rect: The rect to check
+     - parameter rowHeight: Height for a row
+     - returns: Last row index
+     */
+    static func lastRowInRect(rect: CGRect, withRowHeight rowHeight: CGFloat, max: Int) -> Int {
+        guard rect.size.height >= rowHeight else { return 0 }
+        
+        if (rect.origin.y + rect.height) / rowHeight > CGFloat(max) {
+            return max - 1
+        } else {
+            return Int(ceil((rect.origin.y + rect.height) / rowHeight)) - 1
+        }
+    }
+    
+    /**
+     Calculates which index would be the first for a given row.
+     - parameter row: Row index
+     - parameter itemsPerRow: How many items there can be in a row
+     - returns: First index
+     */
+    static func firstIndexInRow(row: Int, withItemsPerRow itemsPerRow: Int) -> Int {
+        return row * itemsPerRow
+    }
+    
+    /**
+     Calculates which index would be the last for a given row.
+     - parameter row: Row index
+     - parameter itemsPerRow: How many items there can be in a row
+     - parameter numberOfItems: The total number of items.
+     - returns: Last index
+     */
+    static func lastIndexInRow(row: Int, withItemsPerRow itemsPerRow: Int, numberOfItems: Int) -> Int {
+        let maxIndex = (row + 1) * itemsPerRow - 1
+        let bounds = numberOfItems - 1
+        
+        if maxIndex > bounds {
+            return bounds
+        } else {
+            return maxIndex
+        }
     }
 
     /**
