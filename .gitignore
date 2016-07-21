@@ -30,3 +30,6 @@ DerivedData
 # `pod install` in .travis.yml
 #
 # Pods/
+
+# Carthage
+Carthage/Build
