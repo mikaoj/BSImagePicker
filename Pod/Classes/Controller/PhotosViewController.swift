@@ -24,6 +24,37 @@ import UIKit
 import Photos
 import BSGridCollectionViewLayout
 
+private protocol Targetable {
+
+    func bs_addTarget(target: AnyObject?, action: Selector)
+}
+
+extension UIBarButtonItem : Targetable {
+
+    private var targetable: Targetable {
+
+        if let button = self.customView as? UIButton {
+            return button
+        }
+
+        return self
+    }
+
+    private func bs_addTarget(target: AnyObject?, action: Selector) {
+
+        self.target = target
+        self.action = action
+    }
+}
+
+extension UIButton : Targetable {
+
+    private func bs_addTarget(target: AnyObject?, action: Selector) {
+
+        addTarget(target, action: action, forControlEvents: UIControlEvents.TouchUpInside)
+    }
+}
+
 final class PhotosViewController : UICollectionViewController {    
     var selectionClosure: ((asset: PHAsset) -> Void)?
     var deselectionClosure: ((asset: PHAsset) -> Void)?
