@@ -24,34 +24,15 @@ import UIKit
 import Photos
 import BSGridCollectionViewLayout
 
-private protocol Targetable {
-
-    func bs_addTarget(target: AnyObject?, action: Selector)
-}
-
-extension UIBarButtonItem : Targetable {
-
-    private var targetable: Targetable {
-
-        if let button = self.customView as? UIButton {
-            return button
+extension UIBarButtonItem {
+    func bs_addTarget(target: AnyObject?, action: Selector) {
+        guard let button = self.customView as? UIButton else {
+            self.target = target
+            self.action = action
+            return
         }
 
-        return self
-    }
-
-    private func bs_addTarget(target: AnyObject?, action: Selector) {
-
-        self.target = target
-        self.action = action
-    }
-}
-
-extension UIButton : Targetable {
-
-    private func bs_addTarget(target: AnyObject?, action: Selector) {
-
-        addTarget(target, action: action, forControlEvents: UIControlEvents.TouchUpInside)
+        button.addTarget(target, action: action, forControlEvents: UIControlEvents.TouchUpInside)
     }
 }
 
@@ -67,7 +48,7 @@ final class PhotosViewController : UICollectionViewController {
     
     let expandAnimator = ZoomAnimator()
     let shrinkAnimator = ZoomAnimator()
-    
+
     private var photosDataSource: PhotoCollectionViewDataSource?
     private var albumsDataSource: AlbumTableViewDataSource
     private let cameraDataSource: CameraCollectionViewDataSource
@@ -122,8 +103,8 @@ final class PhotosViewController : UICollectionViewController {
         title = " "
         
         // Set button actions and add them to navigation item
-        doneBarButton?.targetable.bs_addTarget(self, action: #selector(PhotosViewController.doneButtonPressed(_:)))
-        cancelBarButton?.targetable.bs_addTarget(self, action: #selector(PhotosViewController.cancelButtonPressed(_:)))
+        doneBarButton?.bs_addTarget(self, action: #selector(PhotosViewController.doneButtonPressed(_:)))
+        cancelBarButton?.bs_addTarget(self, action: #selector(PhotosViewController.cancelButtonPressed(_:)))
         albumTitleView?.albumButton?.addTarget(self, action: #selector(PhotosViewController.albumButtonPressed(_:)), forControlEvents: .TouchUpInside)
         navigationItem.leftBarButtonItem = cancelBarButton
         navigationItem.rightBarButtonItem = doneBarButton
