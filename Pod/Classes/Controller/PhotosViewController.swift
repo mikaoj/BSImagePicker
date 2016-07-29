@@ -122,14 +122,13 @@ final class PhotosViewController : UICollectionViewController {
         title = " "
         
         // Set button actions and add them to navigation item
-        doneBarButton?.target = self
-        doneBarButton?.action = #selector(PhotosViewController.doneButtonPressed(_:))
-        cancelBarButton?.target = self
-        cancelBarButton?.action = #selector(PhotosViewController.cancelButtonPressed(_:))
+        doneBarButton?.targetable.bs_addTarget(self, action: #selector(PhotosViewController.doneButtonPressed(_:)))
+        cancelBarButton?.targetable.bs_addTarget(self, action: #selector(PhotosViewController.cancelButtonPressed(_:)))
         albumTitleView?.albumButton?.addTarget(self, action: #selector(PhotosViewController.albumButtonPressed(_:)), forControlEvents: .TouchUpInside)
         navigationItem.leftBarButtonItem = cancelBarButton
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.titleView = albumTitleView
+
 
         if let album = albumsDataSource.fetchResults.first?.firstObject as? PHAssetCollection {
             initializePhotosDataSource(album, selections: defaultSelections)
