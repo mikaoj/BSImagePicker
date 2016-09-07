@@ -53,6 +53,9 @@
 		CF5FAD1C2EE24FB2C50CC91A8DBE37CF /* UIViewController+BSImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BF64BB2701C973ADEBB6CE26E0474E /* UIViewController+BSImagePicker.swift */; };
 		D130664E5AB3AE440900439850877B31 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFECF79F4DFE36CB6947B757B20C4020 /* Settings.swift */; };
 		D2C51CD71E1F27983032A23C1077A600 /* UIImageViewModeScaleAspect.h in Headers */ = {isa = PBXBuildFile; fileRef = 99D4CA5EA3AE683ACD07843A8A314751 /* UIImageViewModeScaleAspect.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DC0F62381D7FA91800329E44 /* video.png in Resources */ = {isa = PBXBuildFile; fileRef = DC0F62321D7FA8E000329E44 /* video.png */; };
+		DC0F62391D7FA91800329E44 /* video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC0F62331D7FA8E000329E44 /* video@2x.png */; };
+		DC0F623A1D7FA91800329E44 /* video@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = DC0F62341D7FA8E000329E44 /* video@3x.png */; };
 		DF4D0829FCDAB6E62444804C8ED90421 /* ZoomAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F7BC8A876B901C8A4B2EE417AE1E32 /* ZoomAnimator.swift */; };
 		E6CB97E4D03638811A9B63F85DF18401 /* add_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A601F3325C436129BFE859A173334DE2 /* add_photo@2x.png */; };
 		EB841560A42ED462A6E4F0F9BC21DAFF /* add_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = ACE7CD88974D93F4DDE6117FAB5FFC51 /* add_photo.png */; };
@@ -201,6 +204,9 @@
 		D32E5B3AEFFA2B098F3125AB67C473BC /* add_photo@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "add_photo@3x.png"; sourceTree = "<group>"; };
 		D60E0902FF199016DBC9347A7B6DBCFE /* CameraCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = CameraCell.xib; sourceTree = "<group>"; };
 		DA1B354E76402C19418683FBB3492A5F /* BSGridCollectionViewLayout.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = BSGridCollectionViewLayout.modulemap; sourceTree = "<group>"; };
+		DC0F62321D7FA8E000329E44 /* video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video.png; sourceTree = "<group>"; };
+		DC0F62331D7FA8E000329E44 /* video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video@2x.png"; sourceTree = "<group>"; };
+		DC0F62341D7FA8E000329E44 /* video@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video@3x.png"; sourceTree = "<group>"; };
 		DFECF79F4DFE36CB6947B757B20C4020 /* Settings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		E3488FE59FC4DB51FC071EDC5A2BE759 /* UIImageViewModeScaleAspect-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UIImageViewModeScaleAspect-dummy.m"; sourceTree = "<group>"; };
 		E4C37FC063E821068749A2A8EA1F2021 /* Pods-BSImagePicker_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-BSImagePicker_Example.modulemap"; sourceTree = "<group>"; };
@@ -480,6 +486,9 @@
 				3192F70A9918DE8B428C3C53183BDC0F /* arrow_down@1x.png */,
 				F39F72C0B83100FA835280EC7C0D7C52 /* arrow_down@2x.png */,
 				1D9715823C86FB23268BC440A238DF7E /* arrow_down@3x.png */,
+				DC0F62321D7FA8E000329E44 /* video.png */,
+				DC0F62331D7FA8E000329E44 /* video@2x.png */,
+				DC0F62341D7FA8E000329E44 /* video@3x.png */,
 				D60E0902FF199016DBC9347A7B6DBCFE /* CameraCell.xib */,
 				C298234478E798E7383525B761DBC2A6 /* PhotoCell.xib */,
 			);
@@ -748,6 +757,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC0F62381D7FA91800329E44 /* video.png in Resources */,
+				DC0F62391D7FA91800329E44 /* video@2x.png in Resources */,
+				DC0F623A1D7FA91800329E44 /* video@3x.png in Resources */,
 				EB841560A42ED462A6E4F0F9BC21DAFF /* add_photo.png in Resources */,
 				E6CB97E4D03638811A9B63F85DF18401 /* add_photo@2x.png in Resources */,
 				345708DD5F220E4BB3C286EFDD270509 /* add_photo@3x.png in Resources */,

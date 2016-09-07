@@ -31,7 +31,27 @@ final class PhotoCell: UICollectionViewCell {
     @IBOutlet weak var selectionOverlayView: UIView!
     @IBOutlet weak var selectionView: SelectionView!
     
-    weak var asset: PHAsset?
+    @IBOutlet weak var videoView: UIView!
+    @IBOutlet weak var videoLengthLabel: UILabel!
+    var videoGradient: CAGradientLayer!
+    
+    private lazy var dateFormatter: NSDateComponentsFormatter = {
+        let formatter = NSDateComponentsFormatter()
+        formatter.zeroFormattingBehavior = .Pad
+        formatter.allowedUnits = [.Hour, .Minute, .Second]
+        formatter.unitsStyle = .Positional
+        return formatter
+    }()
+    
+    weak var asset: PHAsset? {
+        didSet {
+            if let asset = asset {
+                self.videoView.hidden = asset.mediaType != .Video
+                self.videoLengthLabel.text = dateFormatter.stringFromTimeInterval(asset.duration)
+            }
+        }
+    }
+    
     var settings: BSImagePickerSettings {
         get {
             return selectionView.settings
@@ -87,5 +107,19 @@ final class PhotoCell: UICollectionViewCell {
             self.selectionView.alpha = 0.0
             self.selectionOverlayView.alpha = 0.0
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        videoGradient.frame = videoView.bounds
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        videoGradient = CAGradientLayer()
+        videoGradient.frame = videoView.bounds
+        videoGradient.colors = [UIColor.clearColor().CGColor, UIColor.blackColor().CGColor]
+        videoView.layer.insertSublayer(videoGradient, atIndex: 0)
     }
 }
