@@ -23,6 +23,8 @@
 import UIKit
 import Photos
 import BSGridCollectionViewLayout
+import AVFoundation
+import AVKit
 
 final class PhotosViewController : UICollectionViewController {    
     var selectionClosure: ((asset: PHAsset) -> Void)?
@@ -170,16 +172,26 @@ final class PhotosViewController : UICollectionViewController {
     }
     
     func collectionViewLongPressed(sender: UIGestureRecognizer) {
+        // Calculate which index path long press came from
+        let location = sender.locationInView(collectionView)
+        guard let indexPath = collectionView?.indexPathForItemAtPoint(location) else { return }
+
         if sender.state == .Began {
             // Disable recognizer while we are figuring out location and pushing preview
             sender.enabled = false
             collectionView?.userInteractionEnabled = false
             
-            // Calculate which index path long press came from
-            let location = sender.locationInView(collectionView)
-            let indexPath = collectionView?.indexPathForItemAtPoint(location)
             
-            if let vc = previewViewContoller, let indexPath = indexPath, let cell = collectionView?.cellForItemAtIndexPath(indexPath) as? PhotoCell, let asset = cell.asset {
+            if let asset = photosDataSource?.fetchResult[indexPath.row] as? PHAsset where asset.mediaType == .Video {
+                let options: PHVideoRequestOptions = PHVideoRequestOptions()
+                options.version = .Original
+                PHCachingImageManager.defaultManager().requestAVAssetForVideo(asset, options: options, resultHandler: { (avAsset, audioMix, info) in
+                    if let urlAsset = avAsset as? AVURLAsset {
+                        let localVideoUrl : NSURL = urlAsset.URL
+                        self.playVideoURL(localVideoUrl)
+                    }
+                })
+            } else if let vc = previewViewContoller, let cell = collectionView?.cellForItemAtIndexPath(indexPath) as? PhotoCell, let asset = cell.asset {
                 // Setup fetch options to be synchronous
                 let options = PHImageRequestOptions()
                 options.synchronous = true
@@ -562,5 +574,18 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
         
         
         // TODO: Changes in albums
+    }
+}
+
+extension PhotosViewController {
+    func playVideoURL(videoURL: NSURL) {
+        NSOperationQueue.mainQueue().addOperationWithBlock { 
+            let player = AVPlayer(URL: videoURL)
+            let controller = AVPlayerViewController()
+            controller.player = player
+            self.presentViewController(controller, animated: true) { () -> Void in
+                player.play()
+            }
+        }
     }
 }
