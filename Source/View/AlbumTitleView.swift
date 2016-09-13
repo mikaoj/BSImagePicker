@@ -20,43 +20,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import Foundation
-import Photos
+import UIKit
 
-/**
- An Album is a collection of Photos
- */
-public struct Album {
-    fileprivate let fetchResult: PHFetchResult<PHAsset>
-    var title: String
+class AlbumTitleView: UIView {
+    @IBOutlet var albumButton: UIButton!
     
-    init(fetchResult: PHFetchResult<PHAsset>, title: String) {
-        self.fetchResult = fetchResult
-        self.title = title
+    func update(for album: Album) {
+        albumButton.setTitle(album.title, for: .normal)
     }
-}
-
-// MARK: Collection
-extension Album: Collection {
-    public var startIndex: Int {
-        return 0
-    }
-    
-    public var endIndex: Int {
-        return fetchResult.count
-    }
-    
-    public func index(after i: Int) -> Int {
-        return i+1
-    }
-    
-    public subscript(i: Int) -> Photo {
-        let a = fetchResult.object(at: i)
-        return Photo.asset(a)
-    }
-}
-
-extension Album: Equatable { }
-public func ==(lhs: Album, rhs: Album) -> Bool {
-    return lhs.fetchResult == rhs.fetchResult
 }

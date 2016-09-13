@@ -41,6 +41,8 @@
 		20AA08691D76E60400C4F042 /* UIBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AA08661D76E60400C4F042 /* UIBarButtonItem.swift */; };
 		20AA086A1D76E60400C4F042 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AA08671D76E60400C4F042 /* UIButton.swift */; };
 		20AA528E1D8063280063D47D /* GridCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20AA528D1D8063280063D47D /* GridCollectionViewLayout.swift */; };
+		20D3B61B1D883A8900F418C8 /* AlbumTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D3B61A1D883A8900F418C8 /* AlbumTitleView.swift */; };
+		20D3B61F1D883AEE00F418C8 /* AlbumTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 20D3B61E1D883AEE00F418C8 /* AlbumTitleView.xib */; };
 		20D7EEA21D7EFAEA0078DF39 /* Previewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D7EEA11D7EFAEA0078DF39 /* Previewable.swift */; };
 		20D7EEA41D7F011F0078DF39 /* CameraCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D7EEA31D7F011E0078DF39 /* CameraCell.swift */; };
 		20D7EEA61D7F01310078DF39 /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D7EEA51D7F01310078DF39 /* UICollectionView.swift */; };
@@ -124,6 +126,8 @@
 		20AA08661D76E60400C4F042 /* UIBarButtonItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIBarButtonItem.swift; sourceTree = "<group>"; };
 		20AA08671D76E60400C4F042 /* UIButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		20AA528D1D8063280063D47D /* GridCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridCollectionViewLayout.swift; sourceTree = "<group>"; };
+		20D3B61A1D883A8900F418C8 /* AlbumTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumTitleView.swift; sourceTree = "<group>"; };
+		20D3B61E1D883AEE00F418C8 /* AlbumTitleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumTitleView.xib; sourceTree = "<group>"; };
 		20D7EEA11D7EFAEA0078DF39 /* Previewable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Previewable.swift; sourceTree = "<group>"; };
 		20D7EEA31D7F011E0078DF39 /* CameraCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraCell.swift; sourceTree = "<group>"; };
 		20D7EEA51D7F01310078DF39 /* UICollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 				200580701D82FE6D00014614 /* PhotoCell.xib */,
 				200580721D82FE8700014614 /* CameraCell.xib */,
 				200580741D82FECE00014614 /* AlbumCell.xib */,
+				20D3B61E1D883AEE00F418C8 /* AlbumTitleView.xib */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -300,6 +305,7 @@
 				20D7EEA51D7F01310078DF39 /* UICollectionView.swift */,
 				203C49361D7F6355002C68A1 /* UITableView.swift */,
 				203C49381D7F636D002C68A1 /* AlbumCell.swift */,
+				20D3B61A1D883A8900F418C8 /* AlbumTitleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -448,6 +454,7 @@
 				200580751D82FECE00014614 /* AlbumCell.xib in Resources */,
 				2005806D1D82FCC000014614 /* Info.plist in Resources */,
 				200580591D81CBC000014614 /* Images.xcassets in Resources */,
+				20D3B61F1D883AEE00F418C8 /* AlbumTitleView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +500,7 @@
 				20AA08691D76E60400C4F042 /* UIBarButtonItem.swift in Sources */,
 				20D7EEA21D7EFAEA0078DF39 /* Previewable.swift in Sources */,
 				203C49331D7F3DE9002C68A1 /* Album.swift in Sources */,
+				20D3B61B1D883A8900F418C8 /* AlbumTitleView.swift in Sources */,
 				20AA086A1D76E60400C4F042 /* UIButton.swift in Sources */,
 				20AA085A1D76E5F000C4F042 /* ImagePicker.swift in Sources */,
 				20AA085B1D76E5F000C4F042 /* InlineImagePicker.swift in Sources */,

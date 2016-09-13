@@ -51,7 +51,7 @@ extension Folder: Collection {
     }
     
     public var endIndex: Int {
-        return fetchResult.count-1
+        return fetchResult.count
     }
     
     public func index(after i: Int) -> Int {
@@ -63,7 +63,7 @@ extension Folder: Collection {
         
         let photosFetchResult = PHAsset.fetchAssets(in: a, options: fetchOptions)
         
-        return Album(fetchResult: photosFetchResult)
+        return Album(fetchResult: photosFetchResult, title: a.localizedTitle ?? "")
     }
 }
 

@@ -27,8 +27,8 @@ public class ImagePicker: UINavigationController {
     private let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(ImagePicker.doneButtonPressed(sender:)))
     private let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(ImagePicker.cancelButtonPressed(sender:)))
     
-    private let folders: [Folder]
-    private let settings: Settings
+    fileprivate let folders: [Folder]
+    fileprivate let settings: Settings
     
     var onSelect: PhotoSelection? {
         get { return self.photosViewController.onSelect }
@@ -57,6 +57,12 @@ public class ImagePicker: UINavigationController {
             // Set bar button items when updating view controllers
             viewControllers.first?.navigationItem.leftBarButtonItem = cancelButton
             viewControllers.first?.navigationItem.rightBarButtonItem = doneButton
+            
+            let albumTitleView = Bundle.imagePicker.loadNibNamed("AlbumTitleView", owner: nil, options: nil)?.first as! AlbumTitleView
+            albumTitleView.albumButton.addTarget(self, action: #selector(ImagePicker.albumButtonPressed(sender:)), for: .touchUpInside)
+            albumTitleView.update(for: photosViewController.album)
+            
+            viewControllers.first?.navigationItem.titleView = albumTitleView
         }
     }
     
@@ -94,6 +100,32 @@ extension ImagePicker {
     func doneButtonPressed(sender: UIBarButtonItem) {
         onFinish?(photosViewController.selections)
         dismiss(animated: true, completion: nil)
+    }
+    
+    func albumButtonPressed(sender: UIButton) {
+        let albumsViewController = AlbumsViewController(folders: folders)
+        albumsViewController.modalPresentationStyle = .popover
+        albumsViewController.preferredContentSize = CGSize(width: 320, height: 300)
+        
+        albumsViewController.popoverPresentationController?.permittedArrowDirections = [.up]
+        albumsViewController.popoverPresentationController?.sourceView = sender
+        let senderRect = sender.convert(sender.frame, from: sender.superview)
+        let sourceRect = CGRect(x: senderRect.origin.x, y: senderRect.origin.y + (sender.frame.size.height / 2), width: senderRect.size.width, height: senderRect.size.height)
+        albumsViewController.popoverPresentationController?.sourceRect = sourceRect
+        albumsViewController.popoverPresentationController?.delegate = self
+        
+        present(albumsViewController, animated: true, completion: nil)
+    }
+}
+
+// MARK: UIPopoverPresentationControllerDelegate
+extension ImagePicker: UIPopoverPresentationControllerDelegate {
+    public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+    
+    public func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
+        return true
     }
 }
 
