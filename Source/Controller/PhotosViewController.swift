@@ -48,8 +48,7 @@ class PhotosViewController: UICollectionViewController {
 extension PhotosViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView?.register(cell: PhotoCell.self)
+        collectionView?.register(nib: UINib(nibName: "PhotoCell", bundle: Bundle.imagePicker), for: PhotoCell.self)
         collectionView?.backgroundColor = UIColor.clear
     }
 }

@@ -37,7 +37,7 @@ public struct Settings {
     var spacing: Float
     
     /// Image to use for selections
-    var selectionImage: UIImage
+    var selectionImage: UIImage?
     
     /// Return how many cells per row you want to show for the given size classes
     var cellsPerRow: (_ verticalSize: UIUserInterfaceSizeClass, _ horizontalSize: UIUserInterfaceSizeClass) -> Int
@@ -45,8 +45,7 @@ public struct Settings {
 
 extension Settings {
     static func classic() -> Settings {
-        let image = UIImage(named: "Checkmark", in: Bundle.imagePicker, compatibleWith: nil)!
-        return Settings(maxSelections: Int.max, minSelections: 1, cameraEnabled: false, spacing: 2, selectionImage: image) { (verticalSize, horizontalSize) -> Int in
+        return Settings(maxSelections: Int.max, minSelections: 1, cameraEnabled: false, spacing: 2, selectionImage: nil) { (verticalSize, horizontalSize) -> Int in
             switch (verticalSize, horizontalSize) {
             case (.compact, .regular): // iPhone5-6 portrait
                 return 3

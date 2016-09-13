@@ -6,16 +6,44 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PhotoCell" customModule="ImagePicker"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="srL-mb-eu8">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="srL-mb-eu8" customClass="PhotoCell" customModule="ImagePicker">
+            <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="250" height="250"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wl6-56-C31"/>
+                    <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMB-3P-4Ya">
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="3b9-V3-dnf"/>
+                </subviews>
             </view>
-            <point key="canvasLocation" x="-293" y="31"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="wl6-56-C31" secondAttribute="trailing" id="JZr-vO-PcG"/>
+                <constraint firstItem="wl6-56-C31" firstAttribute="top" secondItem="srL-mb-eu8" secondAttribute="top" id="Kq0-gL-sXk"/>
+                <constraint firstItem="wl6-56-C31" firstAttribute="leading" secondItem="srL-mb-eu8" secondAttribute="leading" id="Mjp-Gl-4Sn"/>
+                <constraint firstAttribute="trailing" secondItem="3b9-V3-dnf" secondAttribute="trailing" id="V9q-u3-7dI"/>
+                <constraint firstAttribute="bottom" secondItem="ZMB-3P-4Ya" secondAttribute="bottom" id="h2O-7I-hog"/>
+                <constraint firstAttribute="bottom" secondItem="3b9-V3-dnf" secondAttribute="bottom" id="ifa-o8-Q9e"/>
+                <constraint firstAttribute="trailing" secondItem="ZMB-3P-4Ya" secondAttribute="trailing" id="mJ1-vk-UfH"/>
+                <constraint firstItem="ZMB-3P-4Ya" firstAttribute="top" secondItem="srL-mb-eu8" secondAttribute="top" id="pB0-nG-7jX"/>
+                <constraint firstItem="ZMB-3P-4Ya" firstAttribute="leading" secondItem="srL-mb-eu8" secondAttribute="leading" id="tdl-2A-buU"/>
+                <constraint firstAttribute="bottom" secondItem="wl6-56-C31" secondAttribute="bottom" id="yD6-8g-6pW"/>
+            </constraints>
+            <size key="customSize" width="343" height="315"/>
+            <connections>
+                <outlet property="imageView" destination="wl6-56-C31" id="qoe-pO-khD"/>
+                <outlet property="selectionForegroundView" destination="ZMB-3P-4Ya" id="NY5-4h-rMw"/>
+                <outlet property="selectionImageView" destination="3b9-V3-dnf" id="fW7-Ze-0cd"/>
+            </connections>
+            <point key="canvasLocation" x="-291" y="-282"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="Checkmark" width="44" height="44"/>
+    </resources>
 </document>

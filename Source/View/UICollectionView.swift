@@ -23,6 +23,10 @@
 import UIKit
 
 extension UICollectionView {
+    func register<T: UICollectionViewCell>(nib: UINib?, for cell: T.Type) {
+        register(nib, forCellWithReuseIdentifier: String(describing: T.self))
+    }
+    
     func register<T: UICollectionViewCell>(cell: T.Type) {
         register(T.self, forCellWithReuseIdentifier: String(describing: T.self))
     }

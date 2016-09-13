@@ -23,25 +23,9 @@
 import UIKit
 
 class PhotoCell: UICollectionViewCell {
-    private let imageView = UIImageView()
-    private let selectionImageView = UIImageView()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        imageView.frame = bounds
-        imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        addSubview(imageView)
-        
-        selectionImageView.frame = imageView.bounds
-        selectionImageView.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin]
-        selectionImageView.alpha = 0.0
-        imageView.addSubview(selectionImageView)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var selectionForegroundView: UIView!
+    @IBOutlet var selectionImageView: UIImageView!
     
     override var isSelected: Bool {
         didSet {
@@ -50,9 +34,13 @@ class PhotoCell: UICollectionViewCell {
         }
     }
     
-    func preview(_ previewable: Previewable, selectionImage: UIImage) {
+    func preview(_ previewable: Previewable, selectionImage: UIImage?) {
         previewable.thumbnail(size: bounds.size, contentMode: .aspectFill) { (image) in
             self.imageView.image = image
+        }
+        
+        if let selectionImage = selectionImage {
+            self.selectionImageView.image = selectionImage
         }
     }
 
