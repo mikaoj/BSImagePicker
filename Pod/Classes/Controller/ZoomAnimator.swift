@@ -33,7 +33,16 @@ final class ZoomAnimator : NSObject, UIViewControllerAnimatedTransitioning {
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         // Get to and from view controller
-        if let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey), let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey), let sourceImageView = sourceImageView, let destinationImageView = destinationImageView, let containerView = transitionContext.containerView() {
+        #if swift(>=2.3)
+            let containerView = transitionContext.containerView()
+        #else
+        guard let containerView = transitionContext.containerView() else {
+            return
+        }
+        #endif
+
+        if let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey), let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey), let sourceImageView = sourceImageView, let destinationImageView = destinationImageView {
+
             // Disable selection so we don't select anything while the push animation is running
             fromViewController.view?.userInteractionEnabled = false
             
