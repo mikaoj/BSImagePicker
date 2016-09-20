@@ -54,22 +54,22 @@ Used as an overlay on selected cells
         
         //// CheckedOval Drawing
         let checkedOvalPath = UIBezierPath(ovalInRect: CGRectMake(CGRectGetMinX(group) + floor(CGRectGetWidth(group) * 0.0 + 0.5), CGRectGetMinY(group) + floor(CGRectGetHeight(group) * 0.0 + 0.5), floor(CGRectGetWidth(group) * 1.0 + 0.5) - floor(CGRectGetWidth(group) * 0.0 + 0.5), floor(CGRectGetHeight(group) * 1.0 + 0.5) - floor(CGRectGetHeight(group) * 0.0 + 0.5)))
-        CGContextSaveGState(context)
-        CGContextSetShadowWithColor(context, shadow2Offset, shadow2BlurRadius, settings.selectionShadowColor.CGColor)
+        CGContextSaveGState(context!)
+        CGContextSetShadowWithColor(context!, shadow2Offset, shadow2BlurRadius, settings.selectionShadowColor.CGColor)
         settings.selectionFillColor.setFill()
         checkedOvalPath.fill()
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
         
         settings.selectionStrokeColor.setStroke()
         checkedOvalPath.lineWidth = 1
         checkedOvalPath.stroke()
         
         
-        CGContextSetFillColorWithColor(context, UIColor.whiteColor().CGColor)
+        CGContextSetFillColorWithColor(context!, UIColor.whiteColor().CGColor)
         
         //// Check mark for single assets
         if (settings.maxNumberOfSelections == 1) {
-            CGContextSetStrokeColorWithColor(context, UIColor.whiteColor().CGColor)
+            CGContextSetStrokeColorWithColor(context!, UIColor.whiteColor().CGColor)
             
             let checkPath = UIBezierPath()
             checkPath.moveToPoint(CGPoint(x: 7, y: 12.5))

@@ -1,2 +1,3 @@
-github "mikaoj/BSGridCollectionViewLayout" ~> 1.0
+github "onato/BSGridCollectionViewLayout" "swift2.3"
 github "VivienCormier/UIImageViewModeScaleAspect" "master"
+
