@@ -62,12 +62,8 @@ public class BSImagePickerViewController : UINavigationController {
         
         return [cameraRollResult, albumResult]
     }()
-
-    #if swift(>=2.3)
-    var albumTitleView: AlbumTitleView = bundle.loadNibNamed("AlbumTitleView", owner: nil, options: nil)!.first as! AlbumTitleView
-    #else
+    
     var albumTitleView: AlbumTitleView = bundle.loadNibNamed("AlbumTitleView", owner: nil, options: nil).first as! AlbumTitleView
-    #endif
     
     static let bundle: NSBundle = NSBundle(path: NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")!)!
     

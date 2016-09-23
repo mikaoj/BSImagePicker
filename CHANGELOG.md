@@ -1,6 +1,3 @@
-# 2.4.0
-* Append Swift 2.3 support
-
 # 2.3.0
 * Initialize PhotosViewController AFTER we have permission to access photos.
 * Buttons are now public vars.
