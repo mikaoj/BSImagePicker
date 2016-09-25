@@ -123,7 +123,7 @@ final class PhotosViewController : UICollectionViewController {
         if let album = albumsDataSource.fetchResults.first?.firstObject {
             initializePhotosDataSource(album, selections: defaultSelections)
             updateAlbumTitle(album)
-            synchronizeCollectionView()
+            collectionView?.reloadData()
         }
         
         // Add long press recognizer
@@ -287,29 +287,6 @@ final class PhotosViewController : UICollectionViewController {
         return isRightButton
     }
     
-    func synchronizeSelectionInCollectionView(_ collectionView: UICollectionView) {
-        guard let photosDataSource = photosDataSource else {
-            return
-        }
-        
-        // Get indexes of the selected assets
-        var mutableIndexSet = IndexSet()
-        for object in photosDataSource.selections {
-            let index = photosDataSource.fetchResult.index(of: object)
-            if index != NSNotFound {
-                mutableIndexSet.insert(index)
-            }
-        }
-        
-        // Convert into index paths
-        let indexPaths = mutableIndexSet.bs_indexPathsForSection(1)
-        
-        // Loop through them and set them as selected in the collection view
-        for indexPath in indexPaths {
-            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionViewScrollPosition())
-        }
-    }
-    
     func updateAlbumTitle(_ album: PHAssetCollection) {
         if let title = album.localizedTitle {
             // Update album title
@@ -344,23 +321,16 @@ final class PhotosViewController : UICollectionViewController {
         collectionView?.dataSource = composedDataSource
         collectionView?.delegate = self
     }
-    
-    func synchronizeCollectionView() {
-        guard let collectionView = collectionView else {
-            return
-        }
-        
-        // Reload and sync selections
-        collectionView.reloadData()
-        synchronizeSelectionInCollectionView(collectionView)
-    }
 }
 
 // MARK: UICollectionViewDelegate
 extension PhotosViewController {
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        // NOTE: ALWAYS return false. We don't want the collectionView to be the source of thruth regarding selections
+        // We can manage it ourself.
+
         // Camera shouldn't be selected, but pop the UIImagePickerController!
-        if let composedDataSource = composedDataSource , composedDataSource.dataSources[(indexPath as NSIndexPath).section].isEqual(cameraDataSource) {
+        if let composedDataSource = composedDataSource , composedDataSource.dataSources[indexPath.section].isEqual(cameraDataSource) {
             let cameraController = UIImagePickerController()
             cameraController.allowsEditing = false
             cameraController.sourceType = .camera
@@ -370,63 +340,67 @@ extension PhotosViewController {
             
             return false
         }
-        
-        return collectionView.isUserInteractionEnabled && photosDataSource!.selections.count < settings.maxNumberOfSelections
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoCell, let asset = photosDataSource?.fetchResult.object(at: (indexPath as NSIndexPath).row) else {
-            return
-        }
-        
-        guard let photosDataSource = photosDataSource else { return }
-        
-        // Select asset if not already selected
-        photosDataSource.selections.append(asset)
-        
-        // Set selection number
-        if let selectionCharacter = settings.selectionCharacter {
-            cell.selectionString = String(selectionCharacter)
-        } else {
-            cell.selectionString = String(photosDataSource.selections.count)
-        }
-        
-        // Update done button
-        updateDoneButton()
-        
-        // Call selection closure
-        if let closure = selectionClosure {
-            DispatchQueue.global().async {
-                closure(asset)
-            }
-        }
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let asset = photosDataSource?.fetchResult.object(at: (indexPath as NSIndexPath).row), let index = photosDataSource?.selections.index(of: asset) else {
-            return
-        }
-        
-        // Deselect asset
-        photosDataSource?.selections.remove(at: index)
-        
-        // Update done button
-        updateDoneButton()
-        
-        // Reload selected cells to update their selection number
-        if let selectedIndexPaths = collectionView.indexPathsForSelectedItems {
+
+        // Make sure we have a data source and that we can make selections
+        guard let photosDataSource = photosDataSource, collectionView.isUserInteractionEnabled && photosDataSource.selections.count < settings.maxNumberOfSelections else { return false }
+
+        // We need a cell
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoCell else { return false }
+        let asset = photosDataSource.fetchResult.object(at: indexPath.row)
+
+        // Select or deselect?
+        if let index = photosDataSource.selections.index(of: asset) { // Deselect
+            // Deselect asset
+            photosDataSource.selections.remove(at: index)
+
+            // Update done button
+            updateDoneButton()
+
+            // Get indexPaths of selected items
+            let selectedIndexPaths = photosDataSource.selections.flatMap({ (asset) -> IndexPath? in
+                let index = photosDataSource.fetchResult.index(of: asset)
+                guard index != NSNotFound else { return nil }
+                return IndexPath(item: index, section: 1)
+            })
+
+            // Reload selected cells to update their selection number
             UIView.setAnimationsEnabled(false)
             collectionView.reloadItems(at: selectedIndexPaths)
-            synchronizeSelectionInCollectionView(collectionView)
             UIView.setAnimationsEnabled(true)
-        }
-        
-        // Call deselection closure
-        if let closure = deselectionClosure {
-            DispatchQueue.global().async {
-                closure(asset)
+
+            cell.photoSelected = false
+
+            // Call deselection closure
+            if let closure = deselectionClosure {
+                DispatchQueue.global().async {
+                    closure(asset)
+                }
+            }
+        } else { // Select
+            // Select asset if not already selected
+            photosDataSource.selections.append(asset)
+
+            // Set selection number
+            if let selectionCharacter = settings.selectionCharacter {
+                cell.selectionString = String(selectionCharacter)
+            } else {
+                cell.selectionString = String(photosDataSource.selections.count)
+            }
+
+            cell.photoSelected = true
+
+            // Update done button
+            updateDoneButton()
+
+            // Call selection closure
+            if let closure = selectionClosure {
+                DispatchQueue.global().async {
+                    closure(asset)
+                }
             }
         }
+
+        return false
     }
     
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -466,7 +440,7 @@ extension PhotosViewController: UITableViewDelegate {
         let album = albumsDataSource.fetchResults[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
         initializePhotosDataSource(album)
         updateAlbumTitle(album)
-        synchronizeCollectionView()
+        collectionView?.reloadData()
         
         // Dismiss album selection
         albumsViewController.dismiss(animated: true, completion: nil)
@@ -567,16 +541,16 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
                     //                        collectionView.reloadItemsAtIndexPaths(changed.bs_indexPathsForSection(1))
                     //                    }
                     
-                    // Sync selection
-                    self.synchronizeSelectionInCollectionView(collectionView)
+                    // Reload view
+                    collectionView.reloadData()
                 } else if photosChanges.hasIncrementalChanges == false {
                     // Update fetch result
                     photosDataSource.fetchResult = photosChanges.fetchResultAfterChanges as! PHFetchResult<PHAsset>
                     
                     collectionView.reloadData()
                     
-                    // Sync selection
-                    self.synchronizeSelectionInCollectionView(collectionView)
+                    // Reload view
+                    collectionView.reloadData()
                 }
             }
         })

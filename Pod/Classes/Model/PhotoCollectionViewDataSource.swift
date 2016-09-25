@@ -89,9 +89,9 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
                 cell.selectionString = String(index+1)
             }
             
-            cell.isSelected = true
+            cell.photoSelected = true
         } else {
-            cell.isSelected = false
+            cell.photoSelected = false
         }
         
         UIView.setAnimationsEnabled(true)

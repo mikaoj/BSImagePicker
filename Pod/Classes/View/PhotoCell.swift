@@ -51,20 +51,14 @@ final class PhotoCell: UICollectionViewCell {
         }
     }
     
-    override var isSelected: Bool {
-        get {
-            return super.isSelected
-        }
-        
-        set {
-            let hasChanged = isSelected != newValue
-            super.isSelected = newValue
-            
+    var photoSelected: Bool = false {
+        didSet {
+            let hasChanged = photoSelected != oldValue
             if UIView.areAnimationsEnabled && hasChanged {
                 UIView.animate(withDuration: TimeInterval(0.1), animations: { () -> Void in
                     // Set alpha for views
-                    self.updateAlpha(newValue)
-                    
+                    self.updateAlpha(self.photoSelected)
+
                     // Scale all views down a little
                     self.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
                     }, completion: { (finished: Bool) -> Void in
@@ -72,9 +66,9 @@ final class PhotoCell: UICollectionViewCell {
                             // And then scale them back upp again to give a bounce effect
                             self.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                             }, completion: nil)
-                }) 
+                })
             } else {
-                updateAlpha(newValue)
+                updateAlpha(photoSelected)
             }
         }
     }
