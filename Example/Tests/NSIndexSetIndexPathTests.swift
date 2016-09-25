@@ -46,10 +46,10 @@ class NSIndexSetIndexPathTests: XCTestCase {
     }
     
     func testDiscontinuousSet() {
-        let set = NSMutableIndexSet()
-        set.add(3)
-        set.add(5)
-        set.add(12)
+        var set = IndexSet()
+        set.insert(3)
+        set.insert(5)
+        set.insert(12)
         
         let expectedIndexPaths = [
             IndexPath(item: 3, section: 3),
