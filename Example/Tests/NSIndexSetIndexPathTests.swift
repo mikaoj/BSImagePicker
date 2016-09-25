@@ -26,18 +26,18 @@ import Foundation
 
 class NSIndexSetIndexPathTests: XCTestCase {
     func testEmptySet() {
-        let set = NSIndexSet()
+        let set = IndexSet()
         
         XCTAssert(set.bs_indexPathsForSection(0).count == 0)
     }
     
     func testContinuousSet() {
         let range = NSMakeRange(2, 2)
-        let set = NSIndexSet(indexesInRange: range)
+        let set = IndexSet(integersIn: range.toRange() ?? 0..<0)
         
         let expectedIndexPaths = [
-            NSIndexPath(forItem: 2, inSection: 0),
-            NSIndexPath(forItem: 3, inSection: 0)
+            IndexPath(item: 2, section: 0),
+            IndexPath(item: 3, section: 0)
         ]
         
         let actualIndexPaths = set.bs_indexPathsForSection(0)
@@ -47,14 +47,14 @@ class NSIndexSetIndexPathTests: XCTestCase {
     
     func testDiscontinuousSet() {
         let set = NSMutableIndexSet()
-        set.addIndex(3)
-        set.addIndex(5)
-        set.addIndex(12)
+        set.add(3)
+        set.add(5)
+        set.add(12)
         
         let expectedIndexPaths = [
-            NSIndexPath(forItem: 3, inSection: 3),
-            NSIndexPath(forItem: 5, inSection: 3),
-            NSIndexPath(forItem: 12, inSection: 3)
+            IndexPath(item: 3, section: 3),
+            IndexPath(item: 5, section: 3),
+            IndexPath(item: 12, section: 3)
         ]
         
         let actualIndexPaths = set.bs_indexPathsForSection(3)

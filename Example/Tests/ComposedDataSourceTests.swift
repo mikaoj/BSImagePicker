@@ -29,7 +29,7 @@ let secondDataSourceTag = 2
 
 class ComposedDataSourceTest: XCTestCase {
     var composedDataSource: ComposedCollectionViewDataSource!
-    let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     override func setUp() {
         super.setUp()
@@ -38,15 +38,15 @@ class ComposedDataSourceTest: XCTestCase {
     }
     
     func testNoDataSourcesSectionCount() {
-        XCTAssert(ComposedCollectionViewDataSource(dataSources: []).numberOfSectionsInCollectionView(collectionView) == 0)
+        XCTAssert(ComposedCollectionViewDataSource(dataSources: []).numberOfSections(in: collectionView) == 0)
     }
     
     func testOneDataSourceSectionCount() {
-        XCTAssert(ComposedCollectionViewDataSource(dataSources: [FirstDataSource()]).numberOfSectionsInCollectionView(collectionView) == 1)
+        XCTAssert(ComposedCollectionViewDataSource(dataSources: [FirstDataSource()]).numberOfSections(in: collectionView) == 1)
     }
     
     func testTwoDataSourcesSectionCount() {
-        XCTAssert(composedDataSource.numberOfSectionsInCollectionView(collectionView) == 2)
+        XCTAssert(composedDataSource.numberOfSections(in: collectionView) == 2)
     }
     
     func testFirstSectionItemCount() {
@@ -58,23 +58,23 @@ class ComposedDataSourceTest: XCTestCase {
     }
     
     func testFirstSectionCell() {
-        XCTAssert(composedDataSource.collectionView(collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 0)).tag == firstDataSourceTag)
-        XCTAssert(composedDataSource.collectionView(collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 0)).tag == firstDataSourceTag)
+        XCTAssert(composedDataSource.collectionView(collectionView, cellForItemAt: IndexPath(item: 0, section: 0)).tag == firstDataSourceTag)
+        XCTAssert(composedDataSource.collectionView(collectionView, cellForItemAt: IndexPath(item: 1, section: 0)).tag == firstDataSourceTag)
     }
     
     func testSecondSectionCell() {
-        XCTAssert(composedDataSource.collectionView(collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 0, inSection: 1)).tag == secondDataSourceTag)
-        XCTAssert(composedDataSource.collectionView(collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 1, inSection: 1)).tag == secondDataSourceTag)
-        XCTAssert(composedDataSource.collectionView(collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: 2, inSection: 1)).tag == secondDataSourceTag)
+        XCTAssert(composedDataSource.collectionView(collectionView, cellForItemAt: IndexPath(item: 0, section: 1)).tag == secondDataSourceTag)
+        XCTAssert(composedDataSource.collectionView(collectionView, cellForItemAt: IndexPath(item: 1, section: 1)).tag == secondDataSourceTag)
+        XCTAssert(composedDataSource.collectionView(collectionView, cellForItemAt: IndexPath(item: 2, section: 1)).tag == secondDataSourceTag)
     }
 }
 
 class FirstDataSource: NSObject, UICollectionViewDataSource {
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 2
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = UICollectionViewCell()
         cell.tag = firstDataSourceTag
         
@@ -83,11 +83,11 @@ class FirstDataSource: NSObject, UICollectionViewDataSource {
 }
 
 class SecondDataSource: NSObject, UICollectionViewDataSource {
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = UICollectionViewCell()
         cell.tag = secondDataSourceTag
         

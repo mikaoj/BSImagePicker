@@ -29,25 +29,25 @@ final class Settings : BSImagePickerSettings {
     var maxNumberOfSelections: Int = Int.max
     var selectionCharacter: Character? = nil
     var selectionFillColor: UIColor = UIView().tintColor
-    var selectionStrokeColor: UIColor = UIColor.whiteColor()
-    var selectionShadowColor: UIColor = UIColor.blackColor()
+    var selectionStrokeColor: UIColor = UIColor.white
+    var selectionShadowColor: UIColor = UIColor.black
     var selectionTextAttributes: [String: AnyObject] = {
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = .ByTruncatingTail
-        paragraphStyle.alignment = .Center
+        paragraphStyle.lineBreakMode = .byTruncatingTail
+        paragraphStyle.alignment = .center
         return [
-            NSFontAttributeName: UIFont.boldSystemFontOfSize(10.0),
+            NSFontAttributeName: UIFont.boldSystemFont(ofSize: 10.0),
             NSParagraphStyleAttributeName: paragraphStyle,
-            NSForegroundColorAttributeName: UIColor.whiteColor()
+            NSForegroundColorAttributeName: UIColor.white
         ]
     }()
-    var cellsPerRow: (verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int = {(verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int in
+    var cellsPerRow: (_ verticalSize: UIUserInterfaceSizeClass, _ horizontalSize: UIUserInterfaceSizeClass) -> Int = {(verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int in
         switch (verticalSize, horizontalSize) {
-        case (.Compact, .Regular): // iPhone5-6 portrait
+        case (.compact, .regular): // iPhone5-6 portrait
             return 3
-        case (.Compact, .Compact): // iPhone5-6 landscape
+        case (.compact, .compact): // iPhone5-6 landscape
             return 5
-        case (.Regular, .Regular): // iPad portrait/landscape
+        case (.regular, .regular): // iPad portrait/landscape
             return 7
         default:
             return 3
@@ -56,5 +56,5 @@ final class Settings : BSImagePickerSettings {
     
     var takePhotos: Bool = false
     
-    var takePhotoIcon: UIImage? = UIImage(named: "add_photo", inBundle: BSImagePickerViewController.bundle, compatibleWithTraitCollection: nil)
+    var takePhotoIcon: UIImage? = UIImage(named: "add_photo", in: BSImagePickerViewController.bundle, compatibleWith: nil)
 }

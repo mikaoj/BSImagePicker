@@ -26,14 +26,14 @@ import UIKit
 @testable import BSImagePicker
 
 class CameraDataSourceTests: XCTestCase {
-    let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
+    let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
     
     func testCameraNotAvailableSettingOn() {
         let settings = Settings()
         settings.takePhotos = true
         
         let dataSource = CameraCollectionViewDataSource(settings: settings, cameraAvailable: false)
-        XCTAssert(dataSource.numberOfSectionsInCollectionView(collectionView) == 0)
+        XCTAssert(dataSource.numberOfSections(in: collectionView) == 0)
     }
     
     func testCameraNotAvailableSettingsOff() {
@@ -41,7 +41,7 @@ class CameraDataSourceTests: XCTestCase {
         settings.takePhotos = false
         
         let dataSource = CameraCollectionViewDataSource(settings: settings, cameraAvailable: false)
-        XCTAssert(dataSource.numberOfSectionsInCollectionView(collectionView) == 0)
+        XCTAssert(dataSource.numberOfSections(in: collectionView) == 0)
     }
     
     func testCameraAvailableSettingsOn() {
@@ -49,7 +49,7 @@ class CameraDataSourceTests: XCTestCase {
         settings.takePhotos = true
         
         let dataSource = CameraCollectionViewDataSource(settings: settings, cameraAvailable: true)
-        XCTAssert(dataSource.numberOfSectionsInCollectionView(collectionView) == 1)
+        XCTAssert(dataSource.numberOfSections(in: collectionView) == 1)
         XCTAssert(dataSource.collectionView(collectionView, numberOfItemsInSection: 0) == 1)
     }
     
@@ -58,6 +58,6 @@ class CameraDataSourceTests: XCTestCase {
         settings.takePhotos = false
         
         let dataSource = CameraCollectionViewDataSource(settings: settings, cameraAvailable: true)
-        XCTAssert(dataSource.numberOfSectionsInCollectionView(collectionView) == 0)
+        XCTAssert(dataSource.numberOfSections(in: collectionView) == 0)
     }
 }
