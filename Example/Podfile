@@ -9,3 +9,7 @@ end
 target 'BSImagePicker_Tests' do
   pod "BSImagePicker", :path => "../"
 end
+
+target 'BSImagePicker_UI_Tests' do
+  pod "BSImagePicker", :path => "../"
+end
