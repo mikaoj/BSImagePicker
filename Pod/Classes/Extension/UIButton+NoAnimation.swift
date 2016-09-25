@@ -43,6 +43,7 @@ extension UIButton {
         
         // Enable animations if animation where enabled before
         UIView.setAnimationsEnabled(animationEnabled)
-        
+
+        superview?.setNeedsLayout()
     }
 }
