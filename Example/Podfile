@@ -2,10 +2,14 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 platform :ios, '8.0' 
 
-target 'BSImagePicker_Example', :exclusive => true do
+target 'BSImagePicker_Example' do
   pod "BSImagePicker", :path => "../"
 end
 
-target 'BSImagePicker_Tests', :exclusive => true do
+target 'BSImagePicker_Tests' do
+  pod "BSImagePicker", :path => "../"
+end
+
+target 'BSImagePicker_UI_Tests' do
   pod "BSImagePicker", :path => "../"
 end

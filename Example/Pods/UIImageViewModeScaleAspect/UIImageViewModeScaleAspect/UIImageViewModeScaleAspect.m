@@ -27,16 +27,17 @@
  *  @return self
  */
 - (id)init{
-    self = [super init];
-    if (self) {
-        
-        self.img             = [[UIImageView alloc]init];
-        self.img.contentMode = UIViewContentModeCenter;
-        [self addSubview:_img];
-        
-        self.clipsToBounds = YES;
-    }
+	self = [super init];
+	if (self) {
+		[self setup];
+	}
     return self;
+}
+
+-(void)awakeFromNib {
+	[super awakeFromNib];
+	[self setup];
+    self.img.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
 /**
@@ -50,14 +51,17 @@
     
     self = [super initWithFrame:frame];
     if (self) {
-        
-        self.img             = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-        self.img.contentMode = UIViewContentModeCenter;
-        [self addSubview:_img];
-        
-        self.clipsToBounds = YES;
+        [self setup];
     }
     return self;
+}
+
+-(void) setup {
+	self.img             = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+	self.img.contentMode = UIViewContentModeCenter;
+	[self addSubview:_img];
+	
+	self.clipsToBounds = YES;
 }
 
 #pragma mark - Automatic Animate

@@ -38,7 +38,9 @@ Used as an overlay on selected cells
     
     override func drawRect(rect: CGRect) {
         //// General Declarations
-        let context = UIGraphicsGetCurrentContext()
+        guard let context = UIGraphicsGetCurrentContext() else {
+          return
+        }
         
         //// Color Declarations
         
