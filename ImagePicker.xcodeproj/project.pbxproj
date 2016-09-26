@@ -49,6 +49,7 @@
 		20D7EEA81D7F06B50078DF39 /* AlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D7EEA71D7F06B50078DF39 /* AlbumsViewController.swift */; };
 		20D7EEAA1D7F08F80078DF39 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D7EEA91D7F08F80078DF39 /* Settings.swift */; };
 		20D7EEAB1D7F0E100078DF39 /* ImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20AA080A1D76C7EF00C4F042 /* ImagePicker.framework */; };
+		F4F7901B1D99AD4100C43DF6 /* UINavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F7901A1D99AD4100C43DF6 /* UINavigationBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +134,7 @@
 		20D7EEA51D7F01310078DF39 /* UICollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
 		20D7EEA71D7F06B50078DF39 /* AlbumsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumsViewController.swift; sourceTree = "<group>"; };
 		20D7EEA91D7F08F80078DF39 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		F4F7901A1D99AD4100C43DF6 /* UINavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UINavigationBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,6 +308,7 @@
 				203C49361D7F6355002C68A1 /* UITableView.swift */,
 				203C49381D7F636D002C68A1 /* AlbumCell.swift */,
 				20D3B61A1D883A8900F418C8 /* AlbumTitleView.swift */,
+				F4F7901A1D99AD4100C43DF6 /* UINavigationBar.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 					20AA08091D76C7EF00C4F042 = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
 					};
 					20AA08161D76C88300C4F042 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -492,6 +496,7 @@
 				20AA085D1D76E5F000C4F042 /* PhotosViewController.swift in Sources */,
 				203C49351D7F4268002C68A1 /* Folder.swift in Sources */,
 				20AA08681D76E60400C4F042 /* PhotoCell.swift in Sources */,
+				F4F7901B1D99AD4100C43DF6 /* UINavigationBar.swift in Sources */,
 				20D7EEA61D7F01310078DF39 /* UICollectionView.swift in Sources */,
 				20AA08621D76E5FA00C4F042 /* Photo.swift in Sources */,
 				203C49371D7F6355002C68A1 /* UITableView.swift in Sources */,
@@ -642,11 +647,12 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -704,11 +710,12 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";

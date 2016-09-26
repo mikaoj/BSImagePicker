@@ -25,7 +25,7 @@ import AVFoundation
 
 /**
  */
-final class CameraCell: UICollectionViewCell {
+class CameraCell: UICollectionViewCell {
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var cameraBackground: UIView!
     var cameraImage: UIImage? {

@@ -21,31 +21,15 @@
 // SOFTWARE.
 
 import UIKit
-import ImagePicker
-import Photos
 
-class ViewController: UIViewController {
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        PHPhotoLibrary.requestAuthorization { (status) in
-            
+extension UINavigationBar {
+    func setBarButtonItem(_ barButton: UIBarButtonItem, text: String) {
+        for view in subviews {
+            guard let button = view as? UIButton, barButton.shadows(button: button) else { continue }
+            button.setTitle(text, for: .normal, animated: false)
+
+            // We are done, stop the loop
+            break
         }
     }
-    @IBAction func showDefaultImagePicker(_ sender: UIButton) {
-        let vc = ImagePicker()
-        
-        presentImagePicker(vc,
-            onSelect: { (photo) in
-                print("Select")
-            }, onDeselect: { (photo) in
-                print("deselect")
-            }, onCancel: { (photos) in
-                print("cancel")
-            }, onFinish: { (photos) in
-                print("finish")
-            })
-    }
 }
-
