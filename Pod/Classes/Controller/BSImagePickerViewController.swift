@@ -46,12 +46,12 @@ open class BSImagePickerViewController : UINavigationController {
     /**
      Default selections
      */
-    open var defaultSelections: PHFetchResult<PHAsset>?
+    private var defaultSelections: PHFetchResult<PHAsset>?
     
     /**
      Fetch results.
      */
-    open lazy var fetchResults: [PHFetchResult] = { () -> [PHFetchResult<PHAssetCollection>] in 
+    private lazy var fetchResults: [PHFetchResult] = { () -> [PHFetchResult<PHAssetCollection>] in
         let fetchOptions = PHFetchOptions()
         
         // Camera roll fetch result
