@@ -23,6 +23,10 @@
 import UIKit
 
 extension UITableView {
+    func register<T: UITableViewCell>(nib: UINib?, for cell: T.Type) {
+        register(nib, forCellReuseIdentifier: String(describing: T.self))
+    }
+    
     func register<T: UITableViewCell>(cell: T.Type) {
         register(T.self, forCellReuseIdentifier: String(describing: T.self))
     }

@@ -21,7 +21,63 @@
 // SOFTWARE.
 
 import UIKit
+import AVFoundation
 
-class CameraCell: UICollectionViewCell {
-    
+/**
+ */
+final class CameraCell: UICollectionViewCell {
+    @IBOutlet var imageView: UIImageView!
+    @IBOutlet var cameraBackground: UIView!
+    var cameraImage: UIImage? {
+        didSet {
+            // Set image on image view and apply tint
+            imageView.image = cameraImage?.withRenderingMode(.alwaysTemplate)
+        }
+    }
+
+    var session: AVCaptureSession?
+    var captureLayer: AVCaptureVideoPreviewLayer?
+    let sessionQueue = DispatchQueue(label: "AVCaptureVideoPreviewLayer", attributes: [])
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        // Don't trigger camera access for the background if we don't have permission to!
+        guard AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) == .authorized else { return }
+
+        // Prepare avcapture session
+        session = AVCaptureSession()
+        session?.sessionPreset = AVCaptureSessionPresetMedium
+
+        // Hook upp device
+        let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        let input = try? AVCaptureDeviceInput(device: device)
+        session?.addInput(input)
+
+        // Setup capture layer
+        guard let captureLayer = AVCaptureVideoPreviewLayer(session: session) else { return }
+        captureLayer.frame = bounds
+        captureLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        cameraBackground.layer.addSublayer(captureLayer)
+
+        self.captureLayer = captureLayer
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        captureLayer?.frame = bounds
+    }
+
+    func startLiveBackground() {
+        sessionQueue.async {
+            self.session?.startRunning()
+        }
+    }
+
+    func stopLiveBackground() {
+        sessionQueue.async {
+            self.session?.stopRunning()
+        }
+    }
 }

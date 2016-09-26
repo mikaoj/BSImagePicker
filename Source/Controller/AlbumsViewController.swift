@@ -47,7 +47,10 @@ extension AlbumsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(cell: AlbumCell.self)
+        tableView.separatorStyle = .none
+        tableView.allowsMultipleSelection = false
+        tableView.allowsSelection = true
+        tableView.register(nib: UINib(nibName: "AlbumCell", bundle: Bundle.imagePicker), for: AlbumCell.self)
     }
 }
 
@@ -66,7 +69,9 @@ extension AlbumsViewController {
         
         let album = folders[indexPath.section][indexPath.row]
         cell.update(for: album)
-        cell.isSelected = delegate?.albumsViewController(self, isSelected: album) ?? false
+        if delegate?.albumsViewController(self, isSelected: album) ?? false {
+            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
+        }
         
         return cell
     }
@@ -74,8 +79,7 @@ extension AlbumsViewController {
 
 // MARK: TableViewDelegate
 extension AlbumsViewController {
-    override func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         delegate?.albumsViewController(self, didSelect: folders[indexPath.section][indexPath.row])
-        return false
     }
 }

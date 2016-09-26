@@ -23,7 +23,43 @@
 import UIKit
 
 class AlbumCell: UITableViewCell {
-    func update(for: Album) {
+    @IBOutlet var firstImageView: UIImageView!
+    @IBOutlet var secondImageView: UIImageView!
+    @IBOutlet var thirdImageView: UIImageView!
+    @IBOutlet var albumTitleLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
         
+        // Add a little shadow to images views
+        for imageView in [firstImageView, secondImageView, thirdImageView] {
+            imageView?.layer.shadowColor = UIColor.white.cgColor
+            imageView?.layer.shadowRadius = 1.0
+            imageView?.layer.shadowOffset = CGSize(width: 0.5, height: -0.5)
+            imageView?.layer.shadowOpacity = 1.0
+        }
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            // Selection checkmark
+            if isSelected == true {
+                accessoryType = .checkmark
+            } else {
+                accessoryType = .none
+            }
+        }
+    }
+    
+    func update(for album: Album) {
+        albumTitleLabel.text = album.title
+        
+        let imageViews = [firstImageView, secondImageView, thirdImageView]
+        for (index, imageView) in imageViews.enumerated() {
+            let photo = album[index]
+            photo.thumbnail(size: firstImageView.bounds.size, contentMode: .aspectFill, result: { (image) in
+                imageView?.image = image
+            })
+        }
     }
 }
