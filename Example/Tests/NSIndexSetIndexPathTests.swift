@@ -32,8 +32,8 @@ class NSIndexSetIndexPathTests: XCTestCase {
     }
     
     func testContinuousSet() {
-        let range = NSMakeRange(2, 2)
-        let set = IndexSet(integersIn: range.toRange() ?? 0..<0)
+        let range = 2..<4
+        let set = IndexSet(integersIn: range)
         
         let expectedIndexPaths = [
             IndexPath(item: 2, section: 0),
