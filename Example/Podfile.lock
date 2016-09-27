@@ -1,8 +1,8 @@
 PODS:
-  - BSGridCollectionViewLayout (1.2.0-swift23)
-  - BSImagePicker (2.4.0):
-    - BSGridCollectionViewLayout (= 1.2.0-swift23)
-    - UIImageViewModeScaleAspect (~> 1.3)
+  - BSGridCollectionViewLayout (1.2.0)
+  - BSImagePicker (2.5.0):
+    - BSGridCollectionViewLayout (~> 1.2.0)
+    - UIImageViewModeScaleAspect (~> 1.5.0)
   - UIImageViewModeScaleAspect (1.5)
 
 DEPENDENCIES:
@@ -13,10 +13,10 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BSGridCollectionViewLayout: eb65d9747dcc2e5270842084a8e14e47243a09f5
-  BSImagePicker: d8454b475ad0a6f8b4eda2ddcfec401e1f7d0cf4
+  BSGridCollectionViewLayout: 8f12c8e1e08c47057f5a39a6828f4395f043d78f
+  BSImagePicker: 9ad3385318ca0db7e792b51ea8929cfc39284c56
   UIImageViewModeScaleAspect: 11a790a0b9d248a13dc63e3a78991f1463b6d84e
 
-PODFILE CHECKSUM: 94f153c3aee5b58a46ca1abfd28c2764bb85f520
+PODFILE CHECKSUM: 55707bb71dc224a83a5fab0d17f3eb856d760f6a
 
 COCOAPODS: 1.1.0.rc.2

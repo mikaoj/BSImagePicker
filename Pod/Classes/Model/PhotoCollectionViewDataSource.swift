@@ -28,42 +28,41 @@ Gives UICollectionViewDataSource functionality with a given data source and cell
 */
 final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource {
     var selections = [PHAsset]()
-    var fetchResult: PHFetchResult
+    var fetchResult: PHFetchResult<PHAsset>
     
-    private let photoCellIdentifier = "photoCellIdentifier"
-    private let photosManager = PHCachingImageManager.defaultManager()
-    private let imageContentMode: PHImageContentMode = .AspectFill
+    fileprivate let photoCellIdentifier = "photoCellIdentifier"
+    fileprivate let photosManager = PHCachingImageManager.default()
+    fileprivate let imageContentMode: PHImageContentMode = .aspectFill
     
     let settings: BSImagePickerSettings?
-    var imageSize: CGSize = CGSizeZero
+    var imageSize: CGSize = CGSize.zero
     
-  init(fetchResult: PHFetchResult, selections: PHFetchResult? = nil, settings: BSImagePickerSettings?) {
+  init(fetchResult: PHFetchResult<PHAsset>, selections: PHFetchResult<PHAsset>? = nil, settings: BSImagePickerSettings?) {
         self.fetchResult = fetchResult
         self.settings = settings
         if let selections = selections {
             var selectionsArray = [PHAsset]()
-            selections.enumerateObjectsUsingBlock { (asset, idx, stop) -> Void in
-                if let asset = asset as? PHAsset {
-                    selectionsArray.append(asset)
-                }
-            }
+            selections.enumerateObjects({ (asset, idx, stop) in
+                selectionsArray.append(asset)
+            })
+            
             self.selections = selectionsArray
         }
     
         super.init()
     }
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return fetchResult.count
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         UIView.setAnimationsEnabled(false)
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(photoCellIdentifier, forIndexPath: indexPath) as! PhotoCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photoCellIdentifier, for: indexPath) as! PhotoCell
         cell.accessibilityIdentifier = "photo_cell_\(indexPath.item)"
         if let settings = settings {
             cell.settings = settings
@@ -74,26 +73,25 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
             photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
         }
         
-        if let asset = fetchResult[indexPath.row] as? PHAsset {
-            cell.asset = asset
-            
-            // Request image
-            cell.tag = Int(photosManager.requestImageForAsset(asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                cell.imageView.image = result
-            })
-            
-            // Set selection number
-            if let asset = fetchResult[indexPath.row] as? PHAsset, let index = selections.indexOf(asset) {
-                if let character = settings?.selectionCharacter {
-                    cell.selectionString = String(character)
-                } else {
-                    cell.selectionString = String(index+1)
-                }
-                
-                cell.selected = true
+        let asset = fetchResult[indexPath.row]
+        cell.asset = asset
+        
+        // Request image
+        cell.tag = Int(photosManager.requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+            cell.imageView.image = result
+        })
+        
+        // Set selection number
+        if let index = selections.index(of: asset) {
+            if let character = settings?.selectionCharacter {
+                cell.selectionString = String(character)
             } else {
-                cell.selected = false
+                cell.selectionString = String(index+1)
             }
+            
+            cell.photoSelected = true
+        } else {
+            cell.photoSelected = false
         }
         
         UIView.setAnimationsEnabled(true)
@@ -101,7 +99,7 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
         return cell
     }
     
-    func registerCellIdentifiersForCollectionView(collectionView: UICollectionView?) {
-        collectionView?.registerNib(UINib(nibName: "PhotoCell", bundle: BSImagePickerViewController.bundle), forCellWithReuseIdentifier: photoCellIdentifier)
+    func registerCellIdentifiersForCollectionView(_ collectionView: UICollectionView?) {
+        collectionView?.register(UINib(nibName: "PhotoCell", bundle: BSImagePickerViewController.bundle), forCellWithReuseIdentifier: photoCellIdentifier)
     }
 }

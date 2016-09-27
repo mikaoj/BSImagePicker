@@ -37,23 +37,23 @@ final class CameraCollectionViewDataSource: NSObject, UICollectionViewDataSource
         super.init()
     }
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return Int(cameraAvailable && settings.takePhotos)
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return (cameraAvailable && settings.takePhotos) ? 1:0
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Int(cameraAvailable && settings.takePhotos)
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return (cameraAvailable && settings.takePhotos) ? 1:0
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cameraCell = collectionView.dequeueReusableCellWithReuseIdentifier(cameraCellIdentifier, forIndexPath: indexPath) as! CameraCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cameraCell = collectionView.dequeueReusableCell(withReuseIdentifier: cameraCellIdentifier, for: indexPath) as! CameraCell
         cameraCell.accessibilityIdentifier = "camera_cell_\(indexPath.item)"
         cameraCell.takePhotoIcon = settings.takePhotoIcon
         
         return cameraCell
     }
     
-    func registerCellIdentifiersForCollectionView(collectionView: UICollectionView?) {
-        collectionView?.registerNib(UINib(nibName: "CameraCell", bundle: BSImagePickerViewController.bundle), forCellWithReuseIdentifier: cameraCellIdentifier)
+    func registerCellIdentifiersForCollectionView(_ collectionView: UICollectionView?) {
+        collectionView?.register(UINib(nibName: "CameraCell", bundle: BSImagePickerViewController.bundle), forCellWithReuseIdentifier: cameraCellIdentifier)
     }
 }
