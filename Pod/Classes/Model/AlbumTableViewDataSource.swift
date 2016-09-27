@@ -50,7 +50,7 @@ final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
         cachingManager?.allowsCachingHighQualityImages = false
         
         // Fetch album
-        let album = fetchResults[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
+        let album = fetchResults[indexPath.section][indexPath.row]
         // Title
         cell.albumTitleLabel.text = album.localizedTitle
         

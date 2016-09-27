@@ -33,7 +33,7 @@ extension IndexSet {
     func bs_indexPathsForSection(_ section: Int) -> [IndexPath] {
         var indexPaths: [IndexPath] = []
         
-        for (index, value) in enumerated() {
+        for value in self {
             indexPaths.append(IndexPath(item: value, section: section))
         }
         

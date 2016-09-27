@@ -22,7 +22,6 @@
 
 import XCTest
 import Photos
-@testable import BSImagePicker
 
 class BSImagePicker_UI_Tests: XCTestCase {
         

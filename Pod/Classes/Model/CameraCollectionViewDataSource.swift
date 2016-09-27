@@ -47,7 +47,7 @@ final class CameraCollectionViewDataSource: NSObject, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cameraCell = collectionView.dequeueReusableCell(withReuseIdentifier: cameraCellIdentifier, for: indexPath) as! CameraCell
-        cameraCell.accessibilityIdentifier = "camera_cell_\((indexPath as NSIndexPath).item)"
+        cameraCell.accessibilityIdentifier = "camera_cell_\(indexPath.item)"
         cameraCell.takePhotoIcon = settings.takePhotoIcon
         
         return cameraCell

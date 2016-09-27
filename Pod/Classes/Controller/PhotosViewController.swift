@@ -437,7 +437,7 @@ extension PhotosViewController: UINavigationControllerDelegate {
 extension PhotosViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Update photos data source
-        let album = albumsDataSource.fetchResults[(indexPath as NSIndexPath).section][(indexPath as NSIndexPath).row]
+        let album = albumsDataSource.fetchResults[indexPath.section][indexPath.row]
         initializePhotosDataSource(album)
         updateAlbumTitle(album)
         collectionView?.reloadData()

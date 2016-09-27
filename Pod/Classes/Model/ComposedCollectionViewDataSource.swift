@@ -43,6 +43,6 @@ class ComposedCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return dataSources[(indexPath as NSIndexPath).section].collectionView(collectionView, cellForItemAt: IndexPath(item: (indexPath as NSIndexPath).row, section: 0))
+        return dataSources[indexPath.section].collectionView(collectionView, cellForItemAt: IndexPath(item: indexPath.row, section: 0))
     }
 }

@@ -63,7 +63,7 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         UIView.setAnimationsEnabled(false)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photoCellIdentifier, for: indexPath) as! PhotoCell
-        cell.accessibilityIdentifier = "photo_cell_\((indexPath as NSIndexPath).item)"
+        cell.accessibilityIdentifier = "photo_cell_\(indexPath.item)"
         if let settings = settings {
             cell.settings = settings
         }
@@ -73,7 +73,7 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
             photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
         }
         
-        let asset = fetchResult[(indexPath as NSIndexPath).row]
+        let asset = fetchResult[indexPath.row]
         cell.asset = asset
         
         // Request image

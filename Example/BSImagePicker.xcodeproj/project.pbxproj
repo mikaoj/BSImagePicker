@@ -19,7 +19,6 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
-		B92D980D4AE8D897DC396ADC /* Pods_BSImagePicker_UI_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C28900C4384278DFB9B277 /* Pods_BSImagePicker_UI_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,8 +62,6 @@
 		607FACE51AFB9204008FA782 /* BSImagePicker_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BSImagePicker_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		690A165A9AB26AE492C12989 /* Pods_BSImagePicker_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BSImagePicker_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		79C023538F5ED9DB966A1623 /* Pods-BSImagePicker_UI_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePicker_UI_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePicker_UI_Tests/Pods-BSImagePicker_UI_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		8C347795EABAE858C7D731E7 /* Pods-BSImagePicker_UI_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePicker_UI_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePicker_UI_Tests/Pods-BSImagePicker_UI_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		8F60C161916125AAC467F7A3 /* Pods-BSImagePicker_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePicker_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePicker_Tests/Pods-BSImagePicker_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A7779C3B10543454F69844CF /* Pods-BSImagePicker_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePicker_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePicker_Example/Pods-BSImagePicker_Example.release.xcconfig"; sourceTree = "<group>"; };
 		BFBB4164D5BE0D0DB1908A7E /* Pods-BSImagePicker_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BSImagePicker_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BSImagePicker_Example/Pods-BSImagePicker_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -77,7 +74,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B92D980D4AE8D897DC396ADC /* Pods_BSImagePicker_UI_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,8 +199,6 @@
 				A7779C3B10543454F69844CF /* Pods-BSImagePicker_Example.release.xcconfig */,
 				8F60C161916125AAC467F7A3 /* Pods-BSImagePicker_Tests.debug.xcconfig */,
 				5E285F6115D57A6AB5B82652 /* Pods-BSImagePicker_Tests.release.xcconfig */,
-				79C023538F5ED9DB966A1623 /* Pods-BSImagePicker_UI_Tests.debug.xcconfig */,
-				8C347795EABAE858C7D731E7 /* Pods-BSImagePicker_UI_Tests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -216,12 +210,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55E273F11BE004F2006006A7 /* Build configuration list for PBXNativeTarget "BSImagePicker_UI_Tests" */;
 			buildPhases = (
-				4DFEC8E023A7EDF4353DCBB2 /* [CP] Check Pods Manifest.lock */,
 				55E273E41BE004F2006006A7 /* Sources */,
 				55E273E51BE004F2006006A7 /* Frameworks */,
 				55E273E61BE004F2006006A7 /* Resources */,
-				692B9704A0EDC899B4E72494 /* [CP] Embed Pods Frameworks */,
-				0FE0F470E8979605DB4AC3C6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -281,12 +272,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					55E273E71BE004F2006006A7 = {
 						CreatedOnToolsVersion = 7.1;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Manual;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
 					607FACCF1AFB9204008FA782 = {
@@ -297,6 +289,7 @@
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -363,36 +356,6 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		0FE0F470E8979605DB4AC3C6 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BSImagePicker_UI_Tests/Pods-BSImagePicker_UI_Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4DFEC8E023A7EDF4353DCBB2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		583088E6CFD7C00D55C0AF18 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -421,21 +384,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BSImagePicker_Example/Pods-BSImagePicker_Example-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		692B9704A0EDC899B4E72494 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BSImagePicker_UI_Tests/Pods-BSImagePicker_UI_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6EEB134F4F15CF3B4525B9A6 /* [CP] Copy Pods Resources */ = {
@@ -551,9 +499,9 @@
 /* Begin XCBuildConfiguration section */
 		55E273EF1BE004F2006006A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 79C023538F5ED9DB966A1623 /* Pods-BSImagePicker_UI_Tests.debug.xcconfig */;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BSImagePicker_UI_Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -568,8 +516,8 @@
 		};
 		55E273F01BE004F2006006A7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C347795EABAE858C7D731E7 /* Pods-BSImagePicker_UI_Tests.release.xcconfig */;
 			buildSettings = {
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BSImagePicker_UI_Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -722,6 +670,7 @@
 			baseConfigurationReference = 8F60C161916125AAC467F7A3 /* Pods-BSImagePicker_Tests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -740,6 +689,7 @@
 			baseConfigurationReference = 5E285F6115D57A6AB5B82652 /* Pods-BSImagePicker_Tests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
