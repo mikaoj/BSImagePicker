@@ -24,25 +24,40 @@ import UIKit
 
 public class ImagePicker: UINavigationController {
     // TODO: Public access to buttons
-    private let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(ImagePicker.doneButtonPressed(sender:)))
-    private let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(ImagePicker.cancelButtonPressed(sender:)))
+    fileprivate let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(ImagePicker.doneButtonPressed(sender:)))
+    fileprivate let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(ImagePicker.cancelButtonPressed(sender:)))
     
     fileprivate let folders: [Folder]
     fileprivate let settings: Settings
     
     var onSelect: PhotoSelection? {
-        get { return self.photosViewController.onSelect }
-        set { self.photosViewController.onSelect = newValue }
+        didSet {
+            self.photosViewController.onSelect = { (photo) in
+                self.didUpdateSelections()
+                self.onSelect?(photo)
+            }
+        }
     }
     var onDeselect: PhotoSelection? {
-        get { return self.photosViewController.onDeselect }
-        set { self.photosViewController.onDeselect = newValue }
+        didSet {
+            self.photosViewController.onDeselect = { (photo) in
+                self.didUpdateSelections()
+                self.onDeselect?(photo)
+            }
+        }
     }
     var onCancel: PhotosSelection?
     var onFinish: PhotosSelection?
     
     fileprivate lazy var photosViewController: PhotosViewController = {
-        return PhotosViewController(album: self.folders[0][0], selections: [], settings: self.settings)
+        let vc = PhotosViewController(album: self.folders[0][0], selections: [], settings: self.settings)
+        vc.onSelect = { (photo) in
+            self.didUpdateSelections()
+        }
+        vc.onDeselect = { (photo) in
+            self.didUpdateSelections()
+        }
+        return vc
     }()
     
     private lazy var albumsViewController: AlbumsViewController = {
@@ -90,7 +105,7 @@ public class ImagePicker: UINavigationController {
     }
 }
 
-// MARK: Button actions
+// MARK: User actions
 extension ImagePicker {
     func cancelButtonPressed(sender: UIBarButtonItem) {
         onCancel?(photosViewController.selections)
@@ -115,6 +130,28 @@ extension ImagePicker {
         albumsViewController.popoverPresentationController?.delegate = self
         
         present(albumsViewController, animated: true, completion: nil)
+    }
+
+    func didUpdateSelections() {
+        let numberOfSelections = photosViewController.selections.count
+        
+        // Special case if we have selected 1 image and that is
+        // the max number of allowed selections
+        let title: String
+        if numberOfSelections == 1 && settings.maxSelections == 1 {
+            title = UIBarButtonItem.localizedDoneTitle
+        } else if numberOfSelections > 0 {
+            title = "\(UIBarButtonItem.localizedDoneTitle) (\(numberOfSelections))"
+        } else {
+            title = UIBarButtonItem.localizedDoneTitle
+        }
+
+        // Set done button title and update layout
+        photosViewController.navigationController?.navigationBar.setBarButtonItem(doneButton, text: title)
+        photosViewController.navigationController?.navigationBar.setNeedsLayout()
+
+        // If we have selected more then minimum, done should be enabled
+        doneButton.isEnabled = numberOfSelections >= settings.minSelections
     }
 }
 

@@ -126,9 +126,6 @@ extension PhotosViewController {
         // Update cell
         collectionView.cellForItem(at: indexPath)?.isSelected = true
 
-        // Update done button
-        updateDoneButtonWithSelections(selections.count)
-
         // Do callback
         onSelect?(photo)
 
@@ -145,36 +142,8 @@ extension PhotosViewController {
         // Update cell
         collectionView.cellForItem(at: indexPath)?.isSelected = false
 
-        // Update done button
-        updateDoneButtonWithSelections(selections.count)
-
         // Do callback
         onDeselect?(photo)
-    }
-}
-
-// MARK: Misc helpers
-extension PhotosViewController {
-    // TODO: This should be done in ImagePicker. PhotosViewController should have no knowledge about done.
-    fileprivate func updateDoneButtonWithSelections(_ numberOfSelections: Int) {
-        guard let rightBarButton = navigationItem.rightBarButtonItem else { return }
-        // Special case if we have selected 1 image and that is
-        // the max number of allowed selections
-        let title: String
-        if numberOfSelections == 1 && settings.maxSelections == 1 {
-            title = UIBarButtonItem.localizedDoneTitle
-        } else if numberOfSelections > 0 {
-            title = "\(UIBarButtonItem.localizedDoneTitle) (\(numberOfSelections))"
-        } else {
-            title = UIBarButtonItem.localizedDoneTitle
-        }
-
-        // Set done button title and update layout
-        navigationController?.navigationBar.setBarButtonItem(rightBarButton, text: title)
-        navigationController?.navigationBar.setNeedsLayout()
-
-        // If we have selected more then minimum, done should be enabled
-        rightBarButton.isEnabled = numberOfSelections >= settings.minSelections
     }
 }
 
