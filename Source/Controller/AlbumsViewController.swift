@@ -47,9 +47,11 @@ extension AlbumsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // TODO: DO UI STUFF IN NIB!
         view.backgroundColor = UIColor.clear
         tableView.backgroundColor = UIColor.clear
-        
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 101
         tableView.separatorStyle = .none
         tableView.allowsMultipleSelection = false
         tableView.allowsSelection = true
