@@ -26,6 +26,6 @@ class AlbumTitleView: UIView {
     @IBOutlet var albumButton: UIButton!
     
     func update(for album: Album) {
-        albumButton.setTitle(album.title, for: .normal)
+        albumButton.setTitle("\(album.title) ", for: .normal)
     }
 }

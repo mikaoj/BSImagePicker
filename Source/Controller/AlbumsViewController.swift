@@ -46,6 +46,9 @@ class AlbumsViewController: UITableViewController {
 extension AlbumsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        view.backgroundColor = UIColor.clear
+        tableView.backgroundColor = UIColor.clear
         
         tableView.separatorStyle = .none
         tableView.allowsMultipleSelection = false

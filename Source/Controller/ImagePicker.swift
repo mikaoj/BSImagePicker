@@ -69,15 +69,23 @@ public class ImagePicker: UINavigationController {
     
     override public var viewControllers: [UIViewController] {
         didSet {
+            guard let vc = viewControllers.first else { return }
+
             // Set bar button items when updating view controllers
-            viewControllers.first?.navigationItem.leftBarButtonItem = cancelButton
-            viewControllers.first?.navigationItem.rightBarButtonItem = doneButton
+            vc.navigationItem.leftBarButtonItem = cancelButton
+            vc.navigationItem.rightBarButtonItem = doneButton
             
             let albumTitleView = Bundle.imagePicker.loadNibNamed("AlbumTitleView", owner: nil, options: nil)?.first as! AlbumTitleView
             albumTitleView.albumButton.addTarget(self, action: #selector(ImagePicker.albumButtonPressed(sender:)), for: .touchUpInside)
             albumTitleView.update(for: photosViewController.album)
-            
-            viewControllers.first?.navigationItem.titleView = albumTitleView
+
+            // Deliberatly added directly on navigation bar instead of titleView
+            // To avoid flickering/moving when done button count updates
+            let width = (vc.navigationController?.navigationBar.bounds.width ?? 0) - 100 // Magic number
+            let height = vc.navigationController?.navigationBar.bounds.height ?? 0
+            albumTitleView.frame = CGRect(x: 0, y: 0, width: width, height: height)
+            albumTitleView.center = vc.navigationController?.navigationBar.center ?? CGPoint.zero
+            vc.navigationController?.navigationBar.addSubview(albumTitleView)
         }
     }
     
@@ -149,6 +157,9 @@ extension ImagePicker {
         // Set done button title and update layout
         photosViewController.navigationController?.navigationBar.setBarButtonItem(doneButton, text: title)
         photosViewController.navigationController?.navigationBar.setNeedsLayout()
+        UIView.animate(withDuration: 0.1) {
+            self.photosViewController.navigationController?.navigationBar.layoutIfNeeded()
+        }
 
         // If we have selected more then minimum, done should be enabled
         doneButton.isEnabled = numberOfSelections >= settings.minSelections
