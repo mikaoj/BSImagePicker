@@ -32,6 +32,9 @@ extension UICollectionView {
     }
     
     func dequeue<T: UICollectionViewCell>(cell: T.Type, for indexPath: IndexPath) -> T {
-        return dequeueReusableCell(withReuseIdentifier: String(describing: T.self), for: indexPath) as! T
+        let c = dequeueReusableCell(withReuseIdentifier: String(describing: T.self), for: indexPath) as! T
+        c.accessibilityIdentifier = String(describing: T.self) + " Section: \(indexPath.section) Row: \(indexPath.row)"
+
+        return c
     }
 }

@@ -32,6 +32,9 @@ extension UITableView {
     }
     
     func dequeue<T: UITableViewCell>(cell: T.Type, for indexPath: IndexPath) -> T {
-        return dequeueReusableCell(withIdentifier: String(describing: T.self), for: indexPath) as! T
+        let c = dequeueReusableCell(withIdentifier: String(describing: T.self), for: indexPath) as! T
+        c.accessibilityIdentifier = String(describing: T.self) + " Section: \(indexPath.section) Row: \(indexPath.row)"
+        
+        return c
     }
 }
