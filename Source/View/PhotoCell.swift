@@ -29,6 +29,7 @@ class PhotoCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
+            guard isSelected != oldValue else { return }
             let animated = UIView.areAnimationsEnabled
             updateSelection(isSelected, animated: animated)
         }
@@ -45,26 +46,43 @@ class PhotoCell: UICollectionViewCell {
     }
 
     private func updateSelection(_ selected: Bool, animated: Bool) {
-        // No change? Then do nothing
-        guard self.selectionImageView.alpha != selected.CGFloat else { return }
-        
-        let animationDuration: TimeInterval
         if animated {
-            animationDuration = 0.4
+            UIView.animate(withDuration: TimeInterval(0.1), animations: { () -> Void in
+                // Set alpha for views
+                self.updateAlpha(selected: selected)
+
+                // Scale all views down a little
+                self.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+            }, completion: { (finished: Bool) -> Void in
+                    UIView.animate(withDuration: TimeInterval(0.1), animations: { () -> Void in
+                        // And then scale them back upp again to give a bounce effect
+                        self.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                    }, completion: nil)
+            })
         } else {
-            animationDuration = 0.0
+            self.updateAlpha(selected: selected)
         }
-        
-        UIView.animate(withDuration: animationDuration) { 
-            self.selectionImageView.alpha = selected.CGFloat
-        }
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        updateAlpha(selected: false)
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
         isSelected = false
         tag = 0
+    }
+
+    private func updateAlpha(selected: Bool) {
+        if selected == true {
+            selectionImageView.alpha = 1.0
+            selectionForegroundView.alpha = 0.3
+        } else {
+            selectionImageView.alpha = 0.0
+            selectionForegroundView.alpha = 0.0
+        }
     }
 }
 
