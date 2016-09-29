@@ -24,6 +24,22 @@ import UIKit
 
 class AlbumTitleView: UIView {
     @IBOutlet var albumButton: UIButton!
+    var isEnabled: Bool = true {
+        didSet {
+            albumButton.isEnabled = isEnabled
+            if isEnabled {
+                albumButton.setTitleColor(tintColor, for: .normal)
+                albumButton.setImage(UIImage(named: "arrow_down", in: Bundle.imagePicker, compatibleWith: nil), for: .normal)
+            } else {
+                albumButton.setImage(nil, for: .normal)
+                albumButton.setTitleColor(UIColor.lightGray, for: .normal)
+            }
+        }
+    }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
     
     func update(for album: Album) {
         albumButton.setTitle("\(album.title) ", for: .normal)

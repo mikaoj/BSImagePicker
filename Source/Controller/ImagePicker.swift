@@ -85,6 +85,7 @@ public class ImagePicker: UINavigationController {
             let height = vc.navigationController?.navigationBar.bounds.height ?? 0
             albumTitleView.frame = CGRect(x: 0, y: 0, width: width, height: height)
             albumTitleView.center = vc.navigationController?.navigationBar.center ?? CGPoint.zero
+            albumTitleView.isEnabled = folders.count > 1
             vc.navigationController?.navigationBar.addSubview(albumTitleView)
         }
     }
@@ -155,9 +156,9 @@ extension ImagePicker {
         }
 
         // Set done button title and update layout
-        photosViewController.navigationController?.navigationBar.setBarButtonItem(doneButton, text: title)
         photosViewController.navigationController?.navigationBar.setNeedsLayout()
         UIView.animate(withDuration: 0.1) {
+            self.photosViewController.navigationController?.navigationBar.setBarButtonItem(self.doneButton, text: title)
             self.photosViewController.navigationController?.navigationBar.layoutIfNeeded()
         }
 
