@@ -56,5 +56,5 @@ final class Settings : BSImagePickerSettings {
     
     var takePhotos: Bool = false
     
-    var takePhotoIcon: UIImage? = UIImage(named: "add_photo", inBundle: BSImagePickerViewController.bundle, compatibleWithTraitCollection: nil)
+    var takePhotoIcon: UIImage? = UIImage(named: "add_photo", inBundle: BSImagePickerViewController.bundle, compatibleWithTraitCollection: nil)?.imageWithRenderingMode(.AlwaysTemplate)
 }
