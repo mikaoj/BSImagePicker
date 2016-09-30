@@ -342,7 +342,7 @@ extension PhotosViewController {
         }
 
         // Make sure we have a data source and that we can make selections
-        guard let photosDataSource = photosDataSource, collectionView.isUserInteractionEnabled && photosDataSource.selections.count < settings.maxNumberOfSelections else { return false }
+        guard let photosDataSource = photosDataSource, collectionView.isUserInteractionEnabled else { return false }
 
         // We need a cell
         guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoCell else { return false }
@@ -350,6 +350,9 @@ extension PhotosViewController {
 
         // Select or deselect?
         if let index = photosDataSource.selections.index(of: asset) { // Deselect
+            if( photosDataSource.selections.count <= 0 ){
+                return false
+            }
             // Deselect asset
             photosDataSource.selections.remove(at: index)
 
@@ -377,6 +380,18 @@ extension PhotosViewController {
                 }
             }
         } else { // Select
+            if( settings.maxNumberOfSelections > 0 && photosDataSource.selections.count >= settings.maxNumberOfSelections ){
+                // Find and deselect the last photo. This way user won't be blocked and can select the new one instead
+                let selectedIndexPaths = photosDataSource.selections.flatMap({ (asset) -> IndexPath? in
+                    let index = photosDataSource.fetchResult.index(of: asset)
+                    guard index != NSNotFound else { return nil }
+                    return IndexPath(item: index, section: 1)
+                })
+                photosDataSource.selections.remove(at: photosDataSource.selections.count - 1)
+                UIView.setAnimationsEnabled(false)
+                collectionView.reloadItems(at: selectedIndexPaths)
+                UIView.setAnimationsEnabled(true)
+            }
             // Select asset if not already selected
             photosDataSource.selections.append(asset)
 
