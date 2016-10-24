@@ -92,7 +92,7 @@ extension PhotosViewController {
 extension PhotosViewController {
     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         // Can we select more?
-        guard canSelect(at: indexPath) else { return false }
+        guard canSelect(at: indexPath) else { print("alert") return false }
 
         // Select or deselect
         if photoSelected(at: indexPath) {
