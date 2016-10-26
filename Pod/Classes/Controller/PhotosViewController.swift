@@ -342,7 +342,7 @@ extension PhotosViewController {
         }
 
         // Make sure we have a data source and that we can make selections
-        guard let photosDataSource = photosDataSource, collectionView.isUserInteractionEnabled && photosDataSource.selections.count < settings.maxNumberOfSelections else { return false }
+        guard let photosDataSource = photosDataSource, collectionView.isUserInteractionEnabled else { return false }
 
         // We need a cell
         guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoCell else { return false }
@@ -376,7 +376,7 @@ extension PhotosViewController {
                     closure(asset)
                 }
             }
-        } else { // Select
+        } else if photosDataSource.selections.count < settings.maxNumberOfSelections { // Select
             // Select asset if not already selected
             photosDataSource.selections.append(asset)
 
