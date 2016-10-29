@@ -329,18 +329,20 @@ extension PhotosViewController {
         // NOTE: ALWAYS return false. We don't want the collectionView to be the source of thruth regarding selections
         // We can manage it ourself.
 
-        guard let cell = collectionView.cellForItem(at: indexPath) as? PhotoCell else { return false }
+        guard let photosDataSource = photosDataSource, collectionView.isUserInteractionEnabled else { return false }
         
         // Camera shouldn't be selected, but pop the UIImagePickerController!
         if let composedDataSource = composedDataSource , composedDataSource.dataSources[indexPath.section].isEqual(cameraDataSource) {
             
             if photosDataSource.selections.count < settings.maxNumberOfSelections {
-//            let cameraController = UIImagePickerController()
-//            cameraController.allowsEditing = false
-//            cameraController.sourceType = .camera
-//            cameraController.delegate = self
-//            
-//            self.present(cameraController, animated: true, completion: nil)
+                let cameraController = UIImagePickerController()
+                cameraController.allowsEditing = false
+                cameraController.sourceType = .camera
+                cameraController.delegate = self
+                
+                self.present(cameraController, animated: true, completion: nil)
+            }else{
+                //do not pop the UIImagePickerController
             }
             
             return false
