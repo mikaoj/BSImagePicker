@@ -47,10 +47,7 @@ open class BSImagePickerViewController : UINavigationController {
      Default selections
      */
     private var defaultSelections: PHFetchResult<PHAsset>?
-     /**
-     Default selections [asset.localIdentifier]
-     */
-    open var defaultSelectedAssetIDs: [String]?
+    
     /**
      Fetch results.
      */
@@ -70,13 +67,7 @@ open class BSImagePickerViewController : UINavigationController {
     
     static let bundle: Bundle = Bundle(path: Bundle(for: PhotosViewController.self).path(forResource: "BSImagePicker", ofType: "bundle")!)!
     
-    lazy var photosViewController: PhotosViewController = {
-        
-        if self.defaultSelectedAssetIDs != nil {
-            let selectedAssets     = PHAsset.fetchAssets(withLocalIdentifiers: self.defaultSelectedAssetIDs!, options: nil)
-            self.defaultSelections = selectedAssets
-        }
-        
+    lazy var photosViewController: PhotosViewController = {        
         let vc = PhotosViewController(fetchResults: self.fetchResults,
                                       defaultSelections: self.defaultSelections,
                                       settings: self.settings)
