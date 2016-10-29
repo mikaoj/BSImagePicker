@@ -67,7 +67,7 @@ open class BSImagePickerViewController : UINavigationController {
     
     static let bundle: Bundle = Bundle(path: Bundle(for: PhotosViewController.self).path(forResource: "BSImagePicker", ofType: "bundle")!)!
     
-    lazy var photosViewController: PhotosViewController = {        
+    lazy var photosViewController: PhotosViewController = {
         let vc = PhotosViewController(fetchResults: self.fetchResults,
                                       defaultSelections: self.defaultSelections,
                                       settings: self.settings)
