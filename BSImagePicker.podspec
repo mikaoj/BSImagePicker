@@ -13,7 +13,6 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, '8.0'
   s.requires_arc = true
-
   s.source_files = 'Pod/Classes/**/*.swift'
   s.resource_bundles = {
     'BSImagePicker' => ['Pod/Assets/*.png',
@@ -22,8 +21,10 @@ Pod::Spec.new do |s|
                         'Pod/Assets/*.xcassets',
                         'Pod/Assets/*.png']
   }
-
-  s.frameworks = 'UIKit', 'Photos'
+  
+  s.framework = 'Photos'
+  s.framework = 'UIKit'
   s.dependency 'UIImageViewModeScaleAspect', '1.5'
   s.dependency 'BSGridCollectionViewLayout', '~> 1.2.0'
 end
+
