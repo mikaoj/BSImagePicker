@@ -1,6 +1,6 @@
 PODS:
   - BSGridCollectionViewLayout (1.2.0)
-  - BSImagePicker (2.5.0):
+  - BSImagePicker (2.5.1):
     - BSGridCollectionViewLayout (~> 1.2.0)
     - UIImageViewModeScaleAspect (= 1.5)
   - UIImageViewModeScaleAspect (1.5)
@@ -14,9 +14,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BSGridCollectionViewLayout: 8f12c8e1e08c47057f5a39a6828f4395f043d78f
-  BSImagePicker: e24fc097ffddddfa49a839c5830b45fe582a851f
+  BSImagePicker: 94590d64107f3796d10857ced2d926c4a4b03e4d
   UIImageViewModeScaleAspect: 11a790a0b9d248a13dc63e3a78991f1463b6d84e
 
 PODFILE CHECKSUM: 55707bb71dc224a83a5fab0d17f3eb856d760f6a
 
-COCOAPODS: 1.1.0
+COCOAPODS: 1.1.1

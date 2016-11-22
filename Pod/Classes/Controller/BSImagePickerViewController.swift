@@ -46,8 +46,12 @@ open class BSImagePickerViewController : UINavigationController {
     /**
      Default selections
      */
+
     private var defaultSelections: PHFetchResult<PHAsset>?
-    
+
+    open func defaultSelections(assets: Any?) {
+        self.defaultSelections = assets as! PHFetchResult<PHAsset>
+    }
     /**
      Fetch results.
      */

@@ -110,6 +110,7 @@
 			children = (
 				559684111BE39E9A00A5182E /* BSImagePicker_Example.entitlements */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
+				0B2E967969170F5FF11F8E33 /* LICENSE */,
 				607FACD21AFB9204008FA782 /* Example for BSImagePicker */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				55E273E91BE004F2006006A7 /* BSImagePicker_UI_Tests */,
@@ -176,7 +177,6 @@
 			children = (
 				F5C29D2B953E04AEA07F0D7E /* BSImagePicker.podspec */,
 				27F2D0D1C62407F2F5F1305E /* README.md */,
-				0B2E967969170F5FF11F8E33 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
