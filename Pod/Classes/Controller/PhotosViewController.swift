@@ -350,7 +350,7 @@ extension PhotosViewController {
 
         // Select or deselect?
         if let index = photosDataSource.selections.index(of: asset) { // Deselect
-            if( photosDataSource.selections.count <= 0 ){
+            if photosDataSource.selections.count <= 0 {
                 return false
             }
             // Deselect asset
@@ -380,7 +380,7 @@ extension PhotosViewController {
                 }
             }
         } else { // Select
-            if( settings.maxNumberOfSelections > 0 && photosDataSource.selections.count >= settings.maxNumberOfSelections ){
+            if settings.maxNumberOfSelections > 0 && photosDataSource.selections.count >= settings.maxNumberOfSelections {
                 // Find and deselect the last photo. This way user won't be blocked and can select the new one instead
                 let selectedIndexPaths = photosDataSource.selections.flatMap({ (asset) -> IndexPath? in
                     let index = photosDataSource.fetchResult.index(of: asset)
