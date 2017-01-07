@@ -81,31 +81,30 @@ class ViewController: UIViewController {
     }
   
     @IBAction func showImagePickerWithSelectedAssets(_ sender: UIButton) {
-        // FIXME:
-//        let allAssets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
-//        var evenAssetIds = [String]()
-//
-//        allAssets.enumerateObjects { (asset, idx, stop) -> Void in
-//          if let asset = asset as? PHAsset , idx % 2 == 0 {
-//            evenAssetIds.append(asset.localIdentifier)
-//          }
-//        }
-//      
-//        let evenAssets = PHAsset.fetchAssets(withLocalIdentifiers: evenAssetIds, options: nil)
-//      
-//        let vc = BSImagePickerViewController()
-//        vc.defaultSelections = evenAssets
-//      
-//        bs_presentImagePickerController(vc, animated: true,
-//          select: { (asset: PHAsset) -> Void in
-//            print("Selected: \(asset)")
-//          }, deselect: { (asset: PHAsset) -> Void in
-//            print("Deselected: \(asset)")
-//          }, cancel: { (assets: [PHAsset]) -> Void in
-//            print("Cancel: \(assets)")
-//          }, finish: { (assets: [PHAsset]) -> Void in
-//            print("Finish: \(assets)")
-//          }, completion: nil)
+        let allAssets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
+        var evenAssetIds = [String]()
+
+        allAssets.enumerateObjects({ (asset, idx, stop) -> Void in
+            if idx % 2 == 0 {
+                evenAssetIds.append(asset.localIdentifier)
+            }
+        })
+      
+        let evenAssets = PHAsset.fetchAssets(withLocalIdentifiers: evenAssetIds, options: nil)
+      
+        let vc = BSImagePickerViewController()
+        vc.defaultSelections = evenAssets
+      
+        bs_presentImagePickerController(vc, animated: true,
+          select: { (asset: PHAsset) -> Void in
+            print("Selected: \(asset)")
+          }, deselect: { (asset: PHAsset) -> Void in
+            print("Deselected: \(asset)")
+          }, cancel: { (assets: [PHAsset]) -> Void in
+            print("Cancel: \(assets)")
+          }, finish: { (assets: [PHAsset]) -> Void in
+            print("Finish: \(assets)")
+          }, completion: nil)
     }
 }
 
