@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "BSImagePicker"
-  s.version          = "2.5.1"
+  s.version          = "2.6.0"
   s.summary          = "BSImagePicker is a multiple image picker for iOS. UIImagePickerController replacement"
   s.description      = <<-DESC
   A mix between the native iOS gallery and facebooks image picker. Allows you to preview and select multiple images.
