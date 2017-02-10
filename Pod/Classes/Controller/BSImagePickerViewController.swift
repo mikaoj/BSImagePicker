@@ -51,6 +51,16 @@ open class BSImagePickerViewController : UINavigationController {
     /**
      Fetch results.
      */
+    
+    /**
+     CollectionView BackgroundColor
+     */
+    open var collectionViewBackgroundColor: UIColor = .white {
+        didSet {
+            photosViewController.collectionView?.backgroundColor = collectionViewBackgroundColor
+        }
+    }
+    
     open lazy var fetchResults: [PHFetchResult] = { () -> [PHFetchResult<PHAssetCollection>] in
         let fetchOptions = PHFetchOptions()
         
