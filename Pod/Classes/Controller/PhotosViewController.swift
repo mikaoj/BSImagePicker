@@ -104,7 +104,7 @@ final class PhotosViewController : UICollectionViewController {
         super.loadView()
         
         // Setup collection view
-        collectionView?.backgroundColor = UIColor.white
+        collectionView?.backgroundColor = settings.backgroundColor
         collectionView?.allowsMultipleSelection = true
         
         // Set an empty title to get < back button

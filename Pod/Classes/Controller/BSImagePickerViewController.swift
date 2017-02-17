@@ -51,6 +51,7 @@ open class BSImagePickerViewController : UINavigationController {
     /**
      Fetch results.
      */
+    
     open lazy var fetchResults: [PHFetchResult] = { () -> [PHFetchResult<PHAssetCollection>] in
         let fetchOptions = PHFetchOptions()
         
@@ -130,6 +131,8 @@ open class BSImagePickerViewController : UINavigationController {
 
 // MARK: ImagePickerSettings proxy
 extension BSImagePickerViewController: BSImagePickerSettings {
+
+
     /**
      See BSImagePicketSettings for documentation
      */
@@ -199,6 +202,18 @@ extension BSImagePickerViewController: BSImagePickerSettings {
         }
         set {
             settings.selectionTextAttributes = newValue
+        }
+    }
+    
+    /**
+     BackgroundColor
+     */
+    public var backgroundColor: UIColor {
+        get {
+            return settings.backgroundColor
+        }
+        set {
+            settings.backgroundColor = newValue
         }
     }
     
