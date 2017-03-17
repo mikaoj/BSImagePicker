@@ -22,7 +22,8 @@
 
 import UIKit
 
-final class PreviewViewController : UIViewController {
+final class PreviewViewController : UIViewController, UIScrollViewDelegate {
+    var scrollView: UIScrollView?
     var imageView: UIImageView?
     fileprivate var fullscreen = false
     
@@ -34,12 +35,21 @@ final class PreviewViewController : UIViewController {
         imageView = UIImageView(frame: view.bounds)
         imageView?.contentMode = .scaleAspectFit
         imageView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(imageView!)
+        
+        scrollView = UIScrollView(frame: view.bounds)
+        scrollView?.delegate = self
+        scrollView?.maximumZoomScale = 6.0
+        scrollView?.minimumZoomScale = 1.0
+        scrollView?.contentSize = (imageView?.bounds.size)!
+        scrollView?.addSubview(imageView!)
+        view.addSubview(scrollView!)
         
         let tapRecognizer = UITapGestureRecognizer()
         tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.addTarget(self, action: #selector(PreviewViewController.toggleFullscreen))
         view.addGestureRecognizer(tapRecognizer)
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -50,7 +60,7 @@ final class PreviewViewController : UIViewController {
         super.loadView()
     }
     
-    func toggleFullscreen() {
+   func toggleFullscreen() {
         fullscreen = !fullscreen
         UIView.animate(withDuration: 0.3, animations: { () -> Void in
             self.toggleNavigationBar()
@@ -77,6 +87,10 @@ final class PreviewViewController : UIViewController {
         }
         
         self.view.backgroundColor = aColor
+    }
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.imageView
     }
     
     override var prefersStatusBarHidden : Bool {
