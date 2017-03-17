@@ -48,8 +48,6 @@ final class PreviewViewController : UIViewController, UIScrollViewDelegate {
         tapRecognizer.numberOfTapsRequired = 1
         tapRecognizer.addTarget(self, action: #selector(PreviewViewController.toggleFullscreen))
         view.addGestureRecognizer(tapRecognizer)
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
