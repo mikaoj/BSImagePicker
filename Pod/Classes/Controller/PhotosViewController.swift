@@ -523,6 +523,8 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
                     // Update fetch result
                     photosDataSource.fetchResult = photosChanges.fetchResultAfterChanges as! PHFetchResult<PHAsset>
                     
+                    // Do not need to call insert / delete as calling reloadData afterwards anyway
+                    /*
                     if let removed = photosChanges.removedIndexes {
                         collectionView.deleteItems(at: removed.bs_indexPathsForSection(1))
                     }
@@ -530,6 +532,7 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
                     if let inserted = photosChanges.insertedIndexes {
                         collectionView.insertItems(at: inserted.bs_indexPathsForSection(1))
                     }
+                    */
                     
                     // Changes is causing issues right now...fix me later
                     // Example of issue:
@@ -548,8 +551,9 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
                 } else if photosChanges.hasIncrementalChanges == false {
                     // Update fetch result
                     photosDataSource.fetchResult = photosChanges.fetchResultAfterChanges as! PHFetchResult<PHAsset>
-                    
-                    collectionView.reloadData()
+
+                    //Duplicate call to reloadData
+                    //collectionView.reloadData()
                     
                     // Reload view
                     collectionView.reloadData()
