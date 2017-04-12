@@ -23,6 +23,12 @@ final class CameraCell: UICollectionViewCell {
         }
     }
     
+    var takePhotoIconTintColor: UIColor? {
+        didSet {
+            imageView.tintColor = takePhotoIconTintColor
+        }
+    }
+    
     var session: AVCaptureSession?
     var captureLayer: AVCaptureVideoPreviewLayer?
     let sessionQueue = DispatchQueue(label: "AVCaptureVideoPreviewLayer", attributes: [])

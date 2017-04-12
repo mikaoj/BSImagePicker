@@ -249,6 +249,15 @@ extension BSImagePickerViewController: BSImagePickerSettings {
             settings.takePhotoIcon = newValue
         }
     }
+    
+    public var takePhotoIconTintColor: UIColor? {
+        get {
+            return settings.takePhotoIconTintColor
+        }
+        set {
+            settings.takePhotoIconTintColor = newValue
+        }
+    }
 }
 
 // MARK: Album button

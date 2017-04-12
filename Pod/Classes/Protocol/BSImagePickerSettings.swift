@@ -76,4 +76,10 @@ public protocol BSImagePickerSettings {
      If you use a black image tint color will be applied to it.
     */
     var takePhotoIcon: UIImage? { get set }
+   
+    /**
+     TintColor of Icon to show in take photo cell.
+     */
+    
+    var takePhotoIconTintColor: UIColor { get set }
 }
