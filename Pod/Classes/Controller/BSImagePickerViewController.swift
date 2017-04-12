@@ -250,7 +250,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
         }
     }
     
-    public var takePhotoIconTintColor: UIColor? {
+    public var takePhotoIconTintColor: UIColor {
         get {
             return settings.takePhotoIconTintColor
         }
