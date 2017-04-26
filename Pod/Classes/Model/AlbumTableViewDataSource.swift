@@ -27,6 +27,7 @@ import Photos
 Implements the UITableViewDataSource protocol with a data source and cell factory
 */
 final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
+    
     let fetchResults: [PHFetchResult<PHAssetCollection>]
     fileprivate let albumCellIdentifier = "albumCell"
     

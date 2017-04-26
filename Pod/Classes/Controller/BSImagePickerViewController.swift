@@ -55,13 +55,22 @@ open class BSImagePickerViewController : UINavigationController {
     open lazy var fetchResults: [PHFetchResult] = { () -> [PHFetchResult<PHAssetCollection>] in
         let fetchOptions = PHFetchOptions()
         
+        print("fetching results")
+        
         // Camera roll fetch result
         let cameraRollResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: fetchOptions)
+        
+        let customFetchOptions = PHFetchOptions()
+        customFetchOptions.includeHiddenAssets = false
+        customFetchOptions.includeAllBurstAssets = false
+//        customFetchOptions.predicate = NSPredicate(format: "mediaType != %@", [PHAssetMediaType.video])
+        
+        let cameraAlbumsResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: customFetchOptions)
         
         // Albums fetch result
         let albumResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
         
-        return [cameraRollResult, albumResult]
+        return [cameraRollResult, albumResult, cameraAlbumsResult]
     }()
     
     var albumTitleView: AlbumTitleView = bundle.loadNibNamed("AlbumTitleView", owner: nil, options: nil)!.first as! AlbumTitleView
