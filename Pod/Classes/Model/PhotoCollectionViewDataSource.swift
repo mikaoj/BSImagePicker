@@ -68,18 +68,38 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
             cell.settings = settings
         }
         
-        // Cancel any pending image requests
-        if cell.tag != 0 {
-            photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
-        }
-        
         let asset = fetchResult[indexPath.row]
         cell.asset = asset
         
+        var options = PHImageRequestOptions()
+        options.resizeMode = .fast
+        
+        var size: CGSize
+        let imageRatio = (CGFloat(asset.pixelWidth)) / (CGFloat(asset.pixelHeight))
+        let screenScale = UIScreen.main.scale
+        if asset.pixelWidth > asset.pixelHeight {
+            size = CGSize(width: cell.frame.size.height * imageRatio * screenScale, height: cell.frame.size.height)
+        }
+        else {
+            size = CGSize(width: cell.frame.size.width, height: cell.frame.size.width * screenScale / imageRatio)
+        }
+        
+        let cellIdx = indexPath.row
+        
+        // Cancel any pending image requests
+        if cell.tag != cellIdx, cell.tag != 0 {
+            photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
+        }
+        
+        cell.tag = cellIdx
+        
         // Request image
-        cell.tag = Int(photosManager.requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-            cell.imageView.image = result
-        })
+        photosManager.requestImage(for: asset, targetSize: size, contentMode: imageContentMode, options: options) { (result, _) in
+            let appropriate = (cell.tag == cellIdx)
+            if appropriate {
+                cell.imageView.image = result
+            }
+        }
         
         // Set selection number
         if let index = selections.index(of: asset) {
