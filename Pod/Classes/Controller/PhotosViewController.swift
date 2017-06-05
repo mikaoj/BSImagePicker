@@ -104,7 +104,7 @@ final class PhotosViewController : UICollectionViewController {
         super.loadView()
         
         // Setup collection view
-        collectionView?.backgroundColor = settings.backgroundColor
+        collectionView?.backgroundColor = UIColor.white
         collectionView?.allowsMultipleSelection = true
         
         // Set an empty title to get < back button
@@ -120,9 +120,24 @@ final class PhotosViewController : UICollectionViewController {
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.titleView = albumTitleView
 
-        if let album = albumsDataSource.fetchResults.first?.firstObject {
-            initializePhotosDataSource(album, selections: defaultSelections)
-            updateAlbumTitle(album)
+        // If a selected album was specified, find and use it to start
+        var selectedAlbum:PHAssetCollection? = albumsDataSource.fetchResults.first?.firstObject
+        if let albumId = settings.selectedAlbumId {
+
+            for alb in albumsDataSource.fetchResults {
+                alb.enumerateObjects({ (a, idx, stop) -> Void in
+                    if a.localIdentifier == albumId {
+                        selectedAlbum = a
+                    }
+                })
+            }
+
+        }
+
+        // Updated the photo view if we found an album
+        if selectedAlbum != nil {
+            initializePhotosDataSource(selectedAlbum!, selections: defaultSelections)
+            updateAlbumTitle(selectedAlbum!)
             collectionView?.reloadData()
         }
         

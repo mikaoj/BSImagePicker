@@ -57,11 +57,6 @@ public protocol BSImagePickerSettings {
     var selectionTextAttributes: [String: AnyObject] { get set }
     
     /**
-     BackgroundColor
-     */
-    var backgroundColor: UIColor { get set }
-    
-    /**
     Return how many cells per row you want to show for the given size classes
     */
     var cellsPerRow: (_ verticalSize: UIUserInterfaceSizeClass, _ horizontalSize: UIUserInterfaceSizeClass) -> Int { get set }
@@ -76,4 +71,9 @@ public protocol BSImagePickerSettings {
      If you use a black image tint color will be applied to it.
     */
     var takePhotoIcon: UIImage? { get set }
+
+    /**
+     Chooses the album that is selected by default
+    */
+    var selectedAlbumId: String? { get set }
 }
