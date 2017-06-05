@@ -130,6 +130,8 @@ open class BSImagePickerViewController : UINavigationController {
 
 // MARK: ImagePickerSettings proxy
 extension BSImagePickerViewController: BSImagePickerSettings {
+
+
     /**
      See BSImagePicketSettings for documentation
      */
@@ -201,7 +203,19 @@ extension BSImagePickerViewController: BSImagePickerSettings {
             settings.selectionTextAttributes = newValue
         }
     }
-    
+
+    /**
+     BackgroundColor
+     */
+    public var backgroundColor: UIColor {
+        get {
+            return settings.backgroundColor
+        }
+        set {
+            settings.backgroundColor = newValue
+        }
+    }
+
     /**
      See BSImagePicketSettings for documentation
      */
