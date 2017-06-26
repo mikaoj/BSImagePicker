@@ -572,7 +572,7 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
                     //                    }
 
                     // Reload view
-                    collectionView.reloadData()
+                    //collectionView.reloadData()
                 } else if photosChanges.hasIncrementalChanges == false {
                     // Update fetch result
                     photosDataSource.fetchResult = photosChanges.fetchResultAfterChanges as! PHFetchResult<PHAsset>
