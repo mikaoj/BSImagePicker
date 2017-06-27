@@ -36,18 +36,18 @@ bs_presentImagePickerController(vc, animated: true,
 __weak typeof(self) selfDelegate = self;
 // Present image picker. Any of the blocks can be nil
 [self bs_presentImagePickerController:imagePicker
-							 animated:YES
-							   select:^(PHAsset * __nonnull asset) {
-								   // User selected an asset.
-								   // Do something with it, start upload perhaps?
-							   } deselect:^(PHAsset * __nonnull asset) {
-								   // User deselected an assets.
-								   // Do something, cancel upload?
-							   } cancel:^(NSArray * __nonnull assets) {
-								   // User cancelled. And this where the assets currently selected.
-							   } finish:^(NSArray * __nonnull assets) {
-								   // User finished with these assets
-							   } completion:nil];
+	 animated:YES
+	   select:^(PHAsset * __nonnull asset) {
+		   // User selected an asset.
+		   // Do something with it, start upload perhaps?
+	   } deselect:^(PHAsset * __nonnull asset) {
+		   // User deselected an assets.
+		   // Do something, cancel upload?
+	   } cancel:^(NSArray * __nonnull assets) {
+		   // User cancelled. And this where the assets currently selected.
+	   } finish:^(NSArray * __nonnull assets) {
+		   // User finished with these assets
+	   } completion:nil];
 
 ```
 
