@@ -14,19 +14,24 @@ import AVFoundation
 final class CameraCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var cameraBackground: UIView!
+    var takePhotoIcon: UIImage? {
+        didSet {
+            imageView.image = takePhotoIcon
+            
+            // Apply tint to image
+            imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        }
+    }
     
     var session: AVCaptureSession?
     var captureLayer: AVCaptureVideoPreviewLayer?
-    let sessionQueue = dispatch_queue_create("AVCaptureVideoPreviewLayer", nil)
+    let sessionQueue = DispatchQueue(label: "AVCaptureVideoPreviewLayer", attributes: [])
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        // Apply tint to image
-        imageView.image = imageView.image?.imageWithRenderingMode(.AlwaysTemplate)
-        
         // Don't trigger camera access for the background
-        guard AVCaptureDevice.authorizationStatusForMediaType(AVMediaTypeVideo) == .Authorized else {
+        guard AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) == .authorized else {
             return
         }
         
@@ -36,7 +41,7 @@ final class CameraCell: UICollectionViewCell {
             session?.sessionPreset = AVCaptureSessionPresetMedium
             
             // Hook upp device
-            let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+            let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
             let input = try AVCaptureDeviceInput(device: device)
             session?.addInput(input)
             
@@ -60,13 +65,13 @@ final class CameraCell: UICollectionViewCell {
     }
     
     func startLiveBackground() {
-        dispatch_async(sessionQueue) { () -> Void in
+        sessionQueue.async { () -> Void in
             self.session?.startRunning()
         }
     }
     
     func stopLiveBackground() {
-        dispatch_async(sessionQueue) { () -> Void in
+        sessionQueue.async { () -> Void in
             self.session?.stopRunning()
         }
     }

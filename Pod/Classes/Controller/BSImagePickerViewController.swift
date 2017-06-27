@@ -27,52 +27,73 @@ import Photos
 BSImagePickerViewController.
 Use settings or buttons to customize it to your needs.
 */
-public final class BSImagePickerViewController : UINavigationController, BSImagePickerSettings {
-    private let settings = Settings()
+open class BSImagePickerViewController : UINavigationController {
+    /**
+     Object that keeps settings for the picker.
+     */
+    open var settings: BSImagePickerSettings = Settings()
     
-    private var doneBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Done, target: nil, action: nil)
-    private var cancelBarButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: nil, action: nil)
-    private let albumTitleView: AlbumTitleView = bundle.loadNibNamed("AlbumTitleView", owner: nil, options: nil).first as! AlbumTitleView
+    /**
+     Done button.
+     */
+    open var doneButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
     
-    static let bundle: NSBundle = NSBundle(path: NSBundle(forClass: PhotosViewController.self).pathForResource("BSImagePicker", ofType: "bundle")!)!
+    /**
+     Cancel button
+     */
+    open var cancelButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
     
-    lazy var fetchResults: [PHFetchResult] = {
+    /**
+     Default selections
+     */
+    private var defaultSelections: PHFetchResult<PHAsset>?
+    
+    /**
+     Fetch results.
+     */
+    private lazy var fetchResults: [PHFetchResult] = { () -> [PHFetchResult<PHAssetCollection>] in
         let fetchOptions = PHFetchOptions()
         
         // Camera roll fetch result
-        let cameraRollResult = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .SmartAlbumUserLibrary, options: fetchOptions)
+        let cameraRollResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: fetchOptions)
         
         // Albums fetch result
-        let albumResult = PHAssetCollection.fetchAssetCollectionsWithType(.Album, subtype: .Any, options: fetchOptions)
+        let albumResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
         
         return [cameraRollResult, albumResult]
     }()
     
+    var albumTitleView: AlbumTitleView = bundle.loadNibNamed("AlbumTitleView", owner: nil, options: nil)!.first as! AlbumTitleView
+    
+    static let bundle: Bundle = Bundle(path: Bundle(for: PhotosViewController.self).path(forResource: "BSImagePicker", ofType: "bundle")!)!
+    
     lazy var photosViewController: PhotosViewController = {
-        let vc = PhotosViewController(fetchResults: self.fetchResults, settings: self.settings)
+        let vc = PhotosViewController(fetchResults: self.fetchResults,
+                                      defaultSelections: self.defaultSelections,
+                                      settings: self.settings)
         
-        vc.doneBarButton = self.doneBarButton
-        vc.cancelBarButton = self.cancelBarButton
+        vc.doneBarButton = self.doneButton
+        vc.cancelBarButton = self.cancelButton
         vc.albumTitleView = self.albumTitleView
         
         return vc
     }()
     
-    class func authorize(status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(), fromViewController: UIViewController, completion: (authorized: Bool) -> Void) {
+    class func authorize(_ status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(), fromViewController: UIViewController, completion: @escaping (_ authorized: Bool) -> Void) {
         switch status {
-        case .Authorized:
+        case .authorized:
             // We are authorized. Run block
-            completion(authorized: true)
-        case .NotDetermined:
+            completion(true)
+        case .notDetermined:
             // Ask user for permission
             PHPhotoLibrary.requestAuthorization({ (status) -> Void in
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                DispatchQueue.main.async(execute: { () -> Void in
                     self.authorize(status, fromViewController: fromViewController, completion: completion)
                 })
             })
         default: ()
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                completion(authorized: false)
+            DispatchQueue.main.async(execute: { () -> Void in
+                completion(false)
             })
         }
     }
@@ -80,48 +101,38 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     /**
     Sets up an classic image picker with results from camera roll and albums
     */
-    public convenience init() {
-        self.init(fetchResults: nil)
-    }
-    
-    /**
-    You should probably use one of the convenience inits
-    - parameter fetchResults: The fetch results to use
-    */
-    public init(fetchResults: [PHFetchResult]?) {
+    public init() {
         super.init(nibName: nil, bundle: nil)
-        
-        if let fetchResults = fetchResults {
-            self.fetchResults = fetchResults
-        }
     }
 
     /**
     https://www.youtube.com/watch?v=dQw4w9WgXcQ
     */
     required public init?(coder aDecoder: NSCoder) {
-        fatalError("herp derp")
+        super.init(coder: aDecoder)
     }
     
     /**
     Load view. See apple documentation
     */
-    public override func loadView() {
+    open override func loadView() {
         super.loadView()
         
         // TODO: Settings
-        view.backgroundColor = UIColor.whiteColor()
+        view.backgroundColor = UIColor.white
         
         // Make sure we really are authorized
-        if PHPhotoLibrary.authorizationStatus() == .Authorized {
+        if PHPhotoLibrary.authorizationStatus() == .authorized {
             setViewControllers([photosViewController], animated: false)
         }
     }
-    
-    // MARK: ImagePickerSettings proxy
+}
+
+// MARK: ImagePickerSettings proxy
+extension BSImagePickerViewController: BSImagePickerSettings {
     /**
-    See BSImagePicketSettings for documentation
-    */
+     See BSImagePicketSettings for documentation
+     */
     public var maxNumberOfSelections: Int {
         get {
             return settings.maxNumberOfSelections
@@ -132,8 +143,8 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     }
     
     /**
-    See BSImagePicketSettings for documentation
-    */
+     See BSImagePicketSettings for documentation
+     */
     public var selectionCharacter: Character? {
         get {
             return settings.selectionCharacter
@@ -144,8 +155,8 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     }
     
     /**
-    See BSImagePicketSettings for documentation
-    */
+     See BSImagePicketSettings for documentation
+     */
     public var selectionFillColor: UIColor {
         get {
             return settings.selectionFillColor
@@ -156,8 +167,8 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     }
     
     /**
-    See BSImagePicketSettings for documentation
-    */
+     See BSImagePicketSettings for documentation
+     */
     public var selectionStrokeColor: UIColor {
         get {
             return settings.selectionStrokeColor
@@ -168,8 +179,8 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     }
     
     /**
-    See BSImagePicketSettings for documentation
-    */
+     See BSImagePicketSettings for documentation
+     */
     public var selectionShadowColor: UIColor {
         get {
             return settings.selectionShadowColor
@@ -180,8 +191,8 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     }
     
     /**
-    See BSImagePicketSettings for documentation
-    */
+     See BSImagePicketSettings for documentation
+     */
     public var selectionTextAttributes: [String: AnyObject] {
         get {
             return settings.selectionTextAttributes
@@ -192,9 +203,9 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     }
     
     /**
-    See BSImagePicketSettings for documentation
-    */
-    public var cellsPerRow: (verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int {
+     See BSImagePicketSettings for documentation
+     */
+    public var cellsPerRow: (_ verticalSize: UIUserInterfaceSizeClass, _ horizontalSize: UIUserInterfaceSizeClass) -> Int {
         get {
             return settings.cellsPerRow
         }
@@ -204,8 +215,8 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
     }
     
     /**
-    See BSImagePicketSettings for documentation
-    */
+     See BSImagePicketSettings for documentation
+     */
     public var takePhotos: Bool {
         get {
             return settings.takePhotos
@@ -215,65 +226,27 @@ public final class BSImagePickerViewController : UINavigationController, BSImage
         }
     }
     
-    // MARK: Buttons
-    /**
-    Cancel button
-    */
-    public var cancelButton: UIBarButtonItem {
+    public var takePhotoIcon: UIImage? {
         get {
-            return self.cancelBarButton
+            return settings.takePhotoIcon
+        }
+        set {
+            settings.takePhotoIcon = newValue
         }
     }
-    
+}
+
+// MARK: Album button
+extension BSImagePickerViewController {
     /**
-    Done button
-    */
-    public var doneButton: UIBarButtonItem {
-        get {
-            return self.doneBarButton
-        }
-    }
-    
-    /**
-    Album button
-    */
+     Album button in title view
+     */
     public var albumButton: UIButton {
         get {
-            return self.albumTitleView.albumButton
-        }
-    }
-    
-    // MARK: Closures
-    var selectionClosure: ((asset: PHAsset) -> Void)? {
-        get {
-            return photosViewController.selectionClosure
+            return albumTitleView.albumButton
         }
         set {
-            photosViewController.selectionClosure = newValue
-        }
-    }
-    var deselectionClosure: ((asset: PHAsset) -> Void)? {
-        get {
-            return photosViewController.deselectionClosure
-        }
-        set {
-            photosViewController.deselectionClosure = newValue
-        }
-    }
-    var cancelClosure: ((assets: [PHAsset]) -> Void)? {
-        get {
-            return photosViewController.cancelClosure
-        }
-        set {
-            photosViewController.cancelClosure = newValue
-        }
-    }
-    var finishClosure: ((assets: [PHAsset]) -> Void)? {
-        get {
-            return photosViewController.finishClosure
-        }
-        set {
-            photosViewController.finishClosure = newValue
+            albumTitleView.albumButton = newValue
         }
     }
 }

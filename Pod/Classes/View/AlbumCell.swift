@@ -36,20 +36,20 @@ final class AlbumCell: UITableViewCell {
         
         // Add a little shadow to images views
         for imageView in [firstImageView, secondImageView, thirdImageView] {
-            imageView.layer.shadowColor = UIColor.whiteColor().CGColor
-            imageView.layer.shadowRadius = 1.0
-            imageView.layer.shadowOffset = CGSize(width: 0.5, height: -0.5)
-            imageView.layer.shadowOpacity = 1.0
+            imageView?.layer.shadowColor = UIColor.white.cgColor
+            imageView?.layer.shadowRadius = 1.0
+            imageView?.layer.shadowOffset = CGSize(width: 0.5, height: -0.5)
+            imageView?.layer.shadowOpacity = 1.0
         }
     }
     
-    override var selected: Bool {
+    override var isSelected: Bool {
         didSet {
             // Selection checkmark
-            if selected == true {
-                accessoryType = .Checkmark
+            if isSelected == true {
+                accessoryType = .checkmark
             } else {
-                accessoryType = .None
+                accessoryType = .none
             }
         }
     }

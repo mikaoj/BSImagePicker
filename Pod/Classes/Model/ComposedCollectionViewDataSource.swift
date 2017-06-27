@@ -34,15 +34,15 @@ class ComposedCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         super.init()
     }
     
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return dataSources.count
     }
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSources[section].collectionView(collectionView, numberOfItemsInSection: 0)
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        return dataSources[indexPath.section].collectionView(collectionView, cellForItemAtIndexPath: NSIndexPath(forItem: indexPath.row, inSection: 0))
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return dataSources[indexPath.section].collectionView(collectionView, cellForItemAt: IndexPath(item: indexPath.row, section: 0))
     }
 }

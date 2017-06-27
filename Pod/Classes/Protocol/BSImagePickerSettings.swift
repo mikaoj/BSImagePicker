@@ -59,10 +59,16 @@ public protocol BSImagePickerSettings {
     /**
     Return how many cells per row you want to show for the given size classes
     */
-    var cellsPerRow: (verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int { get set }
+    var cellsPerRow: (_ verticalSize: UIUserInterfaceSizeClass, _ horizontalSize: UIUserInterfaceSizeClass) -> Int { get set }
     
     /**
     Toggle take photos
     */
     var takePhotos: Bool { get set }
+    
+    /**
+     Icon to show in take photo cell. 
+     If you use a black image tint color will be applied to it.
+    */
+    var takePhotoIcon: UIImage? { get set }
 }

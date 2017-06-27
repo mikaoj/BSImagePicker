@@ -25,16 +25,16 @@ import Foundation
 /**
 Extension for creating index paths from an index set
 */
-extension NSIndexSet {
+extension IndexSet {
     /**
     - parameter section: The section for the created NSIndexPaths
     - return: An array with NSIndexPaths
     */
-    func bs_indexPathsForSection(section: Int) -> [NSIndexPath] {
-        var indexPaths: [NSIndexPath] = []
+    func bs_indexPathsForSection(_ section: Int) -> [IndexPath] {
+        var indexPaths: [IndexPath] = []
         
-        enumerateIndexesUsingBlock { (index, _) -> Void in
-            indexPaths.append(NSIndexPath(forItem: index, inSection: section))
+        for value in self {
+            indexPaths.append(IndexPath(item: value, section: section))
         }
         
         return indexPaths

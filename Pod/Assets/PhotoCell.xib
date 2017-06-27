@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PhotoCell" customModule="BSImagePicker" customModuleProvider="target"/>
@@ -17,39 +21,49 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eql-VY-cc4">
                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                     </imageView>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PLAY_75x75.png" translatesAutoresizingMaskIntoConstraints="NO" id="70h-zi-fQZ" userLabel="Video Silhouette">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                    </imageView>
                     <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vrZ-cc-3iN">
                         <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZWL-2w-R4Y" customClass="SelectionView" customModule="BSImagePicker">
                         <rect key="frame" x="71" y="71" width="25" height="25"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="KmA-hg-Sja"/>
                             <constraint firstAttribute="width" constant="25" id="Sed-si-Khu"/>
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
                 <constraint firstItem="vrZ-cc-3iN" firstAttribute="leading" secondItem="Wnb-Ja-sAy" secondAttribute="leading" id="1k6-ja-XtL"/>
                 <constraint firstItem="eql-VY-cc4" firstAttribute="leading" secondItem="Wnb-Ja-sAy" secondAttribute="leading" id="6Yj-56-Ajf"/>
                 <constraint firstAttribute="bottom" secondItem="ZWL-2w-R4Y" secondAttribute="bottom" constant="4" id="9kI-gE-Fuo"/>
                 <constraint firstAttribute="trailing" secondItem="vrZ-cc-3iN" secondAttribute="trailing" id="Cpg-dZ-0Lg"/>
+                <constraint firstItem="70h-zi-fQZ" firstAttribute="centerY" secondItem="Wnb-Ja-sAy" secondAttribute="centerY" id="JeS-KU-Qhi"/>
                 <constraint firstAttribute="trailing" secondItem="ZWL-2w-R4Y" secondAttribute="trailing" constant="4" id="Mxn-IB-9vl"/>
+                <constraint firstItem="70h-zi-fQZ" firstAttribute="centerX" secondItem="Wnb-Ja-sAy" secondAttribute="centerX" id="OqB-l3-pzk"/>
                 <constraint firstAttribute="bottom" secondItem="vrZ-cc-3iN" secondAttribute="bottom" id="Uh1-N4-v8c"/>
                 <constraint firstItem="eql-VY-cc4" firstAttribute="top" secondItem="Wnb-Ja-sAy" secondAttribute="top" id="bsa-1y-CS3"/>
+                <constraint firstItem="vrZ-cc-3iN" firstAttribute="centerX" secondItem="Wnb-Ja-sAy" secondAttribute="centerX" id="cxB-b4-JKP"/>
                 <constraint firstAttribute="trailing" secondItem="eql-VY-cc4" secondAttribute="trailing" id="gn3-z2-xcM"/>
                 <constraint firstAttribute="bottom" secondItem="eql-VY-cc4" secondAttribute="bottom" id="lRC-Wc-2F2"/>
                 <constraint firstItem="vrZ-cc-3iN" firstAttribute="top" secondItem="Wnb-Ja-sAy" secondAttribute="top" id="rDa-oL-Q0g"/>
+                <constraint firstItem="vrZ-cc-3iN" firstAttribute="centerY" secondItem="Wnb-Ja-sAy" secondAttribute="centerY" id="yLS-hl-cYK"/>
             </constraints>
             <connections>
                 <outlet property="imageView" destination="eql-VY-cc4" id="zoV-fy-Rn2"/>
                 <outlet property="selectionOverlayView" destination="vrZ-cc-3iN" id="nJv-4W-hIL"/>
                 <outlet property="selectionView" destination="ZWL-2w-R4Y" id="hKH-1U-TY9"/>
+                <outlet property="videoSilhouette" destination="70h-zi-fQZ" id="4nD-uy-eLk"/>
             </connections>
             <point key="canvasLocation" x="174" y="-76"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="PLAY_75x75.png" width="75" height="75"/>
+    </resources>
 </document>
