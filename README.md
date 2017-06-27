@@ -33,8 +33,8 @@ bs_presentImagePickerController(vc, animated: true,
 
 ###### Objective-C
 ``` Obj-C
-__weak typeof(self) selfDelegate = self;
-// Present image picker. Any of the blocks can be nil
+BSImagePickerViewController *imagePicker = [BSImagePickerViewController new];
+
 [self bs_presentImagePickerController:imagePicker
 	 animated:YES
 	   select:^(PHAsset * __nonnull asset) {
