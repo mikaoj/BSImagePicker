@@ -83,9 +83,10 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod "BSImagePicker", "~> 2.5.0"
 ```
-
-Then you need to manually add VideoPreviewViewController.swift in Pod/Classes/Controller
-Also add PLAY_75x75.png in Pod/Assets and target Membership to BSImagePicker-BSImagePicker
+After pod installation from podfile you need to apply changes made in this fork.
+Just replace all files and folders in your project's Pod folder.
+Then you need to manually add VideoPreviewViewController.swift in your project on Pod/Classes/Controller
+Also add PLAY_75x75.png in your project on Pod/Assets and target Membership to BSImagePicker-BSImagePicker
 
 
 ## Author
