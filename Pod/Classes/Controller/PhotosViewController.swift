@@ -331,12 +331,17 @@ final class PhotosViewController : UICollectionViewController {
             NSSortDescriptor(key: "creationDate", ascending: false)
         ]
     
-    let videoPredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.video.rawValue)
-    let imagePredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-    let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [videoPredicate, imagePredicate])
-    
-        fetchOptions.predicate = predicate
-        //fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue, PHAssetMediaType.video.rawValue)
+        if(settings.isVideoSelectionEnabled)
+        {
+            let videoPredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.video.rawValue)
+            let imagePredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+            let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [videoPredicate, imagePredicate])
+            fetchOptions.predicate = predicate
+        }
+        else
+        {
+            fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue, PHAssetMediaType.video.rawValue)
+        }
         initializePhotosDataSourceWithFetchResult(PHAsset.fetchAssets(in: album, options: fetchOptions), selections: selections)
     }
     

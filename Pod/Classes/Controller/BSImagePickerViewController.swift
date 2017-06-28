@@ -130,6 +130,18 @@ open class BSImagePickerViewController : UINavigationController {
 
 // MARK: ImagePickerSettings proxy
 extension BSImagePickerViewController: BSImagePickerSettings {
+    public /**
+     Enable video selection
+     */
+    var isVideoSelectionEnabled: Bool {
+        get {
+            return settings.isVideoSelectionEnabled
+        }
+        set {
+            settings.isVideoSelectionEnabled = newValue
+        }
+    }
+
     /**
      See BSImagePicketSettings for documentation
      */

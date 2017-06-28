@@ -32,6 +32,11 @@ public protocol BSImagePickerSettings {
     var maxNumberOfSelections: Int { get set }
     
     /**
+    Enable video selection
+    */
+    var isVideoSelectionEnabled: Bool { get set }
+    
+    /**
     Character to use for selection. If nil, selection number will be used
     */
     var selectionCharacter: Character? { get set }

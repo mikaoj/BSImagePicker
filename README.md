@@ -3,11 +3,11 @@
 [![Version](https://img.shields.io/cocoapods/v/BSImagePicker.svg?style=flat)](http://cocoapods.org/pods/BSImagePicker)
 [![License](https://img.shields.io/cocoapods/l/BSImagePicker.svg?style=flat)](http://cocoapods.org/pods/BSImagePicker)
 [![Platform](https://img.shields.io/cocoapods/p/BSImagePicker.svg?style=flat)](http://cocoapods.org/pods/BSImagePicker)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-![alt text](Misc/Gif/demo.gif "Demo gif")
+![alt text](https://cloud.githubusercontent.com/assets/4034956/15001931/254805de-119c-11e6-9f68-d815ccc712cd.gif "Demo gif")
 
 A mix between the native iOS 8 gallery and facebooks image picker. It is intended as a replacement for UIImagePickerController for both selecting and taking photos.
-This fork adds support for selecting videos also. ( See Instalation to configure new files properly )
 
 ## Usage
 
@@ -30,27 +30,6 @@ bs_presentImagePickerController(vc, animated: true,
       // User finished with these assets
 }, completion: nil)
 ```
-
-###### Objective-C
-``` Obj-C
-BSImagePickerViewController *imagePicker = [BSImagePickerViewController new];
-
-[self bs_presentImagePickerController:imagePicker
-	 animated:YES
-	   select:^(PHAsset * __nonnull asset) {
-		   // User selected an asset.
-		   // Do something with it, start upload perhaps?
-	   } deselect:^(PHAsset * __nonnull asset) {
-		   // User deselected an assets.
-		   // Do something, cancel upload?
-	   } cancel:^(NSArray * __nonnull assets) {
-		   // User cancelled. And this where the assets currently selected.
-	   } finish:^(NSArray * __nonnull assets) {
-		   // User finished with these assets
-	   } completion:nil];
-
-```
-
 ## Features
 * Multiple selection.
 * Fullscreen preview
@@ -62,14 +41,12 @@ BSImagePickerViewController *imagePicker = [BSImagePickerViewController new];
 ## Customization
 
 You have access to the cancel, album and done button. Customize them as you would with any other UIBarButtonItem (cancel & finish) or UIButton (album).<br />
-There are also a few other settings you can tweak.They are documented in BSImagePickerSettings.<br />
+There are also a few other settings you can tweak. They are documented in BSImagePickerSettings.<br />
 [Documentation @ cocoadocs](http://cocoadocs.org/docsets/BSImagePicker/)
-
-
 
 ## Custom fetch results
 
-Not happy with the fetch results (camera roll and albums) that BSImagePicker uses as default? You can initialize it with your own!
+Not happy with the fetch results (camera roll and albums) that BSImagePicker uses as default? Set the fetchResults property.
 
 ## Requirements
 
@@ -81,21 +58,12 @@ BSImagePicker is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "BSImagePicker", "~> 2.5.0"
+pod "BSImagePicker", "~> 2.4"
 ```
-After pod installation from podfile you need to apply changes made in this fork.<br />
-Just replace all files and folders in your project's Pod folder.<br />
-Then you need to manually add VideoPreviewViewController.swift in your project on Pod/Classes/Controller<br />
-Also add PLAY_75x75.png in your project on Pod/Assets and target Membership to BSImagePicker-BSImagePicker
-
 
 ## Author
 
 Joakim Gyllström, joakim@backslashed.se
-
-## Fork by 
-
-Henrique Ormonde
 
 ## License
 
