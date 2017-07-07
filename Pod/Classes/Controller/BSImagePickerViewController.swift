@@ -49,6 +49,11 @@ open class BSImagePickerViewController : UINavigationController {
     open var defaultSelections: PHFetchResult<PHAsset>?
     
     /**
+     Filtered results
+     */
+    open var filteredResults: PHFetchResult<PHAsset>?
+    
+    /**
      Fetch results.
      */
     
@@ -69,13 +74,19 @@ open class BSImagePickerViewController : UINavigationController {
     static let bundle: Bundle = Bundle(path: Bundle(for: PhotosViewController.self).path(forResource: "BSImagePicker", ofType: "bundle")!)!
     
     lazy var photosViewController: PhotosViewController = {
-        let vc = PhotosViewController(fetchResults: self.fetchResults,
+        var vc: PhotosViewController
+        if let filteredResults = self.filteredResults {
+            vc = PhotosViewController(filteredResults: filteredResults,
                                       defaultSelections: self.defaultSelections,
                                       settings: self.settings)
-        
+        } else {
+            vc = PhotosViewController(fetchResults: self.fetchResults,
+                                      defaultSelections: self.defaultSelections,
+                                      settings: self.settings)
+            vc.albumTitleView = self.albumTitleView
+        }
         vc.doneBarButton = self.doneButton
         vc.cancelBarButton = self.cancelButton
-        vc.albumTitleView = self.albumTitleView
         
         return vc
     }()

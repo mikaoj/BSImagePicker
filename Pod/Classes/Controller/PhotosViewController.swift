@@ -58,11 +58,12 @@ final class PhotosViewController : UICollectionViewController {
     let shrinkAnimator = ZoomAnimator()
     
     fileprivate var photosDataSource: PhotoCollectionViewDataSource?
-    fileprivate var albumsDataSource: AlbumTableViewDataSource
+    fileprivate var albumsDataSource: AlbumTableViewDataSource?
     fileprivate let cameraDataSource: CameraCollectionViewDataSource
     fileprivate var composedDataSource: ComposedCollectionViewDataSource?
     
     fileprivate var defaultSelections: PHFetchResult<PHAsset>?
+    fileprivate var filteredResults: PHFetchResult<PHAsset>?
     
     let settings: BSImagePickerSettings
     
@@ -84,6 +85,17 @@ final class PhotosViewController : UICollectionViewController {
     required init(fetchResults: [PHFetchResult<PHAssetCollection>], defaultSelections: PHFetchResult<PHAsset>? = nil, settings aSettings: BSImagePickerSettings) {
         albumsDataSource = AlbumTableViewDataSource(fetchResults: fetchResults)
         cameraDataSource = CameraCollectionViewDataSource(settings: aSettings, cameraAvailable: UIImagePickerController.isSourceTypeAvailable(.camera))
+        self.defaultSelections = defaultSelections
+        settings = aSettings
+        
+        super.init(collectionViewLayout: GridCollectionViewLayout())
+        
+        PHPhotoLibrary.shared().register(self)
+    }
+    
+    required init(filteredResults: PHFetchResult<PHAsset>, defaultSelections: PHFetchResult<PHAsset>? = nil, settings aSettings: BSImagePickerSettings) {
+        cameraDataSource = CameraCollectionViewDataSource(settings: aSettings, cameraAvailable: UIImagePickerController.isSourceTypeAvailable(.camera))
+        self.filteredResults = filteredResults
         self.defaultSelections = defaultSelections
         settings = aSettings
         
@@ -120,11 +132,13 @@ final class PhotosViewController : UICollectionViewController {
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.titleView = albumTitleView
 
-        if let album = albumsDataSource.fetchResults.first?.firstObject {
+        if let album = albumsDataSource?.fetchResults.first?.firstObject {
             initializePhotosDataSource(album, selections: defaultSelections)
             updateAlbumTitle(album)
-            collectionView?.reloadData()
+        } else if let filteredResults = self.filteredResults {
+            initializePhotosDataSourceWithFetchResult(filteredResults)
         }
+        collectionView?.reloadData()
         
         // Add long press recognizer
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(PhotosViewController.collectionViewLongPressed(_:)))
@@ -439,13 +453,14 @@ extension PhotosViewController: UINavigationControllerDelegate {
 extension PhotosViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Update photos data source
-        let album = albumsDataSource.fetchResults[indexPath.section][indexPath.row]
-        initializePhotosDataSource(album)
-        updateAlbumTitle(album)
-        collectionView?.reloadData()
-        
-        // Dismiss album selection
-        albumsViewController.dismiss(animated: true, completion: nil)
+        if let album = albumsDataSource?.fetchResults[indexPath.section][indexPath.row] {
+            initializePhotosDataSource(album)
+            updateAlbumTitle(album)
+            collectionView?.reloadData()
+            
+            // Dismiss album selection
+            albumsViewController.dismiss(animated: true, completion: nil)
+        }
     }
 }
 
@@ -548,8 +563,6 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
                 } else if photosChanges.hasIncrementalChanges == false {
                     // Update fetch result
                     photosDataSource.fetchResult = photosChanges.fetchResultAfterChanges as! PHFetchResult<PHAsset>
-                    
-                    collectionView.reloadData()
                     
                     // Reload view
                     collectionView.reloadData()
