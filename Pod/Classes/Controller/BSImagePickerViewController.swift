@@ -143,6 +143,17 @@ open class BSImagePickerViewController : UINavigationController {
 // MARK: ImagePickerSettings proxy
 extension BSImagePickerViewController: BSImagePickerSettings {
 
+    /**
+     See BSImagePicketSettings for documentation
+     */
+    public var minNumberOfSelections: Int {
+        get {
+            return settings.minNumberOfSelections
+        }
+        set {
+            settings.minNumberOfSelections = newValue
+        }
+    }
 
     /**
      See BSImagePicketSettings for documentation

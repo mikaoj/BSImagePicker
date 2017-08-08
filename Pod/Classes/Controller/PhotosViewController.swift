@@ -265,7 +265,7 @@ final class PhotosViewController : UICollectionViewController {
                         }
                         
                         // Enabled?
-                        doneBarButton?.isEnabled = photosDataSource.selections.count > 0
+                        doneBarButton?.isEnabled = photosDataSource.selections.count >= self.settings.minNumberOfSelections
                     }
                     
                     // Stop loop
