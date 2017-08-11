@@ -28,9 +28,10 @@ The photo cell.
 */
 final class PhotoCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
+	@IBOutlet weak var imageViewPlay: UIImageView!
     @IBOutlet weak var selectionOverlayView: UIView!
     @IBOutlet weak var selectionView: SelectionView!
-    
+	
     weak var asset: PHAsset?
     var settings: BSImagePickerSettings {
         get {
@@ -50,6 +51,9 @@ final class PhotoCell: UICollectionViewCell {
             selectionView.selectionString = newValue
         }
     }
+	
+
+	
     
     var photoSelected: Bool = false {
         didSet {

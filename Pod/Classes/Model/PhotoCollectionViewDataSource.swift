@@ -36,6 +36,8 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
     
     let settings: BSImagePickerSettings?
     var imageSize: CGSize = CGSize.zero
+	let bundle: Bundle = Bundle(path: Bundle(for: PhotosViewController.self).path(forResource: "BSImagePicker", ofType: "bundle")!)!
+	
     
   init(fetchResult: PHFetchResult<PHAsset>, selections: PHFetchResult<PHAsset>? = nil, settings: BSImagePickerSettings?) {
         self.fetchResult = fetchResult
@@ -60,45 +62,56 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
         return fetchResult.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        UIView.setAnimationsEnabled(false)
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photoCellIdentifier, for: indexPath) as! PhotoCell
-        cell.accessibilityIdentifier = "photo_cell_\(indexPath.item)"
-        if let settings = settings {
-            cell.settings = settings
-        }
-        
-        // Cancel any pending image requests
-        if cell.tag != 0 {
-            photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
-        }
-        
-        let asset = fetchResult[indexPath.row]
-        cell.asset = asset
-        
-        // Request image
-        cell.tag = Int(photosManager.requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-            cell.imageView.image = result
-        })
-        
-        // Set selection number
-        if let index = selections.index(of: asset) {
-            if let character = settings?.selectionCharacter {
-                cell.selectionString = String(character)
-            } else {
-                cell.selectionString = String(index+1)
-            }
-            
-            cell.photoSelected = true
-        } else {
-            cell.photoSelected = false
-        }
-        
-        UIView.setAnimationsEnabled(true)
-        
-        return cell
-    }
-    
+	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+		UIView.setAnimationsEnabled(false)
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photoCellIdentifier, for: indexPath) as! PhotoCell
+		cell.accessibilityIdentifier = "photo_cell_\(indexPath.item)"
+		if let settings = settings {
+			cell.settings = settings
+		}
+		
+		// Cancel any pending image requests
+		if cell.tag != 0 {
+			photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
+		}
+		
+		let asset = fetchResult[indexPath.row]
+		cell.asset = asset
+		
+		// Request image
+		
+		cell.tag = Int(photosManager.requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+			
+			cell.imageView.image = result
+			if asset.mediaType == .image {
+				cell.imageViewPlay.isHidden = true
+				
+			} else if asset.mediaType == .video {
+				//create and show the player icon if it's a video
+				cell.imageViewPlay.isHidden = false
+				//let image = UIImage(named: "play-small", in: self.bundle, compatibleWith: nil)
+			}
+			
+		})
+		
+		// Set selection number
+		if let index = selections.index(of: asset) {
+			if let character = settings?.selectionCharacter {
+				cell.selectionString = String(character)
+			} else {
+				cell.selectionString = String(index+1)
+			}
+			
+			cell.photoSelected = true
+		} else {
+			cell.photoSelected = false
+		}
+		
+		UIView.setAnimationsEnabled(true)
+		
+		return cell
+	}
+	
     func registerCellIdentifiersForCollectionView(_ collectionView: UICollectionView?) {
         collectionView?.register(UINib(nibName: "PhotoCell", bundle: BSImagePickerViewController.bundle), forCellWithReuseIdentifier: photoCellIdentifier)
     }
