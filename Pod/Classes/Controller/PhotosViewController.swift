@@ -23,6 +23,8 @@
 import UIKit
 import Photos
 import BSGridCollectionViewLayout
+import AVKit
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
     switch (lhs, rhs) {
     case let (l?, r?):
@@ -199,8 +201,9 @@ final class PhotosViewController : UICollectionViewController {
             let location = sender.location(in: collectionView)
             let indexPath = collectionView?.indexPathForItem(at: location)
 
-            if let vc = previewViewContoller, let indexPath = indexPath, let cell = collectionView?.cellForItem(at: indexPath) as? PhotoCell, let asset = cell.asset {
-                // Setup fetch options to be synchronous
+            if let indexPath = indexPath, let cell = collectionView?.cellForItem(at: indexPath) as? PhotoCell, let asset = cell.asset {
+				if let vc = previewViewContoller, cell.asset?.mediaType == .image{
+				// Setup fetch options to be synchronous
                 let options = PHImageRequestOptions()
                 options.isSynchronous = true
 
@@ -218,6 +221,23 @@ final class PhotosViewController : UICollectionViewController {
                 shrinkAnimator.destinationImageView = cell.imageView
 
                 navigationController?.pushViewController(vc, animated: true)
+				} else if cell.asset?.mediaType == .video {
+					
+					PHCachingImageManager().requestAVAsset(forVideo: asset, options: nil, resultHandler: {(asset, audioMix, info) in
+						
+						let asset = asset as! AVURLAsset
+						
+						DispatchQueue.main.async {
+							
+							let player = AVPlayer(url: asset.url)
+							let playerViewController = AVPlayerViewController()
+							playerViewController.player = player
+							self.present(playerViewController, animated: true) {
+								playerViewController.player!.play()
+							}
+						}
+						})
+				}
             }
 
             // Re-enable recognizer, after animation is done
@@ -226,7 +246,7 @@ final class PhotosViewController : UICollectionViewController {
                 self.collectionView?.isUserInteractionEnabled = true
             })
         }
-    }
+	}
 
     // MARK: Private helper methods
     func updateDoneButton() {
@@ -303,7 +323,7 @@ final class PhotosViewController : UICollectionViewController {
         fetchOptions.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: false)
         ]
-        fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+        fetchOptions.predicate = NSPredicate(format: "mediaType IN %@", [PHAssetMediaType.image.rawValue, PHAssetMediaType.video.rawValue])
         initializePhotosDataSourceWithFetchResult(PHAsset.fetchAssets(in: album, options: fetchOptions), selections: selections)
     }
 
