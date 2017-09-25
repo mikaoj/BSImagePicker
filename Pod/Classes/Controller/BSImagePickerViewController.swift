@@ -249,6 +249,15 @@ extension BSImagePickerViewController: BSImagePickerSettings {
             settings.takePhotoIcon = newValue
         }
     }
+    
+    public var backgroundImageView : UIImageView? {
+        get {
+            return settings.backgroundImageView
+        }
+        set {
+            settings.backgroundImageView = newValue
+        }
+    }
 }
 
 // MARK: Album button

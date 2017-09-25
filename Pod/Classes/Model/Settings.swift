@@ -42,6 +42,9 @@ final class Settings : BSImagePickerSettings {
         ]
     }()
     var backgroundColor: UIColor = UIColor.white
+    
+    var backgroundImageView: UIImageView? = nil
+    
     var cellsPerRow: (_ verticalSize: UIUserInterfaceSizeClass, _ horizontalSize: UIUserInterfaceSizeClass) -> Int = {(verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int in
         switch (verticalSize, horizontalSize) {
         case (.compact, .regular): // iPhone5-6 portrait

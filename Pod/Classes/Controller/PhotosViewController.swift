@@ -43,7 +43,6 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-
 final class PhotosViewController : UICollectionViewController {    
     var selectionClosure: ((_ asset: PHAsset) -> Void)?
     var deselectionClosure: ((_ asset: PHAsset) -> Void)?
@@ -106,6 +105,9 @@ final class PhotosViewController : UICollectionViewController {
         // Setup collection view
         collectionView?.backgroundColor = settings.backgroundColor
         collectionView?.allowsMultipleSelection = true
+        if let bgImage = settings.backgroundImageView{
+            collectionView?.backgroundView = bgImage
+        }
         
         // Set an empty title to get < back button
         title = " "
