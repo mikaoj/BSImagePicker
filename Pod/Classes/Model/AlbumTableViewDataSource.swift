@@ -27,10 +27,10 @@ import Photos
 Implements the UITableViewDataSource protocol with a data source and cell factory
 */
 final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
-    let fetchResults: [PHFetchResult<PHAssetCollection>]
+    @objc let fetchResults: [PHFetchResult<PHAssetCollection>]
     fileprivate let albumCellIdentifier = "albumCell"
     
-    init(fetchResults: [PHFetchResult<PHAssetCollection>]) {
+    @objc init(fetchResults: [PHFetchResult<PHAssetCollection>]) {
         self.fetchResults = fetchResults
         
         super.init()

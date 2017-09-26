@@ -30,7 +30,7 @@ public final class GridCollectionViewLayout: UICollectionViewLayout {
     /**
     Spacing between items (horizontal and vertical)
     */
-    public var itemSpacing: CGFloat = 0 {
+    @objc public var itemSpacing: CGFloat = 0 {
         didSet {
             itemSize = estimatedItemSize()
         }
@@ -39,7 +39,7 @@ public final class GridCollectionViewLayout: UICollectionViewLayout {
     /**
     Number of items per row
     */
-    public var itemsPerRow = 3 {
+    @objc public var itemsPerRow = 3 {
         didSet {
             itemSize = estimatedItemSize()
         }
@@ -48,7 +48,7 @@ public final class GridCollectionViewLayout: UICollectionViewLayout {
     /**
     Item height ratio relative to it's width
     */
-    public var itemHeightRatio: CGFloat = 1 {
+    @objc public var itemHeightRatio: CGFloat = 1 {
         didSet {
             itemSize = estimatedItemSize()
         }
@@ -57,10 +57,10 @@ public final class GridCollectionViewLayout: UICollectionViewLayout {
     /**
     Size for each item
     */
-    public private(set) var itemSize = CGSize.zero
+    @objc public private(set) var itemSize = CGSize.zero
 
-    var items = 0
-    var rows = 0
+    @objc var items = 0
+    @objc var rows = 0
 
     public override func prepare() {
         // Set total number of items and rows
@@ -144,7 +144,7 @@ extension GridCollectionViewLayout {
      - parameter rect: The rect which we want index paths for
      - returns: An array of indexPaths for that rect
      */
-    func indexPathsInRect(_ rect: CGRect) -> [IndexPath] {
+    @objc func indexPathsInRect(_ rect: CGRect) -> [IndexPath] {
         // Make sure we have items/rows
         guard items > 0 && rows > 0 else { return [] }
         
@@ -169,7 +169,7 @@ extension GridCollectionViewLayout {
      - parameter rowHeight: Height for a row
      - returns: First row index
      */
-    static func firstRowInRect(_ rect: CGRect, withRowHeight rowHeight: CGFloat) -> Int {
+    @objc static func firstRowInRect(_ rect: CGRect, withRowHeight rowHeight: CGFloat) -> Int {
         if rect.origin.y / rowHeight < 0 {
             return 0
         } else {
@@ -183,7 +183,7 @@ extension GridCollectionViewLayout {
      - parameter rowHeight: Height for a row
      - returns: Last row index
      */
-    static func lastRowInRect(_ rect: CGRect, withRowHeight rowHeight: CGFloat, max: Int) -> Int {
+    @objc static func lastRowInRect(_ rect: CGRect, withRowHeight rowHeight: CGFloat, max: Int) -> Int {
         guard rect.size.height >= rowHeight else { return 0 }
         
         if (rect.origin.y + rect.height) / rowHeight > CGFloat(max) {
@@ -199,7 +199,7 @@ extension GridCollectionViewLayout {
      - parameter itemsPerRow: How many items there can be in a row
      - returns: First index
      */
-    static func firstIndexInRow(_ row: Int, withItemsPerRow itemsPerRow: Int) -> Int {
+    @objc static func firstIndexInRow(_ row: Int, withItemsPerRow itemsPerRow: Int) -> Int {
         return row * itemsPerRow
     }
     
@@ -210,7 +210,7 @@ extension GridCollectionViewLayout {
      - parameter numberOfItems: The total number of items.
      - returns: Last index
      */
-    static func lastIndexInRow(_ row: Int, withItemsPerRow itemsPerRow: Int, numberOfItems: Int) -> Int {
+    @objc static func lastIndexInRow(_ row: Int, withItemsPerRow itemsPerRow: Int, numberOfItems: Int) -> Int {
         let maxIndex = (row + 1) * itemsPerRow - 1
         let bounds = numberOfItems - 1
         
@@ -226,7 +226,7 @@ extension GridCollectionViewLayout {
      - parameter indexPath: The index path we want to flatten
      - returns: A flat index
      */
-    func flatIndex(_ indexPath: IndexPath) -> Int {
+    @objc func flatIndex(_ indexPath: IndexPath) -> Int {
         guard let collectionView = collectionView else {
             return 0
         }
@@ -239,7 +239,7 @@ extension GridCollectionViewLayout {
      - parameter index: The flat index
      - returns: An index path
      */
-    func indexPathFromFlatIndex(_ index: Int) -> IndexPath {
+    @objc func indexPathFromFlatIndex(_ index: Int) -> IndexPath {
         guard let collectionView = collectionView else {
             return IndexPath(item: 0, section: 0)
         }
@@ -259,7 +259,7 @@ extension GridCollectionViewLayout {
      Estimated the size of the items
      - returns: Estimated item size
      */
-    func estimatedItemSize() -> CGSize {
+    @objc func estimatedItemSize() -> CGSize {
         guard let collectionView = collectionView else {
             return CGSize.zero
         }
@@ -272,7 +272,7 @@ extension GridCollectionViewLayout {
      Estimated total number of items
      - returns: Total number of items
      */
-    func estimatedNumberOfItems() -> Int {
+    @objc func estimatedNumberOfItems() -> Int {
         guard let collectionView = collectionView else {
             return 0
         }
@@ -284,7 +284,7 @@ extension GridCollectionViewLayout {
      Height for each row
      - returns: Row height
      */
-    func estimatedRowHeight() -> CGFloat {
+    @objc func estimatedRowHeight() -> CGFloat {
         return itemSize.height+itemSpacing
     }
 }

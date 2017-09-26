@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         vc.selectionFillColor = UIColor.gray
         vc.selectionStrokeColor = UIColor.yellow
         vc.selectionShadowColor = UIColor.red
-        vc.selectionTextAttributes[NSForegroundColorAttributeName] = UIColor.lightGray
+        vc.selectionTextAttributes[NSAttributedStringKey.foregroundColor] = UIColor.lightGray
         vc.cellsPerRow = {(verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int in
             switch (verticalSize, horizontalSize) {
             case (.compact, .regular): // iPhone5-6 portrait

@@ -24,8 +24,8 @@ import UIKit
 import UIImageViewModeScaleAspect
 
 final class ZoomAnimator : NSObject, UIViewControllerAnimatedTransitioning {
-    var sourceImageView: UIImageView?
-    var destinationImageView: UIImageView?
+    @objc var sourceImageView: UIImageView?
+    @objc var destinationImageView: UIImageView?
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.3

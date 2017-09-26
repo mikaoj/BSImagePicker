@@ -31,7 +31,7 @@ extension UIButton {
     - parameter title: The String to use as title
     - parameter forState: Which state it applies to
     */
-    func bs_setTitleWithoutAnimation(_ title: String?, forState state: UIControlState) {
+    @objc func bs_setTitleWithoutAnimation(_ title: String?, forState state: UIControlState) {
         
         // Disable/enable animations
         let animationEnabled = UIView.areAnimationsEnabled
