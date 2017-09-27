@@ -66,7 +66,7 @@ final class PhotosViewController : UICollectionViewController {
     
     let settings: BSImagePickerSettings
     
-    fileprivate var doneBarButtonTitle: String?
+    fileprivate let doneBarButtonTitle: String = NSLocalizedString("Done", comment: "Done")
     
     @objc lazy var albumsViewController: AlbumsViewController = {
         let storyboard = UIStoryboard(name: "Albums", bundle: BSImagePickerViewController.bundle)
@@ -229,64 +229,18 @@ final class PhotosViewController : UICollectionViewController {
     
     // MARK: Private helper methods
     @objc func updateDoneButton() {
-        // Find right button
-        if let subViews = navigationController?.navigationBar.subviews, let photosDataSource = photosDataSource {
-            for view in subViews {
-                if let btn = view as? UIButton , checkIfRightButtonItem(btn) {
-                    // Store original title if we havn't got it
-                    if doneBarButtonTitle == nil {
-                        doneBarButtonTitle = btn.title(for: UIControlState())
-                    }
-                    
-                    // Update title
-                    if let doneBarButtonTitle = doneBarButtonTitle {
-                        // Special case if we have selected 1 image and that is
-                        // the max number of allowed selections
-                        if (photosDataSource.selections.count == 1 && self.settings.maxNumberOfSelections == 1) {
-                            btn.bs_setTitleWithoutAnimation("\(doneBarButtonTitle)", forState: UIControlState())
-                        } else if photosDataSource.selections.count > 0 {
-                            btn.bs_setTitleWithoutAnimation("\(doneBarButtonTitle) (\(photosDataSource.selections.count))", forState: UIControlState())
-                        } else {
-                            btn.bs_setTitleWithoutAnimation(doneBarButtonTitle, forState: UIControlState())
-                        }
-                        
-                        // Enabled?
-                        doneBarButton?.isEnabled = photosDataSource.selections.count > 0
-                    }
-                    
-                    // Stop loop
-                    break
-                }
-            }
+        guard let photosDataSource = photosDataSource else { return }
+
+        if photosDataSource.selections.count > 0 {
+            doneBarButton = UIBarButtonItem(title: "\(doneBarButtonTitle) (\(photosDataSource.selections.count))", style: .done, target: doneBarButton?.target, action: doneBarButton?.action)
+        } else {
+            doneBarButton = UIBarButtonItem(title: doneBarButtonTitle, style: .done, target: doneBarButton?.target, action: doneBarButton?.action)
         }
 
-        self.navigationController?.navigationBar.setNeedsLayout()
-    }
-    
-    // Check if a give UIButton is the right UIBarButtonItem in the navigation bar
-    // Somewhere along the road, our UIBarButtonItem gets transformed to an UINavigationButton
-    @objc func checkIfRightButtonItem(_ btn: UIButton) -> Bool {
-        guard let rightButton = navigationItem.rightBarButtonItem else {
-            return false
-        }
-        
-        // Store previous values
-        let wasRightEnabled = rightButton.isEnabled
-        let wasButtonEnabled = btn.isEnabled
-        
-        // Set a known state for both buttons
-        rightButton.isEnabled = false
-        btn.isEnabled = false
-        
-        // Change one and see if other also changes
-        rightButton.isEnabled = true
-        let isRightButton = btn.isEnabled
-        
-        // Reset
-        rightButton.isEnabled = wasRightEnabled
-        btn.isEnabled = wasButtonEnabled
-        
-        return isRightButton
+        // Enabled?
+        doneBarButton?.isEnabled = photosDataSource.selections.count > 0
+
+        navigationItem.rightBarButtonItem = doneBarButton
     }
     
     @objc func updateAlbumTitle(_ album: PHAssetCollection) {
@@ -548,8 +502,6 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
                 } else if photosChanges.hasIncrementalChanges == false {
                     // Update fetch result
                     photosDataSource.fetchResult = photosChanges.fetchResultAfterChanges as! PHFetchResult<PHAsset>
-                    
-                    collectionView.reloadData()
                     
                     // Reload view
                     collectionView.reloadData()

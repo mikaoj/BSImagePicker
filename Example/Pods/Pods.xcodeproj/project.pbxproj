@@ -38,7 +38,6 @@
 		729478D168ADD1B98CC3490A8BA646EF /* arrow_down@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56481AAB02359FABC82DB1074E6DF2BA /* arrow_down@1x.png */; };
 		7A88D9EC5D04CADE31F0D98728250C46 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178C7A9BE3CAA64DF6EF2669670B16C6 /* Photos.framework */; };
 		7CD9C488F07273664772B1AA302D9D85 /* Albums.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99CC0BCEC01BCBA23C3768506A4F63B4 /* Albums.storyboard */; };
-		85799C535548092D4DCE1D3137FD483B /* UIButton+NoAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC7047F1964327C5D56E6055AFC0D91 /* UIButton+NoAnimation.swift */; };
 		995A0F140437B85FB6CC2206C018CB07 /* AlbumTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A81F60675FC62437C1CF53E1714BAF52 /* AlbumTableViewDataSource.swift */; };
 		A727C60BC069E259ABB379DAB8A91FE2 /* CameraCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77316728C04753404C3696124D38883E /* CameraCell.xib */; };
 		AFF15E61237841048E57610588C641FB /* BSImagePicker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E55CF3494345E87C43B47CAFF6DB554 /* BSImagePicker-dummy.m */; };
@@ -167,7 +166,6 @@
 		81D8BA904EA0A7EFD1CCCDBF3F3F7741 /* UIImageViewModeScaleAspect.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = UIImageViewModeScaleAspect.xcconfig; sourceTree = "<group>"; };
 		89A3A4CEE887F2AA4D691ABEA1AE9BE5 /* Pods-BSImagePicker_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-BSImagePicker_Example-umbrella.h"; sourceTree = "<group>"; };
 		8E7A4512D8E2269EC57F59EEFAF9EFDC /* add_photo.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = add_photo.png; sourceTree = "<group>"; };
-		8FC7047F1964327C5D56E6055AFC0D91 /* UIButton+NoAnimation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "UIButton+NoAnimation.swift"; sourceTree = "<group>"; };
 		9036B4F88810B0B03290C79C9562A61C /* UIImageViewModeScaleAspect-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UIImageViewModeScaleAspect-prefix.pch"; sourceTree = "<group>"; };
 		903E787B7D08ACE7E6D292D5F7B347A0 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92121642335D51FEFD0F7951B1AC198C /* Settings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -320,7 +318,6 @@
 			isa = PBXGroup;
 			children = (
 				D04E1F086FC15C5DDF742625F49058D3 /* NSIndexSet+NSIndexPath.swift */,
-				8FC7047F1964327C5D56E6055AFC0D91 /* UIButton+NoAnimation.swift */,
 				AD7F235E85CC1D27CBECC42310B68266 /* UIViewController+BSImagePicker.swift */,
 			);
 			path = Extension;
@@ -819,7 +816,6 @@
 				CB1D5DF2292BAE15854DAA24B8D4A4CE /* PreviewViewController.swift in Sources */,
 				23D8703FA5DEE897EE64E590465BDEB5 /* SelectionView.swift in Sources */,
 				D130664E5AB3AE440900439850877B31 /* Settings.swift in Sources */,
-				85799C535548092D4DCE1D3137FD483B /* UIButton+NoAnimation.swift in Sources */,
 				CF5FAD1C2EE24FB2C50CC91A8DBE37CF /* UIViewController+BSImagePicker.swift in Sources */,
 				DF4D0829FCDAB6E62444804C8ED90421 /* ZoomAnimator.swift in Sources */,
 			);
