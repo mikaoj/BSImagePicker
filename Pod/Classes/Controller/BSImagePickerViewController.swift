@@ -36,23 +36,23 @@ open class BSImagePickerViewController : UINavigationController {
     /**
      Done button.
      */
-    open var doneButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
+    @objc open var doneButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
     
     /**
      Cancel button
      */
-    open var cancelButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
+    @objc open var cancelButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
     
     /**
      Default selections
      */
-    open var defaultSelections: PHFetchResult<PHAsset>?
+    @objc open var defaultSelections: PHFetchResult<PHAsset>?
     
     /**
      Fetch results.
      */
     
-    open lazy var fetchResults: [PHFetchResult] = { () -> [PHFetchResult<PHAssetCollection>] in
+    @objc open lazy var fetchResults: [PHFetchResult] = { () -> [PHFetchResult<PHAssetCollection>] in
         let fetchOptions = PHFetchOptions()
         
         // Camera roll fetch result
@@ -64,11 +64,11 @@ open class BSImagePickerViewController : UINavigationController {
         return [cameraRollResult, albumResult]
     }()
     
-    var albumTitleView: AlbumTitleView = bundle.loadNibNamed("AlbumTitleView", owner: nil, options: nil)!.first as! AlbumTitleView
+    @objc var albumTitleView: AlbumTitleView = bundle.loadNibNamed("AlbumTitleView", owner: nil, options: nil)!.first as! AlbumTitleView
     
-    static let bundle: Bundle = Bundle(path: Bundle(for: PhotosViewController.self).path(forResource: "BSImagePicker", ofType: "bundle")!)!
+    @objc static let bundle: Bundle = Bundle(path: Bundle(for: PhotosViewController.self).path(forResource: "BSImagePicker", ofType: "bundle")!)!
     
-    lazy var photosViewController: PhotosViewController = {
+    @objc lazy var photosViewController: PhotosViewController = {
         let vc = PhotosViewController(fetchResults: self.fetchResults,
                                       defaultSelections: self.defaultSelections,
                                       settings: self.settings)
@@ -80,7 +80,7 @@ open class BSImagePickerViewController : UINavigationController {
         return vc
     }()
     
-    class func authorize(_ status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(), fromViewController: UIViewController, completion: @escaping (_ authorized: Bool) -> Void) {
+    @objc class func authorize(_ status: PHAuthorizationStatus = PHPhotoLibrary.authorizationStatus(), fromViewController: UIViewController, completion: @escaping (_ authorized: Bool) -> Void) {
         switch status {
         case .authorized:
             // We are authorized. Run block
@@ -136,7 +136,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
     /**
      See BSImagePicketSettings for documentation
      */
-    public var maxNumberOfSelections: Int {
+    @objc public var maxNumberOfSelections: Int {
         get {
             return settings.maxNumberOfSelections
         }
@@ -160,7 +160,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
     /**
      See BSImagePicketSettings for documentation
      */
-    public var selectionFillColor: UIColor {
+    @objc public var selectionFillColor: UIColor {
         get {
             return settings.selectionFillColor
         }
@@ -172,7 +172,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
     /**
      See BSImagePicketSettings for documentation
      */
-    public var selectionStrokeColor: UIColor {
+    @objc public var selectionStrokeColor: UIColor {
         get {
             return settings.selectionStrokeColor
         }
@@ -184,7 +184,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
     /**
      See BSImagePicketSettings for documentation
      */
-    public var selectionShadowColor: UIColor {
+    @objc public var selectionShadowColor: UIColor {
         get {
             return settings.selectionShadowColor
         }
@@ -196,7 +196,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
     /**
      See BSImagePicketSettings for documentation
      */
-    public var selectionTextAttributes: [String: AnyObject] {
+    @objc public var selectionTextAttributes: [NSAttributedStringKey: AnyObject] {
         get {
             return settings.selectionTextAttributes
         }
@@ -208,7 +208,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
     /**
      BackgroundColor
      */
-    public var backgroundColor: UIColor {
+    @objc public var backgroundColor: UIColor {
         get {
             return settings.backgroundColor
         }
@@ -220,7 +220,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
     /**
      See BSImagePicketSettings for documentation
      */
-    public var cellsPerRow: (_ verticalSize: UIUserInterfaceSizeClass, _ horizontalSize: UIUserInterfaceSizeClass) -> Int {
+    @objc public var cellsPerRow: (_ verticalSize: UIUserInterfaceSizeClass, _ horizontalSize: UIUserInterfaceSizeClass) -> Int {
         get {
             return settings.cellsPerRow
         }
@@ -232,7 +232,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
     /**
      See BSImagePicketSettings for documentation
      */
-    public var takePhotos: Bool {
+    @objc public var takePhotos: Bool {
         get {
             return settings.takePhotos
         }
@@ -241,7 +241,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
         }
     }
     
-    public var takePhotoIcon: UIImage? {
+    @objc public var takePhotoIcon: UIImage? {
         get {
             return settings.takePhotoIcon
         }
@@ -256,7 +256,7 @@ extension BSImagePickerViewController {
     /**
      Album button in title view
      */
-    public var albumButton: UIButton {
+    @objc public var albumButton: UIButton {
         get {
             return albumTitleView.albumButton
         }

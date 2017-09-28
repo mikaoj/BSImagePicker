@@ -27,15 +27,15 @@ import Photos
 Gives UICollectionViewDataSource functionality with a given data source and cell factory
 */
 final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource {
-    var selections = [PHAsset]()
-    var fetchResult: PHFetchResult<PHAsset>
+    @objc var selections = [PHAsset]()
+    @objc var fetchResult: PHFetchResult<PHAsset>
     
     fileprivate let photoCellIdentifier = "photoCellIdentifier"
     fileprivate let photosManager = PHCachingImageManager.default()
     fileprivate let imageContentMode: PHImageContentMode = .aspectFill
     
     let settings: BSImagePickerSettings?
-    var imageSize: CGSize = CGSize.zero
+    @objc var imageSize: CGSize = CGSize.zero
     
   init(fetchResult: PHFetchResult<PHAsset>, selections: PHFetchResult<PHAsset>? = nil, settings: BSImagePickerSettings?) {
         self.fetchResult = fetchResult
@@ -99,7 +99,7 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
         return cell
     }
     
-    func registerCellIdentifiersForCollectionView(_ collectionView: UICollectionView?) {
+    @objc func registerCellIdentifiersForCollectionView(_ collectionView: UICollectionView?) {
         collectionView?.register(UINib(nibName: "PhotoCell", bundle: BSImagePickerViewController.bundle), forCellWithReuseIdentifier: photoCellIdentifier)
     }
 }

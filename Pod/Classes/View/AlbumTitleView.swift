@@ -30,7 +30,7 @@ final class AlbumTitleView: UIView {
     
     fileprivate var context = 0
     
-    var albumTitle = "" {
+    @objc var albumTitle = "" {
         didSet {
             if let imageView = self.albumButton?.imageView, let titleLabel = self.albumButton?.titleLabel {
                 // Set title on button
@@ -55,7 +55,7 @@ final class AlbumTitleView: UIView {
         albumButton?.setImage(arrowDownImage, for: UIControlState())
     }
     
-    lazy var arrowDownImage: UIImage? = {
+    @objc lazy var arrowDownImage: UIImage? = {
         // Get path for BSImagePicker bundle
         let bundlePath = Bundle(for: PhotosViewController.self).path(forResource: "BSImagePicker", ofType: "bundle")
         let bundle: Bundle?
