@@ -64,7 +64,11 @@ open class BSImagePickerViewController : UINavigationController {
         return [cameraRollResult, albumResult]
     }()
     
-    @objc var albumTitleView: AlbumTitleView = bundle.loadNibNamed("AlbumTitleView", owner: nil, options: nil)!.first as! AlbumTitleView
+    @objc var albumTitleView: UIButton = {
+        let btn =  UIButton(frame: .zero)
+        btn.setTitleColor(btn.tintColor, for: .normal)
+        return btn
+    }()
     
     @objc static let bundle: Bundle = Bundle(path: Bundle(for: PhotosViewController.self).path(forResource: "BSImagePicker", ofType: "bundle")!)!
     
@@ -258,10 +262,10 @@ extension BSImagePickerViewController {
      */
     @objc public var albumButton: UIButton {
         get {
-            return albumTitleView.albumButton
+            return albumTitleView
         }
         set {
-            albumTitleView.albumButton = newValue
+            albumTitleView = newValue
         }
     }
 }

@@ -52,7 +52,7 @@ final class PhotosViewController : UICollectionViewController {
     
     @objc var doneBarButton: UIBarButtonItem?
     @objc var cancelBarButton: UIBarButtonItem?
-    @objc var albumTitleView: AlbumTitleView?
+    @objc var albumTitleView: UIButton?
     
     @objc let expandAnimator = ZoomAnimator()
     @objc let shrinkAnimator = ZoomAnimator()
@@ -115,7 +115,7 @@ final class PhotosViewController : UICollectionViewController {
         doneBarButton?.action = #selector(PhotosViewController.doneButtonPressed(_:))
         cancelBarButton?.target = self
         cancelBarButton?.action = #selector(PhotosViewController.cancelButtonPressed(_:))
-        albumTitleView?.albumButton?.addTarget(self, action: #selector(PhotosViewController.albumButtonPressed(_:)), for: .touchUpInside)
+        albumTitleView?.addTarget(self, action: #selector(PhotosViewController.albumButtonPressed(_:)), for: .touchUpInside)
         navigationItem.leftBarButtonItem = cancelBarButton
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.titleView = albumTitleView
@@ -244,10 +244,9 @@ final class PhotosViewController : UICollectionViewController {
     }
     
     @objc func updateAlbumTitle(_ album: PHAssetCollection) {
-        if let title = album.localizedTitle {
-            // Update album title
-            albumTitleView?.albumTitle = title
-        }
+        guard let title = album.localizedTitle else { return }
+        // Update album title
+        albumTitleView?.setAlbumTitle(title)
     }
     
   @objc func initializePhotosDataSource(_ album: PHAssetCollection, selections: PHFetchResult<PHAsset>? = nil) {

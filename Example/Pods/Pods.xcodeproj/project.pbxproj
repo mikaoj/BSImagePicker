@@ -34,7 +34,6 @@
 		5C053006BBBD00AA23D069426039298B /* AlbumTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7593C7000BBBCF28BE394BD944455E /* AlbumTitleView.swift */; };
 		61B3E8B44D6F2EA17EDE942B24371232 /* BSGridCollectionViewLayout-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EC6985F50CEFD58B48A2FADC4AD5350 /* BSGridCollectionViewLayout-dummy.m */; };
 		6ACE8208509D15CA0447D5247EEE968E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AFC5762A4310C5AC17337E786B6435 /* Foundation.framework */; };
-		6BF3FD7E196F67E875113F7A02C8638D /* AlbumTitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3BB76DEE24139FBAE2918BA806DB0BB /* AlbumTitleView.xib */; };
 		729478D168ADD1B98CC3490A8BA646EF /* arrow_down@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56481AAB02359FABC82DB1074E6DF2BA /* arrow_down@1x.png */; };
 		7A88D9EC5D04CADE31F0D98728250C46 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 178C7A9BE3CAA64DF6EF2669670B16C6 /* Photos.framework */; };
 		7CD9C488F07273664772B1AA302D9D85 /* Albums.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 99CC0BCEC01BCBA23C3768506A4F63B4 /* Albums.storyboard */; };
@@ -183,7 +182,6 @@
 		B0D7D5EE204667192AEAD22F01C8E7AB /* SelectionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
 		B164E0104AE398894A906B8B2B3D6CB0 /* arrow_down@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "arrow_down@3x.png"; sourceTree = "<group>"; };
 		B26A59C7E9DD0669FD9C939EAFE9FA0E /* Pods-BSImagePicker_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BSImagePicker_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		B3BB76DEE24139FBAE2918BA806DB0BB /* AlbumTitleView.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; path = AlbumTitleView.xib; sourceTree = "<group>"; };
 		B6999DA04FE4E20399311F06C1F4292B /* BSGridCollectionViewLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BSGridCollectionViewLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B850C235006BCDA2210051124E372BFB /* Pods-BSImagePicker_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BSImagePicker_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		B8740BC66F09225F35498366B9A140E4 /* PreviewViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
@@ -481,7 +479,6 @@
 				59EDC68548593C3594E5ECF4CCBE53D1 /* add_photo@2x.png */,
 				332E00A781E4D31682800A21809F05AF /* add_photo@3x.png */,
 				99CC0BCEC01BCBA23C3768506A4F63B4 /* Albums.storyboard */,
-				B3BB76DEE24139FBAE2918BA806DB0BB /* AlbumTitleView.xib */,
 				56481AAB02359FABC82DB1074E6DF2BA /* arrow_down@1x.png */,
 				41434C6C3BB9C93164E3A0B4692BADDF /* arrow_down@2x.png */,
 				B164E0104AE398894A906B8B2B3D6CB0 /* arrow_down@3x.png */,
@@ -759,7 +756,6 @@
 				E6CB97E4D03638811A9B63F85DF18401 /* add_photo@2x.png in Resources */,
 				345708DD5F220E4BB3C286EFDD270509 /* add_photo@3x.png in Resources */,
 				7CD9C488F07273664772B1AA302D9D85 /* Albums.storyboard in Resources */,
-				6BF3FD7E196F67E875113F7A02C8638D /* AlbumTitleView.xib in Resources */,
 				729478D168ADD1B98CC3490A8BA646EF /* arrow_down@1x.png in Resources */,
 				49DD0C7E95B1CDB0FFEB5BC2E745BACA /* arrow_down@2x.png in Resources */,
 				F9A148C83D48857A735E90C5C63F2810 /* arrow_down@3x.png in Resources */,
