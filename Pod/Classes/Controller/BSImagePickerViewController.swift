@@ -51,7 +51,7 @@ open class BSImagePickerViewController : UINavigationController {
     /**
      Filtered results
      */
-    open var filteredResults: PHFetchResult<PHAsset>?
+    @objc open var filteredResults: PHFetchResult<PHAsset>?
     
     /**
      Fetch results.
