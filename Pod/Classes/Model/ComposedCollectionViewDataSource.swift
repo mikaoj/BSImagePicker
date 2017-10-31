@@ -26,9 +26,9 @@ import UIKit
 Takes multiple UICollectionViewDataSources and joins them into one section
 */
 class ComposedCollectionViewDataSource: NSObject, UICollectionViewDataSource {
-    let dataSources: [UICollectionViewDataSource]
+    @objc let dataSources: [UICollectionViewDataSource]
     
-    init(dataSources: [UICollectionViewDataSource]) {
+    @objc init(dataSources: [UICollectionViewDataSource]) {
         self.dataSources = dataSources
         
         super.init()

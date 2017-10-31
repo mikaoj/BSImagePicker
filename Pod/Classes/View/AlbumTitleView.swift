@@ -22,40 +22,26 @@
 
 import UIKit
 
-/**
-The navigation title view with album name and a button for activating the drop down.
-*/
-final class AlbumTitleView: UIView {
-    @IBOutlet weak var albumButton: UIButton!
-    
-    fileprivate var context = 0
-    
-    var albumTitle = "" {
-        didSet {
-            if let imageView = self.albumButton?.imageView, let titleLabel = self.albumButton?.titleLabel {
-                // Set title on button
-                albumButton?.setTitle(self.albumTitle, for: UIControlState())
-                
-                // Also set title directly to label, since it isn't done right away when setting button title
-                // And we need to know its width to calculate insets
-                titleLabel.text = self.albumTitle
-                titleLabel.sizeToFit()
-                
-                // Adjust insets to right align image
-                albumButton?.titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageView.bounds.size.width, bottom: 0, right: imageView.bounds.size.width)
-                albumButton?.imageEdgeInsets = UIEdgeInsets(top: 0, left: titleLabel.bounds.size.width + 4, bottom: 0, right: -(titleLabel.bounds.size.width + 4))
-            }
-        }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
+extension UIButton {
+    func setAlbumTitle(_ title: String) {
+        guard let imageView = imageView, let titleLabel = titleLabel else  { return }
         // Set image
-        albumButton?.setImage(arrowDownImage, for: UIControlState())
+        setImage(arrowDownImage, for: .normal)
+        
+        // Set title on button
+        setTitle(title, for: .normal)
+
+        // Also set title directly to label, since it isn't done right away when setting button title
+        // And we need to know its width to calculate insets
+        titleLabel.text = title
+        titleLabel.sizeToFit()
+
+        // Adjust insets to right align image
+        titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageView.bounds.size.width, bottom: 0, right: imageView.bounds.size.width)
+        imageEdgeInsets = UIEdgeInsets(top: 0, left: titleLabel.bounds.size.width + 12, bottom: 0, right: -(titleLabel.bounds.size.width + 12))
     }
     
-    lazy var arrowDownImage: UIImage? = {
+    private var arrowDownImage: UIImage? {
         // Get path for BSImagePicker bundle
         let bundlePath = Bundle(for: PhotosViewController.self).path(forResource: "BSImagePicker", ofType: "bundle")
         let bundle: Bundle?
@@ -67,6 +53,6 @@ final class AlbumTitleView: UIView {
             bundle = nil
         }
         
-        return UIImage(named: "arrow_down", in: bundle, compatibleWith: nil)
-    }()
+        return UIImage(named: "arrow_down", in: bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+    }
 }

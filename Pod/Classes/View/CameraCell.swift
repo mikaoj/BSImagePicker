@@ -14,7 +14,7 @@ import AVFoundation
 final class CameraCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var cameraBackground: UIView!
-    var takePhotoIcon: UIImage? {
+    @objc var takePhotoIcon: UIImage? {
         didSet {
             imageView.image = takePhotoIcon
             
@@ -23,36 +23,40 @@ final class CameraCell: UICollectionViewCell {
         }
     }
     
-    var session: AVCaptureSession?
-    var captureLayer: AVCaptureVideoPreviewLayer?
-    let sessionQueue = DispatchQueue(label: "AVCaptureVideoPreviewLayer", attributes: [])
+    @objc var session: AVCaptureSession?
+    @objc var captureLayer: AVCaptureVideoPreviewLayer?
+    @objc let sessionQueue = DispatchQueue(label: "AVCaptureVideoPreviewLayer", attributes: [])
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         // Don't trigger camera access for the background
-        guard AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo) == .authorized else {
+        guard AVCaptureDevice.authorizationStatus(for: AVMediaType.video) == .authorized else {
             return
         }
         
         do {
             // Prepare avcapture session
             session = AVCaptureSession()
-            session?.sessionPreset = AVCaptureSessionPresetMedium
+            session?.sessionPreset = AVCaptureSession.Preset.medium
             
             // Hook upp device
-            let device = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
-            let input = try AVCaptureDeviceInput(device: device)
+            let device = AVCaptureDevice.default(for: AVMediaType.video)
+            let input = try AVCaptureDeviceInput(device: device!)
             session?.addInput(input)
             
             // Setup capture layer
-            if let captureLayer = AVCaptureVideoPreviewLayer(session: session) {
-                captureLayer.frame = bounds
-                captureLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
-                cameraBackground.layer.addSublayer(captureLayer)
-                
-                self.captureLayer = captureLayer
+
+            guard session != nil else {
+                return
             }
+          
+            let captureLayer = AVCaptureVideoPreviewLayer(session: session!)
+            captureLayer.frame = bounds
+            captureLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+            cameraBackground.layer.addSublayer(captureLayer)
+
+            self.captureLayer = captureLayer
         } catch {
             session = nil
         }
@@ -64,13 +68,13 @@ final class CameraCell: UICollectionViewCell {
         captureLayer?.frame = bounds
     }
     
-    func startLiveBackground() {
+    @objc func startLiveBackground() {
         sessionQueue.async { () -> Void in
             self.session?.startRunning()
         }
     }
     
-    func stopLiveBackground() {
+    @objc func stopLiveBackground() {
         sessionQueue.async { () -> Void in
             self.session?.stopRunning()
         }

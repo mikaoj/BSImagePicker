@@ -45,17 +45,17 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 
 final class PhotosViewController : UICollectionViewController {    
-    var selectionClosure: ((_ asset: PHAsset) -> Void)?
-    var deselectionClosure: ((_ asset: PHAsset) -> Void)?
-    var cancelClosure: ((_ assets: [PHAsset]) -> Void)?
-    var finishClosure: ((_ assets: [PHAsset]) -> Void)?
+    @objc var selectionClosure: ((_ asset: PHAsset) -> Void)?
+    @objc var deselectionClosure: ((_ asset: PHAsset) -> Void)?
+    @objc var cancelClosure: ((_ assets: [PHAsset]) -> Void)?
+    @objc var finishClosure: ((_ assets: [PHAsset]) -> Void)?
     
-    var doneBarButton: UIBarButtonItem?
-    var cancelBarButton: UIBarButtonItem?
-    var albumTitleView: AlbumTitleView?
+    @objc var doneBarButton: UIBarButtonItem?
+    @objc var cancelBarButton: UIBarButtonItem?
+    @objc var albumTitleView: UIButton?
     
-    let expandAnimator = ZoomAnimator()
-    let shrinkAnimator = ZoomAnimator()
+    @objc let expandAnimator = ZoomAnimator()
+    @objc let shrinkAnimator = ZoomAnimator()
     
     fileprivate var photosDataSource: PhotoCollectionViewDataSource?
     fileprivate var albumsDataSource: AlbumTableViewDataSource?
@@ -67,9 +67,9 @@ final class PhotosViewController : UICollectionViewController {
     
     let settings: BSImagePickerSettings
     
-    fileprivate var doneBarButtonTitle: String?
+    fileprivate let doneBarButtonTitle: String = NSLocalizedString("Done", comment: "Done")
     
-    lazy var albumsViewController: AlbumsViewController = {
+    @objc lazy var albumsViewController: AlbumsViewController = {
         let storyboard = UIStoryboard(name: "Albums", bundle: BSImagePickerViewController.bundle)
         let vc = storyboard.instantiateInitialViewController() as! AlbumsViewController
         vc.tableView.dataSource = self.albumsDataSource
@@ -127,7 +127,7 @@ final class PhotosViewController : UICollectionViewController {
         doneBarButton?.action = #selector(PhotosViewController.doneButtonPressed(_:))
         cancelBarButton?.target = self
         cancelBarButton?.action = #selector(PhotosViewController.cancelButtonPressed(_:))
-        albumTitleView?.albumButton?.addTarget(self, action: #selector(PhotosViewController.albumButtonPressed(_:)), for: .touchUpInside)
+        albumTitleView?.addTarget(self, action: #selector(PhotosViewController.albumButtonPressed(_:)), for: .touchUpInside)
         navigationItem.leftBarButtonItem = cancelBarButton
         navigationItem.rightBarButtonItem = doneBarButton
         navigationItem.titleView = albumTitleView
@@ -161,7 +161,7 @@ final class PhotosViewController : UICollectionViewController {
     }
     
     // MARK: Button actions
-    func cancelButtonPressed(_ sender: UIBarButtonItem) {
+    @objc func cancelButtonPressed(_ sender: UIBarButtonItem) {
         guard let closure = cancelClosure, let photosDataSource = photosDataSource else {
             dismiss(animated: true, completion: nil)
             return
@@ -173,7 +173,7 @@ final class PhotosViewController : UICollectionViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    func doneButtonPressed(_ sender: UIBarButtonItem) {
+    @objc func doneButtonPressed(_ sender: UIBarButtonItem) {
         guard let closure = finishClosure, let photosDataSource = photosDataSource else {
             dismiss(animated: true, completion: nil)
             return
@@ -186,7 +186,7 @@ final class PhotosViewController : UICollectionViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    func albumButtonPressed(_ sender: UIButton) {
+    @objc func albumButtonPressed(_ sender: UIButton) {
         guard let popVC = albumsViewController.popoverPresentationController else {
             return
         }
@@ -202,7 +202,7 @@ final class PhotosViewController : UICollectionViewController {
         present(albumsViewController, animated: true, completion: nil)
     }
     
-    func collectionViewLongPressed(_ sender: UIGestureRecognizer) {
+    @objc func collectionViewLongPressed(_ sender: UIGestureRecognizer) {
         if sender.state == .began {
             // Disable recognizer while we are figuring out location and pushing preview
             sender.isEnabled = false
@@ -242,75 +242,28 @@ final class PhotosViewController : UICollectionViewController {
     }
     
     // MARK: Private helper methods
-    func updateDoneButton() {
-        // Find right button
-        if let subViews = navigationController?.navigationBar.subviews, let photosDataSource = photosDataSource {
-            for view in subViews {
-                if let btn = view as? UIButton , checkIfRightButtonItem(btn) {
-                    // Store original title if we havn't got it
-                    if doneBarButtonTitle == nil {
-                        doneBarButtonTitle = btn.title(for: UIControlState())
-                    }
-                    
-                    // Update title
-                    if let doneBarButtonTitle = doneBarButtonTitle {
-                        // Special case if we have selected 1 image and that is
-                        // the max number of allowed selections
-                        if (photosDataSource.selections.count == 1 && self.settings.maxNumberOfSelections == 1) {
-                            btn.bs_setTitleWithoutAnimation("\(doneBarButtonTitle)", forState: UIControlState())
-                        } else if photosDataSource.selections.count > 0 {
-                            btn.bs_setTitleWithoutAnimation("\(doneBarButtonTitle) (\(photosDataSource.selections.count))", forState: UIControlState())
-                        } else {
-                            btn.bs_setTitleWithoutAnimation(doneBarButtonTitle, forState: UIControlState())
-                        }
-                        
-                        // Enabled?
-                        doneBarButton?.isEnabled = photosDataSource.selections.count >= self.settings.minNumberOfSelections
-                    }
-                    
-                    // Stop loop
-                    break
-                }
-            }
+    @objc func updateDoneButton() {
+        guard let photosDataSource = photosDataSource else { return }
+
+        if photosDataSource.selections.count > 0 {
+            doneBarButton = UIBarButtonItem(title: "\(doneBarButtonTitle) (\(photosDataSource.selections.count))", style: .done, target: doneBarButton?.target, action: doneBarButton?.action)
+        } else {
+            doneBarButton = UIBarButtonItem(title: doneBarButtonTitle, style: .done, target: doneBarButton?.target, action: doneBarButton?.action)
         }
 
-        self.navigationController?.navigationBar.setNeedsLayout()
+        // Enabled?
+        doneBarButton?.isEnabled = photosDataSource.selections.count >= settings.minNumberOfSelections
+
+        navigationItem.rightBarButtonItem = doneBarButton
     }
     
-    // Check if a give UIButton is the right UIBarButtonItem in the navigation bar
-    // Somewhere along the road, our UIBarButtonItem gets transformed to an UINavigationButton
-    func checkIfRightButtonItem(_ btn: UIButton) -> Bool {
-        guard let rightButton = navigationItem.rightBarButtonItem else {
-            return false
-        }
-        
-        // Store previous values
-        let wasRightEnabled = rightButton.isEnabled
-        let wasButtonEnabled = btn.isEnabled
-        
-        // Set a known state for both buttons
-        rightButton.isEnabled = false
-        btn.isEnabled = false
-        
-        // Change one and see if other also changes
-        rightButton.isEnabled = true
-        let isRightButton = btn.isEnabled
-        
-        // Reset
-        rightButton.isEnabled = wasRightEnabled
-        btn.isEnabled = wasButtonEnabled
-        
-        return isRightButton
+    @objc func updateAlbumTitle(_ album: PHAssetCollection) {
+        guard let title = album.localizedTitle else { return }
+        // Update album title
+        albumTitleView?.setAlbumTitle(title)
     }
     
-    func updateAlbumTitle(_ album: PHAssetCollection) {
-        if let title = album.localizedTitle {
-            // Update album title
-            albumTitleView?.albumTitle = title
-        }
-    }
-    
-  func initializePhotosDataSource(_ album: PHAssetCollection, selections: PHFetchResult<PHAsset>? = nil) {
+  @objc func initializePhotosDataSource(_ album: PHAssetCollection, selections: PHFetchResult<PHAsset>? = nil) {
         // Set up a photo data source with album
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [
@@ -320,7 +273,7 @@ final class PhotosViewController : UICollectionViewController {
         initializePhotosDataSourceWithFetchResult(PHAsset.fetchAssets(in: album, options: fetchOptions), selections: selections)
     }
     
-    func initializePhotosDataSourceWithFetchResult(_ fetchResult: PHFetchResult<PHAsset>, selections: PHFetchResult<PHAsset>? = nil) {
+    @objc func initializePhotosDataSourceWithFetchResult(_ fetchResult: PHFetchResult<PHAsset>, selections: PHFetchResult<PHAsset>? = nil) {
         let newDataSource = PhotoCollectionViewDataSource(fetchResult: fetchResult, selections: selections, settings: settings)
         
         // Transfer image size

@@ -26,7 +26,7 @@ import UIKit
 Used as an overlay on selected cells
 */
 @IBDesignable final class SelectionView: UIView {
-    var selectionString: String = "" {
+    @objc var selectionString: String = "" {
         didSet {
             if selectionString != oldValue {
                 setNeedsDisplay()
@@ -80,7 +80,7 @@ Used as an overlay on selected cells
         }
         
         //// Bezier Drawing (Picture Number)
-        let size = selectionString.size(attributes: settings.selectionTextAttributes)
+        let size = selectionString.size(withAttributes: settings.selectionTextAttributes)
 
         selectionString.draw(in: CGRect(x: checkmarkFrame.midX - size.width / 2.0,
             y: checkmarkFrame.midY - size.height / 2.0,
