@@ -52,6 +52,13 @@ Not happy with the fetch results (camera roll and albums) that BSImagePicker use
 
 Want to show only specific photos in the picker? See the `filteredResults` property.
 
+```swift
+let assets = savedImagesData.flatMap { $0.asset }
+let collection = PHAssetCollection.transientAssetCollection(with: assets, title: nil)
+let fetchedAssets = PHAsset.fetchAssets(in: collection, options: nil)
+imagePicker.filteredResults = fetchedAssets
+```
+
 ## Minimal/maximal number of selections
 
 Want to specify minimal or maximal (or both!) number of selections? See `minNumberOfSelections` and `maxNumberOfSelections` properties. 
