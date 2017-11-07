@@ -1,7 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -13,35 +18,33 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFw-cP-rmQ">
-                                <rect key="frame" x="256" y="285" width="88" height="30"/>
+                                <rect key="frame" x="143.5" y="318.5" width="88" height="30"/>
                                 <state key="normal" title="Image picker">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="showImagePicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LaC-Tl-d1J"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DzO-ex-PdY">
-                                <rect key="frame" x="227" y="323" width="146" height="30"/>
+                                <rect key="frame" x="115" y="356.5" width="145" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="146" id="Cd2-rJ-ekE"/>
                                     <constraint firstAttribute="height" constant="30" id="EKZ-hP-cGZ"/>
                                 </constraints>
                                 <state key="normal" title="Custom image picker">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="showCustomImagePicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GKA-nS-l2H"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgs-tU-5p9">
-                                <rect key="frame" x="184" y="361" width="232" height="30"/>
+                                <rect key="frame" x="71.5" y="394.5" width="232" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="232" id="IRj-9r-lbP"/>
                                     <constraint firstAttribute="height" constant="30" id="dDs-z0-Xqa"/>
                                 </constraints>
                                 <state key="normal" title="Image picker with selected assets"/>
@@ -49,20 +52,45 @@
                                     <action selector="showImagePickerWithSelectedAssets:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m00-0a-bkf"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="omR-AS-TnG">
+                                <rect key="frame" x="77.5" y="432.5" width="221" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="yP7-xm-1Xh"/>
+                                </constraints>
+                                <state key="normal" title="Image picker with filtered assets"/>
+                                <connections>
+                                    <action selector="showImagePickerWithFilteredAssets:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mKa-vx-tkn"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="faH-Tx-JP7">
+                                <rect key="frame" x="65.5" y="471" width="244" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="gNH-bW-K6B"/>
+                                </constraints>
+                                <state key="normal" title="Image picker with minimal selection"/>
+                                <connections>
+                                    <action selector="showImagePickerWithMinimalSelection:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MBM-LM-84g"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zgs-tU-5p9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0A6-aX-1jb"/>
                             <constraint firstAttribute="centerX" secondItem="DzO-ex-PdY" secondAttribute="centerX" id="EZn-Ed-pHh"/>
                             <constraint firstItem="zgs-tU-5p9" firstAttribute="top" secondItem="DzO-ex-PdY" secondAttribute="bottom" constant="8" id="GUE-MX-lLP"/>
+                            <constraint firstItem="omR-AS-TnG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="KND-Si-m2J"/>
+                            <constraint firstItem="omR-AS-TnG" firstAttribute="top" secondItem="zgs-tU-5p9" secondAttribute="bottom" constant="8" id="RsC-nC-voj"/>
                             <constraint firstAttribute="centerY" secondItem="GFw-cP-rmQ" secondAttribute="centerY" id="XmI-RH-XSN"/>
+                            <constraint firstItem="faH-Tx-JP7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cwA-Sc-rrk"/>
                             <constraint firstItem="DzO-ex-PdY" firstAttribute="top" secondItem="GFw-cP-rmQ" secondAttribute="bottom" constant="8" id="j2M-qn-wIK"/>
                             <constraint firstAttribute="centerX" secondItem="GFw-cP-rmQ" secondAttribute="centerX" id="vJT-bW-R2W"/>
+                            <constraint firstItem="faH-Tx-JP7" firstAttribute="top" secondItem="omR-AS-TnG" secondAttribute="bottom" constant="8" id="wa5-Ar-KmB"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-66.400000000000006" y="30.134932533733135"/>
         </scene>
     </scenes>
 </document>

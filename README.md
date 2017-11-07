@@ -35,8 +35,8 @@ bs_presentImagePickerController(vc, animated: true,
 * Fullscreen preview
 * Switch albums.
 * No localization needed (uses icons or system localizations).
-* Take photos (it isn't enabled by default, so set takePhotos to true if you want it).
-* Customizable - check out BSImagePickerSettings to see what you can tweak.
+* Take photos (it isn't enabled by default, so set `takePhotos` to true if you want it).
+* Customizable - check out `BSImagePickerSettings` to see what you can tweak.
 
 ## Customization
 
@@ -46,7 +46,15 @@ There are also a few other settings you can tweak. They are documented in BSImag
 
 ## Custom fetch results
 
-Not happy with the fetch results (camera roll and albums) that BSImagePicker uses as default? Set the fetchResults property.
+Not happy with the fetch results (camera roll and albums) that BSImagePicker uses as default? Set the `fetchResults` property.
+
+## Show only filtered results
+
+Want to show only specific photos in the picker? See the `filteredResults` property.
+
+## Minimal/maximal number of selections
+
+Want to specify minimal or maximal (or both!) number of selections? See `minNumberOfSelections` and `maxNumberOfSelections` properties. 
 
 ## Requirements
 
