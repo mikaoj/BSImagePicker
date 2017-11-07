@@ -148,7 +148,7 @@ open class BSImagePickerViewController : UINavigationController {
 extension BSImagePickerViewController: BSImagePickerSettings {
 
     /**
-     See BSImagePicketSettings for documentation
+     See BSImagePickerSettings for documentation
      */
     public var minNumberOfSelections: Int {
         get {
@@ -160,7 +160,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
     }
 
     /**
-     See BSImagePicketSettings for documentation
+     See BSImagePickerSettings for documentation
      */
     @objc public var maxNumberOfSelections: Int {
         get {
@@ -172,7 +172,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
     }
     
     /**
-     See BSImagePicketSettings for documentation
+     See BSImagePickerSettings for documentation
      */
     public var selectionCharacter: Character? {
         get {
@@ -184,7 +184,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
     }
     
     /**
-     See BSImagePicketSettings for documentation
+     See BSImagePickerSettings for documentation
      */
     @objc public var selectionFillColor: UIColor {
         get {
@@ -196,7 +196,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
     }
     
     /**
-     See BSImagePicketSettings for documentation
+     See BSImagePickerSettings for documentation
      */
     @objc public var selectionStrokeColor: UIColor {
         get {
@@ -208,7 +208,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
     }
     
     /**
-     See BSImagePicketSettings for documentation
+     See BSImagePickerSettings for documentation
      */
     @objc public var selectionShadowColor: UIColor {
         get {
@@ -220,7 +220,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
     }
     
     /**
-     See BSImagePicketSettings for documentation
+     See BSImagePickerSettings for documentation
      */
     @objc public var selectionTextAttributes: [NSAttributedStringKey: AnyObject] {
         get {
@@ -244,7 +244,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
     }
     
     /**
-     See BSImagePicketSettings for documentation
+     See BSImagePickerSettings for documentation
      */
     @objc public var cellsPerRow: (_ verticalSize: UIUserInterfaceSizeClass, _ horizontalSize: UIUserInterfaceSizeClass) -> Int {
         get {
@@ -256,7 +256,7 @@ extension BSImagePickerViewController: BSImagePickerSettings {
     }
     
     /**
-     See BSImagePicketSettings for documentation
+     See BSImagePickerSettings for documentation
      */
     @objc public var takePhotos: Bool {
         get {
