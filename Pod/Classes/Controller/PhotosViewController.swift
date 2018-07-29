@@ -476,13 +476,19 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
                     // Update fetch result
                     photosDataSource.fetchResult = photosChanges.fetchResultAfterChanges as! PHFetchResult<PHAsset>
                     
-                    if let removed = photosChanges.removedIndexes {
-                        collectionView.deleteItems(at: removed.bs_indexPathsForSection(1))
-                    }
-                    
-                    if let inserted = photosChanges.insertedIndexes {
-                        collectionView.insertItems(at: inserted.bs_indexPathsForSection(1))
-                    }
+                    collectionView.performBatchUpdates({
+                        if let removed = photosChanges.removedIndexes {
+                            collectionView.deleteItems(at: removed.bs_indexPathsForSection(1))
+                        }
+                        
+                        if let inserted = photosChanges.insertedIndexes {
+                            collectionView.insertItems(at: inserted.bs_indexPathsForSection(1))
+                        }
+                        
+                        if let changed = photosChanges.changedIndexes {
+                            collectionView.reloadItems(at: changed.bs_indexPathsForSection(1))
+                        }
+                    })
                     
                     // Changes is causing issues right now...fix me later
                     // Example of issue:
@@ -495,9 +501,6 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
                     //                        print("changed")
                     //                        collectionView.reloadItemsAtIndexPaths(changed.bs_indexPathsForSection(1))
                     //                    }
-                    
-                    // Reload view
-                    collectionView.reloadData()
                 } else if photosChanges.hasIncrementalChanges == false {
                     // Update fetch result
                     photosDataSource.fetchResult = photosChanges.fetchResultAfterChanges as! PHFetchResult<PHAsset>
