@@ -1,9 +1,9 @@
 PODS:
   - BSGridCollectionViewLayout (1.2.0)
-  - BSImagePicker (2.7.1):
+  - BSImagePicker (2.7.2):
     - BSGridCollectionViewLayout (~> 1.2.0)
-    - UIImageViewModeScaleAspect (= 1.5)
-  - UIImageViewModeScaleAspect (1.5)
+    - BSImageView (~> 1.0.0)
+  - BSImageView (1.0.0)
 
 DEPENDENCIES:
   - BSImagePicker (from `../`)
@@ -11,7 +11,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - BSGridCollectionViewLayout
-    - UIImageViewModeScaleAspect
+    - BSImageView
 
 EXTERNAL SOURCES:
   BSImagePicker:
@@ -19,8 +19,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   BSGridCollectionViewLayout: 8f12c8e1e08c47057f5a39a6828f4395f043d78f
-  BSImagePicker: 31381af7f70d40399496cc3f8f5b7bbf6f80a63b
-  UIImageViewModeScaleAspect: 11a790a0b9d248a13dc63e3a78991f1463b6d84e
+  BSImagePicker: fbca95cb3a08cd0f84f2086b9aeccd8997b3d8fd
+  BSImageView: ed9c50d917111d8cac66c21c5a41c03f57908819
 
 PODFILE CHECKSUM: 55707bb71dc224a83a5fab0d17f3eb856d760f6a
 

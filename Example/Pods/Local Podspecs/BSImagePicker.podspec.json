@@ -1,6 +1,6 @@
 {
   "name": "BSImagePicker",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "summary": "BSImagePicker is a multiple image picker for iOS. UIImagePickerController replacement",
   "description": "A mix between the native iOS gallery and facebooks image picker. Allows you to preview and select multiple images.\nIt is intended as a replacement for UIImagePickerController for both selecting and taking photos.",
   "homepage": "https://github.com/mikaoj/BSImagePicker",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/mikaoj/BSImagePicker.git",
-    "tag": "2.7.1"
+    "tag": "2.7.2"
   },
   "platforms": {
     "ios": "8.0"
@@ -31,8 +31,8 @@
     "Photos"
   ],
   "dependencies": {
-    "UIImageViewModeScaleAspect": [
-      "1.5"
+    "BSImageView": [
+      "~> 1.0.0"
     ],
     "BSGridCollectionViewLayout": [
       "~> 1.2.0"

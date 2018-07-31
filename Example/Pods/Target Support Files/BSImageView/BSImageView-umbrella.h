@@ -10,8 +10,7 @@
 #endif
 #endif
 
-#import "UIImageViewModeScaleAspect.h"
 
-FOUNDATION_EXPORT double UIImageViewModeScaleAspectVersionNumber;
-FOUNDATION_EXPORT const unsigned char UIImageViewModeScaleAspectVersionString[];
+FOUNDATION_EXPORT double BSImageViewVersionNumber;
+FOUNDATION_EXPORT const unsigned char BSImageViewVersionString[];
 
