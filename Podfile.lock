@@ -6,7 +6,7 @@ PODS:
   - BSImageView (1.0.0)
 
 DEPENDENCIES:
-  - BSImagePicker (from `../`)
+  - BSImagePicker (from `./`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -15,13 +15,13 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   BSImagePicker:
-    :path: "../"
+    :path: "./"
 
 SPEC CHECKSUMS:
   BSGridCollectionViewLayout: 1a7d6f30517d3c9d181774bc74be4dfcab7b8115
   BSImagePicker: e2d76f0bcd0afc41356a028f26ae7ba586d5500f
   BSImageView: ed9c50d917111d8cac66c21c5a41c03f57908819
 
-PODFILE CHECKSUM: 55707bb71dc224a83a5fab0d17f3eb856d760f6a
+PODFILE CHECKSUM: 63d969a3f2dfa7a6c37f31de7279d2a43dd77a2d
 
 COCOAPODS: 1.5.3
