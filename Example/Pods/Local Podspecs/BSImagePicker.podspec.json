@@ -1,6 +1,6 @@
 {
   "name": "BSImagePicker",
-  "version": "2.7.2",
+  "version": "2.8.0",
   "summary": "BSImagePicker is a multiple image picker for iOS. UIImagePickerController replacement",
   "description": "A mix between the native iOS gallery and facebooks image picker. Allows you to preview and select multiple images.\nIt is intended as a replacement for UIImagePickerController for both selecting and taking photos.",
   "homepage": "https://github.com/mikaoj/BSImagePicker",
@@ -10,20 +10,20 @@
   },
   "source": {
     "git": "https://github.com/mikaoj/BSImagePicker.git",
-    "tag": "2.7.2"
+    "tag": "2.8.0"
   },
   "platforms": {
     "ios": "8.0"
   },
   "requires_arc": true,
-  "source_files": "Pod/Classes/**/*.swift",
+  "source_files": "Source/**/*.swift",
   "resource_bundles": {
     "BSImagePicker": [
-      "Pod/Assets/*.png",
-      "Pod/Assets/*.xib",
-      "Pod/Assets/*.storyboard",
-      "Pod/Assets/*.xcassets",
-      "Pod/Assets/*.png"
+      "Assets/*.png",
+      "Assets/*.xib",
+      "Assets/*.storyboard",
+      "Assets/*.xcassets",
+      "Assets/*.png"
     ]
   },
   "frameworks": [

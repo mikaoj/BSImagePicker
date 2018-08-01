@@ -1,6 +1,6 @@
 PODS:
-  - BSGridCollectionViewLayout (1.2.0)
-  - BSImagePicker (2.7.2):
+  - BSGridCollectionViewLayout (1.2.1)
+  - BSImagePicker (2.8.0):
     - BSGridCollectionViewLayout (~> 1.2.0)
     - BSImageView (~> 1.0.0)
   - BSImageView (1.0.0)
@@ -18,8 +18,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  BSGridCollectionViewLayout: 8f12c8e1e08c47057f5a39a6828f4395f043d78f
-  BSImagePicker: fbca95cb3a08cd0f84f2086b9aeccd8997b3d8fd
+  BSGridCollectionViewLayout: 1a7d6f30517d3c9d181774bc74be4dfcab7b8115
+  BSImagePicker: e2d76f0bcd0afc41356a028f26ae7ba586d5500f
   BSImageView: ed9c50d917111d8cac66c21c5a41c03f57908819
 
 PODFILE CHECKSUM: 55707bb71dc224a83a5fab0d17f3eb856d760f6a
