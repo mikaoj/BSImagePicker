@@ -1048,7 +1048,7 @@
 			};
 			name = Release;
 		};
-		8CD3858B91EF5D9C541DD1DDE1DCFCDC /* Release */ = {
+		85F79C1CFE5ACC5091D91E55897E38ED /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 23E80A527001D1B4AA9E961571AD4833 /* BSImagePicker.xcconfig */;
 			buildSettings = {
@@ -1072,14 +1072,13 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 4.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 		8E4DB2516D2175BEFA12F6A1F19DC5B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1211,6 +1210,39 @@
 			};
 			name = Release;
 		};
+		C487E109F3AB3B5ACA970B61CF71AB2D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 23E80A527001D1B4AA9E961571AD4833 /* BSImagePicker.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/BSImagePicker/BSImagePicker-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/BSImagePicker/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/BSImagePicker/BSImagePicker.modulemap";
+				PRODUCT_MODULE_NAME = BSImagePicker;
+				PRODUCT_NAME = BSImagePicker;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.1;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		EC5F2611C20A9A8A05C1CEFA88AE4194 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E22EDD52E26A312A3A6CDA6B07FDF428 /* Pods-Example.debug.xcconfig */;
@@ -1304,38 +1336,6 @@
 			};
 			name = Release;
 		};
-		F6A49D5E23B7BDB6A702F52EE9F470D8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23E80A527001D1B4AA9E961571AD4833 /* BSImagePicker.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/BSImagePicker/BSImagePicker-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/BSImagePicker/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/BSImagePicker/BSImagePicker.modulemap";
-				PRODUCT_MODULE_NAME = BSImagePicker;
-				PRODUCT_NAME = BSImagePicker;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		F9B47480A5BF97203881D43F20D0014D /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 69F7D4FC929C9849185DC95870A55E86 /* Pods-Example.release.xcconfig */;
@@ -1404,8 +1404,8 @@
 		60767A53408A2898141C2835CC42A889 /* Build configuration list for PBXNativeTarget "BSImagePicker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				F6A49D5E23B7BDB6A702F52EE9F470D8 /* Debug */,
-				8CD3858B91EF5D9C541DD1DDE1DCFCDC /* Release */,
+				85F79C1CFE5ACC5091D91E55897E38ED /* Debug */,
+				C487E109F3AB3B5ACA970B61CF71AB2D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -50,6 +50,7 @@ final class ZoomAnimator : NSObject, UIViewControllerAnimatedTransitioning {
             let scalingImage = BSImageView(frame: scalingFrame)
             scalingImage.contentMode = sourceImageView.contentMode
             scalingImage.image = sourceImageView.image
+            scalingImage.clipsToBounds = true
             
             //Init image scale
             let destinationFrame = toViewController.view.convert(destinationImageView.bounds, from: destinationImageView.superview)

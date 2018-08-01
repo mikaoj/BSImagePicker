@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4011B002D3295EEA80126BE2 /* Pods_BSImagePicker_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 690A165A9AB26AE492C12989 /* Pods_BSImagePicker_Tests.framework */; };
-		439259CB6E5E79502D8C7E85 /* Pods_BSImagePicker_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 085A17B51A47056666CB08AC /* Pods_BSImagePicker_Example.framework */; };
-		5191A432561FD72C19DF6430 /* Pods_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C23A7F8CA60DB2B576AA0FF /* Pods_Example.framework */; };
 		55B9A6101BDE386200F3F01E /* ComposedDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B9A60C1BDE384700F3F01E /* ComposedDataSourceTests.swift */; };
 		55B9A6111BDE386600F3F01E /* ImagePickerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55B9A60D1BDE384700F3F01E /* ImagePickerViewTests.swift */; };
 		55C0CEB31BDFA18600DAEC04 /* NSIndexSetIndexPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C0CEB11BDFA14400DAEC04 /* NSIndexSetIndexPathTests.swift */; };
@@ -89,8 +87,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				439259CB6E5E79502D8C7E85 /* Pods_BSImagePicker_Example.framework in Frameworks */,
-				5191A432561FD72C19DF6430 /* Pods_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

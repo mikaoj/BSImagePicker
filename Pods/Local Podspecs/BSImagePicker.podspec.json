@@ -16,6 +16,7 @@
     "ios": "8.0"
   },
   "requires_arc": true,
+  "swift_version": "4.1",
   "source_files": "Source/**/*.swift",
   "resource_bundles": {
     "BSImagePicker": [
