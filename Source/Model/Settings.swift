@@ -31,14 +31,14 @@ final class Settings : BSImagePickerSettings {
     var selectionFillColor: UIColor = UIView().tintColor
     var selectionStrokeColor: UIColor = UIColor.white
     var selectionShadowColor: UIColor = UIColor.black
-    var selectionTextAttributes: [NSAttributedStringKey: AnyObject] = {
+    var selectionTextAttributes: [NSAttributedString.Key: AnyObject] = {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineBreakMode = .byTruncatingTail
         paragraphStyle.alignment = .center
         return [
-            NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 10.0),
-            NSAttributedStringKey.paragraphStyle: paragraphStyle,
-            NSAttributedStringKey.foregroundColor: UIColor.white
+            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10.0),
+            NSAttributedString.Key.paragraphStyle: paragraphStyle,
+            NSAttributedString.Key.foregroundColor: UIColor.white
         ]
     }()
     var backgroundColor: UIColor = UIColor.white

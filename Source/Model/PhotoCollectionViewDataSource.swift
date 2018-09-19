@@ -95,7 +95,7 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
         }
         
         cell.isAccessibilityElement = true
-        cell.accessibilityTraits = UIAccessibilityTraitButton
+        cell.accessibilityTraits = UIAccessibilityTraits.button
 
         UIView.setAnimationsEnabled(true)
         

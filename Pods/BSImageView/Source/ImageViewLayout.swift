@@ -23,14 +23,14 @@
 import Foundation
 
 struct ImageViewLayout {
-    static func frameForImageWithSize(_ image: CGSize, previousFrame: CGRect, inContainerWithSize container: CGSize, usingContentMode contentMode: UIViewContentMode) -> CGRect {
+    static func frameForImageWithSize(_ image: CGSize, previousFrame: CGRect, inContainerWithSize container: CGSize, usingContentMode contentMode: UIView.ContentMode) -> CGRect {
         let size = sizeForImage(image, previousSize: previousFrame.size, container: container, contentMode: contentMode)
         let position = positionForImage(size, previousPosition: previousFrame.origin, container: container, contentMode: contentMode)
         
         return CGRect(origin: position, size: size)
     }
     
-    private static func sizeForImage(_ image: CGSize, previousSize: CGSize, container: CGSize, contentMode: UIViewContentMode) -> CGSize {
+    private static func sizeForImage(_ image: CGSize, previousSize: CGSize, container: CGSize, contentMode: UIView.ContentMode) -> CGSize {
         switch contentMode {
         case .scaleToFill:
             return container
@@ -49,7 +49,7 @@ struct ImageViewLayout {
         }
     }
     
-    private static func positionForImage(_ image: CGSize, previousPosition: CGPoint, container: CGSize, contentMode: UIViewContentMode) -> CGPoint {
+    private static func positionForImage(_ image: CGSize, previousPosition: CGPoint, container: CGSize, contentMode: UIView.ContentMode) -> CGPoint {
         switch contentMode {
         case .scaleToFill:
             return .zero

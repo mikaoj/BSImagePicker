@@ -62,7 +62,7 @@ final class ZoomAnimator : NSObject, UIViewControllerAnimatedTransitioning {
             // Animate
             UIView.animate(withDuration: transitionDuration(using: transitionContext),
                 delay: 0.0,
-                options: UIViewAnimationOptions(),
+                options: UIView.AnimationOptions(),
                 animations: { () -> Void in
                     // Fade in
                     fromViewController.view.alpha = 0.0

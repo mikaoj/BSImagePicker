@@ -34,7 +34,7 @@ public class BSImageView: UIView {
         didSet { imageView.tintColor = tintColor }
     }
     
-    override public var contentMode: UIViewContentMode {
+    override public var contentMode: UIView.ContentMode {
         didSet {
             setNeedsLayout()
             layoutIfNeeded()
