@@ -37,8 +37,9 @@ public extension UIViewController {
         - parameter cancel: Closure to call when user cancels or nil
         - parameter finish: Closure to call when user finishes or nil
         - parameter completion: presentation completed closure or nil
+        - parameter selectLimitReachedClosure: Closure to call when user reaches selection limit or nil
     */
-    @objc func bs_presentImagePickerController(_ imagePicker: BSImagePickerViewController, animated: Bool, select: ((_ asset: PHAsset) -> Void)?, deselect: ((_ asset: PHAsset) -> Void)?, cancel: (([PHAsset]) -> Void)?, finish: (([PHAsset]) -> Void)?, completion: (() -> Void)?) {
+    @objc func bs_presentImagePickerController(_ imagePicker: BSImagePickerViewController, animated: Bool, select: ((_ asset: PHAsset) -> Void)?, deselect: ((_ asset: PHAsset) -> Void)?, cancel: (([PHAsset]) -> Void)?, finish: (([PHAsset]) -> Void)?, completion: (() -> Void)?, selectLimitReachedClosure: ((Int) -> Void)? = nil) {
         BSImagePickerViewController.authorize(fromViewController: self) { (authorized) -> Void in
             // Make sure we are authorized before proceding
             guard authorized == true else { return }
@@ -48,6 +49,7 @@ public extension UIViewController {
             imagePicker.photosViewController.deselectionClosure = deselect
             imagePicker.photosViewController.cancelClosure = cancel
             imagePicker.photosViewController.finishClosure = finish
+            imagePicker.photosViewController.selectLimitReachedClosure = selectLimitReachedClosure
             
             // Present
             self.present(imagePicker, animated: animated, completion: completion)

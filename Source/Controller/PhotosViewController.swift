@@ -49,6 +49,7 @@ final class PhotosViewController : UICollectionViewController {
     @objc var deselectionClosure: ((_ asset: PHAsset) -> Void)?
     @objc var cancelClosure: ((_ assets: [PHAsset]) -> Void)?
     @objc var finishClosure: ((_ assets: [PHAsset]) -> Void)?
+    @objc var selectLimitReachedClosure: ((_ selectionLimit: Int) -> Void)?
     
     @objc var doneBarButton: UIBarButtonItem?
     @objc var cancelBarButton: UIBarButtonItem?
@@ -242,7 +243,7 @@ final class PhotosViewController : UICollectionViewController {
 
         navigationItem.rightBarButtonItem = doneBarButton
     }
-    
+
     @objc func updateAlbumTitle(_ album: PHAssetCollection) {
         guard let title = album.localizedTitle else { return }
         // Update album title
@@ -352,6 +353,11 @@ extension PhotosViewController {
                 DispatchQueue.global().async {
                     closure(asset)
                 }
+            }
+        } else if photosDataSource.selections.count >= settings.maxNumberOfSelections,
+            let closure = selectLimitReachedClosure {
+            DispatchQueue.global().async {
+                closure(self.settings.maxNumberOfSelections)
             }
         }
 
