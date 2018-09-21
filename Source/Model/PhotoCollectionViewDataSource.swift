@@ -64,6 +64,7 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
         UIView.setAnimationsEnabled(false)
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photoCellIdentifier, for: indexPath) as! PhotoCell
         cell.accessibilityIdentifier = "photo_cell_\(indexPath.item)"
+        cell.isAccessibilityElement = true
         if let settings = settings {
             cell.settings = settings
         }
