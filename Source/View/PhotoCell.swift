@@ -28,10 +28,28 @@ The photo cell.
 */
 final class PhotoCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var videoDurationView: UIView!
+    @IBOutlet weak var videoDurationLabel: UILabel!
     @IBOutlet weak var selectionOverlayView: UIView!
     @IBOutlet weak var selectionView: SelectionView!
     
-    @objc weak var asset: PHAsset?
+    private lazy var dateFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.zeroFormattingBehavior = .pad
+        formatter.allowedUnits = [.minute, .second]
+        formatter.unitsStyle = .positional
+        return formatter
+    }()
+    
+    @objc weak var asset: PHAsset? {
+        didSet {
+            if let asset = asset {
+                self.videoDurationView.isHidden = asset.mediaType != .video
+                self.videoDurationLabel.text = dateFormatter.string(from: asset.duration)
+            }
+        }
+    }
+    
     var settings: BSImagePickerSettings {
         get {
             return selectionView.settings

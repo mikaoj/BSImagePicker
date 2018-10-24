@@ -27,6 +27,7 @@ The settings object that gets passed around between classes for keeping...settin
 */
 final class Settings : BSImagePickerSettings {
     var maxNumberOfSelections: Int = Int.max
+    var isVideoSelectionEnabled: Bool = false
     var selectionCharacter: Character? = nil
     var selectionFillColor: UIColor = UIView().tintColor
     var selectionStrokeColor: UIColor = UIColor.white
