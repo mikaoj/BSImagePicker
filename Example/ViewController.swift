@@ -29,7 +29,6 @@ class ViewController: UIViewController {
     @IBAction func showImagePicker(_ sender: UIButton) {
         let vc = BSImagePickerViewController()
         vc.maxNumberOfSelections = 6
-        vc.startingAlbumId = self.albumId
         
         bs_presentImagePickerController(vc, animated: true,
             select: { (asset: PHAsset) -> Void in
