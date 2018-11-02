@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     @IBAction func showImagePicker(_ sender: UIButton) {
         let vc = BSImagePickerViewController()
         vc.maxNumberOfSelections = 6
+        vc.startingAlbumId = self.albumId
         
         bs_presentImagePickerController(vc, animated: true,
             select: { (asset: PHAsset) -> Void in
@@ -106,5 +107,27 @@ class ViewController: UIViewController {
             print("Finish: \(assets)")
           }, completion: nil)
     }
+    
+    var albumId: String? = nil
+
+    @IBAction func showImagePickerWithLastAlbum(_ sender: UIButton) {
+        let vc = BSImagePickerViewController()
+        vc.maxNumberOfSelections = 6
+        vc.startingAlbumId = self.albumId
+        
+        bs_presentImagePickerController(vc, animated: true,
+                                        select: { (asset: PHAsset) -> Void in
+                                            print("Selected: \(asset)")
+        }, deselect: { (asset: PHAsset) -> Void in
+            print("Deselected: \(asset)")
+        }, cancel: { (assets: [PHAsset]) -> Void in
+            print("Cancel: \(assets)")
+            self.albumId = vc.lastUsedAlbumId
+        }, finish: { (assets: [PHAsset]) -> Void in
+            print("Finish: \(assets)")
+            self.albumId = vc.lastUsedAlbumId
+        }, completion: nil)
+    }
+    
 }
 

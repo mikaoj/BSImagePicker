@@ -58,4 +58,6 @@ final class Settings : BSImagePickerSettings {
     var takePhotos: Bool = false
     
     var takePhotoIcon: UIImage? = UIImage(named: "add_photo", in: BSImagePickerViewController.bundle, compatibleWith: nil)
+    
+    var startingAlbumId: String? = nil
 }

@@ -70,6 +70,8 @@ open class BSImagePickerViewController : UINavigationController {
         return btn
     }()
     
+    var storedAlbumId: String?
+    
     @objc static let bundle: Bundle = Bundle(path: Bundle(for: PhotosViewController.self).path(forResource: "BSImagePicker", ofType: "bundle")!)!
     
     @objc lazy var photosViewController: PhotosViewController = {
@@ -253,6 +255,15 @@ extension BSImagePickerViewController: BSImagePickerSettings {
             settings.takePhotoIcon = newValue
         }
     }
+    
+    @objc public var startingAlbumId: String? {
+        get {
+            return settings.startingAlbumId
+        }
+        set {
+            settings.startingAlbumId = newValue
+        }
+    }
 }
 
 // MARK: Album button
@@ -268,4 +279,14 @@ extension BSImagePickerViewController {
             albumTitleView = newValue
         }
     }
+    
+    @objc public var lastUsedAlbumId: String? {
+        get {
+            return storedAlbumId
+        }
+        set {
+            storedAlbumId = newValue
+        }
+    }
+    
 }

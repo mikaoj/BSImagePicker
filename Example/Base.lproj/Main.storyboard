@@ -49,13 +49,37 @@
                                     <action selector="showImagePickerWithSelectedAssets:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m00-0a-bkf"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KO6-UP-afQ">
+                                <rect key="frame" x="237" y="399" width="127" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="146" id="B9F-40-pEr"/>
+                                    <constraint firstAttribute="width" constant="161" id="E5X-De-wya"/>
+                                    <constraint firstAttribute="height" constant="30" id="bLV-mp-DZ5"/>
+                                    <constraint firstAttribute="width" constant="127" id="c1U-VC-gF7"/>
+                                </constraints>
+                                <state key="normal" title="Reopen last album">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="B9F-40-pEr"/>
+                                        <exclude reference="E5X-De-wya"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="showCustomImagePicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="u9u-Xx-UvL"/>
+                                    <action selector="showImagePickerWithLastAlbum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FOa-T0-GtI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="zgs-tU-5p9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0A6-aX-1jb"/>
+                            <constraint firstItem="KO6-UP-afQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7ZY-Q8-FSC"/>
                             <constraint firstAttribute="centerX" secondItem="DzO-ex-PdY" secondAttribute="centerX" id="EZn-Ed-pHh"/>
                             <constraint firstItem="zgs-tU-5p9" firstAttribute="top" secondItem="DzO-ex-PdY" secondAttribute="bottom" constant="8" id="GUE-MX-lLP"/>
                             <constraint firstAttribute="centerY" secondItem="GFw-cP-rmQ" secondAttribute="centerY" id="XmI-RH-XSN"/>
+                            <constraint firstItem="KO6-UP-afQ" firstAttribute="top" secondItem="zgs-tU-5p9" secondAttribute="bottom" constant="8" id="aKi-MB-XRX"/>
                             <constraint firstItem="DzO-ex-PdY" firstAttribute="top" secondItem="GFw-cP-rmQ" secondAttribute="bottom" constant="8" id="j2M-qn-wIK"/>
                             <constraint firstAttribute="centerX" secondItem="GFw-cP-rmQ" secondAttribute="centerX" id="vJT-bW-R2W"/>
                         </constraints>

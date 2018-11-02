@@ -50,6 +50,9 @@ public extension UIViewController {
             imagePicker.photosViewController.cancelClosure = cancel
             imagePicker.photosViewController.finishClosure = finish
             imagePicker.photosViewController.selectLimitReachedClosure = selectLimitReached
+            imagePicker.photosViewController.setLastUsedAlbumIdClosure = { (albumId: String?) -> Void in
+                imagePicker.lastUsedAlbumId = albumId
+            }
             
             // Present
             self.present(imagePicker, animated: animated, completion: completion)

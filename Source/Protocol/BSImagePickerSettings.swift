@@ -76,4 +76,9 @@ public protocol BSImagePickerSettings {
      If you use a black image tint color will be applied to it.
     */
     var takePhotoIcon: UIImage? { get set }
+    
+    /**
+     Chooses the album that is selected by default
+     */
+    var startingAlbumId: String? { get set }
 }
