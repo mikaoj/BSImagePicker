@@ -136,12 +136,12 @@ final class PhotosViewController : UICollectionViewController {
             }
         }
 
-		if let album = selectedAlbum {
-			initializePhotosDataSource(album, selections: defaultSelections)
-			updateAlbumTitle(album)
-			self.currentAlbumId = album.localIdentifier
-			collectionView?.reloadData()
-		}
+        if let album = selectedAlbum {
+            initializePhotosDataSource(album, selections: defaultSelections)
+            updateAlbumTitle(album)
+            self.currentAlbumId = album.localIdentifier
+            collectionView?.reloadData()
+        }
 
         // Add long press recognizer
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(PhotosViewController.collectionViewLongPressed(_:)))
