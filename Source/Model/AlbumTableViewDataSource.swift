@@ -28,7 +28,6 @@ Implements the UITableViewDataSource protocol with a data source and cell factor
 */
 final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
     @objc let fetchResults: [PHFetchResult<PHAssetCollection>]
-    fileprivate let albumCellIdentifier = "albumCell"
     
     @objc init(fetchResults: [PHFetchResult<PHAssetCollection>]) {
         self.fetchResults = fetchResults
@@ -45,7 +44,7 @@ final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: albumCellIdentifier, for: indexPath) as! AlbumCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: AlbumCell.cellIdentifier, for: indexPath) as! AlbumCell
         let cachingManager = PHCachingImageManager.default() as? PHCachingImageManager
         cachingManager?.allowsCachingHighQualityImages = false
         
@@ -53,9 +52,6 @@ final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
         let album = fetchResults[indexPath.section][indexPath.row]
         // Title
         cell.albumTitleLabel.text = album.localizedTitle
-        
-        // Selection style
-        cell.selectionStyle = .none
         
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [

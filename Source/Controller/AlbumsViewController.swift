@@ -23,8 +23,16 @@
 import UIKit
 
 final class AlbumsViewController: UITableViewController {
-    override func loadView() {
-        super.loadView()
+    init() {
+        super.init(style: .grouped)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         // Add a little bit of blur to the background
         let visualEffectView = UIVisualEffectView(effect: UIVibrancyEffect(blurEffect: UIBlurEffect(style: .light)))
@@ -32,8 +40,12 @@ final class AlbumsViewController: UITableViewController {
         visualEffectView.autoresizingMask = [.flexibleWidth , .flexibleHeight]
         tableView.backgroundView = visualEffectView
         tableView.backgroundColor = UIColor.clear
-        
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 100
+        tableView.separatorStyle = .none
         modalPresentationStyle = .popover
         preferredContentSize = CGSize(width: 320, height: 300)
+
+        tableView.register(AlbumCell.self, forCellReuseIdentifier: AlbumCell.cellIdentifier)
     }
 }
