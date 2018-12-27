@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFw-cP-rmQ">
+                                <rect key="frame" x="143.5" y="318.5" width="88" height="30"/>
+                                <state key="normal" title="Image picker">
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="showImagePicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LaC-Tl-d1J"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DzO-ex-PdY">
+                                <rect key="frame" x="114.5" y="356.5" width="146" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="146" id="Cd2-rJ-ekE"/>
+                                    <constraint firstAttribute="height" constant="30" id="EKZ-hP-cGZ"/>
+                                </constraints>
+                                <state key="normal" title="Custom image picker">
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="showCustomImagePicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GKA-nS-l2H"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgs-tU-5p9">
+                                <rect key="frame" x="71.5" y="394.5" width="232" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="232" id="IRj-9r-lbP"/>
+                                    <constraint firstAttribute="height" constant="30" id="dDs-z0-Xqa"/>
+                                </constraints>
+                                <state key="normal" title="Image picker with selected assets"/>
+                                <connections>
+                                    <action selector="showImagePickerWithSelectedAssets:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m00-0a-bkf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="zgs-tU-5p9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0A6-aX-1jb"/>
+                            <constraint firstAttribute="centerX" secondItem="DzO-ex-PdY" secondAttribute="centerX" id="EZn-Ed-pHh"/>
+                            <constraint firstItem="zgs-tU-5p9" firstAttribute="top" secondItem="DzO-ex-PdY" secondAttribute="bottom" constant="8" id="GUE-MX-lLP"/>
+                            <constraint firstAttribute="centerY" secondItem="GFw-cP-rmQ" secondAttribute="centerY" id="XmI-RH-XSN"/>
+                            <constraint firstItem="DzO-ex-PdY" firstAttribute="top" secondItem="GFw-cP-rmQ" secondAttribute="bottom" constant="8" id="j2M-qn-wIK"/>
+                            <constraint firstAttribute="centerX" secondItem="GFw-cP-rmQ" secondAttribute="centerX" id="vJT-bW-R2W"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>

@@ -1,0 +1,11 @@
+framework module BSImageView {
+  umbrella header "BSImageView.h"
+
+  export *
+  module * { export * }
+}
+
+module BSImageView.Swift {
+    header "BSImageView-Swift.h"
+    requires objc
+}

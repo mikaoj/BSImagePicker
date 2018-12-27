@@ -1,6 +1,0 @@
-framework module BSImageView {
-  umbrella header "BSImageView-umbrella.h"
-
-  export *
-  module * { export * }
-}
