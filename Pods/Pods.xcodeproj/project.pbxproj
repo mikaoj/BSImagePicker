@@ -11,7 +11,6 @@
 		0315B8C4BD092CCD58497BA8B6AE3E66 /* UIViewController+BSImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 355306F8CA39F31D8263F7D8406CB360 /* UIViewController+BSImagePicker.swift */; };
 		1FB0410C427A051F54D9D8A23230A259 /* ZoomAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96C694A76316198A25A924E11248A45 /* ZoomAnimator.swift */; };
 		28B17DD1524003B3329FCC843250B3BF /* BSImageView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D56857C07730DA1C4B4BF3F7E4222AC /* BSImageView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2923A4EB38225350D8C2CF7679CE83D5 /* CameraCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 02B7CF12CA6E9C799BCEA0592E33F05B /* CameraCell.xib */; };
 		3248BFCE676D39AFB9D83874810EE8A7 /* BSImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68E355F3EA57D900F0503F60A0FB21BC /* BSImagePickerViewController.swift */; };
 		3823B75F9144E731CC0CFF3B78509411 /* ImageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665A967C79027F8DC4A70B899367E072 /* ImageViewLayout.swift */; };
 		395C22B1B8CF668B748D1E397F45333B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A63C1A71C1BE4432A6BC35027DC3583B /* Foundation.framework */; };
@@ -125,7 +124,6 @@
 
 /* Begin PBXFileReference section */
 		00B15CC1F700E8719FDD8EE2735AAFBA /* PhotoCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
-		02B7CF12CA6E9C799BCEA0592E33F05B /* CameraCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = CameraCell.xib; path = Assets/CameraCell.xib; sourceTree = "<group>"; };
 		05AAB042633D54751B53F65577BDB81C /* BSImagePicker-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BSImagePicker-umbrella.h"; sourceTree = "<group>"; };
 		0633BED19BA93788CCC96DBEE9F37E84 /* BSImageView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BSImageView-prefix.pch"; sourceTree = "<group>"; };
 		08772236F4D5D024F639B71766761BF9 /* BSImageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BSImageView.swift; path = Source/BSImageView.swift; sourceTree = "<group>"; };
@@ -331,7 +329,6 @@
 				3EB964D292A83804B67F4057B0D5CCE6 /* arrow_down@1x.png */,
 				384FA4406197C487ADEC071687F581BC /* arrow_down@2x.png */,
 				AE8197896F9F22CB31EE85F2E027A90E /* arrow_down@3x.png */,
-				02B7CF12CA6E9C799BCEA0592E33F05B /* CameraCell.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -743,7 +740,6 @@
 				55CD2942E7535CCAD98C94A93C249E59 /* arrow_down@1x.png in Resources */,
 				BBBBD388CFEA20FDBBE658B164CD8CC9 /* arrow_down@2x.png in Resources */,
 				FFDE3E8215CC4920A6CF1EB460D66136 /* arrow_down@3x.png in Resources */,
-				2923A4EB38225350D8C2CF7679CE83D5 /* CameraCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
