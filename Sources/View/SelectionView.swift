@@ -26,7 +26,7 @@ import UIKit
 Used as an overlay on selected cells
 */
 @IBDesignable final class SelectionView: UIView {
-    @objc var selectionString: String = "" {
+    var selectionString: String = "" {
         didSet {
             if selectionString != oldValue {
                 setNeedsDisplay()

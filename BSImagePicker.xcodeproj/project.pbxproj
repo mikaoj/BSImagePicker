@@ -115,6 +115,7 @@
 		5569D03321D52B2A00D03631 /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5569D03721D52B2A00D03631 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		559768D221D537B000B10102 /* Examples.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = Examples.entitlements; path = OLD/Example/Examples.entitlements; sourceTree = SOURCE_ROOT; };
+		559768D421D53EC100B10102 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		55BCF8AA21D52BA200386752 /* arrow_down@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_down@3x.png"; sourceTree = "<group>"; };
 		55BCF8AB21D52BA200386752 /* ICON-LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "ICON-LICENSE.txt"; sourceTree = "<group>"; };
 		55BCF8AC21D52BA200386752 /* add_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_photo@2x.png"; sourceTree = "<group>"; };
@@ -197,6 +198,7 @@
 			isa = PBXGroup;
 			children = (
 				55BCF8E621D52CE300386752 /* README.md */,
+				559768D421D53EC100B10102 /* TODO.md */,
 				550A315321D5298400AAF718 /* Sources */,
 				55BCF8A921D52B4A00386752 /* Resources */,
 				55BCF8E121D52C7200386752 /* Frameworks */,

@@ -23,7 +23,7 @@
 import UIKit
 import Photos
 import BSGridCollectionViewLayout
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+private func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l < r
@@ -34,7 +34,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   }
 }
 
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+private func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
     return l > r
@@ -45,31 +45,31 @@ fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 
 final class PhotosViewController : UICollectionViewController {    
-    @objc var selectionClosure: ((_ asset: PHAsset) -> Void)?
-    @objc var deselectionClosure: ((_ asset: PHAsset) -> Void)?
-    @objc var cancelClosure: ((_ assets: [PHAsset]) -> Void)?
-    @objc var finishClosure: ((_ assets: [PHAsset]) -> Void)?
-    @objc var selectLimitReachedClosure: ((_ selectionLimit: Int) -> Void)?
+    var selectionClosure: ((_ asset: PHAsset) -> Void)?
+    var deselectionClosure: ((_ asset: PHAsset) -> Void)?
+    var cancelClosure: ((_ assets: [PHAsset]) -> Void)?
+    var finishClosure: ((_ assets: [PHAsset]) -> Void)?
+    var selectLimitReachedClosure: ((_ selectionLimit: Int) -> Void)?
     
-    @objc var doneBarButton: UIBarButtonItem?
-    @objc var cancelBarButton: UIBarButtonItem?
-    @objc var albumTitleView: UIButton?
+    var doneBarButton: UIBarButtonItem?
+    var cancelBarButton: UIBarButtonItem?
+    var albumTitleView: UIButton?
     
-    @objc let expandAnimator = ZoomAnimator()
-    @objc let shrinkAnimator = ZoomAnimator()
+    let expandAnimator = ZoomAnimator()
+    let shrinkAnimator = ZoomAnimator()
     
-    fileprivate var photosDataSource: PhotoCollectionViewDataSource?
-    fileprivate var albumsDataSource: AlbumTableViewDataSource
-    fileprivate let cameraDataSource: CameraCollectionViewDataSource
-    fileprivate var composedDataSource: ComposedCollectionViewDataSource?
+    private var photosDataSource: PhotoCollectionViewDataSource?
+    private var albumsDataSource: AlbumTableViewDataSource
+    private let cameraDataSource: CameraCollectionViewDataSource
+    private var composedDataSource: ComposedCollectionViewDataSource?
     
-    fileprivate var defaultSelections: PHFetchResult<PHAsset>?
+    private var defaultSelections: PHFetchResult<PHAsset>?
     
     let settings: BSImagePickerSettings
     
-    fileprivate let doneBarButtonTitle: String = NSLocalizedString("Done", comment: "Done")
+    private let doneBarButtonTitle: String = NSLocalizedString("Done", comment: "Done")
     
-    @objc lazy var albumsViewController: AlbumsViewController = {
+    lazy var albumsViewController: AlbumsViewController = {
         let vc = AlbumsViewController()
         vc.tableView.dataSource = self.albumsDataSource
         vc.tableView.delegate = self
@@ -77,7 +77,7 @@ final class PhotosViewController : UICollectionViewController {
         return vc
     }()
     
-    fileprivate lazy var previewViewContoller: PreviewViewController? = {
+    private lazy var previewViewContoller: PreviewViewController? = {
         return PreviewViewController(nibName: nil, bundle: nil)
     }()
     
@@ -525,11 +525,11 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
 }
 
 // Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
+private func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
 	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
 }
 
 // Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
+private func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
 	return input.rawValue
 }

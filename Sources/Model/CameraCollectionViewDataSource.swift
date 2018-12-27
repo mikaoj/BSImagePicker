@@ -26,7 +26,7 @@ import UIKit
 Data source for the camera cell. Will not show up if your device doesn't support camera or you have turned it off in settings
 */
 final class CameraCollectionViewDataSource: NSObject, UICollectionViewDataSource {
-    @objc let cameraAvailable: Bool
+    let cameraAvailable: Bool
     let settings: BSImagePickerSettings
     
     init(settings: BSImagePickerSettings, cameraAvailable: Bool) {
@@ -52,7 +52,7 @@ final class CameraCollectionViewDataSource: NSObject, UICollectionViewDataSource
         return cameraCell
     }
     
-    @objc func registerCellIdentifiersForCollectionView(_ collectionView: UICollectionView?) {
+    func registerCellIdentifiersForCollectionView(_ collectionView: UICollectionView?) {
         collectionView?.register(CameraCell.self, forCellWithReuseIdentifier: CameraCell.cellIdentifier)
     }
 }

@@ -34,7 +34,7 @@ final class PhotoCell: UICollectionViewCell {
     private let selectionOverlayView: UIView = UIView(frame: .zero)
     private let selectionView: SelectionView = SelectionView(frame: .zero)
     
-    @objc weak var asset: PHAsset?
+    weak var asset: PHAsset?
     var settings: BSImagePickerSettings {
         get {
             return selectionView.settings
@@ -44,7 +44,7 @@ final class PhotoCell: UICollectionViewCell {
         }
     }
     
-    @objc var selectionString: String {
+    var selectionString: String {
         get {
             return selectionView.selectionString
         }
@@ -54,7 +54,7 @@ final class PhotoCell: UICollectionViewCell {
         }
     }
     
-    @objc var photoSelected: Bool = false {
+    var photoSelected: Bool = false {
         didSet {
             self.updateAccessibilityLabel(photoSelected)
             let hasChanged = photoSelected != oldValue
@@ -116,7 +116,7 @@ final class PhotoCell: UICollectionViewCell {
         self.accessibilityLabel = selected ? "deselect image" : "select image"
     }
     
-    fileprivate func updateAlpha(_ selected: Bool) {
+    private func updateAlpha(_ selected: Bool) {
         if selected == true {
             self.selectionView.alpha = 1.0
             self.selectionOverlayView.alpha = 0.3

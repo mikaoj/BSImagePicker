@@ -23,8 +23,8 @@
 import UIKit
 
 final class PreviewViewController : UIViewController {
-    @objc var imageView: UIImageView?
-    fileprivate var fullscreen = false
+    var imageView: UIImageView?
+    private var fullscreen = false
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
