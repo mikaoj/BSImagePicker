@@ -23,26 +23,6 @@
 import UIKit
 import Photos
 import BSGridCollectionViewLayout
-private func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-private func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 final class PhotosViewController : UICollectionViewController {    
     var selectionClosure: ((_ asset: PHAsset) -> Void)?
@@ -429,10 +409,7 @@ extension PhotosViewController {
 // MARK: UIImagePickerControllerDelegate
 extension PhotosViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-// Local variable inserted by Swift 4.2 migrator.
-let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
-
-        guard let image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage else {
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
             picker.dismiss(animated: true, completion: nil)
             return
         }
@@ -480,7 +457,10 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
             if let photosChanges = changeInstance.changeDetails(for: photosDataSource.fetchResult as! PHFetchResult<PHObject>) {
                 // Update collection view
                 // Alright...we get spammed with change notifications, even when there are none. So guard against it
-                if photosChanges.hasIncrementalChanges && (photosChanges.removedIndexes?.count > 0 || photosChanges.insertedIndexes?.count > 0 || photosChanges.changedIndexes?.count > 0) {
+                let removedCount = photosChanges.removedIndexes?.count ?? 0
+                let insertedCount = photosChanges.insertedIndexes?.count ?? 0
+                let changedCount = photosChanges.changedIndexes?.count ?? 0
+                if photosChanges.hasIncrementalChanges && (removedCount > 0 || insertedCount > 0 || changedCount > 0) {
                     // Update fetch result
                     photosDataSource.fetchResult = photosChanges.fetchResultAfterChanges as! PHFetchResult<PHAsset>
                     
@@ -522,14 +502,4 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
         
         // TODO: Changes in albums
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-private func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
-	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-private func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
-	return input.rawValue
 }
