@@ -35,6 +35,16 @@ Used as an overlay on selected cells
     }
     
     var settings: BSImagePickerSettings = Settings()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        backgroundColor = UIColor.clear
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func draw(_ rect: CGRect) {
         //// General Declarations

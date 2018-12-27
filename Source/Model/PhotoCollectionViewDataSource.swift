@@ -29,10 +29,9 @@ Gives UICollectionViewDataSource functionality with a given data source and cell
 final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource {
     @objc var selections = [PHAsset]()
     @objc var fetchResult: PHFetchResult<PHAsset>
-    
-    fileprivate let photoCellIdentifier = "photoCellIdentifier"
-    fileprivate let photosManager = PHCachingImageManager.default()
-    fileprivate let imageContentMode: PHImageContentMode = .aspectFill
+
+    private let photosManager = PHCachingImageManager.default()
+    private let imageContentMode: PHImageContentMode = .aspectFill
     
     let settings: BSImagePickerSettings?
     @objc var imageSize: CGSize = CGSize.zero
@@ -62,7 +61,7 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         UIView.setAnimationsEnabled(false)
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photoCellIdentifier, for: indexPath) as! PhotoCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.cellIdentifier, for: indexPath) as! PhotoCell
         cell.accessibilityIdentifier = "photo_cell_\(indexPath.item)"
         cell.isAccessibilityElement = true
         if let settings = settings {
@@ -104,6 +103,6 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
     }
     
     @objc func registerCellIdentifiersForCollectionView(_ collectionView: UICollectionView?) {
-        collectionView?.register(UINib(nibName: "PhotoCell", bundle: BSImagePickerViewController.bundle), forCellWithReuseIdentifier: photoCellIdentifier)
+        collectionView?.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.cellIdentifier)
     }
 }

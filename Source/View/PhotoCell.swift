@@ -27,9 +27,12 @@ import Photos
 The photo cell.
 */
 final class PhotoCell: UICollectionViewCell {
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var selectionOverlayView: UIView!
-    @IBOutlet weak var selectionView: SelectionView!
+    static let cellIdentifier = "photoCellIdentifier"
+    
+    let imageView: UIImageView = UIImageView(frame: .zero)
+
+    private let selectionOverlayView: UIView = UIView(frame: .zero)
+    private let selectionView: SelectionView = SelectionView(frame: .zero)
     
     @objc weak var asset: PHAsset?
     var settings: BSImagePickerSettings {
@@ -72,6 +75,39 @@ final class PhotoCell: UICollectionViewCell {
                 updateAlpha(photoSelected)
             }
         }
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        // Setup views
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        selectionOverlayView.translatesAutoresizingMaskIntoConstraints = false
+        selectionView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(imageView)
+        contentView.addSubview(selectionOverlayView)
+        contentView.addSubview(selectionView)
+
+        // Add constraints
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            selectionOverlayView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            selectionOverlayView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            selectionOverlayView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            selectionOverlayView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            selectionView.heightAnchor.constraint(equalToConstant: 25),
+            selectionView.widthAnchor.constraint(equalToConstant: 25),
+            selectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
+            selectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
+        ])
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func updateAccessibilityLabel(_ selected: Bool) {
