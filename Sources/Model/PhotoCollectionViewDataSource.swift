@@ -24,30 +24,23 @@ import UIKit
 import Photos
 
 /**
-Gives UICollectionViewDataSource functionality with a given data source and cell factory
-*/
+ Gives UICollectionViewDataSource functionality with a given data source and cell factory
+ */
 final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource {
-    var selections = [PHAsset]()
     var fetchResult: PHFetchResult<PHAsset>
 
     private let photosManager = PHCachingImageManager.default()
     private let imageContentMode: PHImageContentMode = .aspectFill
+    private let assetStore: AssetStore
     
     let settings: BSImagePickerSettings?
     var imageSize: CGSize = CGSize.zero
     
-  init(fetchResult: PHFetchResult<PHAsset>, selections: PHFetchResult<PHAsset>? = nil, settings: BSImagePickerSettings?) {
+    init(fetchResult: PHFetchResult<PHAsset>, assetStore: AssetStore, settings: BSImagePickerSettings?) {
         self.fetchResult = fetchResult
         self.settings = settings
-        if let selections = selections {
-            var selectionsArray = [PHAsset]()
-            selections.enumerateObjects({ (asset, idx, stop) in
-                selectionsArray.append(asset)
-            })
-            
-            self.selections = selectionsArray
-        }
-    
+        self.assetStore = assetStore
+
         super.init()
     }
     
@@ -82,7 +75,7 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
         })
         
         // Set selection number
-        if let index = selections.index(of: asset) {
+        if let index = assetStore.assets.index(of: asset) {
             if let character = settings?.selectionCharacter {
                 cell.selectionString = String(character)
             } else {

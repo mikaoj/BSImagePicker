@@ -79,8 +79,14 @@ open class BSImagePickerViewController : UINavigationController {
     }
     
     @objc lazy var photosViewController: PhotosViewController = {
+        var selections: [PHAsset] = []
+        defaultSelections?.enumerateObjects({ (asset, idx, stop) in
+            selections.append(asset)
+        })
+
+        let assetStore = AssetStore(assets: selections)
         let vc = PhotosViewController(fetchResults: self.fetchResults,
-                                      defaultSelections: self.defaultSelections,
+                                      assetStore: assetStore,
                                       settings: self.settings)
         
         vc.doneBarButton = self.doneButton

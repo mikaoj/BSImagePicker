@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		550A315621D5298400AAF718 /* BSImagePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 550A315421D5298400AAF718 /* BSImagePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5554729821E4E01700B90CA5 /* AssetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5554729721E4E01700B90CA5 /* AssetStore.swift */; };
 		5569D00721D52A6D00D03631 /* BSImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550A315121D5298400AAF718 /* BSImagePicker.framework */; };
 		5569D02021D52B1B00D03631 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5569D01F21D52B1B00D03631 /* AppDelegate.swift */; };
 		5569D02221D52B1B00D03631 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5569D02121D52B1B00D03631 /* ViewController.swift */; };
@@ -103,6 +104,7 @@
 		550A315121D5298400AAF718 /* BSImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BSImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		550A315421D5298400AAF718 /* BSImagePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSImagePicker.h; sourceTree = "<group>"; };
 		550A315521D5298400AAF718 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5554729721E4E01700B90CA5 /* AssetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetStore.swift; sourceTree = "<group>"; };
 		5569D00221D52A6D00D03631 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5569D00621D52A6D00D03631 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5569D01D21D52B1B00D03631 /* Examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Examples.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -293,6 +295,7 @@
 				55BCF8BB21D52C1000386752 /* ComposedCollectionViewDataSource.swift */,
 				55BCF8BC21D52C1000386752 /* CameraCollectionViewDataSource.swift */,
 				55BCF8BD21D52C1000386752 /* PhotoCollectionViewDataSource.swift */,
+				5554729721E4E01700B90CA5 /* AssetStore.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -547,6 +550,7 @@
 				55BCF8D121D52C1000386752 /* ComposedCollectionViewDataSource.swift in Sources */,
 				55BCF8DD21D52C1000386752 /* BSImagePickerViewController.swift in Sources */,
 				55BCF8E021D52C1000386752 /* ZoomAnimator.swift in Sources */,
+				5554729821E4E01700B90CA5 /* AssetStore.swift in Sources */,
 				55BCF8D321D52C1000386752 /* PhotoCollectionViewDataSource.swift in Sources */,
 				55BCF8D621D52C1000386752 /* AlbumCell.swift in Sources */,
 				55BCF8D021D52C1000386752 /* AlbumTableViewDataSource.swift in Sources */,
