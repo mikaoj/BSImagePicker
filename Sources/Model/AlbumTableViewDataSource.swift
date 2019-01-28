@@ -28,10 +28,11 @@ Implements the UITableViewDataSource protocol with a data source and cell factor
 */
 final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
     let fetchResults: [PHFetchResult<PHAssetCollection>]
+    let settings: BSImagePickerSettings
     
-    init(fetchResults: [PHFetchResult<PHAssetCollection>]) {
+    init(fetchResults: [PHFetchResult<PHAssetCollection>], aSettings: BSImagePickerSettings) {
         self.fetchResults = fetchResults
-        
+        self.settings = aSettings
         super.init()
     }
     
@@ -57,7 +58,15 @@ final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
         fetchOptions.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: false)
         ]
-        fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+        
+        if(self.settings.enableVideos) {
+            let videoPredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.video.rawValue)
+            let imagePredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+            let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [videoPredicate, imagePredicate])
+            fetchOptions.predicate = predicate
+        } else {
+            fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+        }
         
         let result = PHAsset.fetchAssets(in: album, options: fetchOptions)
         result.enumerateObjects({ (asset, idx, stop) in
