@@ -59,12 +59,15 @@ final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
             NSSortDescriptor(key: "creationDate", ascending: false)
         ]
         
+        print(self.settings.enableVideos)
         if(self.settings.enableVideos) {
+            print("getting videos too")
             let videoPredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.video.rawValue)
             let imagePredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
             let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [videoPredicate, imagePredicate])
             fetchOptions.predicate = predicate
         } else {
+            print("only getting images")
             fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
         }
         

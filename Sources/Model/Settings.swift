@@ -58,8 +58,6 @@ final class Settings : BSImagePickerSettings {
     var takePhotos: Bool = false
     
     var enableVideos: Bool = true;
-
-    var takeVideos: Bool = false;
     
     var takePhotoIcon: UIImage? = UIImage(named: "add_photo", in: BSImagePickerViewController.bundle, compatibleWith: nil)
 }

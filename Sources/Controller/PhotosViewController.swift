@@ -211,13 +211,21 @@ final class PhotosViewController : UICollectionViewController {
         albumTitleView?.setAlbumTitle(title)
     }
     
-  func initializePhotosDataSource(_ album: PHAssetCollection) {
+    func initializePhotosDataSource(_ album: PHAssetCollection) {
         // Set up a photo data source with album
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: false)
         ]
-        fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+        if (settings.enableVideos){
+            print("getting videos too")
+            let videoPredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.video.rawValue)
+            let imagePredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+            let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [videoPredicate, imagePredicate])
+            fetchOptions.predicate = predicate
+        } else {
+            fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+        }
         initializePhotosDataSourceWithFetchResult(PHAsset.fetchAssets(in: album, options: fetchOptions))
     }
     

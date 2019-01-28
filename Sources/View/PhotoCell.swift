@@ -34,7 +34,29 @@ final class PhotoCell: UICollectionViewCell {
     private let selectionOverlayView: UIView = UIView(frame: .zero)
     private let selectionView: SelectionView = SelectionView(frame: .zero)
     
-    weak var asset: PHAsset?
+    private let videoDurationLabel: UILabel = UILabel(frame: .zero)
+    
+    private lazy var dateFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.zeroFormattingBehavior = .pad
+        formatter.allowedUnits = [.minute, .second]
+        formatter.unitsStyle = .positional
+        return formatter
+    }()
+    
+    weak var asset: PHAsset? {
+        didSet {
+            if let asset = asset {
+                print(asset.duration)
+                self.videoDurationLabel.text = dateFormatter.string(from: asset.duration)
+                if(asset.duration == 0.0){
+                    self.videoDurationLabel.alpha = 0.0
+                } else {
+                    self.videoDurationLabel.alpha = 1.0
+                }
+            }
+        }
+    }
     var settings: BSImagePickerSettings {
         get {
             return selectionView.settings
@@ -87,9 +109,12 @@ final class PhotoCell: UICollectionViewCell {
         selectionOverlayView.backgroundColor = UIColor.lightGray
         selectionOverlayView.translatesAutoresizingMaskIntoConstraints = false
         selectionView.translatesAutoresizingMaskIntoConstraints = false
+        videoDurationLabel.textColor = UIColor.white
+        videoDurationLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(imageView)
         contentView.addSubview(selectionOverlayView)
         contentView.addSubview(selectionView)
+        contentView.addSubview(videoDurationLabel)
 
         // Add constraints
         NSLayoutConstraint.activate([
@@ -104,7 +129,11 @@ final class PhotoCell: UICollectionViewCell {
             selectionView.heightAnchor.constraint(equalToConstant: 25),
             selectionView.widthAnchor.constraint(equalToConstant: 25),
             selectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
-            selectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
+            selectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
+            videoDurationLabel.widthAnchor.constraint(equalToConstant: 50),
+            videoDurationLabel.heightAnchor.constraint(equalToConstant: 20),
+            videoDurationLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 1),
+            videoDurationLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -1)
         ])
     }
     
