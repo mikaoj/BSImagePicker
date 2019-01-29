@@ -12,7 +12,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Examples" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -21,13 +21,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFw-cP-rmQ">
-                                <rect key="frame" x="143.5" y="318.5" width="88" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TWf-zF-TCi">
+                                <rect key="frame" x="143" y="287" width="88" height="30"/>
                                 <state key="normal" title="Image picker">
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="showImagePicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LaC-Tl-d1J"/>
+                                    <action selector="showImagePicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eEe-es-lgu"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DzO-ex-PdY">
@@ -54,13 +54,24 @@
                                     <action selector="showImagePickerWithSelectedAssets:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m00-0a-bkf"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFw-cP-rmQ">
+                                <rect key="frame" x="102" y="314" width="170" height="41"/>
+                                <state key="normal" title="Image picker with videos">
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="showImagePickerWithVideos:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Reu-7w-FWs"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="zgs-tU-5p9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0A6-aX-1jb"/>
                             <constraint firstAttribute="centerX" secondItem="DzO-ex-PdY" secondAttribute="centerX" id="EZn-Ed-pHh"/>
                             <constraint firstItem="zgs-tU-5p9" firstAttribute="top" secondItem="DzO-ex-PdY" secondAttribute="bottom" constant="8" id="GUE-MX-lLP"/>
+                            <constraint firstItem="TWf-zF-TCi" firstAttribute="bottom" secondItem="GFw-cP-rmQ" secondAttribute="top" id="RJl-Ki-4fS"/>
                             <constraint firstAttribute="centerY" secondItem="GFw-cP-rmQ" secondAttribute="centerY" id="XmI-RH-XSN"/>
+                            <constraint firstItem="TWf-zF-TCi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="hql-2S-QLH"/>
                             <constraint firstItem="DzO-ex-PdY" firstAttribute="top" secondItem="GFw-cP-rmQ" secondAttribute="bottom" constant="8" id="j2M-qn-wIK"/>
                             <constraint firstAttribute="centerX" secondItem="GFw-cP-rmQ" secondAttribute="centerX" id="vJT-bW-R2W"/>
                         </constraints>
@@ -68,6 +79,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="53.600000000000001" y="26.53673163418291"/>
         </scene>
     </scenes>
 </document>

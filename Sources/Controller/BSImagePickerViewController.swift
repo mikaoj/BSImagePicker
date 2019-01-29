@@ -269,18 +269,6 @@ extension BSImagePickerViewController: BSImagePickerSettings {
         }
     }
     
-    /**
-     Toggle take videos
-     */
-    @objc public var takeVideos: Bool {
-        get {
-            return settings.takeVideos
-        }
-        set {
-            settings.takeVideos = newValue
-        }
-    }
-    
     @objc public var takePhotoIcon: UIImage? {
         get {
             return settings.takePhotoIcon

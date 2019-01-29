@@ -77,11 +77,6 @@ public protocol BSImagePickerSettings {
     var enableVideos: Bool { get set }
     
     /**
-     Toggle take videos
-     */
-    var takeVideos: Bool { get set }
-    
-    /**
      Icon to show in take photo cell. 
      If you use a black image tint color will be applied to it.
     */

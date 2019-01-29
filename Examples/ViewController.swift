@@ -42,6 +42,23 @@ class ViewController: UIViewController {
             }, completion: nil)
     }
     
+    @IBAction func showImagePickerWithVideos(_ sender: UIButton) {
+        let vc = BSImagePickerViewController()
+        vc.maxNumberOfSelections = 6
+        vc.enableVideos = true
+        
+        bs_presentImagePickerController(vc, animated: true,
+                                        select: { (asset: PHAsset) -> Void in
+                                            print("Selected: \(asset)")
+        }, deselect: { (asset: PHAsset) -> Void in
+            print("Deselected: \(asset)")
+        }, cancel: { (assets: [PHAsset]) -> Void in
+            print("Cancel: \(assets)")
+        }, finish: { (assets: [PHAsset]) -> Void in
+            print("Finish: \(assets)")
+        }, completion: nil)
+    }
+    
     @IBAction func showCustomImagePicker(_ sender: UIButton) {
         let vc = BSImagePickerViewController()
         vc.maxNumberOfSelections = 6
