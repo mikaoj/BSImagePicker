@@ -58,10 +58,16 @@ open class BSImagePickerViewController : UINavigationController {
         // Camera roll fetch result
         let cameraRollResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: fetchOptions)
         
+        // Smart Albums result
+        let customFetchOptions = PHFetchOptions()
+        customFetchOptions.includeHiddenAssets = false
+        customFetchOptions.includeAllBurstAssets = false
+        let cameraAlbumsResult = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: customFetchOptions)
+        
         // Albums fetch result
         let albumResult = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: fetchOptions)
         
-        return [cameraRollResult, albumResult]
+        return [cameraRollResult, cameraAlbumsResult, albumResult]
     }()
     
     @objc var albumTitleView: UIButton = {
