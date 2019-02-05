@@ -269,6 +269,18 @@ extension BSImagePickerViewController: BSImagePickerSettings {
         }
     }
     
+    /**
+     Maximum allowed video duration
+     */
+    @objc public var maxDuration: Double {
+        get {
+            return settings.maxDuration
+        }
+        set {
+            settings.maxDuration = newValue
+        }
+    }
+    
     @objc public var takePhotoIcon: UIImage? {
         get {
             return settings.takePhotoIcon

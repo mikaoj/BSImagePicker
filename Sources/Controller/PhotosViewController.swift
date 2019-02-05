@@ -220,7 +220,7 @@ final class PhotosViewController : UICollectionViewController {
         if (settings.enableVideos){
             print("getting videos too")
             let videoPredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.video.rawValue)
-            let imagePredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+            let imagePredicate = NSPredicate(format: "mediaType = %d AND duration < %f", PHAssetMediaType.image.rawValue, settings.maxDuration)
             let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [videoPredicate, imagePredicate])
             fetchOptions.predicate = predicate
         } else {

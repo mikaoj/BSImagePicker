@@ -62,7 +62,7 @@ final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
         print(self.settings.enableVideos)
         if(self.settings.enableVideos) {
             print("getting videos too")
-            let videoPredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.video.rawValue)
+            let videoPredicate = NSPredicate(format: "mediaType = %d AND duration <= %f", PHAssetMediaType.video.rawValue, settings.maxDuration)
             let imagePredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
             let predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [videoPredicate, imagePredicate])
             fetchOptions.predicate = predicate

@@ -59,5 +59,7 @@ final class Settings : BSImagePickerSettings {
     
     var enableVideos: Bool = false;
     
+    var maxDuration: Double = 30.0;
+    
     var takePhotoIcon: UIImage? = UIImage(named: "add_photo", in: BSImagePickerViewController.bundle, compatibleWith: nil)
 }

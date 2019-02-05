@@ -77,6 +77,11 @@ public protocol BSImagePickerSettings {
     var enableVideos: Bool { get set }
     
     /**
+     Maximum allowed video duration
+     */
+    var maxDuration: Double { get set }
+    
+    /**
      Icon to show in take photo cell. 
      If you use a black image tint color will be applied to it.
     */
