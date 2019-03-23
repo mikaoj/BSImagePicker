@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53A8C2532246049E00AEE452 /* BSImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550A315121D5298400AAF718 /* BSImagePicker.framework */; };
+		53A8C2542246049E00AEE452 /* BSImagePicker.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 550A315121D5298400AAF718 /* BSImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		550A315621D5298400AAF718 /* BSImagePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 550A315421D5298400AAF718 /* BSImagePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5554729821E4E01700B90CA5 /* AssetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5554729721E4E01700B90CA5 /* AssetStore.swift */; };
 		5569D00721D52A6D00D03631 /* BSImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550A315121D5298400AAF718 /* BSImagePicker.framework */; };
@@ -15,7 +17,6 @@
 		5569D02521D52B1B00D03631 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5569D02321D52B1B00D03631 /* Main.storyboard */; };
 		5569D02721D52B1B00D03631 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5569D02621D52B1B00D03631 /* Assets.xcassets */; };
 		5569D02A21D52B1B00D03631 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5569D02821D52B1B00D03631 /* LaunchScreen.storyboard */; };
-		559768C221D5340E00B10102 /* BSImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 550A315121D5298400AAF718 /* BSImagePicker.framework */; };
 		559768C821D535DF00B10102 /* BSGridCollectionViewLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BCF8E321D52CAE00386752 /* BSGridCollectionViewLayout.framework */; };
 		559768C921D535DF00B10102 /* BSImageView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BCF8E221D52CAE00386752 /* BSImageView.framework */; };
 		559768CB21D5363A00B10102 /* BSGridCollectionViewLayout.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 55BCF8E321D52CAE00386752 /* BSGridCollectionViewLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -59,6 +60,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		53A8C2552246049E00AEE452 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550A314821D5298400AAF718 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 550A315021D5298400AAF718;
+			remoteInfo = BSImagePicker;
+		};
 		5569D00821D52A6D00D03631 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 550A314821D5298400AAF718 /* Project object */;
@@ -94,6 +102,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				559768D021D536DD00B10102 /* BSGridCollectionViewLayout.framework in CopyFiles */,
+				53A8C2542246049E00AEE452 /* BSImagePicker.framework in CopyFiles */,
 				559768D121D536DD00B10102 /* BSImageView.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,8 +190,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				559768CD21D5369A00B10102 /* BSGridCollectionViewLayout.framework in Frameworks */,
+				53A8C2532246049E00AEE452 /* BSImagePicker.framework in Frameworks */,
 				559768CE21D5369A00B10102 /* BSImageView.framework in Frameworks */,
-				559768C221D5340E00B10102 /* BSImagePicker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +431,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				53A8C2562246049E00AEE452 /* PBXTargetDependency */,
 			);
 			name = Examples;
 			productName = Examples;
@@ -597,6 +607,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		53A8C2562246049E00AEE452 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 550A315021D5298400AAF718 /* BSImagePicker */;
+			targetProxy = 53A8C2552246049E00AEE452 /* PBXContainerItemProxy */;
+		};
 		5569D00921D52A6D00D03631 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 550A315021D5298400AAF718 /* BSImagePicker */;
