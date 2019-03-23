@@ -58,11 +58,12 @@ final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
             NSSortDescriptor(key: "creationDate", ascending: false)
         ]
         fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-        
+
+        let scale = UIScreen.main.scale
+        let imageSize = CGSize(width: 79 * scale, height: 79 * scale)
+        let imageContentMode: PHImageContentMode = .aspectFill
         let result = PHAsset.fetchAssets(in: album, options: fetchOptions)
         result.enumerateObjects({ (asset, idx, stop) in
-            let imageSize = CGSize(width: 79, height: 79)
-            let imageContentMode: PHImageContentMode = .aspectFill
             switch idx {
             case 0:
                 PHCachingImageManager.default().requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
