@@ -20,13 +20,28 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import XCTest
 @testable import BSImagePicker
+import Photos
+import XCTest
 
-class CGSizeExtensionTests: XCTestCase {
+class SettingsTests: XCTestCase {
+    var settings: Settings!
 
-    func testResizeWithScale() {
-        let scaledSize = CGSize(width: 10, height: 10).resize(by: 2)
-        XCTAssertEqual(scaledSize, CGSize(width: 20, height: 20))
+    override func setUp() {
+        settings = Settings()
+    }
+
+    func testImageOnlyAssets() {
+        settings.fetch.assets.supportedMediaTypes = [.image]
+        let fetchOptions = settings.fetch.assets.options
+        XCTAssertEqual(fetchOptions.predicate, NSPredicate(format: "mediaType IN %@", [PHAssetMediaType.image.rawValue]))
+    }
+
+    func testImageAndVideoAssets() {
+        settings.fetch.assets.supportedMediaTypes = [.image, .video]
+        let fetchOptions = settings.fetch.assets.options
+        XCTAssertEqual(fetchOptions.predicate,
+                       NSPredicate(format: "mediaType IN %@",
+                                   [PHAssetMediaType.image.rawValue, PHAssetMediaType.video.rawValue]))
     }
 }

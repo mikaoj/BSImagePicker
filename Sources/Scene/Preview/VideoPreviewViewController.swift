@@ -20,7 +20,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+import AVFoundation
 import Foundation
+import os
 import Photos
 import UIKit
 
@@ -63,7 +65,13 @@ class VideoPreviewViewController: PreviewViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+        } catch {
+            os_log("Failed to set the audio session category for playback sound")
+        }
+
         pauseBarButton = UIBarButtonItem(barButtonSystemItem: .pause, target: self, action: #selector(pausePressed(sender:)))
         
         playerView.frame = view.bounds

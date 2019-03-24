@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		531D8C532249C81A00281681 /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531D8C522249C81A00281681 /* SettingsTests.swift */; };
 		53FEDA162247FEB80098E34A /* CGSize+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FEDA152247FEB80098E34A /* CGSize+Scale.swift */; };
 		53FEDA18224805BA0098E34A /* CGSizeExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FEDA17224805BA0098E34A /* CGSizeExtensionTests.swift */; };
 		550A315621D5298400AAF718 /* BSImagePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 550A315421D5298400AAF718 /* BSImagePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -84,6 +85,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		531D8C522249C81A00281681 /* SettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
 		53FEDA152247FEB80098E34A /* CGSize+Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Scale.swift"; sourceTree = "<group>"; };
 		53FEDA17224805BA0098E34A /* CGSizeExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSizeExtensionTests.swift; sourceTree = "<group>"; };
 		550A315121D5298400AAF718 /* BSImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BSImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -265,6 +267,7 @@
 				55BCF8EB21D52F3400386752 /* ImagePickerViewTests.swift */,
 				5569D00621D52A6D00D03631 /* Info.plist */,
 				53FEDA17224805BA0098E34A /* CGSizeExtensionTests.swift */,
+				531D8C522249C81A00281681 /* SettingsTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -520,6 +523,7 @@
 			files = (
 				55BCF8F121D52F3400386752 /* CameraDataSourceTests.swift in Sources */,
 				53FEDA18224805BA0098E34A /* CGSizeExtensionTests.swift in Sources */,
+				531D8C532249C81A00281681 /* SettingsTests.swift in Sources */,
 				55BCF8EF21D52F3400386752 /* ImagePickerViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
