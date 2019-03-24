@@ -25,6 +25,7 @@ import Photos
 
 protocol AlbumsViewControllerDelegate: class {
     func albumsViewController(_ albumsViewController: AlbumsViewController, didSelectAlbum album: PHAssetCollection)
+    func didDismissAlbumsViewController(_ albumsViewController: AlbumsViewController)
 }
 
 class AlbumsViewController: UIViewController {
@@ -64,6 +65,18 @@ class AlbumsViewController: UIViewController {
         tableView.register(AlbumCell.self, forCellReuseIdentifier: AlbumCell.identifier)
         tableView.dataSource = dataSource
         tableView.delegate = self
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // Since AlbumsViewController is presented with a presentation controller
+        // And we change the state of the album button depending on if it's presented or not
+        // We need to get some sort of callback to update that state.
+        // Perhaps do something else
+        if isBeingDismissed {
+            delegate?.didDismissAlbumsViewController(self)
+        }
     }
 }
 

@@ -30,7 +30,7 @@ public class ImagePickerController: UINavigationController {
     public var settings: Settings = Settings()
     public var doneButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: nil)
     public var cancelButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
-    public var albumButton: UIButton = UIButton(type: .system)
+    public var albumButton: UIButton = UIButton(type: .custom)
     public var assetStore: AssetStore = AssetStore(assets: [])
 
     // MARK: Internal properties
@@ -62,6 +62,8 @@ public class ImagePickerController: UINavigationController {
         // Setup buttons
         let firstViewController = viewControllers[0]
         albumButton.setTitleColor(albumButton.tintColor, for: .normal)
+        albumButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        albumButton.titleLabel?.adjustsFontSizeToFitWidth = true
         albumButton.setTitle("Some title for inital selection", for: .normal) // TODO: <---
         albumButton.setImage(UIImage(named: "arrow_down", in: Bundle(for: ImagePickerController.self), compatibleWith: nil), for: .normal)
         albumButton.imageToRight()

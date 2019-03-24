@@ -27,6 +27,7 @@ extension ImagePickerController {
         // Setup presentation controller
         albumsViewController.transitioningDelegate = dropdownTransitionDelegate
         albumsViewController.modalPresentationStyle = .custom
+        rotateButtonArrow()
         
         present(albumsViewController, animated: true)
     }
@@ -44,6 +45,13 @@ extension ImagePickerController {
         
         if settings.dismiss.enabled {
             dismiss(animated: true)
+        }
+    }
+    
+    func rotateButtonArrow() {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            guard let imageView = self?.albumButton.imageView else { return }
+            imageView.transform = imageView.transform.rotated(by: .pi)
         }
     }
 }

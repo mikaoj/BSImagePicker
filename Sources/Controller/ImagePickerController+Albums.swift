@@ -24,6 +24,10 @@ import Foundation
 import Photos
 
 extension ImagePickerController: AlbumsViewControllerDelegate {
+    func didDismissAlbumsViewController(_ albumsViewController: AlbumsViewController) {
+        rotateButtonArrow()
+    }
+    
     func albumsViewController(_ albumsViewController: AlbumsViewController, didSelectAlbum album: PHAssetCollection) {
         assetsViewController.showAssets(in: album)
         albumButton.setTitle(album.localizedTitle, for: .normal)
