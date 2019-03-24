@@ -39,7 +39,8 @@ class PreviewViewController : UIViewController {
             options.isSynchronous = true
             
             // Load image for preview
-            PHCachingImageManager.default().requestImage(for: asset, targetSize: imageView.frame.size, contentMode: .aspectFit, options: options) { (image, _) in
+            let targetSize = imageView.frame.size.resize(by: scale)
+            PHCachingImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options) { (image, _) in
                 self.imageView.image = image
             }
         }
@@ -47,6 +48,7 @@ class PreviewViewController : UIViewController {
     let imageView: UIImageView = UIImageView(frame: .zero)
     let titleLabel = UILabel(frame: .zero)
     let geoCoder = CLGeocoder()
+    let scale: CGFloat
     
     var fullscreen = false {
         didSet {
@@ -63,6 +65,7 @@ class PreviewViewController : UIViewController {
     }
 
     required init() {
+        self.scale = UIScreen.main.scale
         super.init(nibName: nil, bundle: nil)
 
         imageView.frame = view.bounds

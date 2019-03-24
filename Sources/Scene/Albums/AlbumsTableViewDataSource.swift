@@ -28,9 +28,11 @@ Implements the UITableViewDataSource protocol with a data source and cell factor
 */
 final class AlbumsTableViewDataSource : NSObject, UITableViewDataSource {
     private let fetchResults: [PHFetchResult<PHAssetCollection>]
+    private let scale: CGFloat
     
-    init(fetchResults: [PHFetchResult<PHAssetCollection>]) {
+    init(fetchResults: [PHFetchResult<PHAssetCollection>], scale: CGFloat = UIScreen.main.scale) {
         self.fetchResults = fetchResults
+        self.scale = scale
         super.init()
     }
     
@@ -58,10 +60,10 @@ final class AlbumsTableViewDataSource : NSObject, UITableViewDataSource {
         ]
         fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
         
+        let imageSize = CGSize(width: 79, height: 79).resize(by: scale)
+        let imageContentMode: PHImageContentMode = .aspectFill
         let result = PHAsset.fetchAssets(in: album, options: fetchOptions)
         result.enumerateObjects({ (asset, idx, stop) in
-            let imageSize = CGSize(width: 79, height: 79)
-            let imageContentMode: PHImageContentMode = .aspectFill
             switch idx {
             case 0:
                 PHCachingImageManager.default().requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in

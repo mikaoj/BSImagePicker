@@ -32,9 +32,12 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
     private let fetchResult: PHFetchResult<PHAsset>
     private let photosManager = PHCachingImageManager.default()
     private let durationFormatter = DateComponentsFormatter()
+
+    private let scale: CGFloat
     
-    init(fetchResult: PHFetchResult<PHAsset>) {
+    init(fetchResult: PHFetchResult<PHAsset>, scale: CGFloat = UIScreen.main.scale) {
         self.fetchResult = fetchResult
+        self.scale = scale
         durationFormatter.unitsStyle = .positional
         durationFormatter.zeroFormattingBehavior = [.pad]
         durationFormatter.allowedUnits = [.minute, .second]
@@ -88,7 +91,8 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
         }
         
         // Request image
-        cell.tag = Int(photosManager.requestImage(for: asset, targetSize: cell.bounds.size, contentMode: .aspectFill, options: nil) { (result, _) in
+        let targetSize = cell.bounds.size.resize(by: scale)
+        cell.tag = Int(photosManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: nil) { (result, _) in
             cell.imageView.image = result
         })
     }
