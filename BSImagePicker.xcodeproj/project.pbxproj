@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53FEDA162247FEB80098E34A /* CGSize+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FEDA152247FEB80098E34A /* CGSize+Scale.swift */; };
+		53FEDA18224805BA0098E34A /* CGSizeExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FEDA17224805BA0098E34A /* CGSizeExtensionTests.swift */; };
 		550A315621D5298400AAF718 /* BSImagePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 550A315421D5298400AAF718 /* BSImagePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		55454B472247C87700D1E36C /* add_photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55454B402247C87700D1E36C /* add_photo@3x.png */; };
 		55454B482247C87700D1E36C /* add_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 55454B412247C87700D1E36C /* add_photo.png */; };
@@ -84,6 +86,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		53FEDA152247FEB80098E34A /* CGSize+Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Scale.swift"; sourceTree = "<group>"; };
+		53FEDA17224805BA0098E34A /* CGSizeExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSizeExtensionTests.swift; sourceTree = "<group>"; };
 		550A315121D5298400AAF718 /* BSImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BSImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		550A315421D5298400AAF718 /* BSImagePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSImagePicker.h; sourceTree = "<group>"; };
 		550A315521D5298400AAF718 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -266,6 +270,7 @@
 				55BCF8EB21D52F3400386752 /* ImagePickerViewTests.swift */,
 				55BCF8EE21D52F3400386752 /* NSIndexSetIndexPathTests.swift */,
 				5569D00621D52A6D00D03631 /* Info.plist */,
+				53FEDA17224805BA0098E34A /* CGSizeExtensionTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -298,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				55454B4E2247C96000D1E36C /* UIButton+Image.swift */,
+				53FEDA152247FEB80098E34A /* CGSize+Scale.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -479,6 +485,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55888E4B2231A31C003C861D /* VideoPreviewViewController.swift in Sources */,
+				53FEDA162247FEB80098E34A /* CGSize+Scale.swift in Sources */,
 				55CDB4592234305B0050D572 /* PreviewBuilder.swift in Sources */,
 				55C5B806222C1BDD003CF3F1 /* ZoomTransitionDelegate.swift in Sources */,
 				55CDB45F22347D640050D572 /* ZoomInteractionController.swift in Sources */,
@@ -518,6 +525,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55BCF8F121D52F3400386752 /* CameraDataSourceTests.swift in Sources */,
+				53FEDA18224805BA0098E34A /* CGSizeExtensionTests.swift in Sources */,
 				55BCF8F021D52F3400386752 /* ComposedDataSourceTests.swift in Sources */,
 				55BCF8F221D52F3400386752 /* NSIndexSetIndexPathTests.swift in Sources */,
 				55BCF8EF21D52F3400386752 /* ImagePickerViewTests.swift in Sources */,
