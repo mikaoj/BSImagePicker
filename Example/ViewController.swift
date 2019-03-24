@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     @IBAction func showImagePicker(_ sender: UIButton) {
         let imagePicker = ImagePickerController()
         imagePicker.settings.selection.max = 2
+        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
         present(imagePicker, animated: true)
         //        let vc = BSImagePickerViewController()
         //        vc.settings.selection.max = 6

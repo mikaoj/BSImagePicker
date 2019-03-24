@@ -84,18 +84,34 @@ public struct Settings {
 
         public struct Assets {
             /// Fetch options for assets
-            public var options: PHFetchOptions = {
+
+            /// Simple wrapper around PHAssetMediaType to ensure we only expose the supported types.
+            public enum MediaTypes {
+                case image, video
+
+                fileprivate func assetMediaType() -> PHAssetMediaType {
+                    switch self {
+                    case .image:
+                        return PHAssetMediaType.image
+                    case .video:
+                        return PHAssetMediaType.video
+                    }
+                }
+            }
+            public var supportedMediaTypes = [MediaTypes.image]
+
+            public var options: PHFetchOptions {
                 let fetchOptions = PHFetchOptions()
                 fetchOptions.sortDescriptors = [
                     NSSortDescriptor(key: "creationDate", ascending: false)
                 ]
-                let imagePredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-                let videoPredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.video.rawValue)
-                
-                fetchOptions.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [imagePredicate]) // TODO: Add some setting for videos. For now, just add videoPredicate here
+
+                let rawMediaTypes = supportedMediaTypes.map { $0.assetMediaType().rawValue }
+                let predicate = NSPredicate(format: "mediaType IN %@", rawMediaTypes)
+                fetchOptions.predicate = predicate
 
                 return fetchOptions
-            }()
+            }
         }
 
         /// Album fetch settings
