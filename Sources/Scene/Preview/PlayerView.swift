@@ -21,30 +21,38 @@
 // SOFTWARE.
 
 import Foundation
-import Photos
+import UIKit
+import AVFoundation
 
-public class AssetStore {
-    private(set) var assets: [PHAsset]
-
-    init(assets: [PHAsset] = []) {
-        self.assets = assets
+class PlayerView: UIView {
+    override class var layerClass: AnyClass {
+        return AVPlayerLayer.self
     }
-
-    var count: Int {
-        return assets.count
+    
+    override var layer: AVPlayerLayer {
+        return super.layer as! AVPlayerLayer
     }
-
-    func contains(_ asset: PHAsset) -> Bool {
-        return assets.contains(asset)
+    
+    var player: AVPlayer? {
+        set {
+            layer.player = newValue
+        }
+        get {
+            return layer.player
+        }
     }
-
-    func append(_ asset: PHAsset) {
-        guard contains(asset) == false else { return }
-        assets.append(asset)
+    
+    convenience init() {
+        self.init(frame: .zero)
     }
-
-    func remove(_ asset: PHAsset) {
-        guard let index = assets.index(of: asset) else { return }
-        assets.remove(at: index)
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layer.videoGravity = .resizeAspect
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        layer.videoGravity = .resizeAspect
     }
 }

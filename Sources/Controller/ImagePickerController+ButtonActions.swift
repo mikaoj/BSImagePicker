@@ -21,30 +21,29 @@
 // SOFTWARE.
 
 import Foundation
-import Photos
 
-public class AssetStore {
-    private(set) var assets: [PHAsset]
-
-    init(assets: [PHAsset] = []) {
-        self.assets = assets
+extension ImagePickerController {
+    @objc func albumsButtonPressed(_ sender: UIButton) {
+        // Setup presentation controller
+        albumsViewController.transitioningDelegate = dropdownTransitionDelegate
+        albumsViewController.modalPresentationStyle = .custom
+        
+        present(albumsViewController, animated: true)
     }
 
-    var count: Int {
-        return assets.count
+    @objc func doneButtonPressed(_ sender: UIBarButtonItem) {
+        imagePickerDelegate?.imagePicker(self, didFinishWithAssets: assetStore.assets)
+        
+        if settings.dismiss.enabled {
+            dismiss(animated: true)
+        }
     }
 
-    func contains(_ asset: PHAsset) -> Bool {
-        return assets.contains(asset)
-    }
-
-    func append(_ asset: PHAsset) {
-        guard contains(asset) == false else { return }
-        assets.append(asset)
-    }
-
-    func remove(_ asset: PHAsset) {
-        guard let index = assets.index(of: asset) else { return }
-        assets.remove(at: index)
+    @objc func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        imagePickerDelegate?.imagePicker(self, didCancelWithAssets: assetStore.assets)
+        
+        if settings.dismiss.enabled {
+            dismiss(animated: true)
+        }
     }
 }

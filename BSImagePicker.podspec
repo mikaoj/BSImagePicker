@@ -16,9 +16,7 @@ Pod::Spec.new do |s|
   s.swift_version = '4.2'
 
   s.source_files = 'Sources/**/*.swift'
-  s.resource_bundles = {
-    'BSImagePicker' => ['Resources/*.png']
-  }
+  s.resources = { ['Resources/*.png'] }
 
   s.frameworks = 'UIKit', 'Photos'
   s.dependency 'BSImageView', '1.0.2'

@@ -21,41 +21,119 @@
 // SOFTWARE.
 
 import UIKit
+import Photos
 
-/**
-The settings object that gets passed around between classes for keeping...settings
-*/
-final class Settings : BSImagePickerSettings {
-    var maxNumberOfSelections: Int = Int.max
-    var selectionCharacter: Character? = nil
-    var selectionFillColor: UIColor = UIView().tintColor
-    var selectionStrokeColor: UIColor = UIColor.white
-    var selectionShadowColor: UIColor = UIColor.black
-    var selectionTextAttributes: [NSAttributedString.Key: AnyObject] = {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = .byTruncatingTail
-        paragraphStyle.alignment = .center
-        return [
-            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10.0),
-            NSAttributedString.Key.paragraphStyle: paragraphStyle,
-            NSAttributedString.Key.foregroundColor: UIColor.white
-        ]
-    }()
-    var backgroundColor: UIColor = UIColor.white
-    var cellsPerRow: (_ verticalSize: UIUserInterfaceSizeClass, _ horizontalSize: UIUserInterfaceSizeClass) -> Int = {(verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int in
-        switch (verticalSize, horizontalSize) {
-        case (.compact, .regular): // iPhone5-6 portrait
-            return 3
-        case (.compact, .compact): // iPhone5-6 landscape
-            return 5
-        case (.regular, .regular): // iPad portrait/landscape
-            return 7
-        default:
-            return 3
+/// Settings for BSImagePicker
+public struct Settings {
+    public struct Theme {
+        /// Main background color
+        public var backgroundColor: UIColor = .white
+        
+        /// What color to fill the circle with
+        public var checkmarkFillColor: UIColor = UIView().tintColor
+        
+        /// Color for the actual checkmark
+        public var checkmarkStrokeColor: UIColor = .white
+        
+        /// Shadow color for the circle
+        public var checkmarkShadowColor: UIColor = .black
+    }
+
+    public struct Selection {
+        /// Max number of selections allowed
+        public var max: Int = Int.max
+        
+        /// Min number of selections you have to make
+        public var min: Int = 1
+    }
+
+    public struct List {
+        /// How much spacing between cells
+        public var spacing: CGFloat = 2
+        
+        /// How many cells per row
+        public var cellsPerRow: (_ verticalSize: UIUserInterfaceSizeClass, _ horizontalSize: UIUserInterfaceSizeClass) -> Int = {(verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int in
+            switch (verticalSize, horizontalSize) {
+            case (.compact, .regular): // iPhone5-6 portrait
+                return 3
+            case (.compact, .compact): // iPhone5-6 landscape
+                return 5
+            case (.regular, .regular): // iPad portrait/landscape
+                return 7
+            default:
+                return 3
+            }
         }
     }
+
+    public struct Fetch {
+        public struct Album {
+            /// Fetch options for albums/collections
+            public var options: PHFetchOptions = {
+                let fetchOptions = PHFetchOptions()
+                fetchOptions.predicate = NSPredicate(format: "estimatedAssetCount > 0")
+                return fetchOptions
+            }()
+            
+            /// Type of collections to fetch
+            public var type: PHAssetCollectionType = .album
+            
+            /// Subtype of collections to fetch
+            public var subtype: PHAssetCollectionSubtype = .any
+        }
+
+        public struct Assets {
+            /// Fetch options for assets
+            public var options: PHFetchOptions = {
+                let fetchOptions = PHFetchOptions()
+                fetchOptions.sortDescriptors = [
+                    NSSortDescriptor(key: "creationDate", ascending: false)
+                ]
+                let imagePredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+                let videoPredicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.video.rawValue)
+                
+                fetchOptions.predicate = NSCompoundPredicate(orPredicateWithSubpredicates: [imagePredicate]) // TODO: Add some setting for videos. For now, just add videoPredicate here
+
+                return fetchOptions
+            }()
+        }
+
+        /// Album fetch settings
+        public var album = Album()
+        
+        /// Asset fetch settings
+        public var assets = Assets()
+    }
     
-    var takePhotos: Bool = false
+    public struct Dismiss {
+        /// Should the image picker dismiss when done/cancelled
+        public var enabled = true
+    }
     
-    var takePhotoIcon: UIImage? = UIImage(named: "add_photo", in: BSImagePickerViewController.bundle, compatibleWith: nil)
+    public struct Camera {
+        /// Should the camera feature be enabled
+        public var enabled = false
+        
+        public var liveView = true
+        
+        public var icon: UIImage? = UIImage(named: "add_photo", in: Bundle(for: ImagePickerController.self), compatibleWith: nil)
+    }
+
+    /// Theme settings
+    public var theme = Theme()
+    
+    /// Selection settings
+    public var selection = Selection()
+    
+    /// List settings
+    public var list = List()
+    
+    /// Fetch settings
+    public var fetch = Fetch()
+    
+    /// Dismiss settings
+    public var dismiss = Dismiss()
+    
+    /// Camera settings
+    public var camera = Camera()
 }

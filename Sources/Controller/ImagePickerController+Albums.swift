@@ -23,28 +23,10 @@
 import Foundation
 import Photos
 
-public class AssetStore {
-    private(set) var assets: [PHAsset]
-
-    init(assets: [PHAsset] = []) {
-        self.assets = assets
-    }
-
-    var count: Int {
-        return assets.count
-    }
-
-    func contains(_ asset: PHAsset) -> Bool {
-        return assets.contains(asset)
-    }
-
-    func append(_ asset: PHAsset) {
-        guard contains(asset) == false else { return }
-        assets.append(asset)
-    }
-
-    func remove(_ asset: PHAsset) {
-        guard let index = assets.index(of: asset) else { return }
-        assets.remove(at: index)
+extension ImagePickerController: AlbumsViewControllerDelegate {
+    func albumsViewController(_ albumsViewController: AlbumsViewController, didSelectAlbum album: PHAssetCollection) {
+        assetsViewController.showAssets(in: album)
+        albumButton.setTitle(album.localizedTitle, for: .normal)
+        albumsViewController.dismiss(animated: true)
     }
 }

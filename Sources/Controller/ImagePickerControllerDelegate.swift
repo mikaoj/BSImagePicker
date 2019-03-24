@@ -23,28 +23,10 @@
 import Foundation
 import Photos
 
-public class AssetStore {
-    private(set) var assets: [PHAsset]
-
-    init(assets: [PHAsset] = []) {
-        self.assets = assets
-    }
-
-    var count: Int {
-        return assets.count
-    }
-
-    func contains(_ asset: PHAsset) -> Bool {
-        return assets.contains(asset)
-    }
-
-    func append(_ asset: PHAsset) {
-        guard contains(asset) == false else { return }
-        assets.append(asset)
-    }
-
-    func remove(_ asset: PHAsset) {
-        guard let index = assets.index(of: asset) else { return }
-        assets.remove(at: index)
-    }
+public protocol ImagePickerControllerDelegate: class {
+    func imagePicker(_ imagePicker: ImagePickerController, didSelectAsset asset: PHAsset)
+    func imagePicker(_ imagePicker: ImagePickerController, didDeselectAsset asset: PHAsset)
+    func imagePicker(_ imagePicker: ImagePickerController, didFinishWithAssets assets: [PHAsset])
+    func imagePicker(_ imagePicker: ImagePickerController, didCancelWithAssets assets: [PHAsset])
+    func imagePicker(_ imagePicker: ImagePickerController, didReachSelectionLimit count: Int)
 }

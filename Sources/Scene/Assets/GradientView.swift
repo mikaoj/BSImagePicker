@@ -21,30 +21,31 @@
 // SOFTWARE.
 
 import Foundation
-import Photos
+import UIKit
 
-public class AssetStore {
-    private(set) var assets: [PHAsset]
-
-    init(assets: [PHAsset] = []) {
-        self.assets = assets
+class GradientView: UIView {
+    override class var layerClass: AnyClass {
+        return CAGradientLayer.self
     }
-
-    var count: Int {
-        return assets.count
+    
+    override var layer: CAGradientLayer {
+        return super.layer as! CAGradientLayer
     }
-
-    func contains(_ asset: PHAsset) -> Bool {
-        return assets.contains(asset)
+    
+    var colors: [UIColor]? {
+        get {
+            let layerColors = layer.colors as? [CGColor]
+            return layerColors?.map { UIColor(cgColor: $0) }
+        } set {
+            layer.colors = newValue?.map { $0.cgColor }
+        }
     }
-
-    func append(_ asset: PHAsset) {
-        guard contains(asset) == false else { return }
-        assets.append(asset)
-    }
-
-    func remove(_ asset: PHAsset) {
-        guard let index = assets.index(of: asset) else { return }
-        assets.remove(at: index)
+    
+    open var locations: [NSNumber]? {
+        get {
+            return layer.locations
+        } set {
+            layer.locations = newValue
+        }
     }
 }

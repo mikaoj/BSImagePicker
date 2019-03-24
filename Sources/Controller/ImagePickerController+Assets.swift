@@ -23,28 +23,27 @@
 import Foundation
 import Photos
 
-public class AssetStore {
-    private(set) var assets: [PHAsset]
-
-    init(assets: [PHAsset] = []) {
-        self.assets = assets
+extension ImagePickerController: AssetsViewControllerDelegate {
+    func assetsViewController(_ assetsViewController: AssetsViewController, didSelectAsset asset: PHAsset) {
+        assetStore.append(asset)
+        toggleDoneButton()
     }
 
-    var count: Int {
-        return assets.count
+    func assetsViewController(_ assetsViewController: AssetsViewController, didDeselectAsset asset: PHAsset) {
+        assetStore.remove(asset)
+        toggleDoneButton()
     }
 
-    func contains(_ asset: PHAsset) -> Bool {
-        return assets.contains(asset)
+    func assetsViewController(_ assetsViewController: AssetsViewController, didLongPressCell cell: AssetCollectionViewCell, displayingAsset asset: PHAsset) {
+        let previewViewController = PreviewBuilder.createPreviewController(for: asset)
+        
+        zoomTransitionDelegate.zoomedOutImageView = cell.imageView
+        zoomTransitionDelegate.zoomedInImageView = previewViewController.imageView
+        
+        pushViewController(previewViewController, animated: true)
     }
 
-    func append(_ asset: PHAsset) {
-        guard contains(asset) == false else { return }
-        assets.append(asset)
-    }
-
-    func remove(_ asset: PHAsset) {
-        guard let index = assets.index(of: asset) else { return }
-        assets.remove(at: index)
+    func shouldSelect(in assetsViewController: AssetsViewController) -> Bool {
+        return assetStore.count < settings.selection.max
     }
 }
