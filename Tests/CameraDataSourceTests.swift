@@ -26,38 +26,4 @@ import UIKit
 @testable import BSImagePicker
 
 class CameraDataSourceTests: XCTestCase {
-    let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
-    
-    func testCameraNotAvailableSettingOn() {
-        let settings = Settings()
-        settings.takePhotos = true
-        
-        let dataSource = CameraCollectionViewDataSource(settings: settings, cameraAvailable: false)
-        XCTAssert(dataSource.numberOfSections(in: collectionView) == 0)
-    }
-    
-    func testCameraNotAvailableSettingsOff() {
-        let settings = Settings()
-        settings.takePhotos = false
-        
-        let dataSource = CameraCollectionViewDataSource(settings: settings, cameraAvailable: false)
-        XCTAssert(dataSource.numberOfSections(in: collectionView) == 0)
-    }
-    
-    func testCameraAvailableSettingsOn() {
-        let settings = Settings()
-        settings.takePhotos = true
-        
-        let dataSource = CameraCollectionViewDataSource(settings: settings, cameraAvailable: true)
-        XCTAssert(dataSource.numberOfSections(in: collectionView) == 1)
-        XCTAssert(dataSource.collectionView(collectionView, numberOfItemsInSection: 0) == 1)
-    }
-    
-    func testCameraAvailableSettingsOff() {
-        let settings = Settings()
-        settings.takePhotos = false
-        
-        let dataSource = CameraCollectionViewDataSource(settings: settings, cameraAvailable: true)
-        XCTAssert(dataSource.numberOfSections(in: collectionView) == 0)
-    }
 }
