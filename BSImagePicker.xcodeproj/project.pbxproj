@@ -46,9 +46,7 @@
 		55BCF8E421D52CAE00386752 /* BSImageView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BCF8E221D52CAE00386752 /* BSImageView.framework */; };
 		55BCF8E521D52CAE00386752 /* BSGridCollectionViewLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55BCF8E321D52CAE00386752 /* BSGridCollectionViewLayout.framework */; };
 		55BCF8EF21D52F3400386752 /* ImagePickerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF8EB21D52F3400386752 /* ImagePickerViewTests.swift */; };
-		55BCF8F021D52F3400386752 /* ComposedDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF8EC21D52F3400386752 /* ComposedDataSourceTests.swift */; };
 		55BCF8F121D52F3400386752 /* CameraDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF8ED21D52F3400386752 /* CameraDataSourceTests.swift */; };
-		55BCF8F221D52F3400386752 /* NSIndexSetIndexPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF8EE21D52F3400386752 /* NSIndexSetIndexPathTests.swift */; };
 		55C5B800222BD445003CF3F1 /* DropdownTransitionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C5B7FF222BD445003CF3F1 /* DropdownTransitionDelegate.swift */; };
 		55C5B802222BD529003CF3F1 /* DropdownPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C5B801222BD529003CF3F1 /* DropdownPresentationController.swift */; };
 		55C5B804222C15D5003CF3F1 /* DropdownAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55C5B803222C15D5003CF3F1 /* DropdownAnimator.swift */; };
@@ -130,9 +128,7 @@
 		55BCF8E821D52CF600386752 /* BSImagePicker.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = BSImagePicker.podspec; sourceTree = "<group>"; };
 		55BCF8E921D52CFE00386752 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		55BCF8EB21D52F3400386752 /* ImagePickerViewTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePickerViewTests.swift; sourceTree = "<group>"; };
-		55BCF8EC21D52F3400386752 /* ComposedDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposedDataSourceTests.swift; sourceTree = "<group>"; };
 		55BCF8ED21D52F3400386752 /* CameraDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraDataSourceTests.swift; sourceTree = "<group>"; };
-		55BCF8EE21D52F3400386752 /* NSIndexSetIndexPathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSIndexSetIndexPathTests.swift; sourceTree = "<group>"; };
 		55C5B7FF222BD445003CF3F1 /* DropdownTransitionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownTransitionDelegate.swift; sourceTree = "<group>"; };
 		55C5B801222BD529003CF3F1 /* DropdownPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownPresentationController.swift; sourceTree = "<group>"; };
 		55C5B803222C15D5003CF3F1 /* DropdownAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropdownAnimator.swift; sourceTree = "<group>"; };
@@ -266,9 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				55BCF8ED21D52F3400386752 /* CameraDataSourceTests.swift */,
-				55BCF8EC21D52F3400386752 /* ComposedDataSourceTests.swift */,
 				55BCF8EB21D52F3400386752 /* ImagePickerViewTests.swift */,
-				55BCF8EE21D52F3400386752 /* NSIndexSetIndexPathTests.swift */,
 				5569D00621D52A6D00D03631 /* Info.plist */,
 				53FEDA17224805BA0098E34A /* CGSizeExtensionTests.swift */,
 			);
@@ -526,8 +520,6 @@
 			files = (
 				55BCF8F121D52F3400386752 /* CameraDataSourceTests.swift in Sources */,
 				53FEDA18224805BA0098E34A /* CGSizeExtensionTests.swift in Sources */,
-				55BCF8F021D52F3400386752 /* ComposedDataSourceTests.swift in Sources */,
-				55BCF8F221D52F3400386752 /* NSIndexSetIndexPathTests.swift in Sources */,
 				55BCF8EF21D52F3400386752 /* ImagePickerViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
