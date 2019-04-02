@@ -1,5 +1,5 @@
 framework module BSGridCollectionViewLayout {
-  umbrella header "BSGridCollectionViewLayout-umbrella.h"
+  umbrella header "BSGridCollectionViewLayout.h"
 
   export *
   module * { export * }

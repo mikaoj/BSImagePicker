@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "BSImageView"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = "An image view which lets you animate changes to content mode"
   s.description  = <<-DESC
 			An image view which, unlike UIImageView, lets you animate chnages to its content mode.
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.license      = "MIT"
   s.author             = { "Joakim Gyllström" => "joakim@backslashed.se" }
   s.platform     = :ios, "8.0"
-  s.swift_version = "4.2"
+  s.swift_version = "5.0"
   s.source       = { :git => "https://github.com/mikaoj/BSImageView.git", :tag => "#{s.version}" }
   s.source_files  = "Source/**/*.swift"
 end
