@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "BSImagePicker"
-  s.version          = "2.9.0"
+  s.version          = "2.10.0"
   s.summary          = "BSImagePicker is a multiple image picker for iOS. UIImagePickerController replacement"
   s.description      = <<-DESC
   A mix between the native iOS gallery and facebooks image picker. Allows you to preview and select multiple images.
@@ -11,20 +11,16 @@ Pod::Spec.new do |s|
   s.author           = { "Joakim Gyllström" => "joakim@backslashed.se" }
   s.source           = { :git => "https://github.com/mikaoj/BSImagePicker.git", :tag => s.version.to_s }
 
-  s.platform     = :ios, '8.0'
+  s.platform     = :ios, '9.0'
   s.requires_arc = true
-  s.swift_version = '4.2'
+  s.swift_version = "5.0"
 
-  s.source_files = 'Source/**/*.swift'
+  s.source_files = 'Sources/**/*.swift'
   s.resource_bundles = {
-    'BSImagePicker' => ['Assets/*.png',
-                        'Assets/*.xib',
-                        'Assets/*.storyboard',
-                        'Assets/*.xcassets',
-                        'Assets/*.png']
+    'BSImagePicker' => ['Resources/*.png']
   }
 
   s.frameworks = 'UIKit', 'Photos'
-  s.dependency 'BSImageView', '1.0.2'
-  s.dependency 'BSGridCollectionViewLayout', '1.2.2'
+  s.dependency 'BSImageView', '1.0.3'
+  s.dependency 'BSGridCollectionViewLayout', '1.2.3'
 end
