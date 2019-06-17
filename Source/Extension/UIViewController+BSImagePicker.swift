@@ -38,6 +38,7 @@ public extension UIViewController {
         - parameter finish: Closure to call when user finishes or nil
         - parameter completion: presentation completed closure or nil
         - parameter selectLimitReached: Closure to call when user reaches selection limit or nil
+        - parameter setLastUsedAlbumIdClosure: Closure to call when picker is about to close to store last used albumId or nil
     */
     @objc func bs_presentImagePickerController(_ imagePicker: BSImagePickerViewController, animated: Bool, select: ((_ asset: PHAsset) -> Void)?, deselect: ((_ asset: PHAsset) -> Void)?, cancel: (([PHAsset]) -> Void)?, finish: (([PHAsset]) -> Void)?, completion: (() -> Void)?, selectLimitReached: ((Int) -> Void)? = nil) {
         BSImagePickerViewController.authorize(fromViewController: self) { (authorized) -> Void in
