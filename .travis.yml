@@ -12,5 +12,5 @@ before_install:
 install:
 - gem install xcpretty --no-document --quiet
 script:
-- set -o pipefail && xcodebuild test -project BSImagePicker.xcodeproj -scheme BSImagePicker -sdk iphonesimulator12.1 ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.1' | xcpretty -c
+- set -o pipefail && xcodebuild test -project BSImagePicker.xcodeproj -scheme BSImagePicker -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.2' | xcpretty -c
 - pod lib lint --quick
