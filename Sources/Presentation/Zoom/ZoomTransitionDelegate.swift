@@ -66,7 +66,6 @@ extension ZoomTransitionDelegate: UINavigationControllerDelegate {
     }
     
     public func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return nil
         if animationController === expandAnimator {
             return interactionController
         } else {

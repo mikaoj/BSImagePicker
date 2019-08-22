@@ -13,7 +13,6 @@
 		55300E05222ED2530086E439 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55300E04222ED2530086E439 /* Assets.xcassets */; };
 		55300E08222ED2530086E439 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55300E06222ED2530086E439 /* LaunchScreen.storyboard */; };
 		55300E13222ED2530086E439 /* UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55300E12222ED2530086E439 /* UITests.swift */; };
-		55F67B67222ED56300805134 /* BSImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F67B66222ED56300805134 /* BSImagePicker.framework */; };
 		55F67B71222ED96900805134 /* BSGridCollectionViewLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F67B68222ED59A00805134 /* BSGridCollectionViewLayout.framework */; };
 		55F67B72222ED96900805134 /* BSGridCollectionViewLayout.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55F67B68222ED59A00805134 /* BSGridCollectionViewLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55F67B74222ED96E00805134 /* BSImageView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F67B6A222ED59D00805134 /* BSImageView.framework */; };
@@ -72,7 +71,6 @@
 				55F67B71222ED96900805134 /* BSGridCollectionViewLayout.framework in Frameworks */,
 				55F67B7C222F106F00805134 /* BSImagePicker.framework in Frameworks */,
 				55F67B74222ED96E00805134 /* BSImageView.framework in Frameworks */,
-				55F67B67222ED56300805134 /* BSImagePicker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,7 +181,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1010;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = "Joakim Gyllström";
 				TargetAttributes = {
 					55300DF9222ED2520086E439 = {
