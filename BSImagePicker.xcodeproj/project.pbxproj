@@ -427,6 +427,7 @@
 				TargetAttributes = {
 					550A315021D5298400AAF718 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1030;
 					};
 					5569D00121D52A6D00D03631 = {
 						CreatedOnToolsVersion = 10.1;
@@ -686,7 +687,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = se.backslashed.BSImagePicker;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -716,7 +717,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = se.backslashed.BSImagePicker;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
