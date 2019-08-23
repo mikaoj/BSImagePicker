@@ -39,16 +39,13 @@ class PreviewViewController : UIViewController {
             options.isSynchronous = true
             
             // Load image for preview
-            let targetSize = imageView.frame.size.resize(by: scale)
+            let targetSize = imageView.frame.size.resize(by: UIScreen.main.scale)
             PHCachingImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options) { (image, _) in
                 self.imageView.image = image
             }
         }
     }
     let imageView: UIImageView = UIImageView(frame: .zero)
-    let titleLabel = UILabel(frame: .zero)
-    let geoCoder = CLGeocoder()
-    let scale: CGFloat
     
     var fullscreen = false {
         didSet {
@@ -60,27 +57,55 @@ class PreviewViewController : UIViewController {
         }
     }
 
+    private let titleLabel = UILabel(frame: .zero)
+    private let scrollView = UIScrollView(frame: .zero)
+    private let singleTapRecognizer = UITapGestureRecognizer()
+    private let doubleTapRecognizer = UITapGestureRecognizer()
+
     override var prefersStatusBarHidden : Bool {
         return fullscreen
     }
 
     required init() {
-        self.scale = UIScreen.main.scale
         super.init(nibName: nil, bundle: nil)
-
-        imageView.frame = view.bounds
-        imageView.contentMode = .scaleAspectFit
-        imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        view.addSubview(imageView)
-
-        let tapRecognizer = UITapGestureRecognizer()
-        tapRecognizer.numberOfTapsRequired = 1
-        tapRecognizer.addTarget(self, action: #selector(PreviewViewController.toggleFullscreen))
-        view.addGestureRecognizer(tapRecognizer)
+        setupScrollView()
+        setupImageView()
+        setupSingleTapRecognizer()
+        setupDoubleTapRecognizer()
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    private func setupScrollView() {
+        scrollView.frame = view.bounds
+        scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        scrollView.delegate = self
+        scrollView.minimumZoomScale = 1
+        scrollView.maximumZoomScale = 3
+        scrollView.contentInsetAdjustmentBehavior = .never // Allows the imageview to be 'under' the navigation bar
+        view.addSubview(scrollView)
+    }
+
+    private func setupImageView() {
+        imageView.frame = scrollView.bounds
+        imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        imageView.contentMode = .scaleAspectFit
+        scrollView.addSubview(imageView)
+    }
+
+    private func setupSingleTapRecognizer() {
+        singleTapRecognizer.numberOfTapsRequired = 1
+        singleTapRecognizer.addTarget(self, action: #selector(PreviewViewController.didSingleTap(_:)))
+        singleTapRecognizer.require(toFail: doubleTapRecognizer)
+        view.addGestureRecognizer(singleTapRecognizer)
+    }
+
+    private func setupDoubleTapRecognizer() {
+        doubleTapRecognizer.numberOfTapsRequired = 2
+        doubleTapRecognizer.addTarget(self, action: #selector(PreviewViewController.didDoubleTap(_:)))
+        view.addGestureRecognizer(doubleTapRecognizer)
     }
 
     override func viewDidLoad() {
@@ -91,8 +116,20 @@ class PreviewViewController : UIViewController {
         navigationItem.titleView = titleLabel
     }
     
-    @objc func toggleFullscreen() {
+    private func toggleFullscreen() {
         fullscreen = !fullscreen
+    }
+
+    @objc func didSingleTap(_ recognizer: UIGestureRecognizer) {
+        toggleFullscreen()
+    }
+
+    @objc func didDoubleTap(_ recognizer: UIGestureRecognizer) {
+        if scrollView.zoomScale > 1 {
+            scrollView.setZoomScale(1, animated: true)
+        } else {
+            // TODO: Implement zoom functionality
+        }
     }
     
     private func updateNavigationBar() {
@@ -122,5 +159,18 @@ class PreviewViewController : UIViewController {
             self.titleLabel.attributedText = text
             self.titleLabel.sizeToFit()
         }
+    }
+}
+
+extension PreviewViewController: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        // Wheen zooming in we want to hide navigation bar and darken the background
+        // As default iOS photo library does.
+        guard fullscreen == false, scrollView.zoomScale > 1 else { return }
+        toggleFullscreen()
     }
 }

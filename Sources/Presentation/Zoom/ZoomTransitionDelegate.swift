@@ -23,16 +23,16 @@
 import Foundation
 
 class ZoomTransitionDelegate: NSObject, UIViewControllerTransitioningDelegate {
-    var zoomedOutImageView: UIImageView? {
+    var zoomedOutView: UIImageView? {
         didSet {
-            expandAnimator.sourceImageView = zoomedOutImageView
-            shrinkAnimator.destinationImageView = zoomedOutImageView
+            expandAnimator.sourceImageView = zoomedOutView
+            shrinkAnimator.destinationImageView = zoomedOutView
         }
     }
-    var zoomedInImageView: UIImageView? {
+    var zoomedInView: UIImageView? {
         didSet {
-            expandAnimator.destinationImageView = zoomedInImageView
-            shrinkAnimator.sourceImageView = zoomedInImageView
+            expandAnimator.destinationImageView = zoomedInView
+            shrinkAnimator.sourceImageView = zoomedInView
         }
     }
     
