@@ -108,6 +108,7 @@
 		555472AD21E538B000B90CA5 /* AssetsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsViewController.swift; sourceTree = "<group>"; };
 		5569D00221D52A6D00D03631 /* Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5569D00621D52A6D00D03631 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		557010BA230FD5E700A1C4EA /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		55888E4A2231A31C003C861D /* VideoPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewViewController.swift; sourceTree = "<group>"; };
 		559768D421D53EC100B10102 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		559DB80E21E655D000CD58B4 /* ImagePickerControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerControllerDelegate.swift; sourceTree = "<group>"; };
@@ -336,6 +337,7 @@
 				559768D421D53EC100B10102 /* TODO.md */,
 				55BCF8E921D52CFE00386752 /* Cartfile */,
 				55BCF8E821D52CF600386752 /* BSImagePicker.podspec */,
+				557010BA230FD5E700A1C4EA /* Package.swift */,
 			);
 			name = Meta;
 			sourceTree = "<group>";
