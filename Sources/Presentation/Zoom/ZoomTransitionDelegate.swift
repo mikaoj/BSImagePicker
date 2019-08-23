@@ -62,6 +62,8 @@ extension ZoomTransitionDelegate: UINavigationControllerDelegate {
             return expandAnimator
         case .pop:
             return shrinkAnimator
+        @unknown default:
+            return nil
         }
     }
     
