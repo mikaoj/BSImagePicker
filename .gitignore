@@ -33,3 +33,6 @@ DerivedData
 
 # Carthage
 Carthage/Build
+
+.build/
+.swiftpm/
