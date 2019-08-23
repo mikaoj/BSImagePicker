@@ -21,7 +21,6 @@
 // SOFTWARE.
 
 import UIKit
-import BSImageView
 
 final class ZoomAnimator : NSObject, UIViewControllerAnimatedTransitioning {
     enum Mode {
@@ -60,7 +59,7 @@ final class ZoomAnimator : NSObject, UIViewControllerAnimatedTransitioning {
             
             // Setup scaling image
             let scalingFrame = containerView.convert(sourceImageView.frame, from: sourceImageView.superview)
-            let scalingImage = BSImageView(frame: scalingFrame)
+            let scalingImage = ImageView(frame: scalingFrame)
             scalingImage.contentMode = sourceImageView.contentMode
             scalingImage.clipsToBounds = true
             if mode == .expand {

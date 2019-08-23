@@ -19,6 +19,4 @@ Pod::Spec.new do |s|
   s.resources = ['Resources/*.png']
 
   s.frameworks = 'UIKit', 'Photos'
-  s.dependency 'BSImageView', '1.0.2'
-  s.dependency 'BSGridCollectionViewLayout', '1.2.2'
 end

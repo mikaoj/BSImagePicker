@@ -26,10 +26,10 @@ struct ImageViewLayout {
     static func frameForImageWithSize(_ image: CGSize, previousFrame: CGRect, inContainerWithSize container: CGSize, usingContentMode contentMode: UIView.ContentMode) -> CGRect {
         let size = sizeForImage(image, previousSize: previousFrame.size, container: container, contentMode: contentMode)
         let position = positionForImage(size, previousPosition: previousFrame.origin, container: container, contentMode: contentMode)
-        
+
         return CGRect(origin: position, size: size)
     }
-    
+
     private static func sizeForImage(_ image: CGSize, previousSize: CGSize, container: CGSize, contentMode: UIView.ContentMode) -> CGSize {
         switch contentMode {
         case .scaleToFill:
@@ -48,7 +48,7 @@ struct ImageViewLayout {
             return image
         }
     }
-    
+
     private static func positionForImage(_ image: CGSize, previousPosition: CGPoint, container: CGSize, contentMode: UIView.ContentMode) -> CGPoint {
         switch contentMode {
         case .scaleToFill:
@@ -81,15 +81,15 @@ struct ImageViewLayout {
             return .zero
         }
     }
-    
+
     private static func imageHeightRatio(_ image: CGSize, container: CGSize) -> CGFloat {
         return image.height / container.height
     }
-    
+
     private static func imageWidthRatio(_ image: CGSize, container: CGSize) -> CGFloat {
         return image.width / container.width
     }
-    
+
     private static func scaledImageSize(_ image: CGSize, ratio: CGFloat) -> CGSize {
         return CGSize(width: image.width / ratio, height: image.height / ratio)
     }

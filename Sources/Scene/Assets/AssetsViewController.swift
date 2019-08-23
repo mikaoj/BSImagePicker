@@ -22,7 +22,6 @@
 
 import UIKit
 import Photos
-import BSGridCollectionViewLayout
 
 protocol AssetsViewControllerDelegate: class {
     func assetsViewController(_ assetsViewController: AssetsViewController, didSelectAsset asset: PHAsset)

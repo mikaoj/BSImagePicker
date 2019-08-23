@@ -13,10 +13,6 @@
 		55300E03222ED2520086E439 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55300E01222ED2520086E439 /* Main.storyboard */; };
 		55300E05222ED2530086E439 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55300E04222ED2530086E439 /* Assets.xcassets */; };
 		55300E08222ED2530086E439 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55300E06222ED2530086E439 /* LaunchScreen.storyboard */; };
-		55F67B71222ED96900805134 /* BSGridCollectionViewLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F67B68222ED59A00805134 /* BSGridCollectionViewLayout.framework */; };
-		55F67B72222ED96900805134 /* BSGridCollectionViewLayout.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55F67B68222ED59A00805134 /* BSGridCollectionViewLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		55F67B74222ED96E00805134 /* BSImageView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F67B6A222ED59D00805134 /* BSImageView.framework */; };
-		55F67B75222ED96E00805134 /* BSImageView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55F67B6A222ED59D00805134 /* BSImageView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		55F67B7C222F106F00805134 /* BSImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F67B66222ED56300805134 /* BSImagePicker.framework */; };
 		55F67B7D222F106F00805134 /* BSImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55F67B66222ED56300805134 /* BSImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -38,9 +34,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				55F67B75222ED96E00805134 /* BSImageView.framework in Embed Frameworks */,
 				55F67B7D222F106F00805134 /* BSImagePicker.framework in Embed Frameworks */,
-				55F67B72222ED96900805134 /* BSGridCollectionViewLayout.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -75,9 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55F67B71222ED96900805134 /* BSGridCollectionViewLayout.framework in Frameworks */,
 				55F67B7C222F106F00805134 /* BSImagePicker.framework in Frameworks */,
-				55F67B74222ED96E00805134 /* BSImageView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,10 +435,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y2NHS7RD78;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -465,10 +454,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Y2NHS7RD78;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Frameworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
