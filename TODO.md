@@ -20,3 +20,8 @@
 * Handle updates to photo library better
 * ~~No xib/storyboards~~
 * ~~Don't handle photo library access, user of this library should do that~~
+
+### iOS 13
+* Drop down animation when opening albums view is a couple of pixels of, due to new default modal presentation style.
+* Zoom animation is a couple of pixels of due to ^^
+* Due to ^^, the image picker can be dismissed with swipe - not triggering Done/cancel callbacks. Look into isModalInPresentation property to disable this and force cancel/done to be used.

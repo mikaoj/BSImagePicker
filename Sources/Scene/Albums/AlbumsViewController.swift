@@ -54,8 +54,8 @@ class AlbumsViewController: UIViewController {
         dataSource = AlbumsTableViewDataSource(fetchResults: fetchResults)
 
         view = tableView
-        
-        tableView.backgroundColor = settings.theme.backgroundColor
+
+        tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.separatorStyle = .none

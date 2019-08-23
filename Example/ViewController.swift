@@ -30,6 +30,7 @@ class ViewController: UIViewController {
         let imagePicker = ImagePickerController()
         imagePicker.settings.selection.max = 2
         imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
+        imagePicker.modalPresentationStyle = .fullScreen
         present(imagePicker, animated: true)
         //        let vc = BSImagePickerViewController()
         //        vc.settings.selection.max = 6

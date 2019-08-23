@@ -38,11 +38,7 @@ final class ZoomAnimator : NSObject, UIViewControllerAnimatedTransitioning {
     }
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        if mode == .expand {
-            return 0.4
-        } else {
-            return 0.2
-        }
+        return 0.25
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
