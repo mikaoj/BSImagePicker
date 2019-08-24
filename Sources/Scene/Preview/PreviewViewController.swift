@@ -49,6 +49,7 @@ class PreviewViewController : UIViewController {
     
     var fullscreen = false {
         didSet {
+            guard oldValue != fullscreen else { return }
             UIView.animate(withDuration: 0.3) {
                 self.updateNavigationBar()
                 self.updateStatusBar()
@@ -85,6 +86,8 @@ class PreviewViewController : UIViewController {
         scrollView.minimumZoomScale = 1
         scrollView.maximumZoomScale = 3
         scrollView.contentInsetAdjustmentBehavior = .never // Allows the imageview to be 'under' the navigation bar
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
         view.addSubview(scrollView)
     }
 
@@ -115,6 +118,11 @@ class PreviewViewController : UIViewController {
         titleLabel.textAlignment = .center
         navigationItem.titleView = titleLabel
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        fullscreen = false
+    }
     
     private func toggleFullscreen() {
         fullscreen = !fullscreen
@@ -128,8 +136,20 @@ class PreviewViewController : UIViewController {
         if scrollView.zoomScale > 1 {
             scrollView.setZoomScale(1, animated: true)
         } else {
-            // TODO: Implement zoom functionality
+            scrollView.zoom(to: zoomRect(scale: 2, center: recognizer.location(in: recognizer.view)), animated: true)
         }
+    }
+
+    private func zoomRect(scale: CGFloat, center: CGPoint) -> CGRect {
+        let newCenter = scrollView.convert(center, from: imageView)
+
+        var zoomRect = CGRect.zero
+        zoomRect.size.height = imageView.frame.size.height / scale
+        zoomRect.size.width = imageView.frame.size.width / scale
+        zoomRect.origin.x = newCenter.x - (zoomRect.size.width / 2.0)
+        zoomRect.origin.y = newCenter.y - (zoomRect.size.height / 2.0)
+        
+        return zoomRect
     }
     
     private func updateNavigationBar() {
@@ -168,9 +188,25 @@ extension PreviewViewController: UIScrollViewDelegate {
     }
 
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        // Wheen zooming in we want to hide navigation bar and darken the background
-        // As default iOS photo library does.
-        guard fullscreen == false, scrollView.zoomScale > 1 else { return }
-        toggleFullscreen()
+        if scrollView.zoomScale > 1 {
+            fullscreen = true
+
+            guard let image = imageView.image else { return }
+
+            let widthRatio = imageView.frame.width / image.size.width
+            let heightRatio = imageView.frame.height / image.size.height
+
+            let ratio = widthRatio < heightRatio ? widthRatio:heightRatio
+
+            let newWidth = image.size.width * ratio
+            let newHeight = image.size.height * ratio
+
+            let left = 0.5 * (newWidth * scrollView.zoomScale > imageView.frame.width ? (newWidth - imageView.frame.width) : (scrollView.frame.width - scrollView.contentSize.width))
+            let top = 0.5 * (newHeight * scrollView.zoomScale > imageView.frame.height ? (newHeight - imageView.frame.height) : (scrollView.frame.height - scrollView.contentSize.height))
+
+            scrollView.contentInset = UIEdgeInsets(top: top, left: left, bottom: top, right: left)
+        } else {
+            scrollView.contentInset = .zero
+        }
     }
 }
