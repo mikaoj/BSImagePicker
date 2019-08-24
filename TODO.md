@@ -23,7 +23,7 @@
 * ~~Don't handle photo library access, user of this library should do that~~
 
 ### Performance
-* Fetching assets of certain types (either with NSPredicate or PHAsset.fetchAssets(with: <TYPE>)) is sloooooow.
+* Fetching assets of specific types (either with NSPredicate or PHAsset.fetchAssets(with: <TYPE>)) is sloooooow. Much faster to just fetch all...
 
 ### iOS 13
 * Drop down animation when opening albums view is a couple of pixels of, due to new default modal presentation style.
