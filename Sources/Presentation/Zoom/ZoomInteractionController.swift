@@ -30,6 +30,7 @@ class ZoomInteractionController: UIPercentDrivenInteractiveTransition, UIGesture
     private var hasCompleted = false
     private let separationView = UIView()
     private var transform: CGAffineTransform!
+    private let threshold: CGFloat = 70 // How many pixels for swipe to dismiss
     
     override init() {
         super.init()
@@ -86,7 +87,7 @@ class ZoomInteractionController: UIPercentDrivenInteractiveTransition, UIGesture
     
     private func percentDone(translation: CGPoint) -> CGFloat {
         guard translation.y > 0 else { return 0 }
-        let progress = translation.y / 100
+        let progress = translation.y / threshold
         return min(progress, 1)
     }
     

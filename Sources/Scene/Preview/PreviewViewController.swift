@@ -100,14 +100,14 @@ class PreviewViewController : UIViewController {
 
     private func setupSingleTapRecognizer() {
         singleTapRecognizer.numberOfTapsRequired = 1
-        singleTapRecognizer.addTarget(self, action: #selector(PreviewViewController.didSingleTap(_:)))
+        singleTapRecognizer.addTarget(self, action: #selector(didSingleTap(_:)))
         singleTapRecognizer.require(toFail: doubleTapRecognizer)
         view.addGestureRecognizer(singleTapRecognizer)
     }
 
     private func setupDoubleTapRecognizer() {
         doubleTapRecognizer.numberOfTapsRequired = 2
-        doubleTapRecognizer.addTarget(self, action: #selector(PreviewViewController.didDoubleTap(_:)))
+        doubleTapRecognizer.addTarget(self, action: #selector(didDoubleTap(_:)))
         view.addGestureRecognizer(doubleTapRecognizer)
     }
 
@@ -148,7 +148,7 @@ class PreviewViewController : UIViewController {
         zoomRect.size.width = imageView.frame.size.width / scale
         zoomRect.origin.x = newCenter.x - (zoomRect.size.width / 2.0)
         zoomRect.origin.y = newCenter.y - (zoomRect.size.height / 2.0)
-        
+
         return zoomRect
     }
     
@@ -204,7 +204,7 @@ extension PreviewViewController: UIScrollViewDelegate {
             let left = 0.5 * (newWidth * scrollView.zoomScale > imageView.frame.width ? (newWidth - imageView.frame.width) : (scrollView.frame.width - scrollView.contentSize.width))
             let top = 0.5 * (newHeight * scrollView.zoomScale > imageView.frame.height ? (newHeight - imageView.frame.height) : (scrollView.frame.height - scrollView.contentSize.height))
 
-            scrollView.contentInset = UIEdgeInsets(top: top, left: left, bottom: top, right: left)
+            scrollView.contentInset = UIEdgeInsets(top: top.rounded(), left: left.rounded(), bottom: top.rounded(), right: left.rounded())
         } else {
             scrollView.contentInset = .zero
         }

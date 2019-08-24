@@ -9,9 +9,10 @@
 * Live images
 * ~~When presenting album selection. Slide down from entire navigation bar~~
 * Make album slide down view match navigation bar background
-* Ñicer camera capture. And don't save captured photos to library - or no camera capture at all..? Hmm
+* Nicer camera capture. And don't save captured photos to library - or no camera capture at all..? Hmm
 * Helper methods on PHAsset to easier get images from them.
 * ~~Haptic feedback on selection?~~
+* ~~zoom when previewing photos~~
 
 ### Code
 * Less subclassing
@@ -21,7 +22,11 @@
 * ~~No xib/storyboards~~
 * ~~Don't handle photo library access, user of this library should do that~~
 
+### Performance
+* Fetching assets of certain types (either with NSPredicate or PHAsset.fetchAssets(with: <TYPE>)) is sloooooow.
+
 ### iOS 13
 * Drop down animation when opening albums view is a couple of pixels of, due to new default modal presentation style.
 * Zoom animation is a couple of pixels of due to ^^
 * Due to ^^, the image picker can be dismissed with swipe - not triggering Done/cancel callbacks. Look into isModalInPresentation property to disable this and force cancel/done to be used.
+* When using modal presentation style fullscreen. No lines between cells. An iOS 13 bug..?

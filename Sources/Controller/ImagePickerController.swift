@@ -78,11 +78,11 @@ public class ImagePickerController: UINavigationController {
 //        firstViewController?.navigationItem.titleView = albumButton
 
         doneButton.target = self
-        doneButton.action = #selector(ImagePickerController.doneButtonPressed(_:))
+        doneButton.action = #selector(doneButtonPressed(_:))
         firstViewController?.navigationItem.rightBarButtonItem = doneButton
 
         cancelButton.target = self
-        cancelButton.action = #selector(ImagePickerController.cancelButtonPressed(_:))
+        cancelButton.action = #selector(cancelButtonPressed(_:))
         firstViewController?.navigationItem.leftBarButtonItem = cancelButton
         
         toggleDoneButton()
