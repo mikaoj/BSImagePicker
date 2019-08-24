@@ -13,6 +13,7 @@
 		55300E03222ED2520086E439 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55300E01222ED2520086E439 /* Main.storyboard */; };
 		55300E05222ED2530086E439 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55300E04222ED2530086E439 /* Assets.xcassets */; };
 		55300E08222ED2530086E439 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55300E06222ED2530086E439 /* LaunchScreen.storyboard */; };
+		553A687C2311CBE60003C744 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 553A687E2311CBE60003C744 /* Localizable.strings */; };
 		55F67B7C222F106F00805134 /* BSImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F67B66222ED56300805134 /* BSImagePicker.framework */; };
 		55F67B7D222F106F00805134 /* BSImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 55F67B66222ED56300805134 /* BSImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 		55300E04222ED2530086E439 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55300E07222ED2530086E439 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		55300E09222ED2530086E439 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		553A687D2311CBE60003C744 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		55F67B66222ED56300805134 /* BSImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BSImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -111,6 +113,7 @@
 				55300E04222ED2530086E439 /* Assets.xcassets */,
 				55300E06222ED2530086E439 /* LaunchScreen.storyboard */,
 				55300E09222ED2530086E439 /* Info.plist */,
+				553A687E2311CBE60003C744 /* Localizable.strings */,
 			);
 			path = Example;
 			sourceTree = "<group>";
@@ -214,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55300E08222ED2530086E439 /* LaunchScreen.storyboard in Resources */,
+				553A687C2311CBE60003C744 /* Localizable.strings in Resources */,
 				55300E05222ED2530086E439 /* Assets.xcassets in Resources */,
 				55300E03222ED2520086E439 /* Main.storyboard in Resources */,
 			);
@@ -264,6 +268,14 @@
 				55300E07222ED2530086E439 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		553A687E2311CBE60003C744 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				553A687D2311CBE60003C744 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

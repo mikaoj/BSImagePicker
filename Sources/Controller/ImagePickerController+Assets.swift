@@ -26,12 +26,12 @@ import Photos
 extension ImagePickerController: AssetsViewControllerDelegate {
     func assetsViewController(_ assetsViewController: AssetsViewController, didSelectAsset asset: PHAsset) {
         assetStore.append(asset)
-        toggleDoneButton()
+        updatedDoneButton()
     }
 
     func assetsViewController(_ assetsViewController: AssetsViewController, didDeselectAsset asset: PHAsset) {
         assetStore.remove(asset)
-        toggleDoneButton()
+        updatedDoneButton()
     }
 
     func assetsViewController(_ assetsViewController: AssetsViewController, didLongPressCell cell: AssetCollectionViewCell, displayingAsset asset: PHAsset) {
