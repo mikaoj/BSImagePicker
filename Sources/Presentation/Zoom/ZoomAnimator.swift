@@ -49,8 +49,6 @@ final class ZoomAnimator : NSObject, UIViewControllerAnimatedTransitioning {
             // Setup views
             sourceImageView.isHidden = true
             destinationImageView.isHidden = true
-            toViewController.view.alpha = 0.0
-            fromViewController.view.alpha = 1.0
             containerView.backgroundColor = toViewController.view.backgroundColor
             
             // Setup scaling image
@@ -58,7 +56,10 @@ final class ZoomAnimator : NSObject, UIViewControllerAnimatedTransitioning {
             let scalingImage = ImageView(frame: scalingFrame)
             scalingImage.contentMode = sourceImageView.contentMode
             scalingImage.clipsToBounds = true
+            
             if mode == .expand {
+                toViewController.view.alpha = 0.0
+                fromViewController.view.alpha = 1.0
                 scalingImage.image = destinationImageView.image
             } else {
                 scalingImage.image = sourceImageView.image

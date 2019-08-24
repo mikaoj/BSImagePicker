@@ -15,8 +15,6 @@
 * ~~zoom when previewing photos~~
 
 ### Code
-* Less subclassing
-* Child view controllers
 * ~~Data source shouldn't handle selections~~
 * Handle updates to photo library better
 * ~~No xib/storyboards~~
