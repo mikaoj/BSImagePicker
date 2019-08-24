@@ -83,6 +83,8 @@ class VideoPreviewViewController: PreviewViewController {
         playButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleRightMargin, .flexibleBottomMargin]
         playButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(playTapped(sender:))))
         view.addSubview(playButton)
+
+        scrollView.isUserInteractionEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {

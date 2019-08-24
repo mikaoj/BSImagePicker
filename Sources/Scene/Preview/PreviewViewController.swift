@@ -58,8 +58,8 @@ class PreviewViewController : UIViewController {
         }
     }
 
+    let scrollView = UIScrollView(frame: .zero)
     private let titleLabel = UILabel(frame: .zero)
-    private let scrollView = UIScrollView(frame: .zero)
     private let singleTapRecognizer = UITapGestureRecognizer()
     private let doubleTapRecognizer = UITapGestureRecognizer()
 
