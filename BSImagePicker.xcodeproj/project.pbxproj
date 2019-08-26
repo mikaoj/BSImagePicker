@@ -136,6 +136,7 @@
 		55CDB45A223435420050D572 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		55CDB45C2234523C0050D572 /* PreviewTitleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewTitleBuilder.swift; sourceTree = "<group>"; };
 		55CDB45E22347D640050D572 /* ZoomInteractionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomInteractionController.swift; sourceTree = "<group>"; };
+		55DAB07F23145A8A00982A5B /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .travis.yml; sourceTree = "<group>"; };
 		55F67B76222EEB2500805134 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		55F67B7A222F088500805134 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -312,6 +313,7 @@
 		55BCF8EA21D52D4700386752 /* Meta */ = {
 			isa = PBXGroup;
 			children = (
+				55DAB07F23145A8A00982A5B /* .travis.yml */,
 				55BCF8E721D52CEC00386752 /* LICENSE */,
 				55BCF8E621D52CE300386752 /* README.md */,
 				559768D421D53EC100B10102 /* TODO.md */,
