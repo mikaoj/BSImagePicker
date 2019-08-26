@@ -27,14 +27,13 @@ import Photos
 import UIKit
 
 class VideoPreviewViewController: PreviewViewController {
-    private let playButton = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
     private let playerView = PlayerView()
     private var pauseBarButton: UIBarButtonItem!
+    private var playBarButton: UIBarButtonItem!
     
-    enum Button {
-        case none
-        case play
-        case pause
+    enum State {
+        case playing
+        case paused
     }
     
     override var asset: PHAsset? {
@@ -69,16 +68,11 @@ class VideoPreviewViewController: PreviewViewController {
         try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
 
         pauseBarButton = UIBarButtonItem(barButtonSystemItem: .pause, target: self, action: #selector(pausePressed(sender:)))
+        playBarButton = UIBarButtonItem(barButtonSystemItem: .play, target: self, action: #selector(playPressed(sender:)))
         
         playerView.frame = view.bounds
         playerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         view.addSubview(playerView)
-        
-        playButton.center = view.center
-        playButton.backgroundColor = .blue
-        playButton.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin, .flexibleRightMargin, .flexibleBottomMargin]
-        playButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(playTapped(sender:))))
-        view.addSubview(playButton)
 
         scrollView.isUserInteractionEnabled = false
         doubleTapRecognizer.isEnabled = false
@@ -87,64 +81,49 @@ class VideoPreviewViewController: PreviewViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         playerView.isHidden = true
-        showButton(.none, animated: false)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         playerView.isHidden = false
-        showButton(.play, animated: false)
+        updateState(.playing, animated: false)
         view.sendSubviewToBack(scrollView)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         playerView.isHidden = true
-        player?.pause()
-        showButton(.none, animated: false)
+        updateState(.paused)
         
         NotificationCenter.default.removeObserver(self)
     }
     
-    private func showButton(_ button: Button, animated: Bool = true) {
-        let updateButtons: () -> Void = {
-            switch button {
-            case .none:
-                self.playButton.alpha = 0
-                self.navigationItem.rightBarButtonItem = nil
-            case .play:
-                self.playButton.alpha = 1
-                self.navigationItem.rightBarButtonItem = nil
-            case .pause:
-                self.playButton.alpha = 0
-                self.navigationItem.rightBarButtonItem = self.pauseBarButton
-            }
-        }
-        
-        if animated {
-            UIView.animate(withDuration: 0.3, animations: updateButtons)
-        } else {
-            updateButtons()
+    private func updateState(_ state: State, animated: Bool = true) {
+        switch state {
+        case .playing:
+            navigationItem.setRightBarButton(pauseBarButton, animated: animated)
+            player?.play()
+        case .paused:
+            navigationItem.setRightBarButton(playBarButton, animated: animated)
+            player?.pause()
         }
     }
     
     // MARK: React to events
-    @objc func playTapped(sender: UIGestureRecognizer) {
+    @objc func playPressed(sender: UIBarButtonItem) {
         if player?.currentTime() == player?.currentItem?.duration {
             player?.seek(to: .zero)
         }
-        
-        player?.play()
-        showButton(.pause)
+
+        updateState(.playing)
     }
     
     @objc func pausePressed(sender: UIBarButtonItem) {
-        player?.pause()
-        showButton(.play)
+        updateState(.paused)
     }
     
     @objc func reachedEnd(notification: Notification) {
         player?.seek(to: .zero)
-        showButton(.play)
+        updateState(.paused)
     }
 }
