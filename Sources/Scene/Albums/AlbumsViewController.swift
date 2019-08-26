@@ -37,7 +37,8 @@ class AlbumsViewController: UIViewController {
         return PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: PHFetchOptions())
     }()
     private var dataSource: AlbumsTableViewDataSource = AlbumsTableViewDataSource(fetchResults: [])
-    private var tableView: UITableView = UITableView(frame: .zero, style: .grouped)
+    private let tableView: UITableView = UITableView(frame: .zero, style: .grouped)
+    private let lineView: UIView = UIView()
 
     deinit {
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
@@ -53,20 +54,31 @@ class AlbumsViewController: UIViewController {
         ]
         dataSource = AlbumsTableViewDataSource(fetchResults: fetchResults)
 
-        view = tableView
-
+        tableView.frame = view.bounds
+        tableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.separatorStyle = .none
         tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
         tableView.sectionFooterHeight = CGFloat.leastNormalMagnitude
-        modalPresentationStyle = .popover
-        preferredContentSize = CGSize(width: 320, height: 300)
-
+        tableView.showsVerticalScrollIndicator = false
+        tableView.showsHorizontalScrollIndicator = false
         tableView.register(AlbumCell.self, forCellReuseIdentifier: AlbumCell.identifier)
         tableView.dataSource = dataSource
         tableView.delegate = self
+        view.addSubview(tableView)
+
+        let lineHeight: CGFloat = 0.5
+        lineView.frame = view.bounds
+        lineView.frame.size.height = lineHeight
+        lineView.frame.origin.y = view.frame.size.height - lineHeight
+        lineView.backgroundColor = .gray
+        lineView.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
+        view.addSubview(lineView)
+
+        modalPresentationStyle = .popover
+        preferredContentSize = CGSize(width: 320, height: 300)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
