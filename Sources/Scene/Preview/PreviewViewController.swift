@@ -59,9 +59,9 @@ class PreviewViewController : UIViewController {
     }
 
     let scrollView = UIScrollView(frame: .zero)
+    let singleTapRecognizer = UITapGestureRecognizer()
+    let doubleTapRecognizer = UITapGestureRecognizer()
     private let titleLabel = UILabel(frame: .zero)
-    private let singleTapRecognizer = UITapGestureRecognizer()
-    private let doubleTapRecognizer = UITapGestureRecognizer()
 
     override var prefersStatusBarHidden : Bool {
         return fullscreen

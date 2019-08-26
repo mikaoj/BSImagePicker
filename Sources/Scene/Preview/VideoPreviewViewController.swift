@@ -66,11 +66,7 @@ class VideoPreviewViewController: PreviewViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        do {
-            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-        } catch {
-            os_log("Failed to set the audio session category for playback sound")
-        }
+        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
 
         pauseBarButton = UIBarButtonItem(barButtonSystemItem: .pause, target: self, action: #selector(pausePressed(sender:)))
         
@@ -85,6 +81,7 @@ class VideoPreviewViewController: PreviewViewController {
         view.addSubview(playButton)
 
         scrollView.isUserInteractionEnabled = false
+        doubleTapRecognizer.isEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,7 +94,7 @@ class VideoPreviewViewController: PreviewViewController {
         super.viewDidAppear(animated)
         playerView.isHidden = false
         showButton(.play, animated: false)
-        view.sendSubviewToBack(imageView)
+        view.sendSubviewToBack(scrollView)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -139,17 +136,15 @@ class VideoPreviewViewController: PreviewViewController {
         
         player?.play()
         showButton(.pause)
-        fullscreen = true
     }
     
     @objc func pausePressed(sender: UIBarButtonItem) {
         player?.pause()
         showButton(.play)
-        fullscreen = false
     }
     
     @objc func reachedEnd(notification: Notification) {
-        fullscreen = false
+        player?.seek(to: .zero)
         showButton(.play)
     }
 }
