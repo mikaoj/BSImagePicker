@@ -59,6 +59,8 @@ class AlbumsViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.separatorStyle = .none
+        tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
+        tableView.sectionFooterHeight = CGFloat.leastNormalMagnitude
         modalPresentationStyle = .popover
         preferredContentSize = CGSize(width: 320, height: 300)
 
@@ -84,6 +86,14 @@ extension AlbumsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let album = fetchResults[indexPath.section].object(at: indexPath.row)
         delegate?.albumsViewController(self, didSelectAlbum: album)
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return nil
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
     }
 }
 
