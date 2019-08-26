@@ -68,14 +68,14 @@ public class ImagePickerController: UINavigationController {
         
         // Setup buttons
         let firstViewController = viewControllers.first
-//        albumButton.setTitleColor(albumButton.tintColor, for: .normal)
-//        albumButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-//        albumButton.titleLabel?.adjustsFontSizeToFitWidth = true
-//        albumButton.setTitle("Some title for inital selection", for: .normal) // TODO: <---
-//        albumButton.setImage(UIImage(named: "arrow_down", in: Bundle(for: ImagePickerController.self), compatibleWith: nil), for: .normal)
-//        albumButton.imageToRight()
-//        albumButton.addTarget(self, action: #selector(ImagePickerController.albumsButtonPressed(_:)), for: .touchUpInside)
-//        firstViewController?.navigationItem.titleView = albumButton
+        albumButton.setTitleColor(albumButton.tintColor, for: .normal)
+        albumButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        albumButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        albumButton.setTitle("Some title for inital selection", for: .normal) // TODO: <---
+        albumButton.setImage(UIImage(named: "arrow_down", in: Bundle(for: ImagePickerController.self), compatibleWith: nil), for: .normal)
+        albumButton.imageToRight()
+        albumButton.addTarget(self, action: #selector(ImagePickerController.albumsButtonPressed(_:)), for: .touchUpInside)
+        firstViewController?.navigationItem.titleView = albumButton
 
         doneButton.target = self
         doneButton.action = #selector(doneButtonPressed(_:))
