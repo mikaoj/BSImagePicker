@@ -92,8 +92,8 @@ class VideoPreviewViewController: PreviewViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        updateState(.paused, animated: false)
         playerView.isHidden = true
-        updateState(.paused)
         
         NotificationCenter.default.removeObserver(self)
     }
