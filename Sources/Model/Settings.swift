@@ -74,12 +74,16 @@ public struct Settings {
                 fetchOptions.predicate = NSPredicate(format: "estimatedAssetCount > 0")
                 return fetchOptions
             }()
-            
-            /// Type of collections to fetch
-            public var type: PHAssetCollectionType = .album
-            
-            /// Subtype of collections to fetch
-            public var subtype: PHAssetCollectionSubtype = .any
+
+            /// Fetch results for asset collections you want to present to the user
+            public lazy var fetchResults: [PHFetchResult<PHAssetCollection>] = [
+                libraryFetchResult,
+                PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: options)
+            ]
+
+            private lazy var libraryFetchResult: PHFetchResult<PHAssetCollection> = {
+                return PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: PHFetchOptions())
+            }()
         }
 
         public struct Assets {

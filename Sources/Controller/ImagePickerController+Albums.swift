@@ -29,8 +29,12 @@ extension ImagePickerController: AlbumsViewControllerDelegate {
     }
     
     func albumsViewController(_ albumsViewController: AlbumsViewController, didSelectAlbum album: PHAssetCollection) {
-        assetsViewController.showAssets(in: album)
-        albumButton.setTitle(album.localizedTitle, for: .normal)
+        select(album: album)
         albumsViewController.dismiss(animated: true)
+    }
+
+    func select(album: PHAssetCollection) {
+        assetsViewController.showAssets(in: album)
+        albumButton.setTitle((album.localizedTitle ?? "") + " ", for: .normal)
     }
 }

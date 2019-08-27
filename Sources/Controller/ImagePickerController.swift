@@ -71,7 +71,6 @@ public class ImagePickerController: UINavigationController {
         albumButton.setTitleColor(albumButton.tintColor, for: .normal)
         albumButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         albumButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        albumButton.setTitle("Some title for inital selection ", for: .normal) // TODO: <---
         albumButton.setImage(UIImage(named: "arrow_down", in: Bundle(for: ImagePickerController.self), compatibleWith: nil), for: .normal)
         albumButton.semanticContentAttribute = .forceRightToLeft // To set image to the right without having to calculate insets/constraints.
         albumButton.addTarget(self, action: #selector(ImagePickerController.albumsButtonPressed(_:)), for: .touchUpInside)
@@ -86,10 +85,21 @@ public class ImagePickerController: UINavigationController {
         firstViewController?.navigationItem.leftBarButtonItem = cancelButton
         
         updatedDoneButton()
+        updateAlbumButton()
+
+        if let firstAlbum = settings.fetch.album.fetchResults.first?.object(at: 0) {
+            select(album: firstAlbum)
+        } else {
+            // TODO: Handle no collections?
+        }
     }
 
     func updatedDoneButton() {
         doneButton.title = assetStore.count > 0 ? "\(NSLocalizedString("BSImagePicker.Done", comment: "Done button title")) (\(assetStore.count))" : NSLocalizedString("BSImagePicker.Done", comment: "Done button title")
         doneButton.isEnabled = assetStore.count >= settings.selection.min
+    }
+
+    func updateAlbumButton() {
+        albumButton.isHidden = settings.fetch.album.fetchResults.count == 0
     }
 }

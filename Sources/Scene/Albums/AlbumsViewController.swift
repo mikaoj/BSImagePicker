@@ -33,9 +33,6 @@ class AlbumsViewController: UIViewController {
     var settings: Settings!
 
     private var fetchResults: [PHFetchResult<PHAssetCollection>] = []
-    private lazy var libraryFetchResult: PHFetchResult<PHAssetCollection> = {
-        return PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: PHFetchOptions())
-    }()
     private var dataSource: AlbumsTableViewDataSource = AlbumsTableViewDataSource(fetchResults: [])
     private let tableView: UITableView = UITableView(frame: .zero, style: .grouped)
     private let lineView: UIView = UIView()
@@ -48,10 +45,7 @@ class AlbumsViewController: UIViewController {
         super.viewDidLoad()
 
         PHPhotoLibrary.shared().register(self)
-        fetchResults = [
-            libraryFetchResult,
-            PHAssetCollection.fetchAssetCollections(with: settings.fetch.album.type, subtype: settings.fetch.album.subtype, options: settings.fetch.album.options)
-        ]
+        fetchResults = settings.fetch.album.fetchResults
         dataSource = AlbumsTableViewDataSource(fetchResults: fetchResults)
 
         tableView.frame = view.bounds
