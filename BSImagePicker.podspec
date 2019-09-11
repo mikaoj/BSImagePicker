@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "BSImagePicker"
-  s.version          = "2.10.0"
+  s.version          = "2.10.1"
   s.summary          = "BSImagePicker is a multiple image picker for iOS. UIImagePickerController replacement"
   s.description      = <<-DESC
   A mix between the native iOS gallery and facebooks image picker. Allows you to preview and select multiple images.
@@ -22,5 +22,5 @@ Pod::Spec.new do |s|
 
   s.frameworks = 'UIKit', 'Photos'
   s.dependency 'BSImageView', '1.0.3'
-  s.dependency 'BSGridCollectionViewLayout', '1.2.3'
+  s.dependency 'BSGridCollectionViewLayout', '1.2.5'
 end
