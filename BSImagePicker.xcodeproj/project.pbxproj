@@ -14,6 +14,7 @@
 		550CB423230FCFC800543217 /* GridCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550CB422230FCFC800543217 /* GridCollectionViewLayout.swift */; };
 		550CB425230FD01200543217 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550CB424230FD01200543217 /* ImageView.swift */; };
 		550CB427230FD08200543217 /* ImageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550CB426230FD08200543217 /* ImageViewLayout.swift */; };
+		5543942D232A4EB500DB51B7 /* LivePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5543942C232A4EB500DB51B7 /* LivePreviewViewController.swift */; };
 		55454B472247C87700D1E36C /* add_photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55454B402247C87700D1E36C /* add_photo@3x.png */; };
 		55454B482247C87700D1E36C /* add_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 55454B412247C87700D1E36C /* add_photo.png */; };
 		55454B492247C87700D1E36C /* arrow_down@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55454B422247C87700D1E36C /* arrow_down@1x.png */; };
@@ -88,6 +89,7 @@
 		550CB422230FCFC800543217 /* GridCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCollectionViewLayout.swift; sourceTree = "<group>"; };
 		550CB424230FD01200543217 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		550CB426230FD08200543217 /* ImageViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewLayout.swift; sourceTree = "<group>"; };
+		5543942C232A4EB500DB51B7 /* LivePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivePreviewViewController.swift; sourceTree = "<group>"; };
 		55454B402247C87700D1E36C /* add_photo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_photo@3x.png"; sourceTree = "<group>"; };
 		55454B412247C87700D1E36C /* add_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_photo.png; sourceTree = "<group>"; };
 		55454B422247C87700D1E36C /* arrow_down@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow_down@1x.png"; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				55CDB45C2234523C0050D572 /* PreviewTitleBuilder.swift */,
 				55BCF8CA21D52C1000386752 /* PreviewViewController.swift */,
 				55888E4A2231A31C003C861D /* VideoPreviewViewController.swift */,
+				5543942C232A4EB500DB51B7 /* LivePreviewViewController.swift */,
 				55CDB45A223435420050D572 /* PlayerView.swift */,
 			);
 			path = Preview;
@@ -334,8 +337,8 @@
 			isa = PBXGroup;
 			children = (
 				55C5B805222C1BDD003CF3F1 /* ZoomTransitionDelegate.swift */,
-				55BCF8CE21D52C1000386752 /* ZoomAnimator.swift */,
 				55CDB45E22347D640050D572 /* ZoomInteractionController.swift */,
+				55BCF8CE21D52C1000386752 /* ZoomAnimator.swift */,
 			);
 			path = Zoom;
 			sourceTree = "<group>";
@@ -495,6 +498,7 @@
 				550CB423230FCFC800543217 /* GridCollectionViewLayout.swift in Sources */,
 				55BCF8D721D52C1000386752 /* CheckmarkView.swift in Sources */,
 				555472AE21E538B000B90CA5 /* AssetsViewController.swift in Sources */,
+				5543942D232A4EB500DB51B7 /* LivePreviewViewController.swift in Sources */,
 				55BCF8DC21D52C1000386752 /* PreviewViewController.swift in Sources */,
 				55BCF8D221D52C1000386752 /* CameraCollectionViewDataSource.swift in Sources */,
 				55BCF8CF21D52C1000386752 /* Settings.swift in Sources */,

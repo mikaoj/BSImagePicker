@@ -6,9 +6,9 @@
 
 ### Features
 * ~~Videos~~
-* Live images
+* ~~Live images~~
 * ~~When presenting album selection. Slide down from entire navigation bar~~
-* Make album slide down view match navigation bar background
+* ~~Make album slide down view match navigation bar background~~
 * Nicer camera capture. And don't save captured photos to library - or no camera capture at all..? Hmm
 * Helper methods on PHAsset to easier get images from them.
 * ~~Haptic feedback on selection?~~

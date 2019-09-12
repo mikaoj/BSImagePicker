@@ -25,9 +25,13 @@ import Photos
 
 class PreviewBuilder {
     static func createPreviewController(for asset: PHAsset) -> PreviewViewController {
-        switch asset.mediaType {
-        case .video:
+        switch (asset.mediaType, asset.mediaSubtypes) {
+        case (.video, _):
             let vc = VideoPreviewViewController()
+            vc.asset = asset
+            return vc
+        case (.image, .photoLive):
+            let vc = LivePreviewViewController()
             vc.asset = asset
             return vc
         default:

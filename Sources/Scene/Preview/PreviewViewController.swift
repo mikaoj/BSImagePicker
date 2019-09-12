@@ -41,8 +41,8 @@ class PreviewViewController : UIViewController {
             
             // Load image for preview
             let targetSize = imageView.frame.size.resize(by: UIScreen.main.scale)
-            imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options) { (image, _) in
-                self.imageView.image = image
+            imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options) { [weak self] (image, _) in
+                self?.imageView.image = image
             }
         }
     }
@@ -142,11 +142,12 @@ class PreviewViewController : UIViewController {
     }
 
     private func zoomRect(scale: CGFloat, center: CGPoint) -> CGRect {
-        let newCenter = scrollView.convert(center, from: imageView)
+        guard let zoomView = viewForZooming(in: scrollView) else { return .zero }
+        let newCenter = scrollView.convert(center, from: zoomView)
 
         var zoomRect = CGRect.zero
-        zoomRect.size.height = imageView.frame.size.height / scale
-        zoomRect.size.width = imageView.frame.size.width / scale
+        zoomRect.size.height = zoomView.frame.size.height / scale
+        zoomRect.size.width = zoomView.frame.size.width / scale
         zoomRect.origin.x = newCenter.x - (zoomRect.size.width / 2.0)
         zoomRect.origin.y = newCenter.y - (zoomRect.size.height / 2.0)
 
@@ -193,17 +194,18 @@ extension PreviewViewController: UIScrollViewDelegate {
             fullscreen = true
 
             guard let image = imageView.image else { return }
+            guard let zoomView = viewForZooming(in: scrollView) else { return }
 
-            let widthRatio = imageView.frame.width / image.size.width
-            let heightRatio = imageView.frame.height / image.size.height
+            let widthRatio = zoomView.frame.width / image.size.width
+            let heightRatio = zoomView.frame.height / image.size.height
 
             let ratio = widthRatio < heightRatio ? widthRatio:heightRatio
 
             let newWidth = image.size.width * ratio
             let newHeight = image.size.height * ratio
 
-            let left = 0.5 * (newWidth * scrollView.zoomScale > imageView.frame.width ? (newWidth - imageView.frame.width) : (scrollView.frame.width - scrollView.contentSize.width))
-            let top = 0.5 * (newHeight * scrollView.zoomScale > imageView.frame.height ? (newHeight - imageView.frame.height) : (scrollView.frame.height - scrollView.contentSize.height))
+            let left = 0.5 * (newWidth * scrollView.zoomScale > zoomView.frame.width ? (newWidth - zoomView.frame.width) : (scrollView.frame.width - scrollView.contentSize.width))
+            let top = 0.5 * (newHeight * scrollView.zoomScale > zoomView.frame.height ? (newHeight - zoomView.frame.height) : (scrollView.frame.height - scrollView.contentSize.height))
 
             scrollView.contentInset = UIEdgeInsets(top: top.rounded(), left: left.rounded(), bottom: top.rounded(), right: left.rounded())
         } else {
