@@ -50,7 +50,6 @@ class AlbumsViewController: UIViewController {
 
         tableView.frame = view.bounds
         tableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        tableView.backgroundView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.separatorStyle = .none
@@ -61,6 +60,7 @@ class AlbumsViewController: UIViewController {
         tableView.register(AlbumCell.self, forCellReuseIdentifier: AlbumCell.identifier)
         tableView.dataSource = dataSource
         tableView.delegate = self
+        tableView.backgroundColor = .white // TODO: Settings? Yeah probably.
         view.addSubview(tableView)
 
         let lineHeight: CGFloat = 0.5

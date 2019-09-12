@@ -54,6 +54,12 @@ public class ImagePickerController: UINavigationController {
             // TODO:
             isModalInPresentation = true
         }
+
+        // TODO: Think about if we should do this.
+        // I want the navigation bar and album drop down to match.
+        // But even if I get them to have the same background they will look different until content has been scrolled
+        // beneath the navigation bar...sooo hmm...it looks bad
+        navigationBar.isTranslucent = false
         
         // Sync settings
         albumsViewController.settings = settings
