@@ -24,7 +24,7 @@ import Foundation
 import UIKit
 
 class DropdownPresentationController: UIPresentationController {
-    private let dropDownHeight: CGFloat = 250
+    private let dropDownHeight: CGFloat = 200
     private let backgroundView = UIView()
     
     override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {

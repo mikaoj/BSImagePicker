@@ -327,7 +327,7 @@
 		55CC14BC222BD11000E5CE59 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				55CC14BE222BD12600E5CE59 /* Slide */,
+				55CC14BE222BD12600E5CE59 /* Dropdown */,
 				55CC14BD222BD11E00E5CE59 /* Zoom */,
 			);
 			path = Presentation;
@@ -343,14 +343,14 @@
 			path = Zoom;
 			sourceTree = "<group>";
 		};
-		55CC14BE222BD12600E5CE59 /* Slide */ = {
+		55CC14BE222BD12600E5CE59 /* Dropdown */ = {
 			isa = PBXGroup;
 			children = (
 				55C5B7FF222BD445003CF3F1 /* DropdownTransitionDelegate.swift */,
 				55C5B801222BD529003CF3F1 /* DropdownPresentationController.swift */,
 				55C5B803222C15D5003CF3F1 /* DropdownAnimator.swift */,
 			);
-			path = Slide;
+			path = Dropdown;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
