@@ -112,12 +112,17 @@ class PreviewViewController : UIViewController {
         view.addGestureRecognizer(doubleTapRecognizer)
     }
 
+    private func setupTitleLabel() {
+        titleLabel.numberOfLines = 0
+        titleLabel.lineBreakMode = .byClipping
+        titleLabel.textAlignment = .center
+        navigationItem.titleView = titleLabel
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         updateBackgroundColor()
-        titleLabel.numberOfLines = 2
-        titleLabel.textAlignment = .center
-        navigationItem.titleView = titleLabel
+        setupTitleLabel()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -177,9 +182,9 @@ class PreviewViewController : UIViewController {
     private func updateNavigationTitle() {
         guard let asset = asset else { return }
         
-        PreviewTitleBuilder.titleFor(asset: asset) { (text) in
-            self.titleLabel.attributedText = text
-            self.titleLabel.sizeToFit()
+        PreviewTitleBuilder.titleFor(asset: asset) { [weak self] (text) in
+            self?.titleLabel.attributedText = text
+            self?.titleLabel.sizeToFit()
         }
     }
 }
