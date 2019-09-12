@@ -30,6 +30,7 @@ class VideoPreviewViewController: PreviewViewController {
     private let playerView = PlayerView()
     private var pauseBarButton: UIBarButtonItem!
     private var playBarButton: UIBarButtonItem!
+    private let imageManager = PHCachingImageManager.default()
     
     enum State {
         case playing
@@ -43,7 +44,7 @@ class VideoPreviewViewController: PreviewViewController {
                 return
             }
             
-            PHCachingImageManager.default().requestAVAsset(forVideo: asset, options: nil) { (avasset, audioMix, arguments) in
+            imageManager.requestAVAsset(forVideo: asset, options: nil) { (avasset, audioMix, arguments) in
                 guard let avasset = avasset as? AVURLAsset else { return }
                 
                 DispatchQueue.main.async {

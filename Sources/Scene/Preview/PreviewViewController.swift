@@ -25,6 +25,8 @@ import Photos
 import CoreLocation
 
 class PreviewViewController : UIViewController {
+    private let imageManager = PHCachingImageManager.default()
+
     var asset: PHAsset? {
         didSet {
             updateNavigationTitle()
@@ -36,11 +38,10 @@ class PreviewViewController : UIViewController {
             
             // Setup fetch options to be synchronous
             let options = PHImageRequestOptions()
-            options.isSynchronous = true
             
             // Load image for preview
             let targetSize = imageView.frame.size.resize(by: UIScreen.main.scale)
-            PHCachingImageManager.default().requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options) { (image, _) in
+            imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options) { (image, _) in
                 self.imageView.image = image
             }
         }

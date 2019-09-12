@@ -29,6 +29,7 @@ Implements the UITableViewDataSource protocol with a data source and cell factor
 final class AlbumsTableViewDataSource : NSObject, UITableViewDataSource {
     private let fetchResults: [PHFetchResult<PHAssetCollection>]
     private let scale: CGFloat
+    private let imageManager = PHCachingImageManager.default()
     
     init(fetchResults: [PHFetchResult<PHAssetCollection>], scale: CGFloat = UIScreen.main.scale) {
         self.fetchResults = fetchResults
@@ -46,46 +47,24 @@ final class AlbumsTableViewDataSource : NSObject, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AlbumCell.identifier, for: indexPath) as! AlbumCell
-        let cachingManager = PHCachingImageManager.default() as? PHCachingImageManager
-        cachingManager?.allowsCachingHighQualityImages = false
         
         // Fetch album
         let album = fetchResults[indexPath.section][indexPath.row]
         // Title
         cell.albumTitleLabel.text = album.localizedTitle
         
-        let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [
-            NSSortDescriptor(key: "creationDate", ascending: false)
-        ]
-        fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
+        let fetchOptions = PHFetchOptions() // TODO: Use asset fetch options from settings
+        fetchOptions.fetchLimit = 1
         
-        let imageSize = CGSize(width: 79, height: 79).resize(by: scale)
+        let imageSize = CGSize(width: 84, height: 84).resize(by: scale)
         let imageContentMode: PHImageContentMode = .aspectFill
-        let result = PHAsset.fetchAssets(in: album, options: fetchOptions)
-        result.enumerateObjects({ (asset, idx, stop) in
-            switch idx {
-            case 0:
-                PHCachingImageManager.default().requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                    cell.firstImageView.image = result
-                    cell.secondImageView.image = result
-                    cell.thirdImageView.image = result
-                }
-            case 1:
-                PHCachingImageManager.default().requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                    cell.secondImageView.image = result
-                    cell.thirdImageView.image = result
-                }
-            case 2:
-                PHCachingImageManager.default().requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                    cell.thirdImageView.image = result
-                }
-                
-            default:
-                // Stop enumeration
-                stop.initialize(to: true)
+        if let asset = PHAsset.fetchAssets(in: album, options: fetchOptions).firstObject {
+            imageManager.requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
+                cell.albumImageView.image = result
             }
-        })
+        } else {
+            // TODO: Handle collections with no assets?
+        }
         
         return cell
     }

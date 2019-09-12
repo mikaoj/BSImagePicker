@@ -71,14 +71,20 @@ public struct Settings {
             /// Fetch options for albums/collections
             public var options: PHFetchOptions = {
                 let fetchOptions = PHFetchOptions()
-                fetchOptions.predicate = NSPredicate(format: "estimatedAssetCount > 0")
+//                fetchOptions.predicate = NSPredicate(format: "estimatedAssetCount > 0") // TODO: With this we get 0 collections...
                 return fetchOptions
             }()
 
             /// Fetch results for asset collections you want to present to the user
             public lazy var fetchResults: [PHFetchResult<PHAssetCollection>] = [
-                libraryFetchResult,
-                PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: options)
+                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: options),
+                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: options),
+                PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: options),
+                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumSelfPortraits, options: options),
+                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumPanoramas, options: options),
+                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumVideos, options: options),
+//                libraryFetchResult,
+//                PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: options)
             ]
 
             private lazy var libraryFetchResult: PHFetchResult<PHAssetCollection> = {
@@ -95,10 +101,8 @@ public struct Settings {
 
                 fileprivate func assetMediaType() -> PHAssetMediaType {
                     switch self {
-                    case .image:
-                        return PHAssetMediaType.image
-                    case .video:
-                        return PHAssetMediaType.video
+                    case .image: return .image
+                    case .video: return .video
                     }
                 }
             }

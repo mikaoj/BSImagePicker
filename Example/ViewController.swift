@@ -25,13 +25,34 @@ import BSImagePicker
 import Photos
 
 class ViewController: UIViewController {
+
+    private func authorize(_ authorized: @escaping () -> Void) {
+        PHPhotoLibrary.requestAuthorization { (status) in
+            switch status {
+            case .notDetermined:
+                print("This should probably not be a case you need to handle")
+            case .restricted:
+                print("App doesn't have access to photos and the user can't grant access either. Tough luck cookie")
+            case .denied:
+                print("App doesn't have access to photos. But user can grant access, tell them how")
+            case .authorized:
+                print("wuhu, lets party!")
+                DispatchQueue.main.async(execute: authorized)
+            @unknown default:
+                print("hmm")
+            }
+        }
+    }
     
     @IBAction func showImagePicker(_ sender: UIButton) {
-        let imagePicker = ImagePickerController()
-        imagePicker.settings.selection.max = 2
-        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
-        imagePicker.modalPresentationStyle = .fullScreen // TODO: Use default value
-        present(imagePicker, animated: true)
+        authorize {
+            let imagePicker = ImagePickerController()
+            imagePicker.settings.selection.max = 2
+            imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
+            imagePicker.modalPresentationStyle = .fullScreen // TODO: Use default value
+            self.present(imagePicker, animated: true)
+        }
+
         //        let vc = BSImagePickerViewController()
         //        vc.settings.selection.max = 6
         //

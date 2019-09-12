@@ -30,7 +30,7 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
     var settings: Settings!
 
     private let fetchResult: PHFetchResult<PHAsset>
-    private let photosManager = PHCachingImageManager.default()
+    private let imageManager = PHCachingImageManager.default()
     private let durationFormatter = DateComponentsFormatter()
 
     private let scale: CGFloat
@@ -87,12 +87,12 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
     private func loadImage(for asset: PHAsset, in cell: AssetCollectionViewCell) {
         // Cancel any pending image requests
         if cell.tag != 0 {
-            photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
+            imageManager.cancelImageRequest(PHImageRequestID(cell.tag))
         }
         
         // Request image
         let targetSize = cell.bounds.size.resize(by: scale)
-        cell.tag = Int(photosManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: nil) { (result, _) in
+        cell.tag = Int(imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: nil) { (result, _) in
             cell.imageView.image = result
         })
     }

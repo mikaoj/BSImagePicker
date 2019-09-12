@@ -54,8 +54,8 @@ class AlbumsViewController: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.separatorStyle = .none
-        tableView.sectionHeaderHeight = CGFloat.leastNormalMagnitude
-        tableView.sectionFooterHeight = CGFloat.leastNormalMagnitude
+        tableView.sectionHeaderHeight = .leastNormalMagnitude
+        tableView.sectionFooterHeight = .leastNormalMagnitude
         tableView.showsVerticalScrollIndicator = false
         tableView.showsHorizontalScrollIndicator = false
         tableView.register(AlbumCell.self, forCellReuseIdentifier: AlbumCell.identifier)

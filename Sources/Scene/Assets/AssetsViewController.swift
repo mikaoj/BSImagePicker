@@ -57,8 +57,6 @@ class AssetsViewController: UIViewController {
         super.viewDidLoad()
 
         PHPhotoLibrary.shared().register(self)
-        
-        fetchResult = PHAsset.fetchAssets(with: settings.fetch.assets.options)
 
         view = collectionView
 
