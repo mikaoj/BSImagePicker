@@ -73,6 +73,8 @@ class AssetsViewController: UIViewController {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(AssetsViewController.collectionViewLongPressed(_:)))
         longPressRecognizer.minimumPressDuration = 0.5
         collectionView.addGestureRecognizer(longPressRecognizer)
+
+        updateCollectionViewLayout(for: traitCollection)
     }
 
     func showAssets(in album: PHAssetCollection) {
@@ -82,11 +84,7 @@ class AssetsViewController: UIViewController {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-
-        guard let collectionViewFlowLayout = collectionView.collectionViewLayout as? GridCollectionViewLayout else  { return }
-
-        collectionViewFlowLayout.itemSpacing = settings.list.spacing
-        collectionViewFlowLayout.itemsPerRow = settings.list.cellsPerRow(traitCollection.verticalSizeClass, traitCollection.horizontalSizeClass)
+        updateCollectionViewLayout(for: traitCollection)
     }
 
     @objc func collectionViewLongPressed(_ sender: UILongPressGestureRecognizer) {
@@ -99,6 +97,13 @@ class AssetsViewController: UIViewController {
         let asset = fetchResult.object(at: indexPath.row)
 
         delegate?.assetsViewController(self, didLongPressCell: cell, displayingAsset: asset)
+    }
+
+    private func updateCollectionViewLayout(for traitCollection: UITraitCollection) {
+        guard let collectionViewFlowLayout = collectionView.collectionViewLayout as? GridCollectionViewLayout else  { return }
+
+        collectionViewFlowLayout.itemSpacing = settings.list.spacing
+        collectionViewFlowLayout.itemsPerRow = settings.list.cellsPerRow(traitCollection.verticalSizeClass, traitCollection.horizontalSizeClass)
     }
 }
 
