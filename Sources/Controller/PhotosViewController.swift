@@ -165,7 +165,7 @@ final class PhotosViewController : UICollectionViewController {
             if let vc = previewViewContoller, let indexPath = indexPath, let cell = collectionView?.cellForItem(at: indexPath) as? PhotoCell, let asset = cell.asset {
                 // Setup fetch options to be synchronous
                 let options = PHImageRequestOptions()
-                options.isSynchronous = true
+                options.isNetworkAccessAllowed = true
                 
                 // Load image for preview
                 if let imageView = vc.imageView {

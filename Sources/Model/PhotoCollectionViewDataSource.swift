@@ -30,6 +30,7 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
     var fetchResult: PHFetchResult<PHAsset>
 
     private let photosManager = PHCachingImageManager.default()
+    private let imageRequestOptions: PHImageRequestOptions
     private let imageContentMode: PHImageContentMode = .aspectFill
     private let assetStore: AssetStore
     
@@ -45,6 +46,8 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
         self.fetchResult = fetchResult
         self.settings = settings
         self.assetStore = assetStore
+        imageRequestOptions = PHImageRequestOptions()
+        imageRequestOptions.isNetworkAccessAllowed = true
 
         super.init()
     }
