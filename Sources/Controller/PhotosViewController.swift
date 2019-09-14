@@ -223,12 +223,8 @@ final class PhotosViewController : UICollectionViewController {
     
     func initializePhotosDataSourceWithFetchResult(_ fetchResult: PHFetchResult<PHAsset>) {
         let newDataSource = PhotoCollectionViewDataSource(fetchResult: fetchResult, assetStore: assetStore, settings: settings)
-        
-        // Transfer image size
-        // TODO: Move image size to settings
-        if let photosDataSource = photosDataSource {
-            newDataSource.imageSize = photosDataSource.imageSize
-        }
+
+        newDataSource.imageSize = imageSize()
         
         photosDataSource = newDataSource
         
@@ -369,10 +365,18 @@ extension PhotosViewController {
             collectionViewFlowLayout.itemSpacing = itemSpacing
             collectionViewFlowLayout.itemsPerRow = cellsPerRow
             
-            photosDataSource?.imageSize = collectionViewFlowLayout.itemSize
+            photosDataSource?.imageSize = imageSize()
             
             updateDoneButton()
         }
+    }
+
+    private func imageSize() -> CGSize {
+        guard let collectionViewFlowLayout = collectionViewLayout as? GridCollectionViewLayout else { return .zero }
+        let scale = UIScreen.main.scale
+        let itemSize = collectionViewFlowLayout.itemSize
+
+        return CGSize(width: itemSize.width * scale, height: itemSize.height * scale)
     }
 }
 

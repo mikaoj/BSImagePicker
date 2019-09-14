@@ -35,12 +35,7 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
     private let assetStore: AssetStore
     
     let settings: BSImagePickerSettings?
-    var imageSize: CGSize = CGSize.zero {
-        didSet {
-            let scale = UIScreen.main.scale
-            imageSize = CGSize(width: imageSize.width * scale, height: imageSize.height * scale)
-        }
-    }
+    var imageSize: CGSize = .zero
     
     init(fetchResult: PHFetchResult<PHAsset>, assetStore: AssetStore, settings: BSImagePickerSettings?) {
         self.fetchResult = fetchResult
