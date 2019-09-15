@@ -65,8 +65,25 @@ open class BSImagePickerViewController : UINavigationController {
     }()
     
     @objc var albumTitleView: UIButton = {
-        let btn =  UIButton(type: .system)
+
+        // .custom type used to avoid sizing animation uglyness when changing the title
+        let btn = UIButton(type: .custom)
+
+        // Positions the image to the right
+        btn.semanticContentAttribute = .forceRightToLeft
+
+        // Padding between the title and image
+        let titleImageGap: CGFloat = 6.0
+        btn.titleEdgeInsets = UIEdgeInsets(top: 0.0, left: -titleImageGap, bottom: 0.0, right: titleImageGap)
+        btn.contentEdgeInsets = UIEdgeInsets(top: 0.0, left: titleImageGap, bottom: 0.0, right: 0.0)
+
+        let image = UIImage(named: "arrow_down", in: BSImagePickerViewController.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        btn.setImage(image, for: .normal)
+
         btn.setTitleColor(btn.tintColor, for: .normal)
+
+        // Font size specified to match the default font size for a UIButton with .system type
+        btn.titleLabel?.font = .systemFont(ofSize: 15.0)
         return btn
     }()
     

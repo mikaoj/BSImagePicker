@@ -63,10 +63,13 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
         if let settings = settings {
             cell.settings = settings
         }
-        
+
+        // Clear any previously shown image
+        cell.imageView.image = nil
+
         // Cancel any pending image requests
         if cell.tag != 0 {
-            photosManager.cancelImageRequest(PHImageRequestID(cell.tag))
+            photosManager.cancelImageRequest(PHImageRequestID(Int32(cell.tag)))
         }
         
         let asset = fetchResult[indexPath.row]
@@ -74,7 +77,9 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
         
         // Request image
         cell.tag = Int(photosManager.requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: imageRequestOptions) { (result, _) in
+          if let result = result {
             cell.imageView.image = result
+          }
         })
         
         // Set selection number

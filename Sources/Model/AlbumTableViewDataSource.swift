@@ -56,7 +56,12 @@ final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
         let album = fetchResults[indexPath.section][indexPath.row]
         // Title
         cell.albumTitleLabel.text = album.localizedTitle
-        
+
+        // Clear any previously shown images
+        cell.firstImageView.image = nil
+        cell.secondImageView.image = nil
+        cell.thirdImageView.image = nil
+
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: false)
