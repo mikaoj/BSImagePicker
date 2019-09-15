@@ -35,4 +35,5 @@
 * Include collection asset count in album cell
 * Perhaps some shadow/border to album image?
 * Settings - Look into how to simplify this. Not a fan of how it is sprinkled all over the code. Perhaps a singelton would be acceptable here.
+* Rubber/bounce effect in preview (Zoom) animation?
 * Fix TODOs
