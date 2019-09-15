@@ -57,11 +57,6 @@ final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
         // Title
         cell.albumTitleLabel.text = album.localizedTitle
 
-        // Clear any previously shown images
-        cell.firstImageView.image = nil
-        cell.secondImageView.image = nil
-        cell.thirdImageView.image = nil
-
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: false)
@@ -76,17 +71,26 @@ final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
             switch idx {
             case 0:
                 self?.imageManager.requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: self?.imageRequestOptions) { (result, _) in
+                    // Closure is called even on cancellation. So make sure we actually have an image
+                    guard let result = result else { return }
+
                     cell.firstImageView.image = result
                     cell.secondImageView.image = result
                     cell.thirdImageView.image = result
                 }
             case 1:
                 self?.imageManager.requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: self?.imageRequestOptions) { (result, _) in
+                    // Closure is called even on cancellation. So make sure we actually have an image
+                    guard let result = result else { return }
+
                     cell.secondImageView.image = result
                     cell.thirdImageView.image = result
                 }
             case 2:
                 self?.imageManager.requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: self?.imageRequestOptions) { (result, _) in
+                    // Closure is called even on cancellation. So make sure we actually have an image
+                    guard let result = result else { return }
+                    
                     cell.thirdImageView.image = result
                 }
                 
