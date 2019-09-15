@@ -35,7 +35,9 @@ class LivePreviewViewController: PreviewViewController {
              // Load live photo for preview
             let targetSize = livePhotoView.frame.size.resize(by: UIScreen.main.scale)
             PHCachingImageManager.default().requestLivePhoto(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: settings.image.liveRequestOptions) { [weak self] (livePhoto, _)  in
+                guard let livePhoto = livePhoto else { return }
                 self?.livePhotoView.livePhoto = livePhoto
+                self?.positionBadgeView(for: livePhoto)
             }
         }
     }
@@ -56,7 +58,10 @@ class LivePreviewViewController: PreviewViewController {
         livePhotoView.contentMode = .scaleAspectFit
         scrollView.addSubview(livePhotoView)
 
-        // TODO: Add badge view
+        let badge = PHLivePhotoView.livePhotoBadgeImage(options: .overContent)
+        badgeView.image = badge
+        badgeView.sizeToFit()
+        livePhotoView.addSubview(badgeView)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -66,6 +71,21 @@ class LivePreviewViewController: PreviewViewController {
 
     override func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return livePhotoView
+    }
+
+    private func positionBadgeView(for livePhoto: PHLivePhoto?) {
+        guard let livePhoto = livePhoto else {
+            badgeView.frame.origin = .zero
+            return
+        }
+
+        let imageFrame = ImageViewLayout.frameForImageWithSize(livePhoto.size, previousFrame: .zero, inContainerWithSize: livePhotoView.frame.size, usingContentMode: .scaleAspectFit)
+        badgeView.frame.origin = imageFrame.origin
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        positionBadgeView(for: livePhotoView.livePhoto)
     }
 }
 
