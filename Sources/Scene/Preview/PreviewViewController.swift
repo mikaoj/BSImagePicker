@@ -26,6 +26,7 @@ import CoreLocation
 
 class PreviewViewController : UIViewController {
     private let imageManager = PHCachingImageManager.default()
+    var settings: Settings!
 
     var asset: PHAsset? {
         didSet {
@@ -36,12 +37,10 @@ class PreviewViewController : UIViewController {
                 return
             }
             
-            // Setup fetch options to be synchronous
-            let options = PHImageRequestOptions()
-            
             // Load image for preview
             let targetSize = imageView.frame.size.resize(by: UIScreen.main.scale)
-            imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options) { [weak self] (image, _) in
+            imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: settings.image.requestOptions) { [weak self] (image, _) in
+                guard let image = image else { return }
                 self?.imageView.image = image
             }
         }

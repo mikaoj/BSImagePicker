@@ -24,35 +24,35 @@ import UIKit
 import Photos
 
 /// Settings for BSImagePicker
-public struct Settings {
-    public struct Theme {
+public class Settings {
+    public class Theme {
         /// Main background color
-        public var backgroundColor: UIColor = .white
+        public lazy var backgroundColor: UIColor = .white
         
         /// What color to fill the circle with
-        public var checkmarkFillColor: UIColor = UIView().tintColor
+        public lazy var checkmarkFillColor: UIColor = UIView().tintColor
         
         /// Color for the actual checkmark
-        public var checkmarkStrokeColor: UIColor = .white
+        public lazy var checkmarkStrokeColor: UIColor = .white
         
         /// Shadow color for the circle
-        public var checkmarkShadowColor: UIColor = .black
+        public lazy var checkmarkShadowColor: UIColor = .black
     }
 
-    public struct Selection {
+    public class Selection {
         /// Max number of selections allowed
-        public var max: Int = Int.max
+        public lazy var max: Int = Int.max
         
         /// Min number of selections you have to make
-        public var min: Int = 1
+        public lazy var min: Int = 1
     }
 
-    public struct List {
+    public class List {
         /// How much spacing between cells
-        public var spacing: CGFloat = 2
+        public lazy var spacing: CGFloat = 2
         
         /// How many cells per row
-        public var cellsPerRow: (_ verticalSize: UIUserInterfaceSizeClass, _ horizontalSize: UIUserInterfaceSizeClass) -> Int = {(verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int in
+        public lazy var cellsPerRow: (_ verticalSize: UIUserInterfaceSizeClass, _ horizontalSize: UIUserInterfaceSizeClass) -> Int = {(verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int in
             switch (verticalSize, horizontalSize) {
             case (.compact, .regular): // iPhone5-6 portrait
                 return 3
@@ -66,10 +66,10 @@ public struct Settings {
         }
     }
 
-    public struct Fetch {
-        public struct Album {
+    public class Fetch {
+        public class Album {
             /// Fetch options for albums/collections
-            public var options: PHFetchOptions = {
+            public lazy var options: PHFetchOptions = {
                 let fetchOptions = PHFetchOptions()
 //                fetchOptions.predicate = NSPredicate(format: "estimatedAssetCount > 0") // TODO: With this we get 0 collections...
                 return fetchOptions
@@ -92,7 +92,7 @@ public struct Settings {
             }()
         }
 
-        public struct Assets {
+        public class Assets {
             /// Fetch options for assets
 
             /// Simple wrapper around PHAssetMediaType to ensure we only expose the supported types.
@@ -106,9 +106,9 @@ public struct Settings {
                     }
                 }
             }
-            public var supportedMediaTypes = [MediaTypes.image]
+            public lazy var supportedMediaTypes = [MediaTypes.image]
 
-            public var options: PHFetchOptions {
+            public lazy var options: PHFetchOptions = {
                 let fetchOptions = PHFetchOptions()
                 fetchOptions.sortDescriptors = [
                     NSSortDescriptor(key: "creationDate", ascending: false)
@@ -119,45 +119,63 @@ public struct Settings {
                 fetchOptions.predicate = predicate
 
                 return fetchOptions
-            }
+            }()
         }
 
         /// Album fetch settings
-        public var album = Album()
+        public lazy var album = Album()
         
         /// Asset fetch settings
-        public var assets = Assets()
+        public lazy var assets = Assets()
+    }
+
+    public class Image {
+        public lazy var requestOptions: PHImageRequestOptions = {
+            let options = PHImageRequestOptions()
+            options.isNetworkAccessAllowed = true
+
+            return options
+        }()
+
+        public lazy var liveRequestOptions: PHLivePhotoRequestOptions = {
+            let options = PHLivePhotoRequestOptions()
+            options.isNetworkAccessAllowed = true
+            return options
+        }()
     }
     
-    public struct Dismiss {
+    public class Dismiss {
         /// Should the image picker dismiss when done/cancelled
-        public var enabled = true
+        public lazy var enabled = true
     }
     
-    public struct Camera {
+    public class Camera {
         /// Should the camera feature be enabled
-        public var enabled = false
+        public lazy var enabled = false
         
-        public var liveView = true
+        public lazy var liveView = true
         
-        public var icon: UIImage? = UIImage(named: "add_photo", in: Bundle(for: ImagePickerController.self), compatibleWith: nil)
+        public lazy var icon: UIImage? = UIImage(named: "add_photo", in: Bundle(for: ImagePickerController.self), compatibleWith: nil)
     }
 
     /// Theme settings
-    public var theme = Theme()
+    public lazy var theme = Theme()
     
     /// Selection settings
-    public var selection = Selection()
+    public lazy var selection = Selection()
     
     /// List settings
-    public var list = List()
+    public lazy var list = List()
     
     /// Fetch settings
-    public var fetch = Fetch()
+    public lazy var fetch = Fetch()
     
     /// Dismiss settings
-    public var dismiss = Dismiss()
+    public lazy var dismiss = Dismiss()
     
     /// Camera settings
-    public var camera = Camera()
+    public lazy var camera = Camera()
+
+    /// Image options
+    public lazy var image = Image()
 }

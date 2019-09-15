@@ -32,11 +32,9 @@ class LivePreviewViewController: PreviewViewController {
         didSet {
             guard let asset = asset else { return }
 
-            let options = PHLivePhotoRequestOptions()
-
              // Load live photo for preview
             let targetSize = livePhotoView.frame.size.resize(by: UIScreen.main.scale)
-            PHCachingImageManager.default().requestLivePhoto(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options) { [weak self] (livePhoto, _)  in
+            PHCachingImageManager.default().requestLivePhoto(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: settings.image.liveRequestOptions) { [weak self] (livePhoto, _)  in
                 self?.livePhotoView.livePhoto = livePhoto
             }
         }

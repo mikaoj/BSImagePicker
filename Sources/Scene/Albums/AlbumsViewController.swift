@@ -30,10 +30,12 @@ protocol AlbumsViewControllerDelegate: class {
 
 class AlbumsViewController: UIViewController {
     weak var delegate: AlbumsViewControllerDelegate?
-    var settings: Settings!
+        var settings: Settings! {
+        didSet { dataSource?.settings = settings }
+    }
 
     private var fetchResults: [PHFetchResult<PHAssetCollection>] = []
-    private var dataSource: AlbumsTableViewDataSource = AlbumsTableViewDataSource(fetchResults: [])
+    private var dataSource: AlbumsTableViewDataSource?
     private let tableView: UITableView = UITableView(frame: .zero, style: .grouped)
     private let lineView: UIView = UIView()
 
@@ -47,6 +49,7 @@ class AlbumsViewController: UIViewController {
         PHPhotoLibrary.shared().register(self)
         fetchResults = settings.fetch.album.fetchResults
         dataSource = AlbumsTableViewDataSource(fetchResults: fetchResults)
+        dataSource?.settings = settings
 
         tableView.frame = view.bounds
         tableView.autoresizingMask = [.flexibleHeight, .flexibleWidth]

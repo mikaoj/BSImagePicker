@@ -35,7 +35,7 @@ extension ImagePickerController: AssetsViewControllerDelegate {
     }
 
     func assetsViewController(_ assetsViewController: AssetsViewController, didLongPressCell cell: AssetCollectionViewCell, displayingAsset asset: PHAsset) {
-        let previewViewController = PreviewBuilder.createPreviewController(for: asset)
+        let previewViewController = PreviewBuilder.createPreviewController(for: asset, with: settings)
         
         zoomTransitionDelegate.zoomedOutView = cell.imageView
         zoomTransitionDelegate.zoomedInView = previewViewController.imageView

@@ -27,6 +27,8 @@ import Photos
 Implements the UITableViewDataSource protocol with a data source and cell factory
 */
 final class AlbumsTableViewDataSource : NSObject, UITableViewDataSource {
+    var settings: Settings!
+    
     private let fetchResults: [PHFetchResult<PHAssetCollection>]
     private let scale: CGFloat
     private let imageManager = PHCachingImageManager.default()
@@ -59,8 +61,9 @@ final class AlbumsTableViewDataSource : NSObject, UITableViewDataSource {
         let imageSize = CGSize(width: 84, height: 84).resize(by: scale)
         let imageContentMode: PHImageContentMode = .aspectFill
         if let asset = PHAsset.fetchAssets(in: album, options: fetchOptions).firstObject {
-            imageManager.requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in
-                cell.albumImageView.image = result
+            imageManager.requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: settings.image.requestOptions) { (image, _) in
+                guard let image = image else { return }
+                cell.albumImageView.image = image
             }
         } else {
             // TODO: Handle collections with no assets?

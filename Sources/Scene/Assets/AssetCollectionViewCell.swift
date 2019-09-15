@@ -56,8 +56,6 @@ class AssetCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    
-
     private let selectionOverlayView: UIView = UIView(frame: .zero)
     private let checkmarkView: CheckmarkView = CheckmarkView(frame: .zero)
 
@@ -97,6 +95,11 @@ class AssetCollectionViewCell: UICollectionViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
     }
     
     func updateAccessibilityLabel(_ selected: Bool) {
