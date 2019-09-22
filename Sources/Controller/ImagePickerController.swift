@@ -43,7 +43,23 @@ public class ImagePickerController: UINavigationController {
     let albumsViewController = AlbumsViewController()
     let dropdownTransitionDelegate = DropdownTransitionDelegate()
     let zoomTransitionDelegate = ZoomTransitionDelegate()
-    
+
+    public init() {
+        super.init(nibName: nil, bundle: nil)
+        setup()
+    }
+
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+
+    private func setup() {
+        // TODO: It would be nice to not have to do this and use the default iOS 13 behavior.
+        // Right now there are some bugs with animations for preview and album view that needs to be fixed.
+        modalPresentationStyle = .fullScreen
+    }
+
     public override func viewDidLoad() {
         super.viewDidLoad()
 

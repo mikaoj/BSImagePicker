@@ -49,7 +49,6 @@ class ViewController: UIViewController {
             let imagePicker = ImagePickerController()
             imagePicker.settings.selection.max = 6
             imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
-            imagePicker.modalPresentationStyle = .fullScreen // TODO: Use default value
 
             self.presentImagePicker(imagePicker, select: { (asset) in
                 print("Selected: \(asset)")
