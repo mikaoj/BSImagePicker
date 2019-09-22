@@ -27,11 +27,13 @@ extension ImagePickerController: AssetsViewControllerDelegate {
     func assetsViewController(_ assetsViewController: AssetsViewController, didSelectAsset asset: PHAsset) {
         assetStore.append(asset)
         updatedDoneButton()
+        imagePickerDelegate?.imagePicker(self, didSelectAsset: asset)
     }
 
     func assetsViewController(_ assetsViewController: AssetsViewController, didDeselectAsset asset: PHAsset) {
         assetStore.remove(asset)
         updatedDoneButton()
+        imagePickerDelegate?.imagePicker(self, didDeselectAsset: asset)
     }
 
     func assetsViewController(_ assetsViewController: AssetsViewController, didLongPressCell cell: AssetCollectionViewCell, displayingAsset asset: PHAsset) {

@@ -38,7 +38,7 @@ public class ImagePickerController: UINavigationController {
     var onDeselection: ((_ asset: PHAsset) -> Void)?
     var onCancel: ((_ assets: [PHAsset]) -> Void)?
     var onFinish: ((_ assets: [PHAsset]) -> Void)?
-    var onSelectionLimitReached: ((_ selectionLimit: Int) -> Void)?
+    
     let assetsViewController = AssetsViewController()
     let albumsViewController = AlbumsViewController()
     let dropdownTransitionDelegate = DropdownTransitionDelegate()
@@ -54,12 +54,6 @@ public class ImagePickerController: UINavigationController {
             // TODO:
             isModalInPresentation = true
         }
-
-        // TODO: Think about if we should do this.
-        // I want the navigation bar and album drop down to match.
-        // But even if I get them to have the same background they will look different until content has been scrolled
-        // beneath the navigation bar...sooo hmm...it looks bad
-        navigationBar.isTranslucent = false
         
         // Sync settings
         albumsViewController.settings = settings

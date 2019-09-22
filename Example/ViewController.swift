@@ -47,25 +47,20 @@ class ViewController: UIViewController {
     @IBAction func showImagePicker(_ sender: UIButton) {
         authorize {
             let imagePicker = ImagePickerController()
-            imagePicker.settings.selection.max = 2
+            imagePicker.settings.selection.max = 6
             imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
             imagePicker.modalPresentationStyle = .fullScreen // TODO: Use default value
-            self.present(imagePicker, animated: true)
-        }
 
-        //        let vc = BSImagePickerViewController()
-        //        vc.settings.selection.max = 6
-        //
-        //        bs_presentImagePickerController(vc, animated: true,
-        //            select: { (asset: PHAsset) -> Void in
-        //                print("Selected: \(asset)")
-        //            }, deselect: { (asset: PHAsset) -> Void in
-        //                print("Deselected: \(asset)")
-        //            }, cancel: { (assets: [PHAsset]) -> Void in
-        //                print("Cancel: \(assets)")
-        //            }, finish: { (assets: [PHAsset]) -> Void in
-        //                print("Finish: \(assets)")
-        //            }, completion: nil)
+            self.presentImagePicker(imagePicker, select: { (asset) in
+                print("Selected: \(asset)")
+            }, deselect: { (asset) in
+                print("Deselected: \(asset)")
+            }, cancel: { (assets) in
+                print("Canceled with selections: \(assets)")
+            }, finish: { (assets) in
+                print("Finished with selections: \(assets)")
+            })
+        }
     }
     
     @IBAction func showCustomImagePicker(_ sender: UIButton) {

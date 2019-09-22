@@ -35,16 +35,14 @@ extension UIViewController {
     ///   - deselect: Deselection callback
     ///   - cancel: Cancel callback
     ///   - finish: Finish callback
-    ///   - selectLimitReached: Limit reached callback
     ///   - completion: Presentation completed callback
-    public func present(_ imagePicker: ImagePickerController, animated: Bool, select: ((_ asset: PHAsset) -> Void)?, deselect: ((_ asset: PHAsset) -> Void)?, cancel: (([PHAsset]) -> Void)?, finish: (([PHAsset]) -> Void)?, selectLimitReached: ((Int) -> Void)? = nil, completion: (() -> Void)? = nil) {
+    public func presentImagePicker(_ imagePicker: ImagePickerController, animated: Bool = true, select: ((_ asset: PHAsset) -> Void)?, deselect: ((_ asset: PHAsset) -> Void)?, cancel: (([PHAsset]) -> Void)?, finish: (([PHAsset]) -> Void)?, completion: (() -> Void)? = nil) {
         
         // Set closures
         imagePicker.onSelection = select
         imagePicker.onDeselection = deselect
         imagePicker.onCancel = cancel
         imagePicker.onFinish = finish
-        imagePicker.onSelectionLimitReached = selectLimitReached
         
         // And since we are using the blocks api. Set ourselfs as delegate
         imagePicker.imagePickerDelegate = imagePicker
@@ -73,6 +71,6 @@ extension ImagePickerController: ImagePickerControllerDelegate {
     }
 
     public func imagePicker(_ imagePicker: ImagePickerController, didReachSelectionLimit count: Int) {
-        onSelectionLimitReached?(count)
+        
     }
 }

@@ -174,7 +174,7 @@ public class Settings {
     public lazy var dismiss = Dismiss()
     
     /// Camera settings
-    public lazy var camera = Camera()
+    lazy var camera = Camera() // TODO: Make public when camera feature is ready
 
     /// Image options
     public lazy var image = Image()
