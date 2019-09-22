@@ -7,7 +7,7 @@
 
 ![alt text](https://cloud.githubusercontent.com/assets/4034956/15001931/254805de-119c-11e6-9f68-d815ccc712cd.gif "Demo gif")
 
-A mix between the native iOS 8 gallery and facebooks image picker. It is intended as a replacement for UIImagePickerController for both selecting and taking photos.
+A mix between the native iOS 8 gallery and facebooks image picker.
 
 ## Usage
 
@@ -15,28 +15,26 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 To use it in you own project
 ###### Swift
 ```swift
-let vc = BSImagePickerViewController()
+import BSImagePicker
 
-bs_presentImagePickerController(vc, animated: true,
-    select: { (asset: PHAsset) -> Void in
-      // User selected an asset.
-      // Do something with it, start upload perhaps?
-    }, deselect: { (asset: PHAsset) -> Void in
-      // User deselected an assets.
-      // Do something, cancel upload?
-    }, cancel: { (assets: [PHAsset]) -> Void in
-      // User cancelled. And this where the assets currently selected.
-    }, finish: { (assets: [PHAsset]) -> Void in
-      // User finished with these assets
-}, completion: nil)
+let imagePicker = ImagePickerController()
+
+presentImagePicker(imagePicker, select: { (asset) in
+    // User selected an asset. Do something with it. Perhaps begin processing/upload?
+}, deselect: { (asset) in
+    // User deselected an asset. Cancel whatever you did when asset was selected.
+}, cancel: { (assets) in
+    // User canceled selection. 
+}, finish: { (assets) in
+    // User finished selection assets.
+})
 ```
 ## Features
 * Multiple selection.
 * Fullscreen preview
 * Switch albums.
-* No localization needed (uses icons or system localizations).
-* Take photos (it isn't enabled by default, so set takePhotos to true if you want it).
-* Customizable - check out BSImagePickerSettings to see what you can tweak.
+* Images, live image and videos supported.
+* Customizable - check out Settings to see what you can tweak.
 
 ## Customization
 
@@ -50,20 +48,32 @@ Not happy with the fetch results (camera roll and albums) that BSImagePicker use
 
 ## Requirements
 
-iOS 8
+iOS 10
 
 ## Installation
 
-BSImagePicker is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+### Cocoapods
+Add the following line to your Podfile:
 
 ```ruby
-pod "BSImagePicker", "~> 2.8"
+pod "BSImagePicker", "~> 3.0"
 ```
+### Carthage
+Add the following line to your Cartfile:
+```
+github "mikaoj/BSImagePicker" ~> 3.0
+```
+
+### Swift Package Manager
+TODO: spm instructions
 
 ## Author
 
 Joakim Gyllström, joakim@backslashed.se
+
+## Contributors
+Feel free to add yourself here if you contribute to BSImagePicker.
+TODO: Add contributors
 
 ## License
 

@@ -85,7 +85,10 @@ class PreviewViewController : UIViewController {
         scrollView.delegate = self
         scrollView.minimumZoomScale = 1
         scrollView.maximumZoomScale = 3
-        scrollView.contentInsetAdjustmentBehavior = .never // Allows the imageview to be 'under' the navigation bar
+        if #available(iOS 11.0, *) {
+            // Allows the imageview to be 'under' the navigation bar
+            scrollView.contentInsetAdjustmentBehavior = .never
+        }
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
         view.addSubview(scrollView)
