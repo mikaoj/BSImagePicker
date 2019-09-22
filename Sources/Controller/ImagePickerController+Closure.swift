@@ -23,7 +23,8 @@
 import Foundation
 import Photos
 
-/// Closure convenience API
+/// Closure convenience API.
+/// Keep this simple enough for most users. More niche features can be added to ImagePickerControllerDelegate.
 extension UIViewController {
     
     /// Present a image picker
