@@ -14,7 +14,6 @@ podfile: Example/Podfile
 before_install:
   - brew install carthage || true
   - brew outdated carthage || brew upgrade carthage
-  - gem install xcpretty-travis-formatter --no-rdoc --no-ri --no-document --quiet
 
 before_script:
   # bootstrap the dependencies for the project
