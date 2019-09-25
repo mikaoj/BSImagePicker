@@ -5,12 +5,27 @@
 osx_image: xcode11
 language: objective-c
 #cache: cocoapods
+cache:
+  directories:
+  - Carthage
+
 podfile: Example/Podfile
+
 before_install:
+  - brew install carthage || true
+  - brew outdated carthage || brew upgrade carthage
+  - gem install xcpretty-travis-formatter --no-rdoc --no-ri --no-document --quiet
+
+before_script:
+  # bootstrap the dependencies for the project
+  - carthage bootstrap --platform iOS --no-use-binaries --cache-builds
+
 # - gem install cocoapods --no-rdoc --no-ri --no-document # Since Travis is not always on latest version
 # - pod update --project-directory=Example
+
 install:
 - gem install xcpretty --no-document --quiet
+
 script:
 - set -o pipefail && xcodebuild test -project BSImagePicker.xcodeproj -scheme BSImagePicker -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone XS,OS=12.2' | xcpretty -c
 - pod lib lint --quick
