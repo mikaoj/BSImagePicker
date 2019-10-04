@@ -29,17 +29,11 @@ class ViewController: UIViewController {
     private func authorize(_ authorized: @escaping () -> Void) {
         PHPhotoLibrary.requestAuthorization { (status) in
             switch status {
-            case .notDetermined:
-                print("This should probably not be a case you need to handle")
-            case .restricted:
-                print("App doesn't have access to photos and the user can't grant access either. Tough luck cookie")
-            case .denied:
-                print("App doesn't have access to photos. But user can grant access, tell them how")
             case .authorized:
                 print("wuhu, lets party!")
                 DispatchQueue.main.async(execute: authorized)
-            @unknown default:
-                print("hmm")
+            default:
+                print("b0rk")
             }
         }
     }

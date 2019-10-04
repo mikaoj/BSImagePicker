@@ -36,7 +36,7 @@ class AssetsViewController: UIViewController {
         didSet { dataSource?.settings = settings }
     }
 
-    private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: GridCollectionViewLayout())
+    private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private var fetchResult: PHFetchResult<PHAsset>! {
         didSet { dataSource = AssetsCollectionViewDataSource(fetchResult: fetchResult) }
     }
@@ -73,7 +73,10 @@ class AssetsViewController: UIViewController {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(AssetsViewController.collectionViewLongPressed(_:)))
         longPressRecognizer.minimumPressDuration = 0.5
         collectionView.addGestureRecognizer(longPressRecognizer)
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         updateCollectionViewLayout(for: traitCollection)
     }
 
@@ -100,10 +103,16 @@ class AssetsViewController: UIViewController {
     }
 
     private func updateCollectionViewLayout(for traitCollection: UITraitCollection) {
-        guard let collectionViewFlowLayout = collectionView.collectionViewLayout as? GridCollectionViewLayout else  { return }
+        guard let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else  { return }
 
-        collectionViewFlowLayout.itemSpacing = settings.list.spacing
-        collectionViewFlowLayout.itemsPerRow = settings.list.cellsPerRow(traitCollection.verticalSizeClass, traitCollection.horizontalSizeClass)
+        let itemSpacing = settings.list.spacing
+        let itemsPerRow = settings.list.cellsPerRow(traitCollection.verticalSizeClass, traitCollection.horizontalSizeClass)
+        let itemWidth = (collectionView.bounds.width - CGFloat(itemsPerRow - 1) * itemSpacing) / CGFloat(itemsPerRow)
+        let itemSize = CGSize(width: itemWidth, height: itemWidth)
+
+        collectionViewFlowLayout.minimumLineSpacing = itemSpacing
+        collectionViewFlowLayout.minimumInteritemSpacing = itemSpacing
+        collectionViewFlowLayout.itemSize = itemSize
     }
 }
 

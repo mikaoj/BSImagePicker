@@ -7,13 +7,30 @@
 
 ![alt text](https://cloud.githubusercontent.com/assets/4034956/15001931/254805de-119c-11e6-9f68-d815ccc712cd.gif "Demo gif")
 
-A mix between the native iOS 8 gallery and facebooks image picker.
+A mix between the native iOS gallery and facebooks image picker.
 
 ## Usage
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.<br />
-To use it in you own project
-###### Swift
+To run the example project, clone the repo, open BSImagePicker workspace and run the example app.
+###### Info.plist
+```
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Why you want to access photo library</string>
+```
+
+###### Authorize
+```
+PHPhotoLibrary.requestAuthorization { (status) in
+    switch status {
+    case .authorized:
+        // Your app now has access to photo library. Present image picker.
+    default:
+        // No access...
+    }
+}
+```
+
+###### Image picker
 ```swift
 import BSImagePicker
 
@@ -34,17 +51,12 @@ presentImagePicker(imagePicker, select: { (asset) in
 * Fullscreen preview
 * Switch albums.
 * Images, live image and videos supported.
-* Customizable - check out Settings to see what you can tweak.
+* Customizable.
 
 ## Customization
 
-You have access to the cancel, album and done button. Customize them as you would with any other UIBarButtonItem (cancel & finish) or UIButton (album).<br />
-There are also a few other settings you can tweak. They are documented in BSImagePickerSettings.<br />
+There are a bunch of settings you can tweak. They are documented in Settings.swift.
 [Documentation @ cocoadocs](http://cocoadocs.org/docsets/BSImagePicker/)
-
-## Custom fetch results
-
-Not happy with the fetch results (camera roll and albums) that BSImagePicker uses as default? Set the fetchResults property.
 
 ## Requirements
 
@@ -70,10 +82,6 @@ TODO: spm instructions
 ## Author
 
 Joakim Gyllström, joakim@backslashed.se
-
-## Contributors
-Feel free to add yourself here if you contribute to BSImagePicker.
-TODO: Add contributors
 
 ## License
 

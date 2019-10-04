@@ -11,7 +11,6 @@
 		53FEDA162247FEB80098E34A /* CGSize+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FEDA152247FEB80098E34A /* CGSize+Scale.swift */; };
 		53FEDA18224805BA0098E34A /* CGSizeExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FEDA17224805BA0098E34A /* CGSizeExtensionTests.swift */; };
 		550A315621D5298400AAF718 /* BSImagePicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 550A315421D5298400AAF718 /* BSImagePicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		550CB423230FCFC800543217 /* GridCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550CB422230FCFC800543217 /* GridCollectionViewLayout.swift */; };
 		550CB425230FD01200543217 /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550CB424230FD01200543217 /* ImageView.swift */; };
 		550CB427230FD08200543217 /* ImageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550CB426230FD08200543217 /* ImageViewLayout.swift */; };
 		5540480A232EB21D00BC846F /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55404809232EB21D00BC846F /* CameraPreviewView.swift */; };
@@ -87,7 +86,6 @@
 		550A315121D5298400AAF718 /* BSImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BSImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		550A315421D5298400AAF718 /* BSImagePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BSImagePicker.h; sourceTree = "<group>"; };
 		550A315521D5298400AAF718 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		550CB422230FCFC800543217 /* GridCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridCollectionViewLayout.swift; sourceTree = "<group>"; };
 		550CB424230FD01200543217 /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		550CB426230FD08200543217 /* ImageViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewLayout.swift; sourceTree = "<group>"; };
 		55404809232EB21D00BC846F /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
@@ -296,7 +294,6 @@
 			isa = PBXGroup;
 			children = (
 				53FEDA152247FEB80098E34A /* CGSize+Scale.swift */,
-				550CB422230FCFC800543217 /* GridCollectionViewLayout.swift */,
 				550CB424230FD01200543217 /* ImageView.swift */,
 				550CB426230FD08200543217 /* ImageViewLayout.swift */,
 			);
@@ -497,7 +494,6 @@
 				559DB81721E6AFD800CD58B4 /* ImagePickerController+Assets.swift in Sources */,
 				55CDB45B223435420050D572 /* PlayerView.swift in Sources */,
 				559DB81921E6AFF300CD58B4 /* ImagePickerController+Albums.swift in Sources */,
-				550CB423230FCFC800543217 /* GridCollectionViewLayout.swift in Sources */,
 				55BCF8D721D52C1000386752 /* CheckmarkView.swift in Sources */,
 				555472AE21E538B000B90CA5 /* AssetsViewController.swift in Sources */,
 				5543942D232A4EB500DB51B7 /* LivePreviewViewController.swift in Sources */,
