@@ -88,7 +88,12 @@ public class ImagePickerController: UINavigationController {
         albumButton.setTitleColor(albumButton.tintColor, for: .normal)
         albumButton.titleLabel?.font = .systemFont(ofSize: 16)
         albumButton.titleLabel?.adjustsFontSizeToFitWidth = true
-        albumButton.setImage(UIImage(named: "arrow_down", in: Bundle(for: ImagePickerController.self), compatibleWith: nil), for: .normal)
+
+        let arrowView = ArrowView(frame: CGRect(x: 0, y: 0, width: 8, height: 8))
+        arrowView.backgroundColor = .clear
+        let image = arrowView.asImage
+
+        albumButton.setImage(image, for: .normal)
         albumButton.semanticContentAttribute = .forceRightToLeft // To set image to the right without having to calculate insets/constraints.
         albumButton.addTarget(self, action: #selector(ImagePickerController.albumsButtonPressed(_:)), for: .touchUpInside)
         firstViewController?.navigationItem.titleView = albumButton
