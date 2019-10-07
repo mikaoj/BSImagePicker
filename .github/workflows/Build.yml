@@ -5,13 +5,13 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: macOS-10.14
     
     steps:
     - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+    - name: Install cocoapods
+      run: gem install cocoapods
+    - name: Run ios tests
+      run: xcodebuild -project BSImagePicker.xcodeproj -scheme BSImagePicker test -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone 11 Pro,OS=13.0' | xcpretty && exit ${PIPESTATUS[0]}
+    - name: Run pod lint
+      run: pod lib lint --quick
