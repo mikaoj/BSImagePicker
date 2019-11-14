@@ -46,8 +46,9 @@
 		55BCF8F121D52F3400386752 /* CameraDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF8ED21D52F3400386752 /* CameraDataSourceTests.swift */; };
 		55BCF8F221D52F3400386752 /* NSIndexSetIndexPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF8EE21D52F3400386752 /* NSIndexSetIndexPathTests.swift */; };
 		55BCF8F421D5326A00386752 /* BSImagePicker_UI_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF8F321D5326A00386752 /* BSImagePicker_UI_Tests.swift */; };
-		AB22BD7C233BFBA7008B4BC2 /* BSGridCollectionViewLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB22BD7A233BFBA7008B4BC2 /* BSGridCollectionViewLayout.framework */; };
-		AB22BD7D233BFBA7008B4BC2 /* BSImageView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB22BD7B233BFBA7008B4BC2 /* BSImageView.framework */; };
+		ABC285F6237CDC3900F31B7F /* BSImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC285F5237CDC3900F31B7F /* BSImageView.swift */; };
+		ABC285F8237CDC4600F31B7F /* GridCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC285F7237CDC4600F31B7F /* GridCollectionViewLayout.swift */; };
+		ABC285FA237CDC9400F31B7F /* ImageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC285F9237CDC9400F31B7F /* ImageViewLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,8 +148,9 @@
 		55BCF8ED21D52F3400386752 /* CameraDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraDataSourceTests.swift; sourceTree = "<group>"; };
 		55BCF8EE21D52F3400386752 /* NSIndexSetIndexPathTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSIndexSetIndexPathTests.swift; sourceTree = "<group>"; };
 		55BCF8F321D5326A00386752 /* BSImagePicker_UI_Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BSImagePicker_UI_Tests.swift; sourceTree = "<group>"; };
-		AB22BD7A233BFBA7008B4BC2 /* BSGridCollectionViewLayout.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BSGridCollectionViewLayout.framework; path = Carthage/Build/iOS/BSGridCollectionViewLayout.framework; sourceTree = SOURCE_ROOT; };
-		AB22BD7B233BFBA7008B4BC2 /* BSImageView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BSImageView.framework; path = Carthage/Build/iOS/BSImageView.framework; sourceTree = SOURCE_ROOT; };
+		ABC285F5237CDC3900F31B7F /* BSImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BSImageView.swift; sourceTree = "<group>"; };
+		ABC285F7237CDC4600F31B7F /* GridCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridCollectionViewLayout.swift; sourceTree = "<group>"; };
+		ABC285F9237CDC9400F31B7F /* ImageViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,8 +158,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB22BD7D233BFBA7008B4BC2 /* BSImageView.framework in Frameworks */,
-				AB22BD7C233BFBA7008B4BC2 /* BSGridCollectionViewLayout.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,7 +194,6 @@
 				559768D421D53EC100B10102 /* TODO.md */,
 				550A315321D5298400AAF718 /* Sources */,
 				55BCF8A921D52B4A00386752 /* Resources */,
-				55BCF8E121D52C7200386752 /* Frameworks */,
 				5569D01E21D52B1B00D03631 /* Examples */,
 				5569D00321D52A6D00D03631 /* Tests */,
 				5569D03421D52B2A00D03631 /* UITests */,
@@ -218,6 +217,9 @@
 		550A315321D5298400AAF718 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				ABC285F9237CDC9400F31B7F /* ImageViewLayout.swift */,
+				ABC285F5237CDC3900F31B7F /* BSImageView.swift */,
+				ABC285F7237CDC4600F31B7F /* GridCollectionViewLayout.swift */,
 				55BCF8C021D52C1000386752 /* View */,
 				55BCF8BE21D52C1000386752 /* Protocol */,
 				55BCF8B821D52C1000386752 /* Model */,
@@ -331,15 +333,6 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		55BCF8E121D52C7200386752 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				AB22BD7A233BFBA7008B4BC2 /* BSGridCollectionViewLayout.framework */,
-				AB22BD7B233BFBA7008B4BC2 /* BSImageView.framework */,
-			);
-			path = Frameworks;
-			sourceTree = "<group>";
-		};
 		55BCF8EA21D52D4700386752 /* Dependency Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,7 +364,6 @@
 				550A314D21D5298400AAF718 /* Sources */,
 				550A314E21D5298400AAF718 /* Frameworks */,
 				550A314F21D5298400AAF718 /* Resources */,
-				AB22BD79233BFB5E008B4BC2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -534,30 +526,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		AB22BD79233BFB5E008B4BC2 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/BSGridCollectionViewLayout.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/BSImageView.framework",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/BSImageView.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/BSGridCollectionViewLayout.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		550A314D21D5298400AAF718 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -570,6 +538,7 @@
 				55BCF8DD21D52C1000386752 /* BSImagePickerViewController.swift in Sources */,
 				55BCF8E021D52C1000386752 /* ZoomAnimator.swift in Sources */,
 				5554729821E4E01700B90CA5 /* AssetStore.swift in Sources */,
+				ABC285F6237CDC3900F31B7F /* BSImageView.swift in Sources */,
 				55BCF8D321D52C1000386752 /* PhotoCollectionViewDataSource.swift in Sources */,
 				55BCF8D621D52C1000386752 /* AlbumCell.swift in Sources */,
 				55BCF8D021D52C1000386752 /* AlbumTableViewDataSource.swift in Sources */,
@@ -578,8 +547,10 @@
 				55BCF8D421D52C1000386752 /* BSImagePickerSettings.swift in Sources */,
 				55BCF8DC21D52C1000386752 /* PreviewViewController.swift in Sources */,
 				55BCF8D221D52C1000386752 /* CameraCollectionViewDataSource.swift in Sources */,
+				ABC285F8237CDC4600F31B7F /* GridCollectionViewLayout.swift in Sources */,
 				55BCF8CF21D52C1000386752 /* Settings.swift in Sources */,
 				55BCF8DF21D52C1000386752 /* AlbumsViewController.swift in Sources */,
+				ABC285FA237CDC9400F31B7F /* ImageViewLayout.swift in Sources */,
 				55BCF8D921D52C1000386752 /* CameraCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -796,6 +767,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = se.backslashed.BSImagePicker;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -826,6 +798,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.10.1;
 				PRODUCT_BUNDLE_IDENTIFIER = se.backslashed.BSImagePicker;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

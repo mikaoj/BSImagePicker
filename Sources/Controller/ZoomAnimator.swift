@@ -21,7 +21,6 @@
 // SOFTWARE.
 
 import UIKit
-import BSImageView
 
 final class ZoomAnimator : NSObject, UIViewControllerAnimatedTransitioning {
     var sourceImageView: UIImageView?
