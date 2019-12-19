@@ -19,7 +19,7 @@
 * Handle updates to photo library better
 * ~~No xib/storyboards~~
 * ~~Don't handle photo library access, user of this library should do that~~
-* Make arrow image into a shape so we can use swift package manager (which currently doesn't support resources).
+* ~~Make arrow image into a shape so we can use swift package manager (which currently doesn't support resources).~~
 
 ### Performance
 * Fetching assets of specific types (either with NSPredicate or PHAsset.fetchAssets(with: <TYPE>)) is sloooooow. Much faster to just fetch all...

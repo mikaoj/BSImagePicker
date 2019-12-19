@@ -29,7 +29,6 @@
 		559DB82121E7902400CD58B4 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559DB82021E7902400CD58B4 /* CameraViewController.swift */; };
 		55BCF8CF21D52C1000386752 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF8B921D52C1000386752 /* Settings.swift */; };
 		55BCF8D021D52C1000386752 /* AlbumsTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF8BA21D52C1000386752 /* AlbumsTableViewDataSource.swift */; };
-		55BCF8D221D52C1000386752 /* CameraCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF8BC21D52C1000386752 /* CameraCollectionViewDataSource.swift */; };
 		55BCF8D321D52C1000386752 /* AssetsCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF8BD21D52C1000386752 /* AssetsCollectionViewDataSource.swift */; };
 		55BCF8D521D52C1000386752 /* AssetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF8C121D52C1000386752 /* AssetCollectionViewCell.swift */; };
 		55BCF8D621D52C1000386752 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55BCF8C221D52C1000386752 /* AlbumCell.swift */; };
@@ -102,7 +101,6 @@
 		559DB82021E7902400CD58B4 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		55BCF8B921D52C1000386752 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		55BCF8BA21D52C1000386752 /* AlbumsTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumsTableViewDataSource.swift; sourceTree = "<group>"; };
-		55BCF8BC21D52C1000386752 /* CameraCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		55BCF8BD21D52C1000386752 /* AssetsCollectionViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		55BCF8C121D52C1000386752 /* AssetCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetCollectionViewCell.swift; sourceTree = "<group>"; };
 		55BCF8C221D52C1000386752 /* AlbumCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
@@ -209,7 +207,6 @@
 			children = (
 				555472AD21E538B000B90CA5 /* AssetsViewController.swift */,
 				55BCF8BD21D52C1000386752 /* AssetsCollectionViewDataSource.swift */,
-				55BCF8BC21D52C1000386752 /* CameraCollectionViewDataSource.swift */,
 				55BCF8C121D52C1000386752 /* AssetCollectionViewCell.swift */,
 				55F67B76222EEB2500805134 /* VideoCollectionViewCell.swift */,
 				55BCF8C321D52C1000386752 /* CheckmarkView.swift */,
@@ -468,7 +465,6 @@
 				555472AE21E538B000B90CA5 /* AssetsViewController.swift in Sources */,
 				5543942D232A4EB500DB51B7 /* LivePreviewViewController.swift in Sources */,
 				55BCF8DC21D52C1000386752 /* PreviewViewController.swift in Sources */,
-				55BCF8D221D52C1000386752 /* CameraCollectionViewDataSource.swift in Sources */,
 				55BCF8CF21D52C1000386752 /* Settings.swift in Sources */,
 				55CDB45D2234523C0050D572 /* PreviewTitleBuilder.swift in Sources */,
 				55BCF8DF21D52C1000386752 /* AlbumsViewController.swift in Sources */,

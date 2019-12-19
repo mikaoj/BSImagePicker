@@ -57,7 +57,7 @@ public class ImagePickerController: UINavigationController {
     private func setup() {
         // TODO: It would be nice to not have to do this and use the default iOS 13 behavior.
         // Right now there are some bugs with animations for preview and album view that needs to be fixed.
-        modalPresentationStyle = .fullScreen
+        // modalPresentationStyle = .fullScreen
     }
 
     public override func viewDidLoad() {
@@ -109,7 +109,7 @@ public class ImagePickerController: UINavigationController {
         updatedDoneButton()
         updateAlbumButton()
 
-        if let firstAlbum = settings.fetch.album.fetchResults.first?.object(at: 0) {
+        if let firstAlbum = settings.fetch.album.fetchResults.first?.firstObject {
             select(album: firstAlbum)
         } else {
             // TODO: Handle no collections?

@@ -85,13 +85,7 @@ public class Settings {
                 PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumSelfPortraits, options: options),
                 PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumPanoramas, options: options),
                 PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumVideos, options: options),
-//                libraryFetchResult,
-//                PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: options)
             ]
-
-            private lazy var libraryFetchResult: PHFetchResult<PHAssetCollection> = {
-                return PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: PHFetchOptions())
-            }()
         }
 
         public class Assets {
@@ -99,16 +93,19 @@ public class Settings {
 
             /// Simple wrapper around PHAssetMediaType to ensure we only expose the supported types.
             public enum MediaTypes {
-                case image, video
+                case image
+                case video
 
-                fileprivate func assetMediaType() -> PHAssetMediaType {
+                fileprivate var assetMediaType: PHAssetMediaType {
                     switch self {
-                    case .image: return .image
-                    case .video: return .video
+                    case .image:
+                        return .image
+                    case .video:
+                        return .video
                     }
                 }
             }
-            public lazy var supportedMediaTypes = [MediaTypes.image]
+            public lazy var supportedMediaTypes: Set<MediaTypes> = [.image]
 
             public lazy var options: PHFetchOptions = {
                 let fetchOptions = PHFetchOptions()
@@ -116,7 +113,7 @@ public class Settings {
                     NSSortDescriptor(key: "creationDate", ascending: false)
                 ]
 
-                let rawMediaTypes = supportedMediaTypes.map { $0.assetMediaType().rawValue }
+                let rawMediaTypes = supportedMediaTypes.map { $0.assetMediaType.rawValue }
                 let predicate = NSPredicate(format: "mediaType IN %@", rawMediaTypes)
                 fetchOptions.predicate = predicate
 
@@ -150,15 +147,15 @@ public class Settings {
         /// Should the image picker dismiss when done/cancelled
         public lazy var enabled = true
     }
-    
-    public class Camera {
-        /// Should the camera feature be enabled
-        public lazy var enabled = false
-        
-        public lazy var liveView = true
-        
-        public lazy var icon: UIImage? = UIImage(named: "add_photo", in: Bundle(for: ImagePickerController.self), compatibleWith: nil)
-    }
+
+//    public class Camera {
+//        /// Should the camera feature be enabled
+//        public lazy var enabled = false
+//
+//        public lazy var liveView = true
+//
+//        public lazy var icon: UIImage? = UIImage(named: "add_photo", in: Bundle(for: ImagePickerController.self), compatibleWith: nil)
+//    }
 
     /// Theme settings
     public lazy var theme = Theme()
@@ -176,7 +173,7 @@ public class Settings {
     public lazy var dismiss = Dismiss()
     
     /// Camera settings
-    lazy var camera = Camera() // TODO: Make public when camera feature is ready
+//    lazy var camera = Camera() // TODO: Make public when camera feature is ready
 
     /// Image options
     public lazy var image = Image()

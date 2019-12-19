@@ -54,7 +54,7 @@ final class AlbumsTableViewDataSource : NSObject, UITableViewDataSource {
         let album = fetchResults[indexPath.section][indexPath.row]
         // Title
         cell.albumTitleLabel.text = album.localizedTitle
-        
+
         let fetchOptions = PHFetchOptions() // TODO: Use asset fetch options from settings
         fetchOptions.fetchLimit = 1
         
