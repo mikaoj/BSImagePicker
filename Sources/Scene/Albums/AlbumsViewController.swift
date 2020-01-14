@@ -34,21 +34,15 @@ class AlbumsViewController: UIViewController {
         didSet { dataSource?.settings = settings }
     }
 
-    private var fetchResults: [PHFetchResult<PHAssetCollection>] = []
+    var albums: [PHAssetCollection] = []
     private var dataSource: AlbumsTableViewDataSource?
     private let tableView: UITableView = UITableView(frame: .zero, style: .grouped)
     private let lineView: UIView = UIView()
 
-    deinit {
-        PHPhotoLibrary.shared().unregisterChangeObserver(self)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        PHPhotoLibrary.shared().register(self)
-        fetchResults = settings.fetch.album.fetchResults
-        dataSource = AlbumsTableViewDataSource(fetchResults: fetchResults)
+        dataSource = AlbumsTableViewDataSource(albums: albums)
         dataSource?.settings = settings
 
         tableView.frame = view.bounds
@@ -93,7 +87,7 @@ class AlbumsViewController: UIViewController {
 
 extension AlbumsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let album = fetchResults[indexPath.section].object(at: indexPath.row)
+        let album = albums[indexPath.row]
         delegate?.albumsViewController(self, didSelectAlbum: album)
     }
 
@@ -103,12 +97,5 @@ extension AlbumsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return nil
-    }
-}
-
-extension AlbumsViewController: PHPhotoLibraryChangeObserver {
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
-        // TODO: Handle change
-        print("Did recieve change in albums")
     }
 }

@@ -24,6 +24,8 @@ import Foundation
 
 extension ImagePickerController {
     @objc func albumsButtonPressed(_ sender: UIButton) {
+        albumsViewController.albums = albums
+        
         // Setup presentation controller
         albumsViewController.transitioningDelegate = dropdownTransitionDelegate
         albumsViewController.modalPresentationStyle = .custom

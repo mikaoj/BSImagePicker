@@ -44,21 +44,24 @@ public class ImagePickerController: UINavigationController {
     let dropdownTransitionDelegate = DropdownTransitionDelegate()
     let zoomTransitionDelegate = ZoomTransitionDelegate()
 
-    public init() {
-        super.init(nibName: nil, bundle: nil)
-        setup()
-    }
-
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
-
-    private func setup() {
-        // TODO: It would be nice to not have to do this and use the default iOS 13 behavior.
-        // Right now there are some bugs with animations for preview and album view that needs to be fixed.
-        // modalPresentationStyle = .fullScreen
-    }
+    lazy var albums: [PHAssetCollection] = {
+        // We don't want collections without assets.
+        // I would like to do that with PHFetchOptions: fetchOptions.predicate = NSPredicate(format: "estimatedAssetCount > 0")
+        // But that doesn't work...
+        // This seems suuuuuper ineffective...
+        // TODO: Fix me
+        return settings.fetch.album.fetchResults.filter {
+            $0.count > 0
+        }.flatMap {
+            $0.objects(at: IndexSet(integersIn: 0..<$0.count))
+        }.filter {
+            // We can't use estimatedAssetCount on the collection
+            // It returns NSNotFound. So actually fetch the assets...
+            // TODO: Fix me...
+            let assetsFetchResult = PHAsset.fetchAssets(in: $0, options: settings.fetch.assets.options)
+            return assetsFetchResult.count > 0
+        }
+    }()
 
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,7 +112,7 @@ public class ImagePickerController: UINavigationController {
         updatedDoneButton()
         updateAlbumButton()
 
-        if let firstAlbum = settings.fetch.album.fetchResults.first?.firstObject {
+        if let firstAlbum = albums.first {
             select(album: firstAlbum)
         } else {
             // TODO: Handle no collections?
@@ -122,6 +125,6 @@ public class ImagePickerController: UINavigationController {
     }
 
     func updateAlbumButton() {
-        albumButton.isHidden = settings.fetch.album.fetchResults.count == 0
+        albumButton.isHidden = albums.count < 2
     }
 }

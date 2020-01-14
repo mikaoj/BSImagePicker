@@ -46,6 +46,10 @@ presentImagePicker(imagePicker, select: { (asset) in
     // User finished selection assets.
 })
 ```
+
+###### PHAsset
+TODO: Add description of how to get image from asset.
+
 ## Features
 * Multiple selection.
 * Fullscreen preview
@@ -67,7 +71,7 @@ iOS 10
 ### Cocoapods
 Add the following line to your Podfile:
 
-```ruby
+```
 pod "BSImagePicker", "~> 3.0"
 ```
 ### Carthage

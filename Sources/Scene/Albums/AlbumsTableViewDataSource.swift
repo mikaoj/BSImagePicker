@@ -29,29 +29,30 @@ Implements the UITableViewDataSource protocol with a data source and cell factor
 final class AlbumsTableViewDataSource : NSObject, UITableViewDataSource {
     var settings: Settings!
     
-    private let fetchResults: [PHFetchResult<PHAssetCollection>]
+    private let albums: [PHAssetCollection]
     private let scale: CGFloat
     private let imageManager = PHCachingImageManager.default()
     
-    init(fetchResults: [PHFetchResult<PHAssetCollection>], scale: CGFloat = UIScreen.main.scale) {
-        self.fetchResults = fetchResults
+    init(albums: [PHAssetCollection], scale: CGFloat = UIScreen.main.scale) {
+        self.albums = albums
         self.scale = scale
         super.init()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchResults.count
+        return albums.count > 0 ? 1 : 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchResults[section].count
+        return albums.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AlbumCell.identifier, for: indexPath) as! AlbumCell
         
         // Fetch album
-        let album = fetchResults[indexPath.section][indexPath.row]
+        let album = albums[indexPath.row]
+        
         // Title
         cell.albumTitleLabel.text = album.localizedTitle
 
@@ -65,8 +66,6 @@ final class AlbumsTableViewDataSource : NSObject, UITableViewDataSource {
                 guard let image = image else { return }
                 cell.albumImageView.image = image
             }
-        } else {
-            // TODO: Handle collections with no assets?
         }
         
         return cell

@@ -73,7 +73,6 @@ public class Settings {
             /// Fetch options for albums/collections
             public lazy var options: PHFetchOptions = {
                 let fetchOptions = PHFetchOptions()
-//                fetchOptions.predicate = NSPredicate(format: "estimatedAssetCount > 0") // TODO: With this we get 0 collections...
                 return fetchOptions
             }()
 
