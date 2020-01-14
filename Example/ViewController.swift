@@ -95,30 +95,30 @@ class ViewController: UIViewController {
     }
     
     @IBAction func showImagePickerWithSelectedAssets(_ sender: UIButton) {
-        //        let allAssets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
-        //        var evenAssetIds = [String]()
-        //
-        //        allAssets.enumerateObjects({ (asset, idx, stop) -> Void in
-        //            if idx % 2 == 0 {
-        //                evenAssetIds.append(asset.localIdentifier)
-        //            }
-        //        })
-        //
-        //        let evenAssets = PHAsset.fetchAssets(withLocalIdentifiers: evenAssetIds, options: nil)
-        //
-        //        let vc = BSImagePickerViewController()
-        //        vc.defaultSelections = evenAssets
-        //
-        //        bs_presentImagePickerController(vc, animated: true,
-        //          select: { (asset: PHAsset) -> Void in
-        //            print("Selected: \(asset)")
-        //          }, deselect: { (asset: PHAsset) -> Void in
-        //            print("Deselected: \(asset)")
-        //          }, cancel: { (assets: [PHAsset]) -> Void in
-        //            print("Cancel: \(assets)")
-        //          }, finish: { (assets: [PHAsset]) -> Void in
-        //            print("Finish: \(assets)")
-        //          }, completion: nil)
+        let allAssets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
+        var evenAssets = [PHAsset]()
+
+        allAssets.enumerateObjects({ (asset, idx, stop) -> Void in
+            if idx % 2 == 0 {
+                evenAssets.append(asset)
+            }
+        })
+
+        authorize {
+            let imagePicker = ImagePickerController()
+            imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
+            imagePicker.assetStore = AssetStore(assets: evenAssets)
+
+            self.presentImagePicker(imagePicker, select: { (asset) in
+                print("Selected: \(asset)")
+            }, deselect: { (asset) in
+                print("Deselected: \(asset)")
+            }, cancel: { (assets) in
+                print("Canceled with selections: \(assets)")
+            }, finish: { (assets) in
+                print("Finished with selections: \(assets)")
+            })
+        }
     }
 }
 

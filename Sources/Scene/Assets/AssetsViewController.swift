@@ -85,6 +85,18 @@ class AssetsViewController: UIViewController {
         collectionView.reloadData()
     }
 
+    func syncSelections(in assetStore: AssetStore) {
+        collectionView.allowsMultipleSelection = true
+        
+        // Sync selections
+        for asset in assetStore.assets {
+            let index = fetchResult.index(of: asset)
+            guard index != NSNotFound else { continue }
+            let indexPath = IndexPath(item: index, section: 0)
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
+        }
+    }
+
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         updateCollectionViewLayout(for: traitCollection)

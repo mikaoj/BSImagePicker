@@ -35,6 +35,7 @@ extension ImagePickerController: AlbumsViewControllerDelegate {
 
     func select(album: PHAssetCollection) {
         assetsViewController.showAssets(in: album)
+        assetsViewController.syncSelections(in: assetStore)
         albumButton.setTitle((album.localizedTitle ?? "") + " ", for: .normal)
         albumButton.sizeToFit()
     }
