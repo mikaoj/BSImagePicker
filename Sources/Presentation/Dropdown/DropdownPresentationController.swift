@@ -62,7 +62,9 @@ class DropdownPresentationController: UIPresentationController {
         
         let position: CGPoint
         if let navigationBar = (presentingViewController as? UINavigationController)?.navigationBar {
-            position = CGPoint(x: 0, y: navigationBar.frame.height + navigationBar.frame.origin.y)
+            // We can't use the frame directly since iOS 13 new modal presentation style
+            let navigationRect = navigationBar.convert(navigationBar.bounds, to: nil)
+            position = CGPoint(x: 0, y: navigationRect.height + navigationRect.origin.y)
         } else {
             position = .zero
         }
