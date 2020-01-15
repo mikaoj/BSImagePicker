@@ -12,13 +12,14 @@ A mix between the native iOS gallery and facebooks image picker.
 ## Usage
 
 To run the example project, clone the repo, open BSImagePicker workspace and run the example app.
-###### Info.plist
+##### Info.plist
+To be able to request permission to the users photo library you need to add this to your Info.plist
 ```
 <key>NSPhotoLibraryUsageDescription</key>
 <string>Why you want to access photo library</string>
 ```
 
-###### Image picker
+##### Image picker
 ```
 import BSImagePicker
 
@@ -35,8 +36,19 @@ presentImagePicker(imagePicker, select: { (asset) in
 })
 ```
 
-###### PHAsset
-TODO: Add description of how to get image from asset.
+##### PHAsset
+So you have a bunch of [PHAsset](https://developer.apple.com/documentation/photokit/phasset)s now, great. But how do you use them?
+To get an UIImage from the asset you use a [PHImageManager](https://developer.apple.com/documentation/photokit/phimagemanager).
+
+```
+import Photos
+
+// Request the maximum size. If you only need a smaller size make sure to request that instead.
+PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: nil) { (image, info) in
+    // Do something with image
+}
+```
+
 
 ## Features
 * Multiple selection.
