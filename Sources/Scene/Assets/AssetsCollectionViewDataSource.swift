@@ -34,6 +34,7 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
     private let durationFormatter = DateComponentsFormatter()
 
     private let scale: CGFloat
+    private var targetSize: CGSize = .zero
     
     init(fetchResult: PHFetchResult<PHAsset>, scale: CGFloat = UIScreen.main.scale) {
         self.fetchResult = fetchResult
@@ -84,32 +85,35 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
         collectionView?.register(VideoCollectionViewCell.self, forCellWithReuseIdentifier: videoCellIdentifier)
     }
     
-    private func loadImage(for asset: PHAsset, in cell: AssetCollectionViewCell) {
+    private func loadImage(for asset: PHAsset, in cell: AssetCollectionViewCell?) {
         // Cancel any pending image requests
-        if cell.tag != 0 {
+        if let cell = cell, cell.tag != 0 {
             imageManager.cancelImageRequest(PHImageRequestID(cell.tag))
         }
         
         // Request image
-        let targetSize = cell.bounds.size.resize(by: scale)
-        cell.tag = Int(imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: settings.image.requestOptions) { (image, _) in
+        if let cell = cell {
+            targetSize = cell.bounds.size.resize(by: scale)
+        }
+
+        cell?.tag = Int(imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: settings.image.requestOptions) { (image, _) in
             guard let image = image else { return }
-            cell.imageView.image = image
+            cell?.imageView.image = image
         })
     }
 }
 
 extension AssetsCollectionViewDataSource: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        // Touching the assets should trigger fetching
+        // Touching asset should trigger prefetching
+        // And prefetch image for that asset
         indexPaths.forEach {
-            let _ = fetchResult[$0.row]
+            let asset = fetchResult[$0.row]
+            loadImage(for: asset, in: nil)
         }
-
-        // TODO: Prefetch images as well
     }
 
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        // TODO: When prefetching images. Cancel those prefetches here.
+
     }
 }

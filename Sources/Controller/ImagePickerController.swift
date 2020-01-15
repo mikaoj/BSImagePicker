@@ -68,9 +68,6 @@ public class ImagePickerController: UINavigationController {
 
         if #available(iOS 13.0, *) {
             // Disables iOS 13 swipe to dismiss - to force user to press cancel or done.
-            // But it is kind of nice to have the swipe to dismiss. Perhaps remove cancel/done callbacks and only use dismissed callback.
-            // And let the users of this framework decide to do with it...hmm
-            // TODO:
             isModalInPresentation = true
         }
         
