@@ -49,6 +49,7 @@ class ViewController: UIViewController {
         imagePicker.albumButton.tintColor = UIColor.green
         imagePicker.cancelButton.tintColor = UIColor.red
         imagePicker.doneButton.tintColor = UIColor.purple
+        imagePicker.navigationBar.barTintColor = .lightGray
         imagePicker.settings.theme.backgroundColor = .black
         imagePicker.settings.theme.selectionFillColor = UIColor.gray
         imagePicker.settings.theme.selectionStrokeColor = UIColor.yellow
