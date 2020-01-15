@@ -57,20 +57,17 @@ class CheckmarkView: UIView {
         //// CheckedOval Drawing
         let checkedOvalPath = UIBezierPath(ovalIn: CGRect(x: group.minX + floor(group.width * 0.0 + 0.5), y: group.minY + floor(group.height * 0.0 + 0.5), width: floor(group.width * 1.0 + 0.5) - floor(group.width * 0.0 + 0.5), height: floor(group.height * 1.0 + 0.5) - floor(group.height * 0.0 + 0.5)))
         context?.saveGState()
-        context?.setShadow(offset: shadow2Offset, blur: shadow2BlurRadius, color: settings.theme.checkmarkShadowColor.cgColor)
-        settings.theme.checkmarkFillColor.setFill()
+        context?.setShadow(offset: shadow2Offset, blur: shadow2BlurRadius, color: settings.theme.selectionShadowColor.cgColor)
+        settings.theme.selectionFillColor.setFill()
         checkedOvalPath.fill()
         context?.restoreGState()
         
-        settings.theme.checkmarkStrokeColor.setStroke()
+        settings.theme.selectionStrokeColor.setStroke()
         checkedOvalPath.lineWidth = 1
         checkedOvalPath.stroke()
         
-        
-        context?.setFillColor(UIColor.white.cgColor)
-        
         //// Check mark
-        context?.setStrokeColor(UIColor.white.cgColor)
+        context?.setStrokeColor(settings.theme.selectionStrokeColor.cgColor)
 
         let checkPath = UIBezierPath()
         checkPath.move(to: CGPoint(x: 7, y: 12.5))

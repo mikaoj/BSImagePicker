@@ -32,13 +32,13 @@ public class Settings {
         public lazy var backgroundColor: UIColor = .white
         
         /// What color to fill the circle with
-        public lazy var checkmarkFillColor: UIColor = UIView().tintColor
+        public lazy var selectionFillColor: UIColor = UIView().tintColor
         
         /// Color for the actual checkmark
-        public lazy var checkmarkStrokeColor: UIColor = .white
+        public lazy var selectionStrokeColor: UIColor = .white
         
         /// Shadow color for the circle
-        public lazy var checkmarkShadowColor: UIColor = .black
+        public lazy var selectionShadowColor: UIColor = .black
     }
 
     public class Selection {

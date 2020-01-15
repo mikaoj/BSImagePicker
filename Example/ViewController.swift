@@ -25,73 +25,56 @@ import BSImagePicker
 import Photos
 
 class ViewController: UIViewController {
-
-    private func authorize(_ authorized: @escaping () -> Void) {
-        PHPhotoLibrary.requestAuthorization { (status) in
-            switch status {
-            case .authorized:
-                print("wuhu, lets party!")
-                DispatchQueue.main.async(execute: authorized)
-            default:
-                print("b0rk")
-            }
-        }
-    }
     
     @IBAction func showImagePicker(_ sender: UIButton) {
-        authorize {
-            let imagePicker = ImagePickerController()
-            imagePicker.settings.selection.max = 6
-            imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
+        let imagePicker = ImagePickerController()
+        imagePicker.settings.selection.max = 6
+        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
 
-            self.presentImagePicker(imagePicker, select: { (asset) in
-                print("Selected: \(asset)")
-            }, deselect: { (asset) in
-                print("Deselected: \(asset)")
-            }, cancel: { (assets) in
-                print("Canceled with selections: \(assets)")
-            }, finish: { (assets) in
-                print("Finished with selections: \(assets)")
-            })
-        }
+        self.presentImagePicker(imagePicker, select: { (asset) in
+            print("Selected: \(asset)")
+        }, deselect: { (asset) in
+            print("Deselected: \(asset)")
+        }, cancel: { (assets) in
+            print("Canceled with selections: \(assets)")
+        }, finish: { (assets) in
+            print("Finished with selections: \(assets)")
+        })
     }
     
     @IBAction func showCustomImagePicker(_ sender: UIButton) {
-        //        let vc = BSImagePickerViewController()
-        //        vc.settings.selection.max = 6
-        //        vc.settings.camera.icon = UIImage(named: "chat")
-        //
-        //        vc.albumButton.tintColor = UIColor.green
-        //        vc.cancelButton.tintColor = UIColor.red
-        //        vc.doneButton.tintColor = UIColor.purple
-        //        vc.settings.selection.character = "✓"
-        //        vc.settings.selection.fillColor = UIColor.gray
-        //        vc.settings.selection.strokeColor = UIColor.yellow
-        //        vc.settings.selection.shadowColor = UIColor.red
-        //        vc.settings.selection.textAttributes[NSAttributedString.Key.foregroundColor] = UIColor.lightGray
-        //        vc.settings.list.cellsPerRow = {(verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int in
-        //            switch (verticalSize, horizontalSize) {
-        //            case (.compact, .regular): // iPhone5-6 portrait
-        //                return 2
-        //            case (.compact, .compact): // iPhone5-6 landscape
-        //                return 2
-        //            case (.regular, .regular): // iPad portrait/landscape
-        //                return 3
-        //            default:
-        //                return 2
-        //            }
-        //        }
-        //
-        //        bs_presentImagePickerController(vc, animated: true,
-        //            select: { (asset: PHAsset) -> Void in
-        //                print("Selected: \(asset)")
-        //            }, deselect: { (asset: PHAsset) -> Void in
-        //                print("Deselected: \(asset)")
-        //            }, cancel: { (assets: [PHAsset]) -> Void in
-        //                print("Cancel: \(assets)")
-        //            }, finish: { (assets: [PHAsset]) -> Void in
-        //                print("Finish: \(assets)")
-        //            }, completion: nil)
+        let imagePicker = ImagePickerController()
+        imagePicker.settings.selection.max = 6
+        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
+        imagePicker.albumButton.tintColor = UIColor.green
+        imagePicker.cancelButton.tintColor = UIColor.red
+        imagePicker.doneButton.tintColor = UIColor.purple
+        imagePicker.settings.theme.backgroundColor = .black
+        imagePicker.settings.theme.selectionFillColor = UIColor.gray
+        imagePicker.settings.theme.selectionStrokeColor = UIColor.yellow
+        imagePicker.settings.theme.selectionShadowColor = UIColor.red
+        imagePicker.settings.list.cellsPerRow = {(verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int in
+            switch (verticalSize, horizontalSize) {
+            case (.compact, .regular): // iPhone5-6 portrait
+                return 2
+            case (.compact, .compact): // iPhone5-6 landscape
+                return 2
+            case (.regular, .regular): // iPad portrait/landscape
+                return 3
+            default:
+                return 2
+            }
+        }
+
+        self.presentImagePicker(imagePicker, select: { (asset) in
+            print("Selected: \(asset)")
+        }, deselect: { (asset) in
+            print("Deselected: \(asset)")
+        }, cancel: { (assets) in
+            print("Canceled with selections: \(assets)")
+        }, finish: { (assets) in
+            print("Finished with selections: \(assets)")
+        })
     }
     
     @IBAction func showImagePickerWithSelectedAssets(_ sender: UIButton) {
@@ -104,21 +87,19 @@ class ViewController: UIViewController {
             }
         })
 
-        authorize {
-            let imagePicker = ImagePickerController()
-            imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
-            imagePicker.assetStore = AssetStore(assets: evenAssets)
+        let imagePicker = ImagePickerController()
+        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
+        imagePicker.assetStore = AssetStore(assets: evenAssets)
 
-            self.presentImagePicker(imagePicker, select: { (asset) in
-                print("Selected: \(asset)")
-            }, deselect: { (asset) in
-                print("Deselected: \(asset)")
-            }, cancel: { (assets) in
-                print("Canceled with selections: \(assets)")
-            }, finish: { (assets) in
-                print("Finished with selections: \(assets)")
-            })
-        }
+        self.presentImagePicker(imagePicker, select: { (asset) in
+            print("Selected: \(asset)")
+        }, deselect: { (asset) in
+            print("Deselected: \(asset)")
+        }, cancel: { (assets) in
+            print("Canceled with selections: \(assets)")
+        }, finish: { (assets) in
+            print("Finished with selections: \(assets)")
+        })
     }
 }
 

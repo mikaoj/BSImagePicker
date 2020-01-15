@@ -172,7 +172,7 @@ class PreviewViewController : UIViewController {
     private func updateBackgroundColor() {
         let aColor: UIColor
         
-        if self.fullscreen {
+        if self.fullscreen && modalPresentationStyle == .fullScreen {
             aColor = UIColor.black
         } else {
             aColor = UIColor.white

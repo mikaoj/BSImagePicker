@@ -18,20 +18,8 @@ To run the example project, clone the repo, open BSImagePicker workspace and run
 <string>Why you want to access photo library</string>
 ```
 
-###### Authorize
-```
-PHPhotoLibrary.requestAuthorization { (status) in
-    switch status {
-    case .authorized:
-        // Your app now has access to photo library. Present image picker.
-    default:
-        // No access...
-    }
-}
-```
-
 ###### Image picker
-```swift
+```
 import BSImagePicker
 
 let imagePicker = ImagePickerController()
