@@ -65,6 +65,11 @@ class DropdownPresentationController: UIPresentationController {
             // We can't use the frame directly since iOS 13 new modal presentation style
             let navigationRect = navigationBar.convert(navigationBar.bounds, to: nil)
             position = CGPoint(x: 0, y: navigationRect.height + navigationRect.origin.y)
+
+            // Match color with navigation bar
+            presentedViewController.view.backgroundColor = navigationBar.barTintColor
+            presentedViewController.view.layer.opacity = 1
+            presentedViewController.view.isOpaque = false
         } else {
             position = .zero
         }

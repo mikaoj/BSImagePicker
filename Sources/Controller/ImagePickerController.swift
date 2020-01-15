@@ -109,6 +109,11 @@ public class ImagePickerController: UINavigationController {
         updatedDoneButton()
         updateAlbumButton()
 
+        // We need to have some color to be able to match with the drop down
+        if navigationBar.barTintColor == nil {
+            navigationBar.barTintColor = .white
+        }
+
         if let firstAlbum = albums.first {
             select(album: firstAlbum)
         } else {

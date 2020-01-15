@@ -31,10 +31,10 @@
 * ~~When using modal presentation style fullscreen. No lines between cells. An iOS 13 bug..?~~ traitCollectionDidChange isn't called on initial trait collection set/init like in iOS 12.
 * ~~albumButton with 'long' (not really) titles like Panoramas. Title gets shifted down a line. Doesn't happen on iOS 12. Radar?~~
 * Dark mode
-* Match drop down color with navigation bar color
+* ~~Match drop down color with navigation bar color~~
 
 ### Other
-* Filter out collections with 0 assets
+* ~~Filter out collections with 0 assets~~
 * Include collection asset count in album cell
 * Perhaps some shadow/border to album image?
 * Settings - Look into how to simplify this. Not a fan of how it is sprinkled all over the code. Perhaps a singelton would be acceptable here.
