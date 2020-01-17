@@ -26,11 +26,10 @@ import UIKit
 Cell for photo albums in the albums drop down menu
 */
 final class AlbumCell: UITableViewCell {
-    static let identifier = "albumCell"
+    static let identifier = "AlbumCell"
 
     let albumImageView: UIImageView = UIImageView(frame: .zero)
     let albumTitleLabel: UILabel = UILabel(frame: .zero)
-    let albumSubtitleLabel: UILabel = UILabel(frame: .zero)
 
     override var isSelected: Bool {
         didSet {

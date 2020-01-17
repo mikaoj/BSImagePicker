@@ -9,9 +9,15 @@
 
 A multiple image picker for iOS.
 
+## Features
+* Multiple selection.
+* Fullscreen preview
+* Switching albums.
+* Supports images, live photos and videos.
+* Customizable.
+
 ## Usage
 
-To run the example project, clone the repo, open BSImagePicker workspace and run the example app.
 ##### Info.plist
 To be able to request permission to the users photo library you need to add this to your Info.plist
 ```
@@ -49,22 +55,7 @@ PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaxi
 }
 ```
 
-
-## Features
-* Multiple selection.
-* Fullscreen preview
-* Switch albums.
-* Supports images, live photos and videos.
-* Customizable.
-
-## Customization
-
-There are a bunch of settings you can tweak. They are documented in Settings.swift.
-[Documentation @ cocoadocs](http://cocoadocs.org/docsets/BSImagePicker/)
-
-## Requirements
-
-iOS 10
+For more example you can clone this repo and look at the example app.
 
 ## Installation
 

@@ -68,6 +68,11 @@ public class Settings {
         }
     }
 
+    public class Preview {
+        /// Is preview enabled?
+        public lazy var enabled: Bool = false
+    }
+
     public class Fetch {
         public class Album {
             /// Fetch options for albums/collections
@@ -147,15 +152,6 @@ public class Settings {
         public lazy var enabled = true
     }
 
-//    public class Camera {
-//        /// Should the camera feature be enabled
-//        public lazy var enabled = false
-//
-//        public lazy var liveView = true
-//
-//        public lazy var icon: UIImage? = UIImage(named: "add_photo", in: Bundle(for: ImagePickerController.self), compatibleWith: nil)
-//    }
-
     /// Theme settings
     public lazy var theme = Theme()
     
@@ -170,10 +166,10 @@ public class Settings {
     
     /// Dismiss settings
     public lazy var dismiss = Dismiss()
-    
-    /// Camera settings
-//    lazy var camera = Camera() // TODO: Make public when camera feature is ready
 
     /// Image options
     public lazy var image = Image()
+
+    /// Preview options
+    public lazy var preview = Preview()
 }
