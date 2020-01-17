@@ -9,8 +9,6 @@
 * ~~Live images~~
 * ~~When presenting album selection. Slide down from entire navigation bar~~
 * ~~Make album slide down view match navigation bar background~~
-* Nicer camera capture. And don't save captured photos to library - or no camera capture at all..? Hmm
-* Helper methods on PHAsset to easier get images from them.
 * ~~Haptic feedback on selection?~~
 * ~~zoom when previewing photos~~
 
@@ -39,4 +37,5 @@
 * Perhaps some shadow/border to album image?
 * Settings - Look into how to simplify this. Not a fan of how it is sprinkled all over the code. Perhaps a singelton would be acceptable here.
 * Rubber/bounce effect in preview (Zoom) animation?
+* Replace Settings.Theme with UIAppearance
 * Fix TODOs

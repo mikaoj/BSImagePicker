@@ -7,7 +7,7 @@
 
 ![alt text](https://cloud.githubusercontent.com/assets/4034956/15001931/254805de-119c-11e6-9f68-d815ccc712cd.gif "Demo gif")
 
-A mix between the native iOS gallery and facebooks image picker.
+A multiple image picker for iOS.
 
 ## Usage
 
@@ -54,7 +54,7 @@ PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaxi
 * Multiple selection.
 * Fullscreen preview
 * Switch albums.
-* Images, live image and videos supported.
+* Supports images, live photos and videos.
 * Customizable.
 
 ## Customization
