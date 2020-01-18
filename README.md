@@ -71,9 +71,6 @@ Add the following line to your Cartfile:
 github "mikaoj/BSImagePicker" ~> 3.0
 ```
 
-### Swift Package Manager
-TODO: spm instructions
-
 ## Contribution
 
 This project does not come with GitHub Issues-based support, and users are instead encouraged to become active participants in its continued development — by fixing any bugs that they encounter, or by improving the documentation wherever it’s found to be lacking.
