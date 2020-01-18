@@ -26,7 +26,8 @@ import Photos
 /// Settings for BSImagePicker
 public class Settings {
     public static let shared = Settings()
-    
+
+    // Move all theme related stuff to UIAppearance
     public class Theme {
         /// Main background color
         public lazy var backgroundColor: UIColor = .white
