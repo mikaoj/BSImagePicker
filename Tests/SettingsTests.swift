@@ -36,12 +36,4 @@ class SettingsTests: XCTestCase {
         let fetchOptions = settings.fetch.assets.options
         XCTAssertEqual(fetchOptions.predicate, NSPredicate(format: "mediaType IN %@", [PHAssetMediaType.image.rawValue]))
     }
-
-    func testImageAndVideoAssets() {
-        settings.fetch.assets.supportedMediaTypes = [.image, .video]
-        let fetchOptions = settings.fetch.assets.options
-        XCTAssertEqual(fetchOptions.predicate,
-                       NSPredicate(format: "mediaType IN %@",
-                                   [PHAssetMediaType.image.rawValue, PHAssetMediaType.video.rawValue]))
-    }
 }

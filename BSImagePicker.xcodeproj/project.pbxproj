@@ -92,7 +92,6 @@
 		5569D00621D52A6D00D03631 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		557010BA230FD5E700A1C4EA /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		55888E4A2231A31C003C861D /* VideoPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewViewController.swift; sourceTree = "<group>"; };
-		559768D421D53EC100B10102 /* TODO.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		559DB80E21E655D000CD58B4 /* ImagePickerControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerControllerDelegate.swift; sourceTree = "<group>"; };
 		559DB81021E6561300CD58B4 /* ImagePickerController+Closure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImagePickerController+Closure.swift"; sourceTree = "<group>"; };
 		559DB81621E6AFD800CD58B4 /* ImagePickerController+Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImagePickerController+Assets.swift"; sourceTree = "<group>"; };
@@ -287,7 +286,6 @@
 				55DAB07F23145A8A00982A5B /* .travis.yml */,
 				55BCF8E721D52CEC00386752 /* LICENSE */,
 				55BCF8E621D52CE300386752 /* README.md */,
-				559768D421D53EC100B10102 /* TODO.md */,
 				55BCF8E821D52CF600386752 /* BSImagePicker.podspec */,
 				557010BA230FD5E700A1C4EA /* Package.swift */,
 			);
