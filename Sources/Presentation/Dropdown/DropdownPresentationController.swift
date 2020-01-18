@@ -68,8 +68,6 @@ class DropdownPresentationController: UIPresentationController {
 
             // Match color with navigation bar
             presentedViewController.view.backgroundColor = navigationBar.barTintColor
-            presentedViewController.view.layer.opacity = 1
-            presentedViewController.view.isOpaque = false
         } else {
             position = .zero
         }

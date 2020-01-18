@@ -31,6 +31,7 @@ class ViewController: UIViewController {
         imagePicker.settings.selection.max = 6
         imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
 
+        let start = Date()
         self.presentImagePicker(imagePicker, select: { (asset) in
             print("Selected: \(asset)")
         }, deselect: { (asset) in
@@ -39,6 +40,9 @@ class ViewController: UIViewController {
             print("Canceled with selections: \(assets)")
         }, finish: { (assets) in
             print("Finished with selections: \(assets)")
+        }, completion: {
+            let finish = Date()
+            print(finish.timeIntervalSince(start))
         })
     }
     

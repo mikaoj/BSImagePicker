@@ -106,6 +106,8 @@ class AssetsViewController: UIViewController {
         guard settings.preview.enabled else { return }
         guard sender.state == .began else { return }
 
+        selectionFeedback.selectionChanged()
+
         // Calculate which index path long press came from
         let location = sender.location(in: collectionView)
         guard let indexPath = collectionView.indexPathForItem(at: location) else { return }

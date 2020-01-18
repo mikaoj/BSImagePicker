@@ -96,7 +96,7 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
             targetSize = cell.bounds.size.resize(by: scale)
         }
 
-        cell?.tag = Int(imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: settings.image.requestOptions) { (image, _) in
+        cell?.tag = Int(imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: settings.fetch.preview.photoOptions) { (image, _) in
             guard let image = image else { return }
             cell?.imageView.image = image
         })

@@ -39,3 +39,4 @@
 * Rubber/bounce effect in preview (Zoom) animation?
 * Replace Settings.Theme with UIAppearance
 * Fix TODOs
+* Haptic feedback on preview

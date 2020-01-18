@@ -82,6 +82,10 @@ public class ImagePickerController: UINavigationController {
         viewControllers = [assetsViewController]
         view.backgroundColor = settings.theme.backgroundColor
         delegate = zoomTransitionDelegate
+
+        // Turn off translucency so drop down can match its color
+        navigationBar.isTranslucent = false
+        navigationBar.isOpaque = true
         
         // Setup buttons
         let firstViewController = viewControllers.first

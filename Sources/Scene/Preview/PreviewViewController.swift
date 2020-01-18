@@ -38,7 +38,7 @@ class PreviewViewController : UIViewController {
             }
             
             // Load image for preview
-            imageManager.requestImage(for: asset, targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight), contentMode: .aspectFit, options: settings.image.requestOptions) { [weak self] (image, _) in
+            imageManager.requestImage(for: asset, targetSize: CGSize(width: asset.pixelWidth, height: asset.pixelHeight), contentMode: .aspectFit, options: settings.fetch.preview.photoOptions) { [weak self] (image, _) in
                 guard let image = image else { return }
                 self?.imageView.image = image
             }

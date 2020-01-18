@@ -62,7 +62,7 @@ final class AlbumsTableViewDataSource : NSObject, UITableViewDataSource {
         let imageSize = CGSize(width: 84, height: 84).resize(by: scale)
         let imageContentMode: PHImageContentMode = .aspectFill
         if let asset = PHAsset.fetchAssets(in: album, options: fetchOptions).firstObject {
-            imageManager.requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: settings.image.requestOptions) { (image, _) in
+            imageManager.requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: settings.fetch.preview.photoOptions) { (image, _) in
                 guard let image = image else { return }
                 cell.albumImageView.image = image
             }

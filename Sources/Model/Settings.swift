@@ -70,7 +70,7 @@ public class Settings {
 
     public class Preview {
         /// Is preview enabled?
-        public lazy var enabled: Bool = false
+        public lazy var enabled: Bool = true
     }
 
     public class Fetch {
@@ -125,26 +125,35 @@ public class Settings {
             }()
         }
 
+        public class Preview {
+            public lazy var photoOptions: PHImageRequestOptions = {
+                let options = PHImageRequestOptions()
+                options.isNetworkAccessAllowed = true
+
+                return options
+            }()
+
+            public lazy var livePhotoOptions: PHLivePhotoRequestOptions = {
+                let options = PHLivePhotoRequestOptions()
+                options.isNetworkAccessAllowed = true
+                return options
+            }()
+
+            public lazy var videoOptions: PHVideoRequestOptions = {
+                let options = PHVideoRequestOptions()
+                options.isNetworkAccessAllowed = true
+                return options
+            }()
+        }
+
         /// Album fetch settings
         public lazy var album = Album()
         
         /// Asset fetch settings
         public lazy var assets = Assets()
-    }
 
-    public class Image {
-        public lazy var requestOptions: PHImageRequestOptions = {
-            let options = PHImageRequestOptions()
-            options.isNetworkAccessAllowed = true
-
-            return options
-        }()
-
-        public lazy var liveRequestOptions: PHLivePhotoRequestOptions = {
-            let options = PHLivePhotoRequestOptions()
-            options.isNetworkAccessAllowed = true
-            return options
-        }()
+        /// Preview fetch settings
+        public lazy var preview = Preview()
     }
     
     public class Dismiss {
@@ -166,9 +175,6 @@ public class Settings {
     
     /// Dismiss settings
     public lazy var dismiss = Dismiss()
-
-    /// Image options
-    public lazy var image = Image()
 
     /// Preview options
     public lazy var preview = Preview()

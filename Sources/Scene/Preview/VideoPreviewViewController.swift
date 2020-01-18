@@ -44,11 +44,12 @@ class VideoPreviewViewController: PreviewViewController {
                 return
             }
             
-            imageManager.requestAVAsset(forVideo: asset, options: nil) { (avasset, audioMix, arguments) in
+            imageManager.requestAVAsset(forVideo: asset, options: settings.fetch.preview.videoOptions) { (avasset, audioMix, arguments) in
                 guard let avasset = avasset as? AVURLAsset else { return }
                 
-                DispatchQueue.main.async {
-                    self.player = AVPlayer(url: avasset.url)
+            DispatchQueue.main.async { [weak self] in
+                    self?.player = AVPlayer(url: avasset.url)
+                    self?.updateState(.playing, animated: false)
                 }
             }
         }
@@ -87,7 +88,6 @@ class VideoPreviewViewController: PreviewViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         playerView.isHidden = false
-        updateState(.playing, animated: false)
         view.sendSubviewToBack(scrollView)
     }
     

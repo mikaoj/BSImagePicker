@@ -34,7 +34,7 @@ class LivePreviewViewController: PreviewViewController {
 
              // Load live photo for preview
             let targetSize = livePhotoView.frame.size.resize(by: UIScreen.main.scale)
-            PHCachingImageManager.default().requestLivePhoto(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: settings.image.liveRequestOptions) { [weak self] (livePhoto, _)  in
+            PHCachingImageManager.default().requestLivePhoto(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: settings.fetch.preview.livePhotoOptions) { [weak self] (livePhoto, _)  in
                 guard let livePhoto = livePhoto else { return }
                 self?.livePhotoView.livePhoto = livePhoto
                 self?.positionBadgeView(for: livePhoto)
