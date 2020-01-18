@@ -27,10 +27,12 @@ import CoreLocation
 class PreviewTitleBuilder {
     // TODO: Move to settings/theme
     private static let titleAttributes: [NSAttributedString.Key: Any] = [
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)
+        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
+        NSAttributedString.Key.foregroundColor: UIColor.black
     ]
     private static let subtitleAttributes: [NSAttributedString.Key: Any] = [
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)
+        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+        NSAttributedString.Key.foregroundColor: UIColor.black
     ]
     
     static func titleFor(asset: PHAsset, completion: @escaping (NSAttributedString) -> Void) {
