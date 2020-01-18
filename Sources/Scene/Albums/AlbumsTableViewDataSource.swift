@@ -56,7 +56,7 @@ final class AlbumsTableViewDataSource : NSObject, UITableViewDataSource {
         // Title
         cell.albumTitleLabel.text = album.localizedTitle
 
-        let fetchOptions = PHFetchOptions() // TODO: Use asset fetch options from settings
+        let fetchOptions = settings.fetch.assets.options.copy() as! PHFetchOptions
         fetchOptions.fetchLimit = 1
         
         let imageSize = CGSize(width: 84, height: 84).resize(by: scale)
