@@ -2,7 +2,8 @@
 
 ### Project
 * ~~No cocoapods structure~~
-* Better readme. Include description of how to add keys to info plist. Requesting camera access. How to use PHAsset
+* ~~Better readme. Include description of how to add keys to info plist. Requesting camera access.
+* How to use PHAsset~~
 
 ### Features
 * ~~Videos~~
@@ -14,13 +15,14 @@
 
 ### Code
 * ~~Data source shouldn't handle selections~~
-* Handle updates to photo library better
+* ~~Handle updates to photo library better~~
 * ~~No xib/storyboards~~
 * ~~Don't handle photo library access, user of this library should do that~~
 * ~~Make arrow image into a shape so we can use swift package manager (which currently doesn't support resources).~~
 
 ### Performance
-* Fetching assets of specific types (either with NSPredicate or PHAsset.fetchAssets(with: <TYPE>)) is sloooooow. Much faster to just fetch all...
+* ~~Fetching assets of specific types (either with NSPredicate or PHAsset.fetchAssets(with: <TYPE>))
+* is sloooooow. Much faster to just fetch all...~~
 
 ### iOS 13
 * ~~ Drop down animation when opening albums view is a couple of pixels of, due to new default modal presentation style.~~
@@ -39,4 +41,4 @@
 * Rubber/bounce effect in preview (Zoom) animation?
 * Replace Settings.Theme with UIAppearance
 * Fix TODOs
-* Haptic feedback on preview
+* ~~Haptic feedback on preview~~
