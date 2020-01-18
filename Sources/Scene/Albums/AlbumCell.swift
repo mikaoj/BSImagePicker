@@ -53,7 +53,9 @@ final class AlbumCell: UITableViewCell {
         albumImageView.contentMode = .scaleAspectFill
         albumImageView.clipsToBounds = true
         contentView.addSubview(albumImageView)
+        
         albumTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        albumTitleLabel.numberOfLines = 0
         contentView.addSubview(albumTitleLabel)
 
         NSLayoutConstraint.activate([

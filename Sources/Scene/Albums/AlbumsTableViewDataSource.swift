@@ -54,7 +54,7 @@ final class AlbumsTableViewDataSource : NSObject, UITableViewDataSource {
         let album = albums[indexPath.row]
         
         // Title
-        cell.albumTitleLabel.text = album.localizedTitle
+        cell.albumTitleLabel.attributedText = titleForAlbum(album)
 
         let fetchOptions = settings.fetch.assets.options.copy() as! PHFetchOptions
         fetchOptions.fetchLimit = 1
@@ -73,5 +73,22 @@ final class AlbumsTableViewDataSource : NSObject, UITableViewDataSource {
 
     func registerCells(in tableView: UITableView) {
         tableView.register(AlbumCell.self, forCellReuseIdentifier: AlbumCell.identifier)
+    }
+
+    private let titleAttributes: [NSAttributedString.Key: Any] = [
+        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
+        NSAttributedString.Key.foregroundColor: UIColor.black
+    ]
+    private let subtitleAttributes: [NSAttributedString.Key: Any] = [
+        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+        NSAttributedString.Key.foregroundColor: UIColor.gray
+    ]
+
+    private func titleForAlbum(_ album: PHAssetCollection) -> NSAttributedString {
+        let text = NSMutableAttributedString()
+
+        text.append(NSAttributedString(string: album.localizedTitle ?? "", attributes: titleAttributes))
+
+        return text
     }
 }
