@@ -37,8 +37,10 @@ class AssetsViewController: UIViewController {
     }
 
     private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    private var fetchResult: PHFetchResult<PHAsset>! {
-        didSet { dataSource = AssetsCollectionViewDataSource(fetchResult: fetchResult) }
+    private var fetchResult: PHFetchResult<PHAsset> = PHFetchResult<PHAsset>() {
+        didSet {
+            dataSource = AssetsCollectionViewDataSource(fetchResult: fetchResult)
+        }
     }
     private var dataSource: AssetsCollectionViewDataSource? {
         didSet {
@@ -68,7 +70,7 @@ class AssetsViewController: UIViewController {
         collectionView.alwaysBounceVertical = true
         collectionView.backgroundColor = settings.theme.backgroundColor
         collectionView.delegate = self
-        dataSource?.registerCellIdentifiersForCollectionView(collectionView)
+        AssetsCollectionViewDataSource.registerCellIdentifiersForCollectionView(collectionView)
 
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(AssetsViewController.collectionViewLongPressed(_:)))
         longPressRecognizer.minimumPressDuration = 0.5
@@ -81,8 +83,16 @@ class AssetsViewController: UIViewController {
     }
 
     func showAssets(in album: PHAssetCollection) {
-        fetchResult = PHAsset.fetchAssets(in: album, options: settings.fetch.assets.options)
-        collectionView.reloadData()
+        let options = self.settings.fetch.assets.options
+        // Fetch many assets can take several seconds even on a fast device.
+        // So dispatch the fetching to a background queue so it doesn't hang the UI
+        DispatchQueue.global(qos: .userInteractive).async {
+            let fetchResult = PHAsset.fetchAssets(in: album, options: options)
+            DispatchQueue.main.async { [weak self] in
+                self?.fetchResult = fetchResult
+                self?.collectionView.reloadData()
+            }
+        }
     }
 
     func syncSelections(in assetStore: AssetStore) {

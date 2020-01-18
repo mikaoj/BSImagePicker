@@ -24,8 +24,8 @@ import UIKit
 import Photos
 
 class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
-    private let assetCellIdentifier = "AssetCell"
-    private let videoCellIdentifier = "VideoCell"
+    private static let assetCellIdentifier = "AssetCell"
+    private static let videoCellIdentifier = "VideoCell"
     
     var settings: Settings!
 
@@ -60,11 +60,11 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
         
         UIView.setAnimationsEnabled(false)
         if asset.mediaType == .video {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: videoCellIdentifier, for: indexPath) as! VideoCollectionViewCell
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssetsCollectionViewDataSource.videoCellIdentifier, for: indexPath) as! VideoCollectionViewCell
             let videoCell = cell as! VideoCollectionViewCell
             videoCell.durationLabel.text = durationFormatter.string(from: asset.duration)
         } else {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: assetCellIdentifier, for: indexPath) as! AssetCollectionViewCell
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssetsCollectionViewDataSource.assetCellIdentifier, for: indexPath) as! AssetCollectionViewCell
         }
         UIView.setAnimationsEnabled(animationsWasEnabled)
 
@@ -80,7 +80,7 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
         return cell
     }
     
-    func registerCellIdentifiersForCollectionView(_ collectionView: UICollectionView?) {
+    static func registerCellIdentifiersForCollectionView(_ collectionView: UICollectionView?) {
         collectionView?.register(AssetCollectionViewCell.self, forCellWithReuseIdentifier: assetCellIdentifier)
         collectionView?.register(VideoCollectionViewCell.self, forCellWithReuseIdentifier: videoCellIdentifier)
     }
