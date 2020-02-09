@@ -70,6 +70,13 @@ Add the following line to your Cartfile:
 ```
 github "mikaoj/BSImagePicker" ~> 3.0
 ```
+### Swift Package Manager
+Add it to the dependencies value of your Package.swift.:
+```
+dependencies: [
+.package(url: "https://github.com/mikaoj/BSImagePicker.git", from: "version-tag")
+]
+```
 
 ## Contribution
 
