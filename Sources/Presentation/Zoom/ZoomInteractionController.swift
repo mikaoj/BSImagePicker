@@ -20,7 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import Foundation
+import UIKit
 
 class ZoomInteractionController: UIPercentDrivenInteractiveTransition, UIGestureRecognizerDelegate {
     private weak var navigationController: UINavigationController?
