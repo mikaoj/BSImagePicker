@@ -66,12 +66,7 @@ public class ImagePickerController: UINavigationController {
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-
-        if #available(iOS 13.0, *) {
-            // Disables iOS 13 swipe to dismiss - to force user to press cancel or done.
-            isModalInPresentation = true
-        }
-        
+      
         // Sync settings
         albumsViewController.settings = settings
         assetsViewController.settings = settings
