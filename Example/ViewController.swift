@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     
     @IBAction func showImagePicker(_ sender: UIButton) {
         let imagePicker = ImagePickerController()
-        imagePicker.settings.selection.max = 6
+        imagePicker.settings.selection.max = 5
         imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
 
         let start = Date()
@@ -48,7 +48,8 @@ class ViewController: UIViewController {
     
     @IBAction func showCustomImagePicker(_ sender: UIButton) {
         let imagePicker = ImagePickerController()
-        imagePicker.settings.selection.max = 6
+        imagePicker.settings.selection.max = 1
+        imagePicker.settings.selection.unselectOnReachingMax = true
         imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
         imagePicker.albumButton.tintColor = UIColor.green
         imagePicker.cancelButton.tintColor = UIColor.red

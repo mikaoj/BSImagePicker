@@ -58,6 +58,9 @@ public class Settings {
         
         /// Min number of selections you have to make
         public lazy var min: Int = 1
+        
+        /// If it reaches the max limit, unselect the first selection, and allow the new selection
+        public lazy var unselectOnReachingMax : Bool = false
     }
 
     public class List {

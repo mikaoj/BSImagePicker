@@ -25,6 +25,11 @@ import Photos
 
 extension ImagePickerController: AssetsViewControllerDelegate {
     func assetsViewController(_ assetsViewController: AssetsViewController, didSelectAsset asset: PHAsset) {
+        if settings.selection.unselectOnReachingMax && assetStore.count >= settings.selection.max {
+            if let first = assetStore.removeFirst() {
+                assetsViewController.unselect(asset:first)
+            }
+        }
         assetStore.append(asset)
         updatedDoneButton()
         imagePickerDelegate?.imagePicker(self, didSelectAsset: asset)
@@ -46,6 +51,6 @@ extension ImagePickerController: AssetsViewControllerDelegate {
     }
 
     func shouldSelect(in assetsViewController: AssetsViewController) -> Bool {
-        return assetStore.count < settings.selection.max
+        return assetStore.count < settings.selection.max || settings.selection.unselectOnReachingMax
     }
 }

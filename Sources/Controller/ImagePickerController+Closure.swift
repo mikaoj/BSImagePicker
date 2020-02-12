@@ -65,10 +65,8 @@ extension UIViewController {
     }
 }
 
-extension ImagePickerController
-{
-    public static var currentAuthorization : PHAuthorizationStatus
-    {
+extension ImagePickerController {
+    public static var currentAuthorization : PHAuthorizationStatus {
         return PHPhotoLibrary.authorizationStatus()
     }
 }

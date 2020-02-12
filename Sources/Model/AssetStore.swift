@@ -47,4 +47,8 @@ public class AssetStore {
         guard let index = assets.firstIndex(of: asset) else { return }
         assets.remove(at: index)
     }
+    
+    func removeFirst() -> PHAsset? {
+        return assets.removeFirst()
+    }
 }
