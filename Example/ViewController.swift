@@ -53,11 +53,13 @@ class ViewController: UIViewController {
         imagePicker.albumButton.tintColor = UIColor.green
         imagePicker.cancelButton.tintColor = UIColor.red
         imagePicker.doneButton.tintColor = UIColor.purple
-        imagePicker.navigationBar.barTintColor = .lightGray
+        imagePicker.navigationBar.barTintColor = .black
         imagePicker.settings.theme.backgroundColor = .black
         imagePicker.settings.theme.selectionFillColor = UIColor.gray
         imagePicker.settings.theme.selectionStrokeColor = UIColor.yellow
         imagePicker.settings.theme.selectionShadowColor = UIColor.red
+        imagePicker.settings.theme.previewTitleAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),NSAttributedString.Key.foregroundColor: UIColor.white]
+        imagePicker.settings.theme.previewSubtitleAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),NSAttributedString.Key.foregroundColor: UIColor.white]
         imagePicker.settings.list.cellsPerRow = {(verticalSize: UIUserInterfaceSizeClass, horizontalSize: UIUserInterfaceSizeClass) -> Int in
             switch (verticalSize, horizontalSize) {
             case (.compact, .regular): // iPhone5-6 portrait

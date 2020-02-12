@@ -40,6 +40,16 @@ public class Settings {
         
         /// Shadow color for the circle
         public lazy var selectionShadowColor: UIColor = .black
+        
+        public lazy var previewTitleAttributes : [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
+            NSAttributedString.Key.foregroundColor: UIColor.black
+        ]
+        
+        public lazy var previewSubtitleAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+            NSAttributedString.Key.foregroundColor: UIColor.black
+        ]
     }
 
     public class Selection {

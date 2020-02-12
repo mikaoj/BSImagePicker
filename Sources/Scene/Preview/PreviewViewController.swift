@@ -183,7 +183,7 @@ class PreviewViewController : UIViewController {
     private func updateNavigationTitle() {
         guard let asset = asset else { return }
         
-        PreviewTitleBuilder.titleFor(asset: asset) { [weak self] (text) in
+        PreviewTitleBuilder.titleFor(asset: asset,using:settings.theme) { [weak self] (text) in
             self?.titleLabel.attributedText = text
             self?.titleLabel.sizeToFit()
         }
