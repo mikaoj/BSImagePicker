@@ -50,6 +50,11 @@ public class Settings {
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
             NSAttributedString.Key.foregroundColor: UIColor.black
         ]
+        
+        public lazy var albumTitleAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
+            NSAttributedString.Key.foregroundColor: UIColor.black
+        ]
     }
 
     public class Selection {
