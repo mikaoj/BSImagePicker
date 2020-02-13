@@ -29,7 +29,10 @@ The photo cell.
 class AssetCollectionViewCell: UICollectionViewCell {
     let imageView: UIImageView = UIImageView(frame: .zero)
     var settings: Settings! {
-        didSet { checkmarkView.settings = settings }
+        didSet { selectionView.settings = settings }
+    }
+    var selectionIndex: Int? {
+        didSet { selectionView.selectionIndex = selectionIndex }
     }
 
     override var isSelected: Bool {
@@ -57,7 +60,7 @@ class AssetCollectionViewCell: UICollectionViewCell {
     }
     
     private let selectionOverlayView: UIView = UIView(frame: .zero)
-    private let checkmarkView: CheckmarkView = CheckmarkView(frame: .zero)
+    private let selectionView: SelectionView = SelectionView(frame: .zero)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -68,10 +71,10 @@ class AssetCollectionViewCell: UICollectionViewCell {
         imageView.clipsToBounds = true
         selectionOverlayView.backgroundColor = UIColor.lightGray
         selectionOverlayView.translatesAutoresizingMaskIntoConstraints = false
-        checkmarkView.translatesAutoresizingMaskIntoConstraints = false
+        selectionView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(imageView)
         contentView.addSubview(selectionOverlayView)
-        contentView.addSubview(checkmarkView)
+        contentView.addSubview(selectionView)
 
         // Add constraints
         NSLayoutConstraint.activate([
@@ -83,10 +86,10 @@ class AssetCollectionViewCell: UICollectionViewCell {
             selectionOverlayView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             selectionOverlayView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             selectionOverlayView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            checkmarkView.heightAnchor.constraint(equalToConstant: 25),
-            checkmarkView.widthAnchor.constraint(equalToConstant: 25),
-            checkmarkView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
-            checkmarkView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
+            selectionView.heightAnchor.constraint(equalToConstant: 25),
+            selectionView.widthAnchor.constraint(equalToConstant: 25),
+            selectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
+            selectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
         ])
 
         updateAlpha(isSelected)
@@ -108,10 +111,10 @@ class AssetCollectionViewCell: UICollectionViewCell {
     
     private func updateAlpha(_ selected: Bool) {
         if selected {
-            self.checkmarkView.alpha = 1.0
+            self.selectionView.alpha = 1.0
             self.selectionOverlayView.alpha = 0.3
         } else {
-            self.checkmarkView.alpha = 0.0
+            self.selectionView.alpha = 0.0
             self.selectionOverlayView.alpha = 0.0
         }
     }

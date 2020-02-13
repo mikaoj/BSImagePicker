@@ -35,11 +35,19 @@ public class Settings {
         /// What color to fill the circle with
         public lazy var selectionFillColor: UIColor = UIView().tintColor
         
-        /// Color for the actual checkmark
+        /// Color for the actual selection icon
         public lazy var selectionStrokeColor: UIColor = .white
         
         /// Shadow color for the circle
         public lazy var selectionShadowColor: UIColor = .black
+        
+        public enum SelectionTypes {
+            case checked
+            case numbered
+        }
+        
+        /// The icon to display inside the selection oval
+        public lazy var selectionType: SelectionTypes = .checked
         
         public lazy var previewTitleAttributes : [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),

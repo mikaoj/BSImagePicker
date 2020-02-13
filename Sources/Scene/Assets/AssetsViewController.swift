@@ -46,6 +46,7 @@ class AssetsViewController: UIViewController {
     private var dataSource: AssetsCollectionViewDataSource? {
         didSet {
             dataSource?.settings = settings
+            dataSource?.selectionIndexDelegate = self
             collectionView.dataSource = dataSource
         }
     }
@@ -161,14 +162,22 @@ class AssetsViewController: UIViewController {
 extension AssetsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectionFeedback.selectionChanged()
+
         let asset = fetchResult.object(at: indexPath.row)
         delegate?.assetsViewController(self, didSelectAsset: asset)
+        
+        updateSelectionIndexForCell(at: indexPath)
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         selectionFeedback.selectionChanged()
+        
         let asset = fetchResult.object(at: indexPath.row)
         delegate?.assetsViewController(self, didDeselectAsset: asset)
+        
+        for indexPath in collectionView.indexPathsForSelectedItems ?? [] {
+            updateSelectionIndexForCell(at: indexPath)
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -220,6 +229,20 @@ extension AssetsViewController: PHPhotoLibraryChangeObserver {
                 let selections = self.delegate?.selectedAssets() ?? []
                 self.syncSelections(selections)
             }
+        }
+    }
+}
+
+extension AssetsViewController: SelectionIndexDelegate {
+    func selectionIndexForCell(at indexPath: IndexPath) -> Int? {
+        let asset = fetchResult.object(at: indexPath.row)
+        let selections = delegate?.selectedAssets() ?? []
+        return selections.firstIndex(of: asset)
+    }
+    
+    private func updateSelectionIndexForCell(at indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? AssetCollectionViewCell {
+            cell.selectionIndex = selectionIndexForCell(at: indexPath)
         }
     }
 }

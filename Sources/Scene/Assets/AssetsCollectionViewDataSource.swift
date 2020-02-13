@@ -23,11 +23,16 @@
 import UIKit
 import Photos
 
+protocol SelectionIndexDelegate: AnyObject {
+    func selectionIndexForCell(at indexPath: IndexPath) -> Int?
+}
+
 class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
     private static let assetCellIdentifier = "AssetCell"
     private static let videoCellIdentifier = "VideoCell"
     
     var settings: Settings!
+    weak var selectionIndexDelegate: SelectionIndexDelegate?
 
     private let fetchResult: PHFetchResult<PHAsset>
     private let imageManager = PHCachingImageManager.default()
@@ -73,6 +78,8 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
         cell.settings = settings
         
         loadImage(for: asset, in: cell)
+        
+        cell.selectionIndex = selectionIndexDelegate?.selectionIndexForCell(at: indexPath)
 
         cell.isAccessibilityElement = true
         cell.accessibilityTraits = UIAccessibilityTraits.button
