@@ -96,6 +96,7 @@ public class ImagePickerController: UINavigationController {
 
         let arrowView = ArrowView(frame: CGRect(x: 0, y: 0, width: 8, height: 8))
         arrowView.backgroundColor = .clear
+        arrowView.strokeColor = albumButton.tintColor
         let image = arrowView.asImage
 
         albumButton.setImage(image, for: .normal)
