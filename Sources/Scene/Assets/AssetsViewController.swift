@@ -107,13 +107,12 @@ class AssetsViewController: UIViewController {
         }
     }
 
-    func unselect(asset:PHAsset)
-	{
+    func unselect(asset:PHAsset) {
         let index = fetchResult.index(of: asset)
         guard index != NSNotFound else { return }
         let indexPath = IndexPath(item: index, section: 0)
         collectionView.deselectItem(at:indexPath, animated: true)
-		delegate?.assetsViewController(self, didDeselectAsset: asset)
+        delegate?.assetsViewController(self, didDeselectAsset: asset)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
