@@ -28,6 +28,7 @@ protocol AssetsViewControllerDelegate: class {
     func assetsViewController(_ assetsViewController: AssetsViewController, didDeselectAsset asset: PHAsset)
     func assetsViewController(_ assetsViewController: AssetsViewController, didLongPressCell cell: AssetCollectionViewCell, displayingAsset asset: PHAsset)
     func shouldSelect(in assetsViewController: AssetsViewController) -> Bool
+    func selectedAssets() -> [PHAsset]
 }
 
 class AssetsViewController: UIViewController {
@@ -91,15 +92,23 @@ class AssetsViewController: UIViewController {
             DispatchQueue.main.async { [weak self] in
                 self?.fetchResult = fetchResult
                 self?.collectionView.reloadData()
+                let selections = self?.delegate?.selectedAssets() ?? []
+                self?.syncSelections(selections)
+                self?.collectionView.setContentOffset(.zero, animated: false)
             }
         }
     }
 
-    func syncSelections(in assetStore: AssetStore) {
+    private func syncSelections(_ assets: [PHAsset]) {
         collectionView.allowsMultipleSelection = true
+
+        // Unselect all
+        for indexPath in collectionView.indexPathsForSelectedItems ?? [] {
+            collectionView.deselectItem(at: indexPath, animated: false)
+        }
         
         // Sync selections
-        for asset in assetStore.assets {
+        for asset in assets {
             let index = fetchResult.index(of: asset)
             guard index != NSNotFound else { continue }
             let indexPath = IndexPath(item: index, section: 0)
@@ -200,6 +209,8 @@ extension AssetsViewController: PHPhotoLibraryChangeObserver {
             } else {
                 self.fetchResult = changes.fetchResultAfterChanges
                 self.collectionView.reloadData()
+                let selections = self.delegate?.selectedAssets() ?? []
+                self.syncSelections(selections)
             }
         }
     }

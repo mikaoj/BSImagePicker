@@ -48,4 +48,8 @@ extension ImagePickerController: AssetsViewControllerDelegate {
     func shouldSelect(in assetsViewController: AssetsViewController) -> Bool {
         return assetStore.count < settings.selection.max
     }
+
+    func selectedAssets() -> [PHAsset] {
+        return assetStore.assets
+    }
 }
