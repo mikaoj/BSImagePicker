@@ -40,6 +40,21 @@ public class Settings {
         
         /// Shadow color for the circle
         public lazy var selectionShadowColor: UIColor = .black
+        
+        public lazy var previewTitleAttributes : [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
+            NSAttributedString.Key.foregroundColor: UIColor.black
+        ]
+        
+        public lazy var previewSubtitleAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+            NSAttributedString.Key.foregroundColor: UIColor.black
+        ]
+        
+        public lazy var albumTitleAttributes: [NSAttributedString.Key: Any] = [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
+            NSAttributedString.Key.foregroundColor: UIColor.black
+        ]
     }
 
     public class Selection {
@@ -48,6 +63,9 @@ public class Settings {
         
         /// Min number of selections you have to make
         public lazy var min: Int = 1
+        
+        /// If it reaches the max limit, unselect the first selection, and allow the new selection
+        public lazy var unselectOnReachingMax : Bool = false
     }
 
     public class List {

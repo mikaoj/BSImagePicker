@@ -75,19 +75,10 @@ final class AlbumsTableViewDataSource : NSObject, UITableViewDataSource {
         tableView.register(AlbumCell.self, forCellReuseIdentifier: AlbumCell.identifier)
     }
 
-    private let titleAttributes: [NSAttributedString.Key: Any] = [
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18),
-        NSAttributedString.Key.foregroundColor: UIColor.black
-    ]
-    private let subtitleAttributes: [NSAttributedString.Key: Any] = [
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
-        NSAttributedString.Key.foregroundColor: UIColor.gray
-    ]
-
     private func titleForAlbum(_ album: PHAssetCollection) -> NSAttributedString {
         let text = NSMutableAttributedString()
 
-        text.append(NSAttributedString(string: album.localizedTitle ?? "", attributes: titleAttributes))
+        text.append(NSAttributedString(string: album.localizedTitle ?? "", attributes: settings.theme.albumTitleAttributes))
 
         return text
     }

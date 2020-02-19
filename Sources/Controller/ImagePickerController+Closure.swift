@@ -65,6 +65,12 @@ extension UIViewController {
     }
 }
 
+extension ImagePickerController {
+    public static var currentAuthorization : PHAuthorizationStatus {
+        return PHPhotoLibrary.authorizationStatus()
+    }
+}
+
 /// ImagePickerControllerDelegate closure wrapper
 extension ImagePickerController: ImagePickerControllerDelegate {
     public func imagePicker(_ imagePicker: ImagePickerController, didSelectAsset asset: PHAsset) {

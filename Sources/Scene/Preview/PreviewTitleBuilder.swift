@@ -25,23 +25,14 @@ import Photos
 import CoreLocation
 
 class PreviewTitleBuilder {
-    // TODO: Move to settings/theme
-    private static let titleAttributes: [NSAttributedString.Key: Any] = [
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
-        NSAttributedString.Key.foregroundColor: UIColor.black
-    ]
-    private static let subtitleAttributes: [NSAttributedString.Key: Any] = [
-        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
-        NSAttributedString.Key.foregroundColor: UIColor.black
-    ]
     
-    static func titleFor(asset: PHAsset, completion: @escaping (NSAttributedString) -> Void) {
+    static func titleFor(asset: PHAsset,using theme:Settings.Theme, completion: @escaping (NSAttributedString) -> Void) {
         if let location = asset.location {
             let geocoder = CLGeocoder()
             geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
                 if let locality = placemarks?.first?.locality {
                     let mutableAttributedString = NSMutableAttributedString()
-                    mutableAttributedString.append(NSAttributedString(string: locality, attributes: titleAttributes))
+                    mutableAttributedString.append(NSAttributedString(string: locality, attributes: theme.previewTitleAttributes))
                     
                     if let created = asset.creationDate {
                         let formatter = DateFormatter()
@@ -49,30 +40,30 @@ class PreviewTitleBuilder {
                         formatter.timeStyle = .short
                         let dateString = "\n" + formatter.string(from: created)
                         
-                        mutableAttributedString.append(NSAttributedString(string: dateString, attributes: subtitleAttributes))
+                        mutableAttributedString.append(NSAttributedString(string: dateString, attributes: theme.previewSubtitleAttributes))
                     }
                     
                     completion(mutableAttributedString)
                 } else if let created = asset.creationDate {
-                    completion(titleFor(date: created))
+                    completion(titleFor(date: created, using: theme))
                 }
             }
         } else if let created = asset.creationDate {
-            completion(titleFor(date: created))
+            completion(titleFor(date: created, using: theme))
         }
     }
     
-    private static func titleFor(date: Date) -> NSAttributedString {
+    private static func titleFor(date: Date,using theme:Settings.Theme) -> NSAttributedString {
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .none
         dateFormatter.dateStyle = .long
         
         let text = NSMutableAttributedString()
         
-        text.append(NSAttributedString(string: dateFormatter.string(from: date), attributes: titleAttributes))
+        text.append(NSAttributedString(string: dateFormatter.string(from: date), attributes: theme.previewTitleAttributes))
         dateFormatter.timeStyle = .short
         dateFormatter.dateStyle = .none
-        text.append(NSAttributedString(string: "\n" + dateFormatter.string(from: date), attributes: subtitleAttributes))
+        text.append(NSAttributedString(string: "\n" + dateFormatter.string(from: date), attributes: theme.previewSubtitleAttributes))
         
         return text
     }
