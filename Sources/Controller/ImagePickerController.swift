@@ -52,6 +52,9 @@ public class ImagePickerController: UINavigationController {
         // I would like to do that with PHFetchOptions: fetchOptions.predicate = NSPredicate(format: "estimatedAssetCount > 0")
         // But that doesn't work...
         // This seems suuuuuper ineffective...
+        let fetchOptions = settings.fetch.assets.options.copy() as! PHFetchOptions
+        fetchOptions.fetchLimit = 1
+
         return settings.fetch.album.fetchResults.filter {
             $0.count > 0
         }.flatMap {
@@ -59,7 +62,7 @@ public class ImagePickerController: UINavigationController {
         }.filter {
             // We can't use estimatedAssetCount on the collection
             // It returns NSNotFound. So actually fetch the assets...
-            let assetsFetchResult = PHAsset.fetchAssets(in: $0, options: settings.fetch.assets.options)
+            let assetsFetchResult = PHAsset.fetchAssets(in: $0, options: fetchOptions)
             return assetsFetchResult.count > 0
         }
     }()

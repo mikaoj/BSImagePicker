@@ -92,20 +92,11 @@ class AssetsViewController: UIViewController {
     }
 
     func showAssets(in album: PHAssetCollection) {
-        let options = self.settings.fetch.assets.options
-        // Fetch many assets can take several seconds even on a fast device.
-        // So dispatch the fetching to a background queue so it doesn't hang the UI
-        DispatchQueue.global(qos: .userInteractive).async {
-            let fetchResult = PHAsset.fetchAssets(in: album, options: options)
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                self.fetchResult = fetchResult
-                self.collectionView.reloadData()
-                let selections = self.store.assets
-                self.syncSelections(selections)
-                self.collectionView.setContentOffset(.zero, animated: false)
-            }
-        }
+        fetchResult = PHAsset.fetchAssets(in: album, options: settings.fetch.assets.options)
+        collectionView.reloadData()
+        let selections = self.store.assets
+        syncSelections(selections)
+        collectionView.setContentOffset(.zero, animated: false)
     }
 
     private func syncSelections(_ assets: [PHAsset]) {
@@ -126,7 +117,6 @@ class AssetsViewController: UIViewController {
         }
     }
 
-    // TODO: Replace with sync ^^
     func unselect(asset: PHAsset) {
         let index = fetchResult.index(of: asset)
         guard index != NSNotFound else { return }
