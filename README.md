@@ -63,12 +63,12 @@ For more example you can clone this repo and look at the example app.
 Add the following line to your Podfile:
 
 ```
-pod "BSImagePicker", "~> 3.0"
+pod "BSImagePicker", "~> 3.1"
 ```
 ### Carthage
 Add the following line to your Cartfile:
 ```
-github "mikaoj/BSImagePicker" ~> 3.0
+github "mikaoj/BSImagePicker" ~> 3.1
 ```
 ### Swift Package Manager
 Add it to the dependencies value of your Package.swift.:
