@@ -35,11 +35,19 @@ public class Settings {
         /// What color to fill the circle with
         public lazy var selectionFillColor: UIColor = UIView().tintColor
         
-        /// Color for the actual checkmark
+        /// Color for the actual selection icon
         public lazy var selectionStrokeColor: UIColor = .white
         
         /// Shadow color for the circle
         public lazy var selectionShadowColor: UIColor = .black
+        
+        public enum SelectionStyle {
+            case checked
+            case numbered
+        }
+        
+        /// The icon to display inside the selection oval
+        public lazy var selectionStyle: SelectionStyle = .checked
         
         public lazy var previewTitleAttributes : [NSAttributedString.Key: Any] = [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
@@ -101,13 +109,14 @@ public class Settings {
             }()
 
             /// Fetch results for asset collections you want to present to the user
+            /// Some other fetch results that you might wanna use:
+            ///                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: options),
+            ///                PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: options),
+            ///                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumSelfPortraits, options: options),
+            ///                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumPanoramas, options: options),
+            ///                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumVideos, options: options),
             public lazy var fetchResults: [PHFetchResult<PHAssetCollection>] = [
                 PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: options),
-                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: options),
-                PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: options),
-                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumSelfPortraits, options: options),
-                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumPanoramas, options: options),
-                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumVideos, options: options),
             ]
         }
 

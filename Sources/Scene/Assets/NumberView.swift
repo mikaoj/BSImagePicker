@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2015 Joakim Gyllström
+// Copyright (c) 2020 Joakim Gyllström
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -22,21 +22,29 @@
 
 import UIKit
 
-class CheckmarkView: UIView {
+class NumberView: UILabel {
+    
+    override var tintColor: UIColor! {
+        didSet {
+            textColor = tintColor
+        }
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     init() {
         super.init(frame: .zero)
+
+        font = UIFont.boldSystemFont(ofSize: 12)
+        numberOfLines = 1
+        adjustsFontSizeToFitWidth = true
+        baselineAdjustment = .alignCenters
+        textAlignment = .center
     }
     
     override func draw(_ rect: CGRect) {
-        let path = UIBezierPath()
-        path.move(to: CGPoint(x: 7, y: 12.5))
-        path.addLine(to: CGPoint(x: 11, y: 16))
-        path.addLine(to: CGPoint(x: 17.5, y: 9.5))
-        
-        path.stroke()
+        super.drawText(in: rect)
     }
 }

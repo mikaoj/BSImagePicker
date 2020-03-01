@@ -27,8 +27,6 @@ protocol AssetsViewControllerDelegate: class {
     func assetsViewController(_ assetsViewController: AssetsViewController, didSelectAsset asset: PHAsset)
     func assetsViewController(_ assetsViewController: AssetsViewController, didDeselectAsset asset: PHAsset)
     func assetsViewController(_ assetsViewController: AssetsViewController, didLongPressCell cell: AssetCollectionViewCell, displayingAsset asset: PHAsset)
-    func shouldSelect(in assetsViewController: AssetsViewController) -> Bool
-    func selectedAssets() -> [PHAsset]
 }
 
 class AssetsViewController: UIViewController {
@@ -37,10 +35,11 @@ class AssetsViewController: UIViewController {
         didSet { dataSource?.settings = settings }
     }
 
+    private let store: AssetStore
     private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private var fetchResult: PHFetchResult<PHAsset> = PHFetchResult<PHAsset>() {
         didSet {
-            dataSource = AssetsCollectionViewDataSource(fetchResult: fetchResult)
+            dataSource = AssetsCollectionViewDataSource(fetchResult: fetchResult, store: store)
         }
     }
     private var dataSource: AssetsCollectionViewDataSource? {
@@ -49,8 +48,17 @@ class AssetsViewController: UIViewController {
             collectionView.dataSource = dataSource
         }
     }
-    
+
     private let selectionFeedback = UISelectionFeedbackGenerator()
+
+    init(store: AssetStore) {
+        self.store = store
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     deinit {
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
@@ -90,11 +98,12 @@ class AssetsViewController: UIViewController {
         DispatchQueue.global(qos: .userInteractive).async {
             let fetchResult = PHAsset.fetchAssets(in: album, options: options)
             DispatchQueue.main.async { [weak self] in
-                self?.fetchResult = fetchResult
-                self?.collectionView.reloadData()
-                let selections = self?.delegate?.selectedAssets() ?? []
-                self?.syncSelections(selections)
-                self?.collectionView.setContentOffset(.zero, animated: false)
+                guard let self = self else { return }
+                self.fetchResult = fetchResult
+                self.collectionView.reloadData()
+                let selections = self.store.assets
+                self.syncSelections(selections)
+                self.collectionView.setContentOffset(.zero, animated: false)
             }
         }
     }
@@ -112,16 +121,21 @@ class AssetsViewController: UIViewController {
             let index = fetchResult.index(of: asset)
             guard index != NSNotFound else { continue }
             let indexPath = IndexPath(item: index, section: 0)
-            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: .top)
+            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
+            updateSelectionIndexForCell(at: indexPath)
         }
     }
 
-    func unselect(asset:PHAsset) {
+    // TODO: Replace with sync ^^
+    func unselect(asset: PHAsset) {
         let index = fetchResult.index(of: asset)
         guard index != NSNotFound else { return }
         let indexPath = IndexPath(item: index, section: 0)
-        collectionView.deselectItem(at:indexPath, animated: true)
-        delegate?.assetsViewController(self, didDeselectAsset: asset)
+        collectionView.deselectItem(at:indexPath, animated: false)
+
+        for indexPath in collectionView.indexPathsForSelectedItems ?? [] {
+            updateSelectionIndexForCell(at: indexPath)
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -156,31 +170,43 @@ class AssetsViewController: UIViewController {
         collectionViewFlowLayout.minimumInteritemSpacing = itemSpacing
         collectionViewFlowLayout.itemSize = itemSize
     }
+
+    private func updateSelectionIndexForCell(at indexPath: IndexPath) {
+        guard settings.theme.selectionStyle == .numbered else { return }
+        guard let cell = collectionView.cellForItem(at: indexPath) as? AssetCollectionViewCell else { return }
+        let asset = fetchResult.object(at: indexPath.row)
+        cell.selectionIndex = store.index(of: asset)
+    }
 }
 
 extension AssetsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectionFeedback.selectionChanged()
+
         let asset = fetchResult.object(at: indexPath.row)
+        store.append(asset)
         delegate?.assetsViewController(self, didSelectAsset: asset)
+
+        updateSelectionIndexForCell(at: indexPath)
     }
 
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         selectionFeedback.selectionChanged()
+        
         let asset = fetchResult.object(at: indexPath.row)
+        store.remove(asset)
         delegate?.assetsViewController(self, didDeselectAsset: asset)
+        
+        for indexPath in collectionView.indexPathsForSelectedItems ?? [] {
+            updateSelectionIndexForCell(at: indexPath)
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        guard let delegate = delegate else { return true }
-        
-        if delegate.shouldSelect(in: self) {
-            selectionFeedback.prepare()
-            
-            return true
-        } else {
-            return false
-        }
+        guard store.count < settings.selection.max || settings.selection.unselectOnReachingMax else { return false }
+        selectionFeedback.prepare()
+
+        return true
     }
 }
 
@@ -217,9 +243,10 @@ extension AssetsViewController: PHPhotoLibraryChangeObserver {
             } else {
                 self.fetchResult = changes.fetchResultAfterChanges
                 self.collectionView.reloadData()
-                let selections = self.delegate?.selectedAssets() ?? []
-                self.syncSelections(selections)
             }
+
+            // No matter if we have incremental changes or not, sync the selections
+            self.syncSelections(self.store.assets)
         }
     }
 }
