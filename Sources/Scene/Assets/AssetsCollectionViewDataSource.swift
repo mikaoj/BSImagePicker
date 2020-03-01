@@ -23,26 +23,23 @@
 import UIKit
 import Photos
 
-protocol SelectionIndexDelegate: AnyObject {
-    func selectionIndexForCell(at indexPath: IndexPath) -> Int?
-}
-
 class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
     private static let assetCellIdentifier = "AssetCell"
     private static let videoCellIdentifier = "VideoCell"
     
     var settings: Settings!
-    weak var selectionIndexDelegate: SelectionIndexDelegate?
 
     private let fetchResult: PHFetchResult<PHAsset>
     private let imageManager = PHCachingImageManager.default()
     private let durationFormatter = DateComponentsFormatter()
+    private let store: AssetStore
 
     private let scale: CGFloat
     private var targetSize: CGSize = .zero
     
-    init(fetchResult: PHFetchResult<PHAsset>, scale: CGFloat = UIScreen.main.scale) {
+    init(fetchResult: PHFetchResult<PHAsset>, store: AssetStore, scale: CGFloat = UIScreen.main.scale) {
         self.fetchResult = fetchResult
+        self.store = store
         self.scale = scale
         durationFormatter.unitsStyle = .positional
         durationFormatter.zeroFormattingBehavior = [.pad]
@@ -73,16 +70,14 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
         }
         UIView.setAnimationsEnabled(animationsWasEnabled)
 
-        cell.accessibilityIdentifier = "photo_cell_\(indexPath.item)"
+        cell.accessibilityIdentifier = "Photo \(indexPath.item + 1)"
+        cell.accessibilityTraits = UIAccessibilityTraits.button
         cell.isAccessibilityElement = true
         cell.settings = settings
         
         loadImage(for: asset, in: cell)
         
-        cell.selectionIndex = selectionIndexDelegate?.selectionIndexForCell(at: indexPath)
-
-        cell.isAccessibilityElement = true
-        cell.accessibilityTraits = UIAccessibilityTraits.button
+        cell.selectionIndex = store.index(of: asset)
         
         return cell
     }

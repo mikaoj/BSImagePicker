@@ -51,4 +51,8 @@ public class AssetStore {
     func removeFirst() -> PHAsset? {
         return assets.removeFirst()
     }
+
+    func index(of asset: PHAsset) -> Int? {
+        return assets.firstIndex(of: asset)
+    }
 }

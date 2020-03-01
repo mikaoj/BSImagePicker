@@ -49,12 +49,4 @@ extension ImagePickerController: AssetsViewControllerDelegate {
         
         pushViewController(previewViewController, animated: true)
     }
-
-    func shouldSelect(in assetsViewController: AssetsViewController) -> Bool {
-        return assetStore.count < settings.selection.max || settings.selection.unselectOnReachingMax
-    }
-
-    func selectedAssets() -> [PHAsset] {
-        return assetStore.assets
-    }
 }

@@ -42,7 +42,7 @@ public class ImagePickerController: UINavigationController {
     var onCancel: ((_ assets: [PHAsset]) -> Void)?
     var onFinish: ((_ assets: [PHAsset]) -> Void)?
     
-    let assetsViewController = AssetsViewController()
+    let assetsViewController: AssetsViewController
     let albumsViewController = AlbumsViewController()
     let dropdownTransitionDelegate = DropdownTransitionDelegate()
     let zoomTransitionDelegate = ZoomTransitionDelegate()
@@ -63,6 +63,15 @@ public class ImagePickerController: UINavigationController {
             return assetsFetchResult.count > 0
         }
     }()
+
+    public init() {
+        assetsViewController = AssetsViewController(store: assetStore)
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     public override func viewDidLoad() {
         super.viewDidLoad()

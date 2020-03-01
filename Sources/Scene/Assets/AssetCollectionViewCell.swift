@@ -103,6 +103,7 @@ class AssetCollectionViewCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         imageView.image = nil
+        selectionIndex = nil
     }
     
     func updateAccessibilityLabel(_ selected: Bool) {

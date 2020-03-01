@@ -29,7 +29,9 @@ class ViewController: UIViewController {
     @IBAction func showImagePicker(_ sender: UIButton) {
         let imagePicker = ImagePickerController()
         imagePicker.settings.selection.max = 5
+        imagePicker.settings.theme.selectionType = .numbered
         imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
+        imagePicker.settings.selection.unselectOnReachingMax = true
 
         let start = Date()
         self.presentImagePicker(imagePicker, select: { (asset) in
