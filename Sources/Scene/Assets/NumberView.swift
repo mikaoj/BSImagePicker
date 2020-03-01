@@ -36,8 +36,8 @@ class NumberView: UILabel {
     
     init() {
         super.init(frame: .zero)
-                
-        font = UIFont.preferredFont(forTextStyle: .body)
+
+        font = UIFont.boldSystemFont(ofSize: 12)
         numberOfLines = 1
         adjustsFontSizeToFitWidth = true
         baselineAdjustment = .alignCenters
