@@ -38,7 +38,7 @@ class SelectionView: UIView {
     }
     
     private lazy var icon: UIView = {
-        switch settings.theme.selectionType {
+        switch settings.theme.selectionStyle {
         case .checked:
             return CheckmarkView()
         case .numbered:

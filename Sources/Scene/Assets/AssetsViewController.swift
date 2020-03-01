@@ -101,7 +101,6 @@ class AssetsViewController: UIViewController {
                 guard let self = self else { return }
                 self.fetchResult = fetchResult
                 self.collectionView.reloadData()
-                print("Reload show assets")
                 let selections = self.store.assets
                 self.syncSelections(selections)
                 self.collectionView.setContentOffset(.zero, animated: false)
@@ -110,10 +109,7 @@ class AssetsViewController: UIViewController {
     }
 
     private func syncSelections(_ assets: [PHAsset]) {
-        NSLog("SYNC SELECTIONS!")
         collectionView.allowsMultipleSelection = true
-
-        print("Selected before: \(collectionView.indexPathsForSelectedItems!)")
 
         // Unselect all
         for indexPath in collectionView.indexPathsForSelectedItems ?? [] {
@@ -128,17 +124,18 @@ class AssetsViewController: UIViewController {
             collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
             updateSelectionIndexForCell(at: indexPath)
         }
-
-        print("Selected after: \(collectionView.indexPathsForSelectedItems!)")
     }
 
     // TODO: Replace with sync ^^
-    func unselect(asset:PHAsset) {
+    func unselect(asset: PHAsset) {
         let index = fetchResult.index(of: asset)
         guard index != NSNotFound else { return }
         let indexPath = IndexPath(item: index, section: 0)
-        collectionView.deselectItem(at:indexPath, animated: true)
-        delegate?.assetsViewController(self, didDeselectAsset: asset)
+        collectionView.deselectItem(at:indexPath, animated: false)
+
+        for indexPath in collectionView.indexPathsForSelectedItems ?? [] {
+            updateSelectionIndexForCell(at: indexPath)
+        }
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -175,7 +172,7 @@ class AssetsViewController: UIViewController {
     }
 
     private func updateSelectionIndexForCell(at indexPath: IndexPath) {
-        guard settings.theme.selectionType == .numbered else { return }
+        guard settings.theme.selectionStyle == .numbered else { return }
         guard let cell = collectionView.cellForItem(at: indexPath) as? AssetCollectionViewCell else { return }
         let asset = fetchResult.object(at: indexPath.row)
         cell.selectionIndex = store.index(of: asset)
