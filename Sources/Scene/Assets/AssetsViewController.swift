@@ -34,8 +34,8 @@ class AssetsViewController: UIViewController {
     var settings: Settings! {
         didSet { dataSource?.settings = settings }
     }
-
-    private let store: AssetStore
+    
+    var store: AssetStore!
     private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private var fetchResult: PHFetchResult<PHAsset> = PHFetchResult<PHAsset>() {
         didSet {
@@ -48,49 +48,49 @@ class AssetsViewController: UIViewController {
             collectionView.dataSource = dataSource
         }
     }
-
+    
     private let selectionFeedback = UISelectionFeedbackGenerator()
-
+    
     init(store: AssetStore) {
         self.store = store
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     deinit {
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         PHPhotoLibrary.shared().register(self)
-
+        
         view = collectionView
-
+        
         // Set an empty title to get < back button
         title = " "
-
+        
         collectionView.allowsMultipleSelection = true
         collectionView.bounces = true
         collectionView.alwaysBounceVertical = true
         collectionView.backgroundColor = settings.theme.backgroundColor
         collectionView.delegate = self
         AssetsCollectionViewDataSource.registerCellIdentifiersForCollectionView(collectionView)
-
+        
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(AssetsViewController.collectionViewLongPressed(_:)))
         longPressRecognizer.minimumPressDuration = 0.5
         collectionView.addGestureRecognizer(longPressRecognizer)
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateCollectionViewLayout(for: traitCollection)
     }
-
+    
     func showAssets(in album: PHAssetCollection) {
         fetchResult = PHAsset.fetchAssets(in: album, options: settings.fetch.assets.options)
         collectionView.reloadData()
@@ -98,10 +98,10 @@ class AssetsViewController: UIViewController {
         syncSelections(selections)
         collectionView.setContentOffset(.zero, animated: false)
     }
-
+    
     private func syncSelections(_ assets: [PHAsset]) {
         collectionView.allowsMultipleSelection = true
-
+        
         // Unselect all
         for indexPath in collectionView.indexPathsForSelectedItems ?? [] {
             collectionView.deselectItem(at: indexPath, animated: false)
@@ -116,13 +116,13 @@ class AssetsViewController: UIViewController {
             updateSelectionIndexForCell(at: indexPath)
         }
     }
-
+    
     func unselect(asset: PHAsset) {
         let index = fetchResult.index(of: asset)
         guard index != NSNotFound else { return }
         let indexPath = IndexPath(item: index, section: 0)
         collectionView.deselectItem(at:indexPath, animated: false)
-
+        
         for indexPath in collectionView.indexPathsForSelectedItems ?? [] {
             updateSelectionIndexForCell(at: indexPath)
         }
@@ -132,35 +132,35 @@ class AssetsViewController: UIViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         updateCollectionViewLayout(for: traitCollection)
     }
-
+    
     @objc func collectionViewLongPressed(_ sender: UILongPressGestureRecognizer) {
         guard settings.preview.enabled else { return }
         guard sender.state == .began else { return }
-
+        
         selectionFeedback.selectionChanged()
-
+        
         // Calculate which index path long press came from
         let location = sender.location(in: collectionView)
         guard let indexPath = collectionView.indexPathForItem(at: location) else { return }
         guard let cell = collectionView.cellForItem(at: indexPath) as? AssetCollectionViewCell else { return }
         let asset = fetchResult.object(at: indexPath.row)
-
+        
         delegate?.assetsViewController(self, didLongPressCell: cell, displayingAsset: asset)
     }
-
+    
     private func updateCollectionViewLayout(for traitCollection: UITraitCollection) {
         guard let collectionViewFlowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else  { return }
-
+        
         let itemSpacing = settings.list.spacing
         let itemsPerRow = settings.list.cellsPerRow(traitCollection.verticalSizeClass, traitCollection.horizontalSizeClass)
         let itemWidth = (collectionView.bounds.width - CGFloat(itemsPerRow - 1) * itemSpacing) / CGFloat(itemsPerRow)
         let itemSize = CGSize(width: itemWidth, height: itemWidth)
-
+        
         collectionViewFlowLayout.minimumLineSpacing = itemSpacing
         collectionViewFlowLayout.minimumInteritemSpacing = itemSpacing
         collectionViewFlowLayout.itemSize = itemSize
     }
-
+    
     private func updateSelectionIndexForCell(at indexPath: IndexPath) {
         guard settings.theme.selectionStyle == .numbered else { return }
         guard let cell = collectionView.cellForItem(at: indexPath) as? AssetCollectionViewCell else { return }
@@ -172,14 +172,14 @@ class AssetsViewController: UIViewController {
 extension AssetsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectionFeedback.selectionChanged()
-
+        
         let asset = fetchResult.object(at: indexPath.row)
         store.append(asset)
         delegate?.assetsViewController(self, didSelectAsset: asset)
-
+        
         updateSelectionIndexForCell(at: indexPath)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         selectionFeedback.selectionChanged()
         
@@ -191,11 +191,11 @@ extension AssetsViewController: UICollectionViewDelegate {
             updateSelectionIndexForCell(at: indexPath)
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         guard store.count < settings.selection.max || settings.selection.unselectOnReachingMax else { return false }
         selectionFeedback.prepare()
-
+        
         return true
     }
 }
@@ -208,7 +208,7 @@ extension AssetsViewController: PHPhotoLibraryChangeObserver {
             if changes.hasIncrementalChanges {
                 self.collectionView.performBatchUpdates({
                     self.fetchResult = changes.fetchResultAfterChanges
-
+                    
                     // For indexes to make sense, updates must be in this order:
                     // delete, insert, reload, move
                     if let removed = changes.removedIndexes, removed.count > 0 {
@@ -234,7 +234,7 @@ extension AssetsViewController: PHPhotoLibraryChangeObserver {
                 self.fetchResult = changes.fetchResultAfterChanges
                 self.collectionView.reloadData()
             }
-
+            
             // No matter if we have incremental changes or not, sync the selections
             self.syncSelections(self.store.assets)
         }

@@ -34,8 +34,12 @@ public class ImagePickerController: UINavigationController {
     public var doneButton: UIBarButtonItem = UIBarButtonItem(title: localizedDone, style: .done, target: nil, action: nil)
     public var cancelButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
     public var albumButton: UIButton = UIButton(type: .custom)
-    public var assetStore: AssetStore = AssetStore(assets: [])
-
+    public var assetStore: AssetStore = AssetStore(assets: []){
+        didSet{
+            assetsViewController.store = assetStore
+        }
+    }
+    
     // MARK: Internal properties
     var onSelection: ((_ asset: PHAsset) -> Void)?
     var onDeselection: ((_ asset: PHAsset) -> Void)?
@@ -46,7 +50,7 @@ public class ImagePickerController: UINavigationController {
     let albumsViewController = AlbumsViewController()
     let dropdownTransitionDelegate = DropdownTransitionDelegate()
     let zoomTransitionDelegate = ZoomTransitionDelegate()
-
+    
     lazy var albums: [PHAssetCollection] = {
         // We don't want collections without assets.
         // I would like to do that with PHFetchOptions: fetchOptions.predicate = NSPredicate(format: "estimatedAssetCount > 0")
@@ -54,7 +58,7 @@ public class ImagePickerController: UINavigationController {
         // This seems suuuuuper ineffective...
         let fetchOptions = settings.fetch.assets.options.copy() as! PHFetchOptions
         fetchOptions.fetchLimit = 1
-
+        
         return settings.fetch.album.fetchResults.filter {
             $0.count > 0
         }.flatMap {
@@ -66,19 +70,19 @@ public class ImagePickerController: UINavigationController {
             return assetsFetchResult.count > 0
         }
     }()
-
+    
     public init() {
         assetsViewController = AssetsViewController(store: assetStore)
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if #available(iOS 13.0, *) {
             // Disables iOS 13 swipe to dismiss - to force user to press cancel or done.
             isModalInPresentation = true
@@ -95,7 +99,7 @@ public class ImagePickerController: UINavigationController {
         viewControllers = [assetsViewController]
         view.backgroundColor = settings.theme.backgroundColor
         delegate = zoomTransitionDelegate
-
+        
         // Turn off translucency so drop down can match its color
         navigationBar.isTranslucent = false
         navigationBar.isOpaque = true
@@ -105,44 +109,44 @@ public class ImagePickerController: UINavigationController {
         albumButton.setTitleColor(albumButton.tintColor, for: .normal)
         albumButton.titleLabel?.font = .systemFont(ofSize: 16)
         albumButton.titleLabel?.adjustsFontSizeToFitWidth = true
-
+        
         let arrowView = ArrowView(frame: CGRect(x: 0, y: 0, width: 8, height: 8))
         arrowView.backgroundColor = .clear
         arrowView.strokeColor = albumButton.tintColor
         let image = arrowView.asImage
-
+        
         albumButton.setImage(image, for: .normal)
         albumButton.semanticContentAttribute = .forceRightToLeft // To set image to the right without having to calculate insets/constraints.
         albumButton.addTarget(self, action: #selector(ImagePickerController.albumsButtonPressed(_:)), for: .touchUpInside)
         firstViewController?.navigationItem.titleView = albumButton
-
+        
         doneButton.target = self
         doneButton.action = #selector(doneButtonPressed(_:))
         firstViewController?.navigationItem.rightBarButtonItem = doneButton
-
+        
         cancelButton.target = self
         cancelButton.action = #selector(cancelButtonPressed(_:))
         firstViewController?.navigationItem.leftBarButtonItem = cancelButton
         
         updatedDoneButton()
         updateAlbumButton()
-
+        
         // We need to have some color to be able to match with the drop down
         if navigationBar.barTintColor == nil {
             navigationBar.barTintColor = .white
         }
-
+        
         if let firstAlbum = albums.first {
             select(album: firstAlbum)
         }
     }
-
+    
     func updatedDoneButton() {
         doneButton.title = assetStore.count > 0 ? localizedDone + " (\(assetStore.count))" : localizedDone
-      
+        
         doneButton.isEnabled = assetStore.count >= settings.selection.min
     }
-
+    
     func updateAlbumButton() {
         albumButton.isHidden = albums.count < 2
     }
