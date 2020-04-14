@@ -24,7 +24,7 @@ import UIKit
 import Photos
 
 /// Settings for BSImagePicker
-public class Settings {
+@objcMembers public class Settings : NSObject {
     public static let shared = Settings()
 
     // Move all theme related stuff to UIAppearance

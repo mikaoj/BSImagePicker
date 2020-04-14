@@ -23,7 +23,7 @@
 import Foundation
 import Photos
 
-public class AssetStore {
+@objcMembers public class AssetStore : NSObject {
     public private(set) var assets: [PHAsset]
 
     public init(assets: [PHAsset] = []) {
