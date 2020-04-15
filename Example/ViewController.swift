@@ -98,9 +98,8 @@ class ViewController: UIViewController {
             }
         })
 
-        let imagePicker = ImagePickerController()
+        let imagePicker = ImagePickerController(selectedAssets: evenAssets)
         imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
-        imagePicker.assetStore = AssetStore(assets: evenAssets)
 
         self.presentImagePicker(imagePicker, select: { (asset) in
             print("Selected: \(asset)")
