@@ -28,7 +28,7 @@ import Photos
     public static let shared = Settings()
 
     // Move all theme related stuff to UIAppearance
-    public class Theme {
+    public class Theme : NSObject {
         /// Main background color
         public lazy var backgroundColor: UIColor = .white
         
@@ -65,7 +65,7 @@ import Photos
         ]
     }
 
-    public class Selection {
+    public class Selection : NSObject {
         /// Max number of selections allowed
         public lazy var max: Int = Int.max
         
@@ -76,7 +76,7 @@ import Photos
         public lazy var unselectOnReachingMax : Bool = false
     }
 
-    public class List {
+    public class List : NSObject {
         /// How much spacing between cells
         public lazy var spacing: CGFloat = 2
         
@@ -95,12 +95,12 @@ import Photos
         }
     }
 
-    public class Preview {
+    public class Preview : NSObject {
         /// Is preview enabled?
         public lazy var enabled: Bool = true
     }
 
-    public class Fetch {
+    public class Fetch : NSObject {
         public class Album {
             /// Fetch options for albums/collections
             public lazy var options: PHFetchOptions = {
@@ -120,7 +120,7 @@ import Photos
             ]
         }
 
-        public class Assets {
+        public class Assets : NSObject {
             /// Fetch options for assets
 
             /// Simple wrapper around PHAssetMediaType to ensure we only expose the supported types.
@@ -153,7 +153,7 @@ import Photos
             }()
         }
 
-        public class Preview {
+        public class Preview : NSObject {
             public lazy var photoOptions: PHImageRequestOptions = {
                 let options = PHImageRequestOptions()
                 options.isNetworkAccessAllowed = true
@@ -184,7 +184,7 @@ import Photos
         public lazy var preview = Preview()
     }
     
-    public class Dismiss {
+    public class Dismiss : NSObject {
         /// Should the image picker dismiss when done/cancelled
         public lazy var enabled = true
     }
