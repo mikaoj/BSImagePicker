@@ -28,8 +28,8 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
     private static let videoCellIdentifier = "VideoCell"
     
     var settings: Settings!
+    var fetchResult: PHFetchResult<PHAsset>
 
-    private let fetchResult: PHFetchResult<PHAsset>
     private let imageManager = PHCachingImageManager.default()
     private let durationFormatter = DateComponentsFormatter()
     private let store: AssetStore

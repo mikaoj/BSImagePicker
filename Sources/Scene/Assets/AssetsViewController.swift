@@ -32,27 +32,23 @@ protocol AssetsViewControllerDelegate: class {
 class AssetsViewController: UIViewController {
     weak var delegate: AssetsViewControllerDelegate?
     var settings: Settings! {
-        didSet { dataSource?.settings = settings }
+        didSet { dataSource.settings = settings }
     }
 
     private let store: AssetStore
     private let collectionView: UICollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private var fetchResult: PHFetchResult<PHAsset> = PHFetchResult<PHAsset>() {
         didSet {
-            dataSource = AssetsCollectionViewDataSource(fetchResult: fetchResult, store: store)
+            dataSource.fetchResult = fetchResult
         }
     }
-    private var dataSource: AssetsCollectionViewDataSource? {
-        didSet {
-            dataSource?.settings = settings
-            collectionView.dataSource = dataSource
-        }
-    }
+    private let dataSource: AssetsCollectionViewDataSource
 
     private let selectionFeedback = UISelectionFeedbackGenerator()
 
     init(store: AssetStore) {
         self.store = store
+        dataSource = AssetsCollectionViewDataSource(fetchResult: fetchResult, store: store)
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -79,6 +75,7 @@ class AssetsViewController: UIViewController {
         collectionView.alwaysBounceVertical = true
         collectionView.backgroundColor = settings.theme.backgroundColor
         collectionView.delegate = self
+        collectionView.dataSource = dataSource
         AssetsCollectionViewDataSource.registerCellIdentifiersForCollectionView(collectionView)
 
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(AssetsViewController.collectionViewLongPressed(_:)))
