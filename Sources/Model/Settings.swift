@@ -101,7 +101,7 @@ import Photos
     }
 
     public class Fetch : NSObject {
-        public class Album {
+        public class Album : NSObject {
             /// Fetch options for albums/collections
             public lazy var options: PHFetchOptions = {
                 let fetchOptions = PHFetchOptions()
