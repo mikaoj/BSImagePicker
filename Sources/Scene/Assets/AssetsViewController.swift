@@ -81,6 +81,8 @@ class AssetsViewController: UIViewController {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(AssetsViewController.collectionViewLongPressed(_:)))
         longPressRecognizer.minimumPressDuration = 0.5
         collectionView.addGestureRecognizer(longPressRecognizer)
+
+        syncSelections(store.assets)
     }
 
     override func viewWillAppear(_ animated: Bool) {
