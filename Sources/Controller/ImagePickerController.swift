@@ -23,15 +23,12 @@
 import UIKit
 import Photos
 
-
-fileprivate let localizedDone = Bundle(identifier: "com.apple.UIKit")?.localizedString(forKey: "Done", value: "Done", table: "") ?? "Done"
-
 // MARK: ImagePickerController
 @objcMembers open class ImagePickerController: UINavigationController {
     // MARK: Public properties
     public weak var imagePickerDelegate: ImagePickerControllerDelegate?
     public var settings: Settings = Settings()
-    public var doneButton: UIBarButtonItem = UIBarButtonItem(title: localizedDone, style: .done, target: nil, action: nil)
+    public var doneButton: UIBarButtonItem = UIBarButtonItem(title: "", style: .done, target: nil, action: nil)
     public var cancelButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
     public var albumButton: UIButton = UIButton(type: .custom)
     public var selectedAssets: [PHAsset] {
@@ -39,6 +36,12 @@ fileprivate let localizedDone = Bundle(identifier: "com.apple.UIKit")?.localized
             return assetStore.assets
         }
     }
+
+    // Note this trick to get the apple localization no longer works.
+    // Figure out why. Until then, expose the variable for users to set to whatever they want it localized to
+    // TODO: Fix this ^^
+    /// Title to use for button
+    public var doneButtonTitle = Bundle(identifier: "com.apple.UIKit")?.localizedString(forKey: "Done", value: "Done", table: "") ?? "Done"
 
     // MARK: Internal properties
     var assetStore: AssetStore
@@ -144,7 +147,7 @@ fileprivate let localizedDone = Bundle(identifier: "com.apple.UIKit")?.localized
     }
 
     func updatedDoneButton() {
-        doneButton.title = assetStore.count > 0 ? localizedDone + " (\(assetStore.count))" : localizedDone
+        doneButton.title = assetStore.count > 0 ? doneButtonTitle + " (\(assetStore.count))" : doneButtonTitle
       
         doneButton.isEnabled = assetStore.count >= settings.selection.min
     }
