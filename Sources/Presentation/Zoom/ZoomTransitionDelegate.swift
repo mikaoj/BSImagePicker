@@ -55,14 +55,11 @@ class ZoomTransitionDelegate: NSObject, UIViewControllerTransitioningDelegate {
 
 extension ZoomTransitionDelegate: UINavigationControllerDelegate {
     public func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        switch operation {
-        case .none:
-            return nil
-        case .push:
+        if operation == .push, toVC is PreviewViewController {
             return expandAnimator
-        case .pop:
+        } else if operation == .pop, fromVC is PreviewViewController {
             return shrinkAnimator
-        @unknown default:
+        } else {
             return nil
         }
     }
