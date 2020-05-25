@@ -62,7 +62,7 @@ class ArrowView: UIView {
     }
 
     var resizing: ResizingBehavior = .aspectFit
-    var strokeColor: UIColor = .black
+    var strokeColor: UIColor = .systemStrokeColor
 
     override var intrinsicContentSize: CGSize {
         return CGSize(width: 8, height: 8)

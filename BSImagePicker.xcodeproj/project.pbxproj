@@ -49,6 +49,7 @@
 		55CDB45F22347D640050D572 /* ZoomInteractionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55CDB45E22347D640050D572 /* ZoomInteractionController.swift */; };
 		55F67B77222EEB2500805134 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F67B76222EEB2500805134 /* VideoCollectionViewCell.swift */; };
 		55F67B7B222F088500805134 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55F67B7A222F088500805134 /* GradientView.swift */; };
+		94DA6870247BDE5900CD5251 /* UIColor+BSImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DA686F247BDE5900CD5251 /* UIColor+BSImagePicker.swift */; };
 		C2DC13CA23F75BDB0035FD13 /* NumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DC13C923F75BDA0035FD13 /* NumberView.swift */; };
 		C2DC13CC23F75BE40035FD13 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DC13CB23F75BE40035FD13 /* SelectionView.swift */; };
 /* End PBXBuildFile section */
@@ -126,6 +127,7 @@
 		55DAB07F23145A8A00982A5B /* .travis.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = .travis.yml; sourceTree = "<group>"; };
 		55F67B76222EEB2500805134 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		55F67B7A222F088500805134 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		94DA686F247BDE5900CD5251 /* UIColor+BSImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+BSImagePicker.swift"; sourceTree = "<group>"; };
 		C2DC13C923F75BDA0035FD13 /* NumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberView.swift; sourceTree = "<group>"; };
 		C2DC13CB23F75BE40035FD13 /* SelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -178,6 +180,7 @@
 				559DB81C21E78E4700CD58B4 /* Scene */,
 				550A315521D5298400AAF718 /* Info.plist */,
 				550A315421D5298400AAF718 /* BSImagePicker.h */,
+				94DA6871247BDE6400CD5251 /* Extension */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -327,6 +330,14 @@
 			path = Dropdown;
 			sourceTree = "<group>";
 		};
+		94DA6871247BDE6400CD5251 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				94DA686F247BDE5900CD5251 /* UIColor+BSImagePicker.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -454,6 +465,7 @@
 				5540480A232EB21D00BC846F /* CameraPreviewView.swift in Sources */,
 				5554729821E4E01700B90CA5 /* AssetStore.swift in Sources */,
 				559DB82121E7902400CD58B4 /* CameraViewController.swift in Sources */,
+				94DA6870247BDE5900CD5251 /* UIColor+BSImagePicker.swift in Sources */,
 				5554729D21E5248400B90CA5 /* ImagePickerController.swift in Sources */,
 				55C5B800222BD445003CF3F1 /* DropdownTransitionDelegate.swift in Sources */,
 				55BCF8D321D52C1000386752 /* AssetsCollectionViewDataSource.swift in Sources */,

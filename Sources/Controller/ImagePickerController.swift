@@ -138,7 +138,7 @@ import Photos
 
         // We need to have some color to be able to match with the drop down
         if navigationBar.barTintColor == nil {
-            navigationBar.barTintColor = .white
+            navigationBar.barTintColor = .systemBackgroundColor
         }
 
         if let firstAlbum = albums.first {
