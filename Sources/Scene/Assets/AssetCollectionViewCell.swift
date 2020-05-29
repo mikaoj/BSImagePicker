@@ -69,7 +69,7 @@ class AssetCollectionViewCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        selectionOverlayView.backgroundColor = UIColor.lightGray
+        selectionOverlayView.backgroundColor = UIColor.systemOverlayColor
         selectionOverlayView.translatesAutoresizingMaskIntoConstraints = false
         selectionView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(imageView)

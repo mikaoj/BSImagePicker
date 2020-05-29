@@ -174,7 +174,7 @@ class PreviewViewController : UIViewController {
         if self.fullscreen && modalPresentationStyle == .fullScreen {
             aColor = UIColor.black
         } else {
-            aColor = UIColor.white
+            aColor = UIColor.systemBackgroundColor
         }
         
         view.backgroundColor = aColor

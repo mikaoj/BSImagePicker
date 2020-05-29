@@ -43,7 +43,7 @@ class VideoCollectionViewCell: AssetCollectionViewCell {
         
         durationLabel.textAlignment = .right
         durationLabel.text = "0:03"
-        durationLabel.textColor = .white
+        durationLabel.textColor = .systemPrimaryTextColor
         durationLabel.font = UIFont.boldSystemFont(ofSize: 12)
         durationLabel.translatesAutoresizingMaskIntoConstraints = false
         gradientView.addSubview(durationLabel)
