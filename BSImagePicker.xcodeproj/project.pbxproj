@@ -52,6 +52,7 @@
 		94DA6870247BDE5900CD5251 /* UIColor+BSImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DA686F247BDE5900CD5251 /* UIColor+BSImagePicker.swift */; };
 		C2DC13CA23F75BDB0035FD13 /* NumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DC13C923F75BDA0035FD13 /* NumberView.swift */; };
 		C2DC13CC23F75BE40035FD13 /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2DC13CB23F75BE40035FD13 /* SelectionView.swift */; };
+		DCB6D3A42486A68D0057A2D4 /* ImagePickerController+PresentationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB6D3A32486A68D0057A2D4 /* ImagePickerController+PresentationDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +131,7 @@
 		94DA686F247BDE5900CD5251 /* UIColor+BSImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+BSImagePicker.swift"; sourceTree = "<group>"; };
 		C2DC13C923F75BDA0035FD13 /* NumberView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberView.swift; sourceTree = "<group>"; };
 		C2DC13CB23F75BE40035FD13 /* SelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectionView.swift; sourceTree = "<group>"; };
+		DCB6D3A32486A68D0057A2D4 /* ImagePickerController+PresentationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImagePickerController+PresentationDelegate.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,6 +266,7 @@
 				559DB81621E6AFD800CD58B4 /* ImagePickerController+Assets.swift */,
 				559DB81821E6AFF300CD58B4 /* ImagePickerController+Albums.swift */,
 				559DB81A21E6B43400CD58B4 /* ImagePickerController+ButtonActions.swift */,
+				DCB6D3A32486A68D0057A2D4 /* ImagePickerController+PresentationDelegate.swift */,
 				559DB80E21E655D000CD58B4 /* ImagePickerControllerDelegate.swift */,
 			);
 			path = Controller;
@@ -476,6 +479,7 @@
 				559DB80F21E655D000CD58B4 /* ImagePickerControllerDelegate.swift in Sources */,
 				559DB81721E6AFD800CD58B4 /* ImagePickerController+Assets.swift in Sources */,
 				55CDB45B223435420050D572 /* PlayerView.swift in Sources */,
+				DCB6D3A42486A68D0057A2D4 /* ImagePickerController+PresentationDelegate.swift in Sources */,
 				C2DC13CC23F75BE40035FD13 /* SelectionView.swift in Sources */,
 				559DB81921E6AFF300CD58B4 /* ImagePickerController+Albums.swift in Sources */,
 				55BCF8D721D52C1000386752 /* CheckmarkView.swift in Sources */,

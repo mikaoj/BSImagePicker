@@ -87,11 +87,6 @@ import Photos
 
     public override func viewDidLoad() {
         super.viewDidLoad()
-
-        if #available(iOS 13.0, *) {
-            // Disables iOS 13 swipe to dismiss - to force user to press cancel or done.
-            isModalInPresentation = true
-        }
         
         // Sync settings
         albumsViewController.settings = settings
@@ -103,7 +98,10 @@ import Photos
         
         viewControllers = [assetsViewController]
         view.backgroundColor = settings.theme.backgroundColor
+
+        // Setup delegates
         delegate = zoomTransitionDelegate
+        presentationController?.delegate = self
 
         // Turn off translucency so drop down can match its color
         navigationBar.isTranslucent = false
