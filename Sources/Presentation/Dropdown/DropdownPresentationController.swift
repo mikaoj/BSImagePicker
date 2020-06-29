@@ -55,23 +55,25 @@ class DropdownPresentationController: UIPresentationController {
     }
     
     override var frameOfPresentedViewInContainerView: CGRect {
-        guard let containerView = containerView else { return .zero }
-        
+        guard let containerView = containerView,
+            let presentingView = presentingViewController.view else { return .zero }
+
         let size = self.size(forChildContentContainer: presentedViewController,
-                          withParentContainerSize: containerView.bounds.size)
-        
+                          withParentContainerSize: presentingView.bounds.size)
+
         let position: CGPoint
         if let navigationBar = (presentingViewController as? UINavigationController)?.navigationBar {
             // We can't use the frame directly since iOS 13 new modal presentation style
             let navigationRect = navigationBar.convert(navigationBar.bounds, to: nil)
-            position = CGPoint(x: 0, y: navigationRect.height + navigationRect.origin.y)
+            let presentingRect = presentingView.convert(presentingView.frame, to: containerView)
+            position = CGPoint(x: presentingRect.origin.x, y: presentingRect.origin.y + navigationRect.height)
 
             // Match color with navigation bar
             presentedViewController.view.backgroundColor = navigationBar.barTintColor
         } else {
             position = .zero
         }
-        
+
         return CGRect(origin: position, size: size)
     }
 }
