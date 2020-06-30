@@ -78,6 +78,10 @@ dependencies: [
 ]
 ```
 
+## Xamarin
+
+If you are Xamarin developer you can use [Net.Xamarin.iOS.BSImagePicker](https://github.com/SByteDev/Net.Xamarin.iOS.BSImagePicker)
+
 ## Contribution
 
 Users are encouraged to become active participants in its continued development — by fixing any bugs that they encounter, or by improving the documentation wherever it’s found to be lacking.
