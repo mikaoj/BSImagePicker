@@ -209,7 +209,7 @@ extension AssetsViewController: PHPhotoLibraryChangeObserver {
                     self.fetchResult = changes.fetchResultAfterChanges
 
                     // For indexes to make sense, updates must be in this order:
-                    // delete, insert, reload, move
+                    // delete, insert, move
                     if let removed = changes.removedIndexes, removed.count > 0 {
                         let removedItems = removed.map { IndexPath(item: $0, section:0) }
                         let removedSelections = self.collectionView.indexPathsForSelectedItems?.filter { return removedItems.contains($0) }
@@ -221,14 +221,17 @@ extension AssetsViewController: PHPhotoLibraryChangeObserver {
                     if let inserted = changes.insertedIndexes, inserted.count > 0 {
                         self.collectionView.insertItems(at: inserted.map { IndexPath(item: $0, section:0) })
                     }
-                    if let changed = changes.changedIndexes, changed.count > 0 {
-                        self.collectionView.reloadItems(at: changed.map { IndexPath(item: $0, section:0) })
-                    }
                     changes.enumerateMoves { fromIndex, toIndex in
                         self.collectionView.moveItem(at: IndexPath(item: fromIndex, section: 0),
                                                      to: IndexPath(item: toIndex, section: 0))
                     }
                 })
+
+                // "Use these indices to reconfigure the corresponding cells after performBatchUpdates"
+                // https://developer.apple.com/documentation/photokit/phobjectchangedetails
+                if let changed = changes.changedIndexes, changed.count > 0 {
+                    self.collectionView.reloadItems(at: changed.map { IndexPath(item: $0, section:0) })
+                }
             } else {
                 self.fetchResult = changes.fetchResultAfterChanges
                 self.collectionView.reloadData()
