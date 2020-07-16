@@ -84,6 +84,7 @@ class AlbumsViewController: UIViewController {
         } else {
             selectAlbumCellAndScroll()
         }
+        firstScreenShow = false
     }
 
     private func selectAlbumCellAndScroll() {
