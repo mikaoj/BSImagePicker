@@ -24,6 +24,7 @@ import UIKit
 import Photos
 
 protocol AlbumsViewControllerDelegate: class {
+    var selectedAlbumIdentifier: String? { get set }
     func albumsViewController(_ albumsViewController: AlbumsViewController, didSelectAlbum album: PHAssetCollection)
     func didDismissAlbumsViewController(_ albumsViewController: AlbumsViewController)
 }
@@ -71,6 +72,32 @@ class AlbumsViewController: UIViewController {
         modalPresentationStyle = .popover
         preferredContentSize = CGSize(width: 320, height: 300)
     }
+
+    private var firstScreenShow = true
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if firstScreenShow { //on the first show the function does not affect the tableView content offset/scroll
+            DispatchQueue.main.async { [weak self] in
+                self?.selectAlbumCellAndScroll()
+            }
+        } else {
+            selectAlbumCellAndScroll()
+        }
+    }
+
+    private func selectAlbumCellAndScroll() {
+        if let selectedAlbum = delegate?.selectedAlbumIdentifier, let albumIndex = albums.firstIndex(where: { $0.localIdentifier == selectedAlbum }), albumIndex != NSNotFound {
+            var indexPathsForReload = [IndexPath]()
+            if let indexPath = tableView.indexPathForSelectedRow, indexPath.row != albumIndex {
+                indexPathsForReload.append(indexPath)
+            }
+            let selectedIndexPath = IndexPath(row: albumIndex, section: 0)
+            indexPathsForReload.append(selectedIndexPath)
+            tableView.reloadRows(at: indexPathsForReload, with: .none)
+            tableView.scrollToRow(at: selectedIndexPath, at: .top, animated: false) //.middle works badly as only 2 elements fit the table
+        }
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -86,8 +113,16 @@ class AlbumsViewController: UIViewController {
 }
 
 extension AlbumsViewController: UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let selectedAlbum = delegate?.selectedAlbumIdentifier, let albumIndex = albums.firstIndex(where: { $0.localIdentifier == selectedAlbum }) {
+            cell.isSelected = indexPath.row == albumIndex
+        }
+    }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let album = albums[indexPath.row]
+        delegate?.selectedAlbumIdentifier = album.localIdentifier
         delegate?.albumsViewController(self, didSelectAlbum: album)
     }
 
