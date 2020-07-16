@@ -65,15 +65,18 @@ import Photos
         ]
     }
 
-    public class Selection : NSObject {
+   @objc public class Selection : NSObject {
         /// Max number of selections allowed
-        public lazy var max: Int = Int.max
+       @objc public lazy var max: Int = Int.max
         
         /// Min number of selections you have to make
-        public lazy var min: Int = 1
+       @objc public lazy var min: Int = 1
         
         /// If it reaches the max limit, unselect the first selection, and allow the new selection
-        public lazy var unselectOnReachingMax : Bool = false
+       @objc public lazy var unselectOnReachingMax : Bool = false
+    
+       /// If it reaches the max limit, notify
+       @objc public lazy var notifyReachingMaxLimit : Bool = false
     }
 
     public class List : NSObject {
@@ -100,10 +103,10 @@ import Photos
         public lazy var enabled: Bool = true
     }
 
-    public class Fetch : NSObject {
-        public class Album : NSObject {
+    @objc public class Fetch : NSObject {
+      @objc  public class Album : NSObject {
             /// Fetch options for albums/collections
-            public lazy var options: PHFetchOptions = {
+          @objc  public lazy var options: PHFetchOptions = {
                 let fetchOptions = PHFetchOptions()
                 return fetchOptions
             }()
@@ -115,12 +118,12 @@ import Photos
             ///                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumSelfPortraits, options: options),
             ///                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumPanoramas, options: options),
             ///                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumVideos, options: options),
-            public lazy var fetchResults: [PHFetchResult<PHAssetCollection>] = [
+           @objc public lazy var fetchResults: [PHFetchResult<PHAssetCollection>] = [
                 PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: options),
             ]
         }
 
-        public class Assets : NSObject {
+       @objc public class Assets : NSObject {
             /// Fetch options for assets
 
             /// Simple wrapper around PHAssetMediaType to ensure we only expose the supported types.
@@ -175,13 +178,13 @@ import Photos
         }
 
         /// Album fetch settings
-        public lazy var album = Album()
+       @objc public lazy var album = Album()
         
         /// Asset fetch settings
-        public lazy var assets = Assets()
+       @objc public lazy var assets = Assets()
 
         /// Preview fetch settings
-        public lazy var preview = Preview()
+       @objc public lazy var preview = Preview()
     }
     
     public class Dismiss : NSObject {
@@ -193,20 +196,20 @@ import Photos
     }
 
     /// Theme settings
-    public lazy var theme = Theme()
+   @objc public lazy var theme = Theme()
     
     /// Selection settings
-    public lazy var selection = Selection()
+   @objc public lazy var selection = Selection()
     
     /// List settings
-    public lazy var list = List()
+   @objc public lazy var list = List()
     
     /// Fetch settings
-    public lazy var fetch = Fetch()
+   @objc public lazy var fetch = Fetch()
     
     /// Dismiss settings
-    public lazy var dismiss = Dismiss()
+   @objc public lazy var dismiss = Dismiss()
 
     /// Preview options
-    public lazy var preview = Preview()
+   @objc public lazy var preview = Preview()
 }

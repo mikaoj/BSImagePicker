@@ -192,7 +192,7 @@ extension AssetsViewController: UICollectionViewDelegate {
     }
 
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        guard store.count < settings.selection.max || settings.selection.unselectOnReachingMax else { return false }
+        guard store.count < settings.selection.max || settings.selection.unselectOnReachingMax || settings.selection.notifyReachingMaxLimit  else { return false }
         selectionFeedback.prepare()
 
         return true

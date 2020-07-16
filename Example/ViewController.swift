@@ -31,21 +31,20 @@ class ViewController: UIViewController {
         imagePicker.settings.selection.max = 5
         imagePicker.settings.theme.selectionStyle = .numbered
         imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
-        imagePicker.settings.selection.unselectOnReachingMax = true
-
+       // imagePicker.settings.selection.unselectOnReachingMax = true
+        imagePicker.settings.selection.notifyReachingMaxLimit=true;
         let start = Date()
-        self.presentImagePicker(imagePicker, select: { (asset) in
-            print("Selected: \(asset)")
-        }, deselect: { (asset) in
-            print("Deselected: \(asset)")
-        }, cancel: { (assets) in
-            print("Canceled with selections: \(assets)")
-        }, finish: { (assets) in
-            print("Finished with selections: \(assets)")
-        }, completion: {
-            let finish = Date()
-            print(finish.timeIntervalSince(start))
-        })
+         self.presentImagePicker(imagePicker, select: { (asset) in
+                   print("Selected: \(asset)")
+               }, deselect: { (asset) in
+                   print("Deselected: \(asset)")
+               }, cancel: { (assets) in
+                   print("Canceled with selections: \(assets)")
+               }, finish: { (assets) in
+                   print("Finished with selections: \(assets)")
+               },selectionLimitReach: {(count) in
+                  print("Max Limit of selection reached: \(count)")
+               })
     }
     
     @IBAction func showCustomImagePicker(_ sender: UIButton) {
@@ -85,6 +84,8 @@ class ViewController: UIViewController {
             print("Canceled with selections: \(assets)")
         }, finish: { (assets) in
             print("Finished with selections: \(assets)")
+        },selectionLimitReach: {(count) in
+            print("Max Limit of selection reached: \(count)")
         })
     }
     
@@ -109,6 +110,8 @@ class ViewController: UIViewController {
             print("Canceled with selections: \(assets)")
         }, finish: { (assets) in
             print("Finished with selections: \(assets)")
+        },selectionLimitReach: {(count) in
+            print("Max Limit of selection reached: \(count)")
         })
     }
 }
