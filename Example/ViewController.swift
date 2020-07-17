@@ -34,17 +34,19 @@ class ViewController: UIViewController {
        // imagePicker.settings.selection.unselectOnReachingMax = true
         imagePicker.settings.selection.notifyReachingMaxLimit=true;
         let start = Date()
-         self.presentImagePicker(imagePicker, select: { (asset) in
-                   print("Selected: \(asset)")
-               }, deselect: { (asset) in
-                   print("Deselected: \(asset)")
-               }, cancel: { (assets) in
-                   print("Canceled with selections: \(assets)")
-               }, finish: { (assets) in
-                   print("Finished with selections: \(assets)")
-               },selectionLimitReach: {(count) in
-                  print("Max Limit of selection reached: \(count)")
-               })
+      self.presentImagePicker(imagePicker, select: { (asset) in
+           print("Selected: \(asset)")
+       }, deselect: { (asset) in
+           print("Deselected: \(asset)")
+       }, cancel: { (assets) in
+           print("Canceled with selections: \(assets)")
+       }, finish: { (assets) in
+            let finish = Date()
+           print(finish.timeIntervalSince(start))
+       },completion: {
+           let finish = Date()
+           print(finish.timeIntervalSince(start))
+       })
     }
     
     @IBAction func showCustomImagePicker(_ sender: UIButton) {
@@ -84,8 +86,6 @@ class ViewController: UIViewController {
             print("Canceled with selections: \(assets)")
         }, finish: { (assets) in
             print("Finished with selections: \(assets)")
-        },selectionLimitReach: {(count) in
-            print("Max Limit of selection reached: \(count)")
         })
     }
     
@@ -110,8 +110,6 @@ class ViewController: UIViewController {
             print("Canceled with selections: \(assets)")
         }, finish: { (assets) in
             print("Finished with selections: \(assets)")
-        },selectionLimitReach: {(count) in
-            print("Max Limit of selection reached: \(count)")
         })
     }
 }
