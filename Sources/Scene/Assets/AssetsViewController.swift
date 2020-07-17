@@ -76,6 +76,7 @@ class AssetsViewController: UIViewController {
         collectionView.backgroundColor = settings.theme.backgroundColor
         collectionView.delegate = self
         collectionView.dataSource = dataSource
+        collectionView.prefetchDataSource = dataSource
         AssetsCollectionViewDataSource.registerCellIdentifiersForCollectionView(collectionView)
 
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(AssetsViewController.collectionViewLongPressed(_:)))
@@ -158,6 +159,8 @@ class AssetsViewController: UIViewController {
         collectionViewFlowLayout.minimumLineSpacing = itemSpacing
         collectionViewFlowLayout.minimumInteritemSpacing = itemSpacing
         collectionViewFlowLayout.itemSize = itemSize
+
+        dataSource.imageSize = itemSize.resize(by: UIScreen.main.scale)
     }
 
     private func updateSelectionIndexForCell(at indexPath: IndexPath) {
