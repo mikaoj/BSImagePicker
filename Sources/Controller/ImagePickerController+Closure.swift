@@ -37,14 +37,14 @@ import Photos
     ///   - cancel: Cancel callback
     ///   - finish: Finish callback
     ///   - completion: Presentation completion callback
-    public func presentImagePicker(_ imagePicker: ImagePickerController, animated: Bool = true, select: ((_ asset: PHAsset) -> Void)?, deselect: ((_ asset: PHAsset) -> Void)?, cancel: (([PHAsset]) -> Void)?, finish: (([PHAsset]) -> Void)?,completion: (() -> Void)? = nil) {
+    public func presentImagePicker(_ imagePicker: ImagePickerController, animated: Bool = true, select: ((_ asset: PHAsset) -> Void)?, deselect: ((_ asset: PHAsset) -> Void)?, cancel: (([PHAsset]) -> Void)?, finish: (([PHAsset]) -> Void)?, completion: (() -> Void)? = nil) {
         authorize {
             // Set closures
             imagePicker.onSelection = select
             imagePicker.onDeselection = deselect
             imagePicker.onCancel = cancel
             imagePicker.onFinish = finish
-            
+
             // And since we are using the blocks api. Set ourselfs as delegate
             imagePicker.imagePickerDelegate = imagePicker
 
@@ -90,6 +90,6 @@ extension ImagePickerController: ImagePickerControllerDelegate {
     }
 
     public func imagePicker(_ imagePicker: ImagePickerController, didReachSelectionLimit count: Int) {
-         onReachMaxSelectionLimit?(count)
+        onReachMaxSelectionLimit?(count)
     }
 }
