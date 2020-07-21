@@ -31,7 +31,7 @@ extension ImagePickerController: AssetsViewControllerDelegate {
                 imagePickerDelegate?.imagePicker(self, didDeselectAsset: first)
             }
         }
-        else if settings.selection.notifyReachingMaxLimit && assetStore.count > settings.selection.max {
+        if settings.selection.notifyOnReachingMax && assetStore.count > settings.selection.max {
                    assetStore.remove(asset)
                    assetsViewController.unselect(asset:asset)
                    imagePickerDelegate?.imagePicker(self, didReachSelectionLimit: settings.selection.max)

@@ -76,7 +76,7 @@ import Photos
        @objc public lazy var unselectOnReachingMax : Bool = false
     
        /// If it reaches the max limit, notify
-       @objc public lazy var notifyReachingMaxLimit : Bool = false
+       @objc public lazy var notifyOnReachingMax : Bool = false
     }
 
     public class List : NSObject {
