@@ -144,6 +144,12 @@ import Photos
         }
     }
 
+    public func deselect(asset: PHAsset) {
+        assetsViewController.unselect(asset: asset)
+        assetStore.remove(asset)
+        updatedDoneButton()
+    }
+    
     func updatedDoneButton() {
         doneButton.title = assetStore.count > 0 ? doneButtonTitle + " (\(assetStore.count))" : doneButtonTitle
       
