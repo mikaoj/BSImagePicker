@@ -60,9 +60,9 @@ final class ZoomAnimator : NSObject, UIViewControllerAnimatedTransitioning {
             if mode == .expand {
                 toViewController.view.alpha = 0.0
                 fromViewController.view.alpha = 1.0
-                scalingImage.image = destinationImageView.image
+                scalingImage.image = destinationImageView.image ?? sourceImageView.image
             } else {
-                scalingImage.image = sourceImageView.image
+                scalingImage.image = sourceImageView.image ?? destinationImageView.image
             }
             
             // Add views to container view
