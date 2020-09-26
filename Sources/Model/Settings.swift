@@ -73,7 +73,7 @@ import Photos
         public lazy var min: Int = 1
         
         /// If it reaches the max limit, unselect the first selection, and allow the new selection
-        public lazy var unselectOnReachingMax : Bool = false
+        @objc public lazy var unselectOnReachingMax : Bool = false
     }
 
     public class List : NSObject {
