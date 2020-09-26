@@ -23,7 +23,7 @@
 import UIKit
 import Photos
 
-@objc(BSSettings) // Fix for ObjC header name conflicting.
+@objc(BSImagePickerSettings) // Fix for ObjC header name conflicting.
 @objcMembers public class Settings : NSObject {
     public static let shared = Settings()
 
