@@ -7,63 +7,86 @@
 
 ![alt text](https://cloud.githubusercontent.com/assets/4034956/15001931/254805de-119c-11e6-9f68-d815ccc712cd.gif "Demo gif")
 
-A mix between the native iOS 8 gallery and facebooks image picker. It is intended as a replacement for UIImagePickerController for both selecting and taking photos.
+A multiple image picker for iOS.
 
-## Usage
-
-To run the example project, clone the repo, and run `pod install` from the Example directory first.<br />
-To use it in you own project
-###### Swift
-```swift
-let vc = BSImagePickerViewController()
-
-bs_presentImagePickerController(vc, animated: true,
-    select: { (asset: PHAsset) -> Void in
-      // User selected an asset.
-      // Do something with it, start upload perhaps?
-    }, deselect: { (asset: PHAsset) -> Void in
-      // User deselected an assets.
-      // Do something, cancel upload?
-    }, cancel: { (assets: [PHAsset]) -> Void in
-      // User cancelled. And this where the assets currently selected.
-    }, finish: { (assets: [PHAsset]) -> Void in
-      // User finished with these assets
-}, completion: nil)
-```
 ## Features
 * Multiple selection.
 * Fullscreen preview
-* Switch albums.
-* No localization needed (uses icons or system localizations).
-* Take photos (it isn't enabled by default, so set takePhotos to true if you want it).
-* Customizable - check out BSImagePickerSettings to see what you can tweak.
+* Switching albums.
+* Supports images, live photos and videos.
+* Customizable.
 
-## Customization
+## Usage
 
-You have access to the cancel, album and done button. Customize them as you would with any other UIBarButtonItem (cancel & finish) or UIButton (album).<br />
-There are also a few other settings you can tweak. They are documented in BSImagePickerSettings.<br />
-[Documentation @ cocoadocs](http://cocoadocs.org/docsets/BSImagePicker/)
+##### Info.plist
+To be able to request permission to the users photo library you need to add this to your Info.plist
+```
+<key>NSPhotoLibraryUsageDescription</key>
+<string>Why you want to access photo library</string>
+```
 
-## Custom fetch results
+##### Image picker
+```
+import BSImagePicker
 
-Not happy with the fetch results (camera roll and albums) that BSImagePicker uses as default? Set the fetchResults property.
+let imagePicker = ImagePickerController()
 
-## Requirements
+presentImagePicker(imagePicker, select: { (asset) in
+    // User selected an asset. Do something with it. Perhaps begin processing/upload?
+}, deselect: { (asset) in
+    // User deselected an asset. Cancel whatever you did when asset was selected.
+}, cancel: { (assets) in
+    // User canceled selection. 
+}, finish: { (assets) in
+    // User finished selection assets.
+})
+```
 
-iOS 8
+##### PHAsset
+So you have a bunch of [PHAsset](https://developer.apple.com/documentation/photokit/phasset)s now, great. But how do you use them?
+To get an UIImage from the asset you use a [PHImageManager](https://developer.apple.com/documentation/photokit/phimagemanager).
+
+```
+import Photos
+
+// Request the maximum size. If you only need a smaller size make sure to request that instead.
+PHImageManager.default().requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: .aspectFit, options: nil) { (image, info) in
+    // Do something with image
+}
+```
+
+For more example you can clone this repo and look at the example app.
 
 ## Installation
 
-BSImagePicker is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+### Cocoapods
+Add the following line to your Podfile:
 
-```ruby
-pod "BSImagePicker", "~> 2.4"
+```
+pod "BSImagePicker", "~> 3.1"
+```
+### Carthage
+Add the following line to your Cartfile:
+```
+github "mikaoj/BSImagePicker" ~> 3.1
+```
+### Swift Package Manager
+Add it to the dependencies value of your Package.swift.:
+```
+dependencies: [
+.package(url: "https://github.com/mikaoj/BSImagePicker.git", from: "version-tag")
+]
 ```
 
-## Author
+## Xamarin
 
-Joakim Gyllström, joakim@backslashed.se
+If you are Xamarin developer you can use [Net.Xamarin.iOS.BSImagePicker](https://github.com/SByteDev/Net.Xamarin.iOS.BSImagePicker)
+
+## Contribution
+
+Users are encouraged to become active participants in its continued development — by fixing any bugs that they encounter, or by improving the documentation wherever it’s found to be lacking.
+
+If you wish to make a change, [open a Pull Request](https://github.com/mikaoj/BSImagePicker/pull/new) — even if it just contains a draft of the changes you’re planning, or a test that reproduces an issue — and we can discuss it further from there.
 
 ## License
 

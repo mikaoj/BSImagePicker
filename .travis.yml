@@ -2,15 +2,15 @@
 # * http://www.objc.io/issue-6/travis-ci.html
 # * https://github.com/supermarin/xcpretty#usage
 
-osx_image: xcode9
+osx_image: xcode11
 language: objective-c
 #cache: cocoapods
-podfile: Example/Podfile
+#podfile: Example/Podfile
 before_install:
 # - gem install cocoapods --no-rdoc --no-ri --no-document # Since Travis is not always on latest version
 # - pod update --project-directory=Example
 install:
-- gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+- gem install xcpretty --no-document --quiet
 script:
-- set -o pipefail && xcodebuild test -workspace Example/BSImagePicker.xcworkspace -scheme BSImagePicker-Example -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.0' | xcpretty -c
-- pod lib lint --quick
+- set -o pipefail && xcodebuild test -project BSImagePicker.xcodeproj -scheme BSImagePicker -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO -destination 'platform=iOS Simulator,name=iPhone 8,OS=13.0' | xcpretty -c
+#- pod lib lint --quick
