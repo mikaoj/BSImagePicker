@@ -100,7 +100,7 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
         }
         
         // Request image
-        cell.tag = Int(imageManager.requestImage(for: asset, targetSize: imageSize, contentMode: contentMode, options: nil) { (image, _) in
+        cell.tag = Int(imageManager.requestImage(for: asset, targetSize: imageSize, contentMode: contentMode, options: settings.fetch.preview.photoOptions) { (image, _) in
             guard let image = image else { return }
             cell.imageView.image = image
         })
