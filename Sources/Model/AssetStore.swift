@@ -55,4 +55,8 @@ import Photos
     func index(of asset: PHAsset) -> Int? {
         return assets.firstIndex(of: asset)
     }
+    
+    func getCountByType(_ type: PHAssetMediaType) -> Int {
+        return assets.filter { $0.mediaType == type }.count
+    }
 }

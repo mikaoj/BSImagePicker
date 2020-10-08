@@ -124,11 +124,11 @@ import Photos
             /// Fetch options for assets
 
             /// Simple wrapper around PHAssetMediaType to ensure we only expose the supported types.
-            public enum MediaTypes {
-                case image
-                case video
+            public enum MediaTypes: Hashable {
+                case image(max: Int = Int.max)
+                case video(max: Int = Int.max)
 
-                fileprivate var assetMediaType: PHAssetMediaType {
+                var assetMediaType: PHAssetMediaType {
                     switch self {
                     case .image:
                         return .image
@@ -137,7 +137,7 @@ import Photos
                     }
                 }
             }
-            public lazy var supportedMediaTypes: Set<MediaTypes> = [.image]
+            public lazy var supportedMediaTypes: Set<MediaTypes> = [.image()]
 
             public lazy var options: PHFetchOptions = {
                 let fetchOptions = PHFetchOptions()

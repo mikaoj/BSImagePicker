@@ -49,4 +49,9 @@ public protocol ImagePickerControllerDelegate: class {
     /// - Parameter imagePicker: The image picker that selection limit was reached in.
     /// - Parameter count: Number of selected assets.
     func imagePicker(_ imagePicker: ImagePickerController, didReachSelectionLimit count: Int)
+    
+    /// Selection limit reach by type
+    /// - Parameter imagePicker: The image picker that selection limit was reached in.
+    /// - Parameter type: Type of media which reaches limit.
+    func imagePicker(_ imagePicker: ImagePickerController, didReachSelectionLimitForType type: PHAssetMediaType)
 }
