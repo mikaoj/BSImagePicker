@@ -217,7 +217,9 @@ extension AssetsViewController: PHPhotoLibraryChangeObserver {
                         let removedItems = removed.map { IndexPath(item: $0, section:0) }
                         let removedSelections = self.collectionView.indexPathsForSelectedItems?.filter { return removedItems.contains($0) }
                         removedSelections?.forEach {
-                            self.delegate?.assetsViewController(self, didDeselectAsset: changes.fetchResultBeforeChanges.object(at: $0.row))
+                            let removedAsset = changes.fetchResultBeforeChanges.object(at: $0.row)
+                            self.store.remove(removedAsset)
+                            self.delegate?.assetsViewController(self, didDeselectAsset: removedAsset)
                         }
                         self.collectionView.deleteItems(at: removedItems)
                     }
