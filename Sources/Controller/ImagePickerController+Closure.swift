@@ -45,6 +45,9 @@ import Photos
             imagePicker.onCancel = cancel
             imagePicker.onFinish = finish
 
+            // And since we are using the blocks api. Set ourselfs as delegate
+            imagePicker.imagePickerDelegate = imagePicker
+
             // Present
             self.present(imagePicker, animated: animated, completion: completion)
         }
@@ -65,5 +68,31 @@ import Photos
 extension ImagePickerController {
     public static var currentAuthorization : PHAuthorizationStatus {
         return PHPhotoLibrary.authorizationStatus()
+    }
+}
+
+/// ImagePickerControllerDelegate closure wrapper
+extension ImagePickerController: ImagePickerControllerDelegate {
+    public func imagePicker(_ imagePicker: ImagePickerController, didReachSelectionLimitForType type: PHAssetMediaType) {
+    }
+ 
+    public func imagePicker(_ imagePicker: ImagePickerController, didSelectAsset asset: PHAsset) {
+        onSelection?(asset)
+    }
+
+    public func imagePicker(_ imagePicker: ImagePickerController, didDeselectAsset asset: PHAsset) {
+        onDeselection?(asset)
+    }
+
+    public func imagePicker(_ imagePicker: ImagePickerController, didFinishWithAssets assets: [PHAsset]) {
+        onFinish?(assets)
+    }
+
+    public func imagePicker(_ imagePicker: ImagePickerController, didCancelWithAssets assets: [PHAsset]) {
+        onCancel?(assets)
+    }
+
+    public func imagePicker(_ imagePicker: ImagePickerController, didReachSelectionLimit count: Int) {
+        
     }
 }

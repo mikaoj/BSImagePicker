@@ -121,20 +121,8 @@ class ViewController: UIViewController {
             .video(max: 1)
         ]
 
-        let start = Date()
         imagePicker.imagePickerDelegate = self
-        self.presentImagePicker(imagePicker, select: { (asset) in
-            print("Selected: \(asset)")
-        }, deselect: { (asset) in
-            print("Deselected: \(asset)")
-        }, cancel: { (assets) in
-            print("Canceled with selections: \(assets)")
-        }, finish: { (assets) in
-            print("Finished with selections: \(assets)")
-        }, completion: {
-            let finish = Date()
-            print(finish.timeIntervalSince(start))
-        })
+        self.present(imagePicker, animated: true)
         
     }
 }
@@ -149,11 +137,11 @@ extension ViewController: ImagePickerControllerDelegate {
     }
     
     func imagePicker(_ imagePicker: ImagePickerController, didFinishWithAssets assets: [PHAsset]) {
-        print("Canceled with selections: \(assets)")
+        print("Finished with selections: \(assets)")
     }
     
     func imagePicker(_ imagePicker: ImagePickerController, didCancelWithAssets assets: [PHAsset]) {
-        print("Finished with selections: \(assets)")
+        print("Canceled with selections: \(assets)")
     }
     
     func imagePicker(_ imagePicker: ImagePickerController, didReachSelectionLimit count: Int) {
