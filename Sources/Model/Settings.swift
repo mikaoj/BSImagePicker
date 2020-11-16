@@ -64,8 +64,9 @@ import Photos
             NSAttributedString.Key.foregroundColor: UIColor.systemPrimaryTextColor
         ]
     }
-
-    public class Selection : NSObject {
+    
+    @objc(BSImagePickerSelection)
+    @objcMembers public class Selection : NSObject {
         /// Max number of selections allowed
         public lazy var max: Int = Int.max
         
@@ -76,7 +77,8 @@ import Photos
         @objc public lazy var unselectOnReachingMax : Bool = false
     }
 
-    public class List : NSObject {
+    @objc(BSImagePickerList)
+    @objcMembers public class List : NSObject {
         /// How much spacing between cells
         public lazy var spacing: CGFloat = 2
         
@@ -100,8 +102,10 @@ import Photos
         public lazy var enabled: Bool = true
     }
 
-    public class Fetch : NSObject {
-        public class Album : NSObject {
+    @objc(BSImagePickerFetch)
+    @objcMembers public class Fetch : NSObject {
+        @objc(BSImagePickerAlbum)
+        @objcMembers public class Album : NSObject {
             /// Fetch options for albums/collections
             public lazy var options: PHFetchOptions = {
                 let fetchOptions = PHFetchOptions()
@@ -120,7 +124,8 @@ import Photos
             ]
         }
 
-        public class Assets : NSObject {
+        @objc(BSImagePickerAssets)
+        @objcMembers public class Assets : NSObject {
             /// Fetch options for assets
 
             /// Simple wrapper around PHAssetMediaType to ensure we only expose the supported types.
