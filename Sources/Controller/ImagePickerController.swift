@@ -24,6 +24,7 @@ import UIKit
 import Photos
 
 // MARK: ImagePickerController
+@objc(BSImagePickerController)
 @objcMembers open class ImagePickerController: UINavigationController {
     // MARK: Public properties
     public weak var imagePickerDelegate: ImagePickerControllerDelegate?
