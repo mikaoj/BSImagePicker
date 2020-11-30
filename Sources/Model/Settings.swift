@@ -32,6 +32,9 @@ import Photos
         /// Main background color
         public lazy var backgroundColor: UIColor = .systemBackgroundColor
         
+        /// Color for backgroun of drop downs
+        public lazy var dropDownBackgroundColor: UIColor = .clear
+        
         /// What color to fill the circle with
         public lazy var selectionFillColor: UIColor = UIView().tintColor
         
