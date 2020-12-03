@@ -119,9 +119,11 @@ import Photos
             ///                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumSelfPortraits, options: options),
             ///                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumPanoramas, options: options),
             ///                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumVideos, options: options),
-            public lazy var fetchResults: [PHFetchResult<PHAssetCollection>] = [
-                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: options),
-            ]
+            public lazy var fetchResults: () -> [PHFetchResult<PHAssetCollection>] = { [options] in
+                return [
+                    PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: options),
+                ]
+            }
         }
 
         @objc(BSImagePickerAssets)
