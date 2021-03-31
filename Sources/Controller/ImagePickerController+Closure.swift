@@ -55,22 +55,35 @@ import Photos
 
     private func authorize(_ authorized: @escaping () -> Void) {
         if #available(iOS 14, *) {
-            PHPhotoLibrary.requestAuthorization(for: .readWrite) { (status) in
-                switch status {
-                case .authorized,
-                     .limited:
-                    DispatchQueue.main.async(execute: authorized)
-                default:
-                    break
+            let immediateStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+            switch immediateStatus {
+            case .authorized,
+                 .limited:
+                DispatchQueue.main.async(execute: authorized)
+            default:
+                PHPhotoLibrary.requestAuthorization(for: .readWrite) { (status) in
+                    switch status {
+                    case .authorized,
+                         .limited:
+                        DispatchQueue.main.async(execute: authorized)
+                    default:
+                        break
+                    }
                 }
             }
         } else {
-            PHPhotoLibrary.requestAuthorization { (status) in
-                switch status {
-                case .authorized:
-                    DispatchQueue.main.async(execute: authorized)
-                default:
-                    break
+            let immediateStatus = PHPhotoLibrary.authorizationStatus()
+            switch immediateStatus {
+            case .authorized:
+                DispatchQueue.main.async(execute: authorized)
+            default:
+                PHPhotoLibrary.requestAuthorization { (status) in
+                    switch status {
+                    case .authorized:
+                        DispatchQueue.main.async(execute: authorized)
+                    default:
+                        break
+                    }
                 }
             }
         }
