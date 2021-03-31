@@ -57,7 +57,8 @@ import Photos
         if #available(iOS 14, *) {
             PHPhotoLibrary.requestAuthorization(for: .readWrite) { (status) in
                 switch status {
-                case .authorized:
+                case .authorized,
+                     .limited:
                     DispatchQueue.main.async(execute: authorized)
                 default:
                     break
