@@ -71,7 +71,11 @@ class DropdownPresentationController: UIPresentationController {
             // Match color with navigation bar
             presentedViewController.view.backgroundColor = navigationBar.barTintColor
         } else {
-            position = .zero
+            if #available(iOS 11.0, *) {
+                position = CGPoint(x: containerView.safeAreaInsets.left, y: containerView.safeAreaInsets.top)
+            } else {
+                position = .zero
+            }
         }
 
         return CGRect(origin: position, size: size)

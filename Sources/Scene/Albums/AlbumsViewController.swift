@@ -57,7 +57,7 @@ class AlbumsViewController: UIViewController {
         tableView.register(AlbumCell.self, forCellReuseIdentifier: AlbumCell.identifier)
         tableView.dataSource = dataSource
         tableView.delegate = self
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = settings.theme.dropDownBackgroundColor
         view.addSubview(tableView)
 
         let lineHeight: CGFloat = 0.5
