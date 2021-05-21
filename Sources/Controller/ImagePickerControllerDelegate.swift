@@ -50,3 +50,16 @@ public protocol ImagePickerControllerDelegate: class {
     /// - Parameter count: Number of selected assets.
     func imagePicker(_ imagePicker: ImagePickerController, didReachSelectionLimit count: Int)
 }
+
+public extension ImagePickerControllerDelegate {
+
+    func imagePicker(_ imagePicker: ImagePickerController, didSelectAsset asset: PHAsset) {}
+
+    func imagePicker(_ imagePicker: ImagePickerController, didDeselectAsset asset: PHAsset) {}
+
+    func imagePicker(_ imagePicker: ImagePickerController, didFinishWithAssets assets: [PHAsset]) {}
+
+    func imagePicker(_ imagePicker: ImagePickerController, didCancelWithAssets assets: [PHAsset]) {}
+
+    func imagePicker(_ imagePicker: ImagePickerController, didReachSelectionLimit count: Int) {}
+}
