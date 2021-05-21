@@ -38,11 +38,8 @@ import Photos
         }
     }
 
-    // Note this trick to get the apple localization no longer works.
-    // Figure out why. Until then, expose the variable for users to set to whatever they want it localized to
-    // TODO: Fix this ^^
     /// Title to use for button
-    public var doneButtonTitle = Bundle(identifier: "com.apple.UIKit")?.localizedString(forKey: "Done", value: "Done", table: "") ?? "Done"
+    public var doneButtonTitle = Bundle(for: UIBarButtonItem.self).localizedString(forKey: "Done", value: "Done", table: "")
 
     // MARK: Internal properties
     var assetStore: AssetStore
