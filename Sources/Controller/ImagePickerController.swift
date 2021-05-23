@@ -61,7 +61,7 @@ import Photos
         let fetchOptions = settings.fetch.assets.options.copy() as! PHFetchOptions
         fetchOptions.fetchLimit = 1
 
-        return settings.fetch.album.fetchResults.filter {
+        return settings.fetch.album.fetchResults().filter {
             $0.count > 0
         }.flatMap {
             $0.objects(at: IndexSet(integersIn: 0..<$0.count))
