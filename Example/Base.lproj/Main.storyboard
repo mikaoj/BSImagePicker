@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFw-cP-rmQ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GFw-cP-rmQ">
                                 <rect key="frame" x="143.5" y="318.5" width="88" height="30"/>
                                 <state key="normal" title="Image picker">
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -28,7 +29,7 @@
                                     <action selector="showImagePicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LaC-Tl-d1J"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DzO-ex-PdY">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DzO-ex-PdY">
                                 <rect key="frame" x="114.5" y="356.5" width="146" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="146" id="Cd2-rJ-ekE"/>
@@ -41,7 +42,7 @@
                                     <action selector="showCustomImagePicker:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GKA-nS-l2H"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgs-tU-5p9">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zgs-tU-5p9">
                                 <rect key="frame" x="71.5" y="394.5" width="232" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="232" id="IRj-9r-lbP"/>
@@ -52,12 +53,21 @@
                                     <action selector="showImagePickerWithSelectedAssets:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m00-0a-bkf"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ywf-iF-6QR">
+                                <rect key="frame" x="66" y="432.5" width="243" height="30"/>
+                                <state key="normal" title="Image picker limit 2 images, 1 video"/>
+                                <connections>
+                                    <action selector="showImagePickerWithLimit:" destination="BYZ-38-t0r" eventType="touchUpInside" id="chb-F8-vjn"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="zgs-tU-5p9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0A6-aX-1jb"/>
                             <constraint firstAttribute="centerX" secondItem="DzO-ex-PdY" secondAttribute="centerX" id="EZn-Ed-pHh"/>
                             <constraint firstItem="zgs-tU-5p9" firstAttribute="top" secondItem="DzO-ex-PdY" secondAttribute="bottom" constant="8" id="GUE-MX-lLP"/>
+                            <constraint firstItem="Ywf-iF-6QR" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JYd-Ph-njS"/>
+                            <constraint firstItem="Ywf-iF-6QR" firstAttribute="top" secondItem="zgs-tU-5p9" secondAttribute="bottom" constant="8" id="VjK-Iu-ymf"/>
                             <constraint firstAttribute="centerY" secondItem="GFw-cP-rmQ" secondAttribute="centerY" id="XmI-RH-XSN"/>
                             <constraint firstItem="DzO-ex-PdY" firstAttribute="top" secondItem="GFw-cP-rmQ" secondAttribute="bottom" constant="8" id="j2M-qn-wIK"/>
                             <constraint firstAttribute="centerX" secondItem="GFw-cP-rmQ" secondAttribute="centerX" id="vJT-bW-R2W"/>
@@ -69,4 +79,9 @@
             <point key="canvasLocation" x="138" y="134"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

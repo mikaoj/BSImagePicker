@@ -73,6 +73,9 @@ extension ImagePickerController {
 
 /// ImagePickerControllerDelegate closure wrapper
 extension ImagePickerController: ImagePickerControllerDelegate {
+    public func imagePicker(_ imagePicker: ImagePickerController, didReachSelectionLimitForType type: PHAssetMediaType) {
+    }
+ 
     public func imagePicker(_ imagePicker: ImagePickerController, didSelectAsset asset: PHAsset) {
         onSelection?(asset)
     }
