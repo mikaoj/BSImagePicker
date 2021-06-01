@@ -120,10 +120,16 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource, UIC
             let cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AutorizationStatusHeaderView.id, for: indexPath) as! AutorizationStatusHeaderView
             cell.delegate = headerViewDelegate
             cell.buttonText = settings.permission.manageButtonText
+            cell.buttonTextColor = settings.permission.manageButtonTextColor
+            
             cell.limitedPermissionBackgroundColor = settings.permission.limitedPermissionHeaderBackgroundColor
             cell.limitedPermissionGrantedText = settings.permission.limitedPermissionWarningText
+            cell.limitedPermissionTextColor = settings.permission.limitedPermissionWarningTextColor
+            
             cell.permissionDeniedText = settings.permission.permissionDeniedWarningText
             cell.permissionDeniedBackgroundColor = settings.permission.permissionDeniedHeaderBackgroundColor
+            cell.permissionDeniedTextColor = settings.permission.permissionDeniedWarningTextColor
+            
             cell.authorizationStatus = authorizationStatus
             return cell
         }

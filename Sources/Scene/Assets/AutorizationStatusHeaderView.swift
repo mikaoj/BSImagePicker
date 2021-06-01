@@ -51,11 +51,21 @@ class AutorizationStatusHeaderView : UICollectionReusableView {
         }
     }
     
+    var buttonTextColor: UIColor? {
+        didSet{
+            manageButton.setTitleColor(buttonTextColor, for: .normal)
+        }
+    }
+    
+    
+    
     var permissionDeniedText: String?
     var permissionDeniedBackgroundColor: UIColor?
+    var permissionDeniedTextColor: UIColor?
     
     var limitedPermissionGrantedText: String?
     var limitedPermissionBackgroundColor: UIColor?
+    var limitedPermissionTextColor: UIColor?
     
     var authorizationStatus: PHAuthorizationStatus?{
         didSet {
@@ -63,11 +73,13 @@ class AutorizationStatusHeaderView : UICollectionReusableView {
             switch status {
             case .denied:
                 titleLabel.text = permissionDeniedText
+                titleLabel.textColor = permissionDeniedTextColor
                 backgroundColor = permissionDeniedBackgroundColor
                 layoutIfNeeded()
                 break
             case .limited:
                 titleLabel.text = limitedPermissionGrantedText
+                titleLabel.textColor = limitedPermissionTextColor
                 backgroundColor = limitedPermissionBackgroundColor
                 layoutIfNeeded()
                 break

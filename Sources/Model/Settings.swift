@@ -205,12 +205,16 @@ import Photos
         public lazy var enabled = false
         
         public lazy var permissionDeniedWarningText: String = "Permission is required to access photos library."
-        public lazy var limitedPermissionWarningText: String = "You've given access to only select number of photos."
-        
         public lazy var permissionDeniedHeaderBackgroundColor: UIColor = .clear
+        public lazy var permissionDeniedWarningTextColor: UIColor = .red
+        
+        public lazy var limitedPermissionWarningText: String = "You've given access to only select number of photos."
         public lazy var limitedPermissionHeaderBackgroundColor: UIColor = .clear
+        public lazy var limitedPermissionWarningTextColor: UIColor = .systemPrimaryTextColor
+        
         
         public lazy var manageButtonText: String = "Manage"
+        public lazy var manageButtonTextColor: UIColor = .systemBlue
     }
 
     /// Theme settings
