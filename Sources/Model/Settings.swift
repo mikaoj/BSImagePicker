@@ -199,6 +199,23 @@ import Photos
         /// Allow the user to dismiss the image picker by swiping down
         public lazy var allowSwipe = false
     }
+    
+    public class Permission: NSObject {
+        /// should the image picker check for permission when loaded and give callbacks
+        public lazy var enabled = false
+        
+        public lazy var permissionDeniedWarningText: String = "Permission is required to access photos library."
+        public lazy var permissionDeniedHeaderBackgroundColor: UIColor = .clear
+        public lazy var permissionDeniedWarningTextColor: UIColor = .red
+        
+        public lazy var limitedPermissionWarningText: String = "You've given access to only select number of photos."
+        public lazy var limitedPermissionHeaderBackgroundColor: UIColor = .clear
+        public lazy var limitedPermissionWarningTextColor: UIColor = .systemPrimaryTextColor
+        
+        
+        public lazy var manageButtonText: String = "Manage"
+        public lazy var manageButtonTextColor: UIColor = .systemBlue
+    }
 
     /// Theme settings
     public lazy var theme = Theme()
@@ -217,4 +234,7 @@ import Photos
 
     /// Preview options
     public lazy var preview = Preview()
+    
+    /// permission options
+    public lazy var permission = Permission()
 }
