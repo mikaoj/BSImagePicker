@@ -28,6 +28,7 @@ import Photos
 @objcMembers open class ImagePickerController: UINavigationController {
     // MARK: Public properties
     public weak var imagePickerDelegate: ImagePickerControllerDelegate?
+    
     public var settings: Settings = Settings()
     public var doneButton: UIBarButtonItem = UIBarButtonItem(title: "", style: .done, target: nil, action: nil)
     public var cancelButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: nil)
@@ -47,6 +48,7 @@ import Photos
     var onDeselection: ((_ asset: PHAsset) -> Void)?
     var onCancel: ((_ assets: [PHAsset]) -> Void)?
     var onFinish: ((_ assets: [PHAsset]) -> Void)?
+    var onPermissionChange: ((_ status: PHAuthorizationStatus) -> Void)?
     
     let assetsViewController: AssetsViewController
     let albumsViewController = AlbumsViewController()
@@ -93,6 +95,7 @@ import Photos
         // Setup view controllers
         albumsViewController.delegate = self
         assetsViewController.delegate = self
+      
         
         viewControllers = [assetsViewController]
         view.backgroundColor = settings.theme.backgroundColor

@@ -23,11 +23,13 @@
 import UIKit
 import Photos
 
-class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
+class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     private static let assetCellIdentifier = "AssetCell"
     private static let videoCellIdentifier = "VideoCell"
+    private var authorizationStatus: PHAuthorizationStatus?
     
     var settings: Settings!
+    
     var fetchResult: PHFetchResult<PHAsset> {
         didSet {
             imageManager.stopCachingImagesForAllAssets()
@@ -38,11 +40,13 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
             imageManager.stopCachingImagesForAllAssets()
         }
     }
-
+    
     private let imageManager = PHCachingImageManager()
     private let durationFormatter = DateComponentsFormatter()
     private let store: AssetStore
     private let contentMode: PHImageContentMode = .aspectFill
+    weak var headerViewDelegate: AutorizationStatusHeaderViewDelegate?
+    
     
     init(fetchResult: PHFetchResult<PHAsset>, store: AssetStore) {
         self.fetchResult = fetchResult
@@ -61,6 +65,8 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
         return fetchResult.count
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let asset = fetchResult[indexPath.row]
         let animationsWasEnabled = UIView.areAnimationsEnabled
@@ -75,7 +81,7 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: AssetsCollectionViewDataSource.assetCellIdentifier, for: indexPath) as! AssetCollectionViewCell
         }
         UIView.setAnimationsEnabled(animationsWasEnabled)
-
+        
         cell.accessibilityIdentifier = "Photo \(indexPath.item + 1)"
         cell.accessibilityTraits = UIAccessibilityTraits.button
         cell.isAccessibilityElement = true
@@ -91,6 +97,7 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
     static func registerCellIdentifiersForCollectionView(_ collectionView: UICollectionView?) {
         collectionView?.register(AssetCollectionViewCell.self, forCellWithReuseIdentifier: assetCellIdentifier)
         collectionView?.register(VideoCollectionViewCell.self, forCellWithReuseIdentifier: videoCellIdentifier)
+        collectionView?.register(AutorizationStatusHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AutorizationStatusHeaderView.id)
     }
     
     private func loadImage(for asset: PHAsset, in cell: AssetCollectionViewCell) {
@@ -105,6 +112,32 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
             cell.imageView.image = image
         })
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
+        if kind == UICollectionView.elementKindSectionHeader {
+            
+            let cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AutorizationStatusHeaderView.id, for: indexPath) as! AutorizationStatusHeaderView
+            cell.delegate = headerViewDelegate
+            cell.buttonText = settings.permission.manageButtonText
+            cell.limitedPermissionBackgroundColor = settings.permission.limitedPermissionHeaderBackgroundColor
+            cell.limitedPermissionGrantedText = settings.permission.limitedPermissionWarningText
+            cell.permissionDeniedText = settings.permission.permissionDeniedWarningText
+            cell.permissionDeniedBackgroundColor = settings.permission.permissionDeniedHeaderBackgroundColor
+            cell.authorizationStatus = authorizationStatus
+            return cell
+        }
+        
+        fatalError("No header of kind \(kind) registerd for section \(indexPath.section)")
+    }
+    
+    func setStatus(_ status: PHAuthorizationStatus) {
+        self.authorizationStatus = status
+    }
+    
+    func getStatus() -> PHAuthorizationStatus? {
+        return self.authorizationStatus
+    }
 }
 
 extension AssetsCollectionViewDataSource: UICollectionViewDataSourcePrefetching {
@@ -112,7 +145,7 @@ extension AssetsCollectionViewDataSource: UICollectionViewDataSourcePrefetching 
         let assets = indexPaths.map { fetchResult[$0.row] }
         imageManager.startCachingImages(for: assets, targetSize: imageSize, contentMode: contentMode, options: nil)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
     }
 }
