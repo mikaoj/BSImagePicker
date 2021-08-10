@@ -23,7 +23,7 @@
 import UIKit
 import Photos
 
-/// Settings for BSImagePicker
+@objc(BSImagePickerSettings) // Fix for ObjC header name conflicting.
 @objcMembers public class Settings : NSObject {
     public static let shared = Settings()
 
@@ -31,6 +31,9 @@ import Photos
     public class Theme : NSObject {
         /// Main background color
         public lazy var backgroundColor: UIColor = .systemBackgroundColor
+        
+        /// Color for backgroun of drop downs
+        public lazy var dropDownBackgroundColor: UIColor = .clear
         
         /// What color to fill the circle with
         public lazy var selectionFillColor: UIColor = UIView().tintColor
@@ -64,8 +67,9 @@ import Photos
             NSAttributedString.Key.foregroundColor: UIColor.systemPrimaryTextColor
         ]
     }
-
-    public class Selection : NSObject {
+    
+    @objc(BSImagePickerSelection)
+    @objcMembers public class Selection : NSObject {
         /// Max number of selections allowed
         public lazy var max: Int = Int.max
         
@@ -73,10 +77,11 @@ import Photos
         public lazy var min: Int = 1
         
         /// If it reaches the max limit, unselect the first selection, and allow the new selection
-        public lazy var unselectOnReachingMax : Bool = false
+        @objc public lazy var unselectOnReachingMax : Bool = false
     }
 
-    public class List : NSObject {
+    @objc(BSImagePickerList)
+    @objcMembers public class List : NSObject {
         /// How much spacing between cells
         public lazy var spacing: CGFloat = 2
         
@@ -100,8 +105,10 @@ import Photos
         public lazy var enabled: Bool = true
     }
 
-    public class Fetch : NSObject {
-        public class Album : NSObject {
+    @objc(BSImagePickerFetch)
+    @objcMembers public class Fetch : NSObject {
+        @objc(BSImagePickerAlbum)
+        @objcMembers public class Album : NSObject {
             /// Fetch options for albums/collections
             public lazy var options: PHFetchOptions = {
                 let fetchOptions = PHFetchOptions()
@@ -120,7 +127,8 @@ import Photos
             ]
         }
 
-        public class Assets : NSObject {
+        @objc(BSImagePickerAssets)
+        @objcMembers public class Assets : NSObject {
             /// Fetch options for assets
 
             /// Simple wrapper around PHAssetMediaType to ensure we only expose the supported types.

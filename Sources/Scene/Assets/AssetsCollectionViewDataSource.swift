@@ -28,19 +28,25 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
     private static let videoCellIdentifier = "VideoCell"
     
     var settings: Settings!
-    var fetchResult: PHFetchResult<PHAsset>
+    var fetchResult: PHFetchResult<PHAsset> {
+        didSet {
+            imageManager.stopCachingImagesForAllAssets()
+        }
+    }
+    var imageSize: CGSize = .zero {
+        didSet {
+            imageManager.stopCachingImagesForAllAssets()
+        }
+    }
 
-    private let imageManager = PHCachingImageManager.default()
+    private let imageManager = PHCachingImageManager()
     private let durationFormatter = DateComponentsFormatter()
     private let store: AssetStore
-
-    private let scale: CGFloat
-    private var targetSize: CGSize = .zero
+    private let contentMode: PHImageContentMode = .aspectFill
     
-    init(fetchResult: PHFetchResult<PHAsset>, store: AssetStore, scale: CGFloat = UIScreen.main.scale) {
+    init(fetchResult: PHFetchResult<PHAsset>, store: AssetStore) {
         self.fetchResult = fetchResult
         self.store = store
-        self.scale = scale
         durationFormatter.unitsStyle = .positional
         durationFormatter.zeroFormattingBehavior = [.pad]
         durationFormatter.allowedUnits = [.minute, .second]
@@ -87,35 +93,26 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource {
         collectionView?.register(VideoCollectionViewCell.self, forCellWithReuseIdentifier: videoCellIdentifier)
     }
     
-    private func loadImage(for asset: PHAsset, in cell: AssetCollectionViewCell?) {
+    private func loadImage(for asset: PHAsset, in cell: AssetCollectionViewCell) {
         // Cancel any pending image requests
-        if let cell = cell, cell.tag != 0 {
+        if cell.tag != 0 {
             imageManager.cancelImageRequest(PHImageRequestID(cell.tag))
         }
         
         // Request image
-        if let cell = cell {
-            targetSize = cell.bounds.size.resize(by: scale)
-        }
-
-        cell?.tag = Int(imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFill, options: settings.fetch.preview.photoOptions) { (image, _) in
+        cell.tag = Int(imageManager.requestImage(for: asset, targetSize: imageSize, contentMode: contentMode, options: settings.fetch.preview.photoOptions) { (image, _) in
             guard let image = image else { return }
-            cell?.imageView.image = image
+            cell.imageView.image = image
         })
     }
 }
 
 extension AssetsCollectionViewDataSource: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        // Touching asset should trigger prefetching
-        // And prefetch image for that asset
-        indexPaths.forEach {
-            let asset = fetchResult[$0.row]
-            loadImage(for: asset, in: nil)
-        }
+        let assets = indexPaths.map { fetchResult[$0.row] }
+        imageManager.startCachingImages(for: assets, targetSize: imageSize, contentMode: contentMode, options: nil)
     }
 
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-
     }
 }

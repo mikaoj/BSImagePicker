@@ -76,6 +76,7 @@ class AssetsViewController: UIViewController {
         collectionView.backgroundColor = settings.theme.backgroundColor
         collectionView.delegate = self
         collectionView.dataSource = dataSource
+        collectionView.prefetchDataSource = dataSource
         AssetsCollectionViewDataSource.registerCellIdentifiersForCollectionView(collectionView)
 
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(AssetsViewController.collectionViewLongPressed(_:)))
@@ -158,6 +159,8 @@ class AssetsViewController: UIViewController {
         collectionViewFlowLayout.minimumLineSpacing = itemSpacing
         collectionViewFlowLayout.minimumInteritemSpacing = itemSpacing
         collectionViewFlowLayout.itemSize = itemSize
+
+        dataSource.imageSize = itemSize.resize(by: UIScreen.main.scale)
     }
 
     private func updateSelectionIndexForCell(at indexPath: IndexPath) {
@@ -214,7 +217,9 @@ extension AssetsViewController: PHPhotoLibraryChangeObserver {
                         let removedItems = removed.map { IndexPath(item: $0, section:0) }
                         let removedSelections = self.collectionView.indexPathsForSelectedItems?.filter { return removedItems.contains($0) }
                         removedSelections?.forEach {
-                            self.delegate?.assetsViewController(self, didDeselectAsset: changes.fetchResultBeforeChanges.object(at: $0.row))
+                            let removedAsset = changes.fetchResultBeforeChanges.object(at: $0.row)
+                            self.store.remove(removedAsset)
+                            self.delegate?.assetsViewController(self, didDeselectAsset: removedAsset)
                         }
                         self.collectionView.deleteItems(at: removedItems)
                     }

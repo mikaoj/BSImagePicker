@@ -23,6 +23,7 @@
 import Foundation
 import UIKit
 
+@objc(BSImagePickerGradientView)
 class GradientView: UIView {
     override class var layerClass: AnyClass {
         return CAGradientLayer.self
