@@ -92,7 +92,7 @@ class VideoPreviewViewController: PreviewViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillDisappear(animated)
         updateState(.paused, animated: false)
         playerView.isHidden = true
         
