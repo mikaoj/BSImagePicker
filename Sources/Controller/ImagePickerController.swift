@@ -143,8 +143,8 @@ import Photos
     }
 
     public func deselect(asset: PHAsset) {
-        assetsViewController.unselect(asset: asset)
         assetStore.remove(asset)
+        assetsViewController.unselect(asset: asset)
         updatedDoneButton()
     }
     
