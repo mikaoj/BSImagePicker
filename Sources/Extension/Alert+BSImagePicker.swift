@@ -24,7 +24,7 @@ import UIKit
 import Photos
 
 extension AssetsViewController {
-    internal func handleDeniedAccess(){
+    internal func showAlertForRestricedOrNotDeterminedAccess(){
         let alert = UIAlertController(title: "Allow access to your photos",
                                       message: "This lets you share from your camera roll and enables other features for photos. Go to your settings and tap \"Photos\".",
                                       preferredStyle: .alert)
@@ -43,7 +43,7 @@ extension AssetsViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    internal func handleLimitedAccess(){
+    internal func showAlerForLimitedAccess(){
         let actionSheet = UIAlertController(title: "",
                                             message: "Select more photos or go to Settings to allow access to all photos.",
                                             preferredStyle: .actionSheet)

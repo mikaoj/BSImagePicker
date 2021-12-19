@@ -32,6 +32,7 @@ class ViewController: UIViewController {
         imagePicker.settings.theme.selectionStyle = .numbered
         imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
         imagePicker.settings.selection.unselectOnReachingMax = true
+        imagePicker.settings.permission.enabled = true
 
         let start = Date()
         self.presentImagePicker(imagePicker, select: { (asset) in

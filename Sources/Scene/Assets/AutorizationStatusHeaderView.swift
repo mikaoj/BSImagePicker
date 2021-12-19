@@ -23,7 +23,7 @@
 import UIKit
 import Photos
 
-protocol AutorizationStatusHeaderViewDelegate: class {
+protocol AutorizationStatusHeaderViewDelegate: AnyObject {
     func didTapManageButton(for status: PHAuthorizationStatus)
 }
 
@@ -32,16 +32,16 @@ class AutorizationStatusHeaderView : UICollectionReusableView {
     
     weak var delegate: AutorizationStatusHeaderViewDelegate?
     
-    @UsesAutoLayout
-    private var titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.numberOfLines = 3
         return lbl
     }()
     
-    @UsesAutoLayout
-    private var manageButton: UIButton = {
+    private lazy var manageButton: UIButton = {
         let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
     
@@ -56,8 +56,6 @@ class AutorizationStatusHeaderView : UICollectionReusableView {
             manageButton.setTitleColor(buttonTextColor, for: .normal)
         }
     }
-    
-    
     
     var permissionDeniedText: String?
     var permissionDeniedBackgroundColor: UIColor?
@@ -114,19 +112,17 @@ class AutorizationStatusHeaderView : UICollectionReusableView {
             
             manageButton.topAnchor.constraint(equalTo: self.topAnchor),
             manageButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            manageButton.leadingAnchor.constraint(greaterThanOrEqualTo: self.titleLabel.trailingAnchor, constant: 8),
             manageButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             manageButton.widthAnchor.constraint(greaterThanOrEqualToConstant: manageButton.runtimeSize().width)
-            
             
         ])
     }
     
     private func addTargets(){
-        manageButton.addTarget(self, action: #selector(didTapManage), for: .touchUpInside)
+        manageButton.addTarget(self, action: #selector(didTapManage(_:)), for: .touchUpInside)
     }
     
-    @objc func didTapManage(){
+    @objc func didTapManage(_ sender: UIButton){
         guard let status = authorizationStatus else { return }
         delegate?.didTapManageButton(for: status)
     }

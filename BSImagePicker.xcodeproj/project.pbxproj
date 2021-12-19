@@ -7,11 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2F0FADE226668A74005747B4 /* AutoLayout+BSImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0FADE126668A74005747B4 /* AutoLayout+BSImagePicker.swift */; };
 		2F0FADE526669B0F005747B4 /* Size+BSImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0FADE426669B0F005747B4 /* Size+BSImagePicker.swift */; };
 		2F0FADE826669B3C005747B4 /* AutorizationStatusHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0FADE726669B3C005747B4 /* AutorizationStatusHeaderView.swift */; };
 		2F0FADEC2666A140005747B4 /* Alert+BSImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0FADEB2666A140005747B4 /* Alert+BSImagePicker.swift */; };
-		2F0FADEF2666A185005747B4 /* PHAuthorization+BSImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0FADEE2666A185005747B4 /* PHAuthorization+BSImagePicker.swift */; };
 		531D8C532249C81A00281681 /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531D8C522249C81A00281681 /* SettingsTests.swift */; };
 		53FEDA162247FEB80098E34A /* CGSize+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FEDA152247FEB80098E34A /* CGSize+Scale.swift */; };
 		53FEDA18224805BA0098E34A /* CGSizeExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FEDA17224805BA0098E34A /* CGSizeExtensionTests.swift */; };
@@ -83,11 +81,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2F0FADE126668A74005747B4 /* AutoLayout+BSImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AutoLayout+BSImagePicker.swift"; sourceTree = "<group>"; };
 		2F0FADE426669B0F005747B4 /* Size+BSImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Size+BSImagePicker.swift"; sourceTree = "<group>"; };
 		2F0FADE726669B3C005747B4 /* AutorizationStatusHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutorizationStatusHeaderView.swift; sourceTree = "<group>"; };
 		2F0FADEB2666A140005747B4 /* Alert+BSImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alert+BSImagePicker.swift"; sourceTree = "<group>"; };
-		2F0FADEE2666A185005747B4 /* PHAuthorization+BSImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PHAuthorization+BSImagePicker.swift"; sourceTree = "<group>"; };
 		531D8C522249C81A00281681 /* SettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
 		53FEDA152247FEB80098E34A /* CGSize+Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Scale.swift"; sourceTree = "<group>"; };
 		53FEDA17224805BA0098E34A /* CGSizeExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSizeExtensionTests.swift; sourceTree = "<group>"; };
@@ -348,10 +344,8 @@
 			isa = PBXGroup;
 			children = (
 				94DA686F247BDE5900CD5251 /* UIColor+BSImagePicker.swift */,
-				2F0FADE126668A74005747B4 /* AutoLayout+BSImagePicker.swift */,
 				2F0FADE426669B0F005747B4 /* Size+BSImagePicker.swift */,
 				2F0FADEB2666A140005747B4 /* Alert+BSImagePicker.swift */,
-				2F0FADEE2666A185005747B4 /* PHAuthorization+BSImagePicker.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -478,7 +472,6 @@
 				55BCF8D521D52C1000386752 /* AssetCollectionViewCell.swift in Sources */,
 				559DB81B21E6B43400CD58B4 /* ImagePickerController+ButtonActions.swift in Sources */,
 				2F0FADEC2666A140005747B4 /* Alert+BSImagePicker.swift in Sources */,
-				2F0FADE226668A74005747B4 /* AutoLayout+BSImagePicker.swift in Sources */,
 				559DB81121E6561300CD58B4 /* ImagePickerController+Closure.swift in Sources */,
 				55C5B802222BD529003CF3F1 /* DropdownPresentationController.swift in Sources */,
 				55BCF8E021D52C1000386752 /* ZoomAnimator.swift in Sources */,
@@ -504,7 +497,6 @@
 				55BCF8D721D52C1000386752 /* CheckmarkView.swift in Sources */,
 				555472AE21E538B000B90CA5 /* AssetsViewController.swift in Sources */,
 				5543942D232A4EB500DB51B7 /* LivePreviewViewController.swift in Sources */,
-				2F0FADEF2666A185005747B4 /* PHAuthorization+BSImagePicker.swift in Sources */,
 				C2DC13CA23F75BDB0035FD13 /* NumberView.swift in Sources */,
 				55BCF8DC21D52C1000386752 /* PreviewViewController.swift in Sources */,
 				55BCF8CF21D52C1000386752 /* Settings.swift in Sources */,

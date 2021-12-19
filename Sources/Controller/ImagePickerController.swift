@@ -48,7 +48,6 @@ import Photos
     var onDeselection: ((_ asset: PHAsset) -> Void)?
     var onCancel: ((_ assets: [PHAsset]) -> Void)?
     var onFinish: ((_ assets: [PHAsset]) -> Void)?
-    var onPermissionChange: ((_ status: PHAuthorizationStatus) -> Void)?
     
     let assetsViewController: AssetsViewController
     let albumsViewController = AlbumsViewController()

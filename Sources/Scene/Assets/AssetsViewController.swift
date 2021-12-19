@@ -23,7 +23,7 @@
 import UIKit
 import Photos
 
-protocol AssetsViewControllerDelegate: class {
+protocol AssetsViewControllerDelegate: AnyObject {
     func assetsViewController(_ assetsViewController: AssetsViewController, didSelectAsset asset: PHAsset)
     func assetsViewController(_ assetsViewController: AssetsViewController, didDeselectAsset asset: PHAsset)
     func assetsViewController(_ assetsViewController: AssetsViewController, didLongPressCell cell: AssetCollectionViewCell, displayingAsset asset: PHAsset)
@@ -31,7 +31,7 @@ protocol AssetsViewControllerDelegate: class {
 
 class AssetsViewController: UIViewController {
     weak var delegate: AssetsViewControllerDelegate?
-  
+    
     
     var settings: Settings! {
         didSet { dataSource.settings = settings }
@@ -89,7 +89,11 @@ class AssetsViewController: UIViewController {
         collectionView.addGestureRecognizer(longPressRecognizer)
         
         if settings.permission.enabled {
-            checkAuthorizationStatus()
+            if #available(iOS 14, *) {
+                dataSource.setStatus(PHPhotoLibrary.authorizationStatus(for: .readWrite))
+            } else {
+                dataSource.setStatus(PHPhotoLibrary.authorizationStatus())
+            }
         }
         
         
@@ -284,14 +288,16 @@ extension AssetsViewController: PHPhotoLibraryChangeObserver {
 extension AssetsViewController: AutorizationStatusHeaderViewDelegate {
     func didTapManageButton(for status: PHAuthorizationStatus) {
         switch status {
-        case .denied:
-            self.handleDeniedAccess()
+        case .restricted, .notDetermined:
+            showAlertForRestricedOrNotDeterminedAccess()
             break
         case .limited:
-            self.handleLimitedAccess()
+            showAlerForLimitedAccess()
             break
-        default:
-            break
+            // don't do anything if user as authorized access to photos
+            // not handling .denied case as the controller will not be shown if access is denied
+        case .authorized, .denied: break
+        @unknown default: break
         }
     }
 }
