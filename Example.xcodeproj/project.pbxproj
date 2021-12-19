@@ -441,7 +441,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.backslashed.Example.mithilesh;
+				PRODUCT_BUNDLE_IDENTIFIER = se.backslashed.Example;
 				PRODUCT_NAME = ImagePicker;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -460,7 +460,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = se.backslashed.Example.mithilesh;
+				PRODUCT_BUNDLE_IDENTIFIER = se.backslashed.Example;
 				PRODUCT_NAME = ImagePicker;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
