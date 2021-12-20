@@ -202,14 +202,32 @@ import Photos
     
     public class Permission: NSObject {
         /// should the image picker check for permission when loaded and give callbacks
+        
+        /// Localizable string keys
+        
+        /// bsimagepicker.limitedPermissionHeader.title -> Header title when access to photos is limited
+        /// bsimagepicker.restrictedOrNotDeterminedpermissionHeader.title -> Header title when access to photos is restricted or not determined
+        /// bsimagepicker.permissionHeader.button.title -> Button title of Header view
+        
+        /// bsimagepicker.limitedAccess.alert.title -> Title of alert controller when access is Limited
+        /// bsimagepicker.limitedAccess.alert.message -> Message of alert controller when access is Limited
+        /// bsimagepicker.limitedAccess.alert.selectMorePhotos -> Title of Select more photos action of alert controller when access is Limited
+        /// bsimagepicker.limitedAccess.alert.allowAccessToAllPhotos -> Title of Allow access to all photos of alert controller when access is Limited
+        /// bsimagepicker.cancel -> Title of cancel action of alert controller when access is Limited
+        
+        /// bsimagepicker.restrictedAccess.alert.title -> Title of alert controller when access is Restricted or not determined
+        /// bsimagepicker.restrictedAccess.alert.message -> Message of alert controller when access is Restricted or not determined
+        /// bsimagepicker.restrictedAccess.alert.secondaryButton.title -> Title of secondary action of alert controller when access is Restricted or not determined
+        /// bsimagepicker.restrictedAccess.alert.openSettings.title -> Title of primary action of alert controller when access is Restricted or not determined
+        
         public lazy var enabled = false
         
-        public var limitedPermissionHeaderTitle: String = NSLocalizedString("bsimagepicker.permissionHeader.title", value: "You've given access to only select number of photos.", comment: "Title of header when access is limited")
+        public var limitedPermissionHeaderTitle: String = NSLocalizedString("bsimagepicker.limitedPermissionHeader.title", value: "You've given access to only select number of photos.", comment: "Title of header when access is limited")
         public var limitedPermissionHeaderBackgroundColor: UIColor = .clear
         public var limitedPermissionHeaderTitleColor: UIColor = .systemPrimaryTextColor
         
         
-        public var restrictedOrNotDeterminedPermissionHeaderTitle: String = NSLocalizedString("bsimagepicker.permissionHeader.title", value: "You've given access to only select number of photos.", comment: "Title of header when access is restricted or not determined")
+        public var restrictedOrNotDeterminedPermissionHeaderTitle: String = NSLocalizedString("bsimagepicker.restrictedOrNotDeterminedpermissionHeader.title", value: "You've given access to only select number of photos.", comment: "Title of header when access is restricted or not determined")
         public var restrictedOrNotDeterminedPermissionHeaderBackgroundColor: UIColor = .clear
         public var restrictedOrNotDeterminedPermissionHeaderTitleColor: UIColor = .systemPrimaryTextColor
         
