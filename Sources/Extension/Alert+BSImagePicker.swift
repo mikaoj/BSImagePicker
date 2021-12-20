@@ -25,17 +25,18 @@ import Photos
 
 extension AssetsViewController {
     internal func showAlertForRestricedOrNotDeterminedAccess(){
-        let alert = UIAlertController(title: "Allow access to your photos",
-                                      message: "This lets you share from your camera roll and enables other features for photos. Go to your settings and tap \"Photos\".",
-                                      preferredStyle: .alert)
+
+        let localizedTitle = NSLocalizedString("bsimagepicker.restrictedAccess.alert.title", comment: "Allow access to your photos")
+        let localizedMessage = NSLocalizedString("bsimagepicker.restrictedAccess.alert.message", comment: "This lets you share from your camera roll and enables other features for photos. Go to your settings and tap \"Photos\".")
+        let notNowLocalizedText = NSLocalizedString("bsimagepicker.restrictedAccess.alert.secondaryButton.title", comment: "Not now")
+        let openSettinsgLocalizedText = NSLocalizedString("bsimagepicker.restrictedAccess.alert.openSettings.title", comment: "Open Settings")
         
-        let notNowAction = UIAlertAction(title: "Not Now",
-                                         style: .cancel,
-                                         handler: nil)
+        let alert = UIAlertController(title: localizedTitle, message: localizedMessage, preferredStyle: .alert)
+        
+        let notNowAction = UIAlertAction(title: notNowLocalizedText, style: .cancel, handler: nil)
         alert.addAction(notNowAction)
         
-        let openSettingsAction = UIAlertAction(title: "Open Settings",
-                                               style: .default) { [unowned self] (_) in
+        let openSettingsAction = UIAlertAction(title: openSettinsgLocalizedText, style: .default) { [unowned self] (_) in
             // Open app privacy settings
             gotoAppPrivacySettings()
         }
@@ -44,12 +45,17 @@ extension AssetsViewController {
     }
     
     internal func showAlerForLimitedAccess(){
-        let actionSheet = UIAlertController(title: "",
-                                            message: "Select more photos or go to Settings to allow access to all photos.",
-                                            preferredStyle: .actionSheet)
         
-        let selectPhotosAction = UIAlertAction(title: "Select more photos",
-                                               style: .default) { [unowned self] (_) in
+        let localizedTitle = NSLocalizedString("bsimagepicker.limitedAccess.alert.title", comment: "")
+        let localizedMessage = NSLocalizedString("bsimagepicker.limitedAccess.alert.message", comment: "Select more photos or go to Settings to allow access to all photos.")
+        let selectMorePhotosLocalizedText = NSLocalizedString("bsimagepicker.limitedAccess.alert.selectMorePhotos", comment: "Select more photos")
+        let allowAccessToAllPhotosLocalizedText = NSLocalizedString("bsimagepicker.limitedAccess.alert.allowAccessToAllPhotos", comment: "Allow access to all photos")
+        
+        let cancelLocalizedText = NSLocalizedString("bsimagepicker.cancel", comment: "Cancel")
+        
+        let actionSheet = UIAlertController(title: localizedTitle, message: localizedMessage, preferredStyle: .actionSheet)
+        
+        let selectPhotosAction = UIAlertAction(title: selectMorePhotosLocalizedText, style: .default) { [unowned self] (_) in
             // Show limited library picker
             if #available(iOS 14, *) {
                 PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)
@@ -57,14 +63,13 @@ extension AssetsViewController {
         }
         actionSheet.addAction(selectPhotosAction)
         
-        let allowFullAccessAction = UIAlertAction(title: "Allow access to all photos",
-                                                  style: .default) { [unowned self] (_) in
+        let allowFullAccessAction = UIAlertAction(title: allowAccessToAllPhotosLocalizedText, style: .default) { [unowned self] (_) in
             // Open app privacy settings
             self.gotoAppPrivacySettings()
         }
         actionSheet.addAction(allowFullAccessAction)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: cancelLocalizedText, style: .cancel, handler: nil)
         actionSheet.addAction(cancelAction)
         
         present(actionSheet, animated: true, completion: nil)
