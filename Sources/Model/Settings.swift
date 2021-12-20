@@ -204,16 +204,17 @@ import Photos
         /// should the image picker check for permission when loaded and give callbacks
         public lazy var enabled = false
         
-        public lazy var permissionDeniedWarningText: String = "Permission is required to access photos library."
-        public lazy var permissionDeniedHeaderBackgroundColor: UIColor = .clear
-        public lazy var permissionDeniedWarningTextColor: UIColor = .red
-        
-        public lazy var limitedPermissionWarningText: String = "You've given access to only select number of photos."
-        public lazy var limitedPermissionHeaderBackgroundColor: UIColor = .clear
-        public lazy var limitedPermissionWarningTextColor: UIColor = .systemPrimaryTextColor
+        public var limitedPermissionHeaderTitle: String = NSLocalizedString("bsimagepicker.permissionHeader.title", value: "You've given access to only select number of photos.", comment: "Title of header when access is limited")
+        public var limitedPermissionHeaderBackgroundColor: UIColor = .clear
+        public var limitedPermissionHeaderTitleColor: UIColor = .systemPrimaryTextColor
         
         
-        public lazy var manageButtonText: String = "Manage"
+        public var restrictedOrNotDeterminedPermissionHeaderTitle: String = NSLocalizedString("bsimagepicker.permissionHeader.title", value: "You've given access to only select number of photos.", comment: "Title of header when access is restricted or not determined")
+        public var restrictedOrNotDeterminedPermissionHeaderBackgroundColor: UIColor = .clear
+        public var restrictedOrNotDeterminedPermissionHeaderTitleColor: UIColor = .systemPrimaryTextColor
+        
+        
+        public lazy var manageButtonText: String = NSLocalizedString("bsimagepicker.permissionHeader.button.title", value: "Manage", comment: "Title of the button in header view")
         public lazy var manageButtonTextColor: UIColor = .systemBlue
     }
     

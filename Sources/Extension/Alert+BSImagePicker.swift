@@ -25,11 +25,22 @@ import Photos
 
 extension AssetsViewController {
     internal func showAlertForRestricedOrNotDeterminedAccess(){
-
-        let localizedTitle = NSLocalizedString("bsimagepicker.restrictedAccess.alert.title", comment: "Allow access to your photos")
-        let localizedMessage = NSLocalizedString("bsimagepicker.restrictedAccess.alert.message", comment: "This lets you share from your camera roll and enables other features for photos. Go to your settings and tap \"Photos\".")
-        let notNowLocalizedText = NSLocalizedString("bsimagepicker.restrictedAccess.alert.secondaryButton.title", comment: "Not now")
-        let openSettinsgLocalizedText = NSLocalizedString("bsimagepicker.restrictedAccess.alert.openSettings.title", comment: "Open Settings")
+        
+        let localizedTitle = NSLocalizedString("bsimagepicker.restrictedAccess.alert.title",
+                                               value: "Allow access to your photos",
+                                               comment: "Title of alert controller")
+        
+        let localizedMessage = NSLocalizedString("bsimagepicker.restrictedAccess.alert.message",
+                                                 value: "This lets you share from your camera roll and enables other features for photos. Go to your settings and tap \"Photos\".",
+                                                 comment: "Message of alert controller")
+        
+        let notNowLocalizedText = NSLocalizedString("bsimagepicker.restrictedAccess.alert.secondaryButton.title",
+                                                    value: "Not now",
+                                                    comment: "Secondary button title")
+        
+        let openSettinsgLocalizedText = NSLocalizedString("bsimagepicker.restrictedAccess.alert.openSettings.title",
+                                                          value: "Open Settings",
+                                                          comment: "Primart button title")
         
         let alert = UIAlertController(title: localizedTitle, message: localizedMessage, preferredStyle: .alert)
         
@@ -46,12 +57,25 @@ extension AssetsViewController {
     
     internal func showAlerForLimitedAccess(){
         
-        let localizedTitle = NSLocalizedString("bsimagepicker.limitedAccess.alert.title", comment: "")
-        let localizedMessage = NSLocalizedString("bsimagepicker.limitedAccess.alert.message", comment: "Select more photos or go to Settings to allow access to all photos.")
-        let selectMorePhotosLocalizedText = NSLocalizedString("bsimagepicker.limitedAccess.alert.selectMorePhotos", comment: "Select more photos")
-        let allowAccessToAllPhotosLocalizedText = NSLocalizedString("bsimagepicker.limitedAccess.alert.allowAccessToAllPhotos", comment: "Allow access to all photos")
+        let localizedTitle = NSLocalizedString("bsimagepicker.limitedAccess.alert.title",
+                                               value: " ",
+                                               comment: "Title of Alert controller")
         
-        let cancelLocalizedText = NSLocalizedString("bsimagepicker.cancel", comment: "Cancel")
+        let localizedMessage = NSLocalizedString("bsimagepicker.limitedAccess.alert.message",
+                                                 value: "Select more photos or go to Settings to allow access to all photos.",
+                                                 comment: "Message of Alert controller")
+        
+        let selectMorePhotosLocalizedText = NSLocalizedString("bsimagepicker.limitedAccess.alert.selectMorePhotos",
+                                                              value: "Select more photos",
+                                                              comment: "Select more photos action title")
+        
+        let allowAccessToAllPhotosLocalizedText = NSLocalizedString("bsimagepicker.limitedAccess.alert.allowAccessToAllPhotos",
+                                                                    value: "Allow access to all photos",
+                                                                    comment: "Allow access to all photos action title")
+        
+        let cancelLocalizedText = NSLocalizedString("bsimagepicker.cancel",
+                                                    value: "Cancel",
+                                                    comment: "Cancel action title")
         
         let actionSheet = UIAlertController(title: localizedTitle, message: localizedMessage, preferredStyle: .actionSheet)
         
@@ -79,9 +103,9 @@ extension AssetsViewController {
     internal func gotoAppPrivacySettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString),
               UIApplication.shared.canOpenURL(url) else {
-            assertionFailure("Not able to open App privacy settings")
-            return
-        }
+                  assertionFailure("Not able to open App privacy settings")
+                  return
+              }
         
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }

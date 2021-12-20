@@ -119,16 +119,28 @@ class AssetsCollectionViewDataSource : NSObject, UICollectionViewDataSource, UIC
             
             let cell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: AutorizationStatusHeaderView.id, for: indexPath) as! AutorizationStatusHeaderView
             cell.delegate = headerViewDelegate
-            cell.buttonText = settings.permission.manageButtonText
-            cell.buttonTextColor = settings.permission.manageButtonTextColor
+            cell.manageButton.setTitle(settings.permission.manageButtonText, for: .normal)
+            cell.manageButton.setTitleColor(settings.permission.manageButtonTextColor, for: .normal)
             
-            cell.limitedPermissionBackgroundColor = settings.permission.limitedPermissionHeaderBackgroundColor
-            cell.limitedPermissionGrantedText = settings.permission.limitedPermissionWarningText
-            cell.limitedPermissionTextColor = settings.permission.limitedPermissionWarningTextColor
-            
-            cell.permissionDeniedText = settings.permission.permissionDeniedWarningText
-            cell.permissionDeniedBackgroundColor = settings.permission.permissionDeniedHeaderBackgroundColor
-            cell.permissionDeniedTextColor = settings.permission.permissionDeniedWarningTextColor
+            if let authorizationStatus = authorizationStatus {
+                switch authorizationStatus {
+                case .limited:
+                    cell.titleLabel.text = settings.permission.limitedPermissionHeaderTitle
+                    cell.titleLabel.textColor = settings.permission.limitedPermissionHeaderTitleColor
+                    cell.backgroundColor = settings.permission.limitedPermissionHeaderBackgroundColor
+                    cell.layoutIfNeeded()
+                    break
+                case .restricted, .notDetermined:
+                    cell.titleLabel.text = settings.permission.restrictedOrNotDeterminedPermissionHeaderTitle
+                    cell.titleLabel.textColor = settings.permission.restrictedOrNotDeterminedPermissionHeaderTitleColor
+                    cell.backgroundColor = settings.permission.restrictedOrNotDeterminedPermissionHeaderBackgroundColor
+                    cell.layoutIfNeeded()
+                case .authorized, .denied:
+                    break
+                @unknown default:
+                    break
+                }
+            }
             
             cell.authorizationStatus = authorizationStatus
             return cell
