@@ -180,7 +180,6 @@
 				559DB81E21E78E6100CD58B4 /* View */,
 				559DB81D21E78E5500CD58B4 /* Controller */,
 				559DB81C21E78E4700CD58B4 /* Scene */,
-				550A315521D5298400AAF718 /* Info.plist */,
 				550A315421D5298400AAF718 /* BSImagePicker.h */,
 				94DA6871247BDE6400CD5251 /* Extension */,
 			);
@@ -300,6 +299,7 @@
 				55BCF8E621D52CE300386752 /* README.md */,
 				55BCF8E821D52CF600386752 /* BSImagePicker.podspec */,
 				557010BA230FD5E700A1C4EA /* Package.swift */,
+				550A315521D5298400AAF718 /* Info.plist */,
 			);
 			name = Meta;
 			sourceTree = "<group>";
@@ -652,7 +652,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -683,7 +683,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/Sources/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
