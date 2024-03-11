@@ -13,9 +13,9 @@ Pod::Spec.new do |s|
 
   s.platform     = :ios, '10.0'
   s.requires_arc = true
-  s.swift_version = '5.1'
+  s.swift_version = '5.7'
 
   s.source_files = 'Sources/**/*.swift'
-
+  s.resource_bundle = { 'BSImagePicker' => ['Sources/Resources/PrivacyInfo.xcprivacy']}
   s.frameworks = 'UIKit', 'Photos'
 end
