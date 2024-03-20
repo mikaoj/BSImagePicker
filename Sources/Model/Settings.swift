@@ -26,7 +26,7 @@ import Photos
 @objc(BSImagePickerSettings) // Fix for ObjC header name conflicting.
 @objcMembers public class Settings : NSObject {
     public static let shared = Settings()
-
+    
     // Move all theme related stuff to UIAppearance
     public class Theme : NSObject {
         /// Main background color
@@ -79,7 +79,7 @@ import Photos
         /// If it reaches the max limit, unselect the first selection, and allow the new selection
         @objc public lazy var unselectOnReachingMax : Bool = false
     }
-
+    
     @objc(BSImagePickerList)
     @objcMembers public class List : NSObject {
         /// How much spacing between cells
@@ -99,12 +99,12 @@ import Photos
             }
         }
     }
-
+    
     public class Preview : NSObject {
         /// Is preview enabled?
         public lazy var enabled: Bool = true
     }
-
+    
     @objc(BSImagePickerFetch)
     @objcMembers public class Fetch : NSObject {
         @objc(BSImagePickerAlbum)
@@ -114,7 +114,7 @@ import Photos
                 let fetchOptions = PHFetchOptions()
                 return fetchOptions
             }()
-
+            
             /// Fetch results for asset collections you want to present to the user
             /// Some other fetch results that you might wanna use:
             ///                PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: options),
@@ -126,16 +126,16 @@ import Photos
                 PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: options),
             ]
         }
-
+        
         @objc(BSImagePickerAssets)
         @objcMembers public class Assets : NSObject {
             /// Fetch options for assets
-
+            
             /// Simple wrapper around PHAssetMediaType to ensure we only expose the supported types.
             public enum MediaTypes {
                 case image
                 case video
-
+                
                 fileprivate var assetMediaType: PHAssetMediaType {
                     switch self {
                     case .image:
@@ -146,48 +146,48 @@ import Photos
                 }
             }
             public lazy var supportedMediaTypes: Set<MediaTypes> = [.image]
-
+            
             public lazy var options: PHFetchOptions = {
                 let fetchOptions = PHFetchOptions()
                 fetchOptions.sortDescriptors = [
                     NSSortDescriptor(key: "creationDate", ascending: false)
                 ]
-
+                
                 let rawMediaTypes = supportedMediaTypes.map { $0.assetMediaType.rawValue }
                 let predicate = NSPredicate(format: "mediaType IN %@", rawMediaTypes)
                 fetchOptions.predicate = predicate
-
+                
                 return fetchOptions
             }()
         }
-
+        
         public class Preview : NSObject {
             public lazy var photoOptions: PHImageRequestOptions = {
                 let options = PHImageRequestOptions()
                 options.isNetworkAccessAllowed = true
-
+                
                 return options
             }()
-
+            
             public lazy var livePhotoOptions: PHLivePhotoRequestOptions = {
                 let options = PHLivePhotoRequestOptions()
                 options.isNetworkAccessAllowed = true
                 return options
             }()
-
+            
             public lazy var videoOptions: PHVideoRequestOptions = {
                 let options = PHVideoRequestOptions()
                 options.isNetworkAccessAllowed = true
                 return options
             }()
         }
-
+        
         /// Album fetch settings
         public lazy var album = Album()
         
         /// Asset fetch settings
         public lazy var assets = Assets()
-
+        
         /// Preview fetch settings
         public lazy var preview = Preview()
     }
@@ -195,11 +195,47 @@ import Photos
     public class Dismiss : NSObject {
         /// Should the image picker dismiss when done/cancelled
         public lazy var enabled = true
-
+        
         /// Allow the user to dismiss the image picker by swiping down
         public lazy var allowSwipe = false
     }
-
+    
+    public class Permission: NSObject {
+        /// should the image picker check for permission when loaded and give callbacks
+        
+        /// Localizable string keys
+        
+        /// bsimagepicker.limitedPermissionHeader.title -> Header title when access to photos is limited
+        /// bsimagepicker.restrictedOrNotDeterminedpermissionHeader.title -> Header title when access to photos is restricted or not determined
+        /// bsimagepicker.permissionHeader.button.title -> Button title of Header view
+        
+        /// bsimagepicker.limitedAccess.alert.title -> Title of alert controller when access is Limited
+        /// bsimagepicker.limitedAccess.alert.message -> Message of alert controller when access is Limited
+        /// bsimagepicker.limitedAccess.alert.selectMorePhotos -> Title of Select more photos action of alert controller when access is Limited
+        /// bsimagepicker.limitedAccess.alert.allowAccessToAllPhotos -> Title of Allow access to all photos of alert controller when access is Limited
+        /// bsimagepicker.cancel -> Title of cancel action of alert controller when access is Limited
+        
+        /// bsimagepicker.restrictedAccess.alert.title -> Title of alert controller when access is Restricted or not determined
+        /// bsimagepicker.restrictedAccess.alert.message -> Message of alert controller when access is Restricted or not determined
+        /// bsimagepicker.restrictedAccess.alert.secondaryButton.title -> Title of secondary action of alert controller when access is Restricted or not determined
+        /// bsimagepicker.restrictedAccess.alert.openSettings.title -> Title of primary action of alert controller when access is Restricted or not determined
+        
+        public lazy var enabled = false
+        
+        public var limitedPermissionHeaderTitle: String = NSLocalizedString("bsimagepicker.limitedPermissionHeader.title", value: "You've given access to only select number of photos.", comment: "Title of header when access is limited")
+        public var limitedPermissionHeaderBackgroundColor: UIColor = .clear
+        public var limitedPermissionHeaderTitleColor: UIColor = .systemPrimaryTextColor
+        
+        
+        public var restrictedOrNotDeterminedPermissionHeaderTitle: String = NSLocalizedString("bsimagepicker.restrictedOrNotDeterminedpermissionHeader.title", value: "You've given access to only select number of photos.", comment: "Title of header when access is restricted or not determined")
+        public var restrictedOrNotDeterminedPermissionHeaderBackgroundColor: UIColor = .clear
+        public var restrictedOrNotDeterminedPermissionHeaderTitleColor: UIColor = .systemPrimaryTextColor
+        
+        
+        public lazy var manageButtonText: String = NSLocalizedString("bsimagepicker.permissionHeader.button.title", value: "Manage", comment: "Title of the button in header view")
+        public lazy var manageButtonTextColor: UIColor = .systemBlue
+    }
+    
     /// Theme settings
     public lazy var theme = Theme()
     
@@ -214,7 +250,10 @@ import Photos
     
     /// Dismiss settings
     public lazy var dismiss = Dismiss()
-
+    
     /// Preview options
     public lazy var preview = Preview()
+    
+    /// permission options
+    public lazy var permission = Permission()
 }

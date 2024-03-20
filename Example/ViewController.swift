@@ -32,6 +32,7 @@ class ViewController: UIViewController {
         imagePicker.settings.theme.selectionStyle = .numbered
         imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
         imagePicker.settings.selection.unselectOnReachingMax = true
+        imagePicker.settings.permission.enabled = true
 
         let start = Date()
         self.presentImagePicker(imagePicker, select: { (asset) in
@@ -76,7 +77,7 @@ class ViewController: UIViewController {
                 return 2
             }
         }
-
+        
         self.presentImagePicker(imagePicker, select: { (asset) in
             print("Selected: \(asset)")
         }, deselect: { (asset) in
@@ -91,16 +92,17 @@ class ViewController: UIViewController {
     @IBAction func showImagePickerWithSelectedAssets(_ sender: UIButton) {
         let allAssets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
         var evenAssets = [PHAsset]()
-
+        
         allAssets.enumerateObjects({ (asset, idx, stop) -> Void in
             if idx % 2 == 0 {
                 evenAssets.append(asset)
             }
         })
-
+        
         let imagePicker = ImagePickerController(selectedAssets: evenAssets)
         imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
-
+        
+        
         self.presentImagePicker(imagePicker, select: { (asset) in
             print("Selected: \(asset)")
         }, deselect: { (asset) in
@@ -111,5 +113,40 @@ class ViewController: UIViewController {
             print("Finished with selections: \(assets)")
         })
     }
+    
+    func showImagePickerWithPermissionHandling() {
+        let imagePicker = ImagePickerController()
+        imagePicker.settings.selection.max = 5
+        imagePicker.settings.theme.selectionStyle = .numbered
+        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
+        imagePicker.settings.selection.unselectOnReachingMax = true
+        imagePicker.settings.permission.enabled = true
+        
+        imagePicker.imagePickerDelegate = self
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
 }
 
+
+extension ViewController: ImagePickerControllerDelegate {
+    func imagePicker(_ imagePicker: ImagePickerController, didSelectAsset asset: PHAsset) {
+        print("Selected: \(asset)")
+    }
+    
+    func imagePicker(_ imagePicker: ImagePickerController, didDeselectAsset asset: PHAsset) {
+        print("Deselected: \(asset)")
+    }
+    
+    func imagePicker(_ imagePicker: ImagePickerController, didFinishWithAssets assets: [PHAsset]) {
+        print("Finished with selections: \(assets)")
+    }
+    
+    func imagePicker(_ imagePicker: ImagePickerController, didCancelWithAssets assets: [PHAsset]) {
+        print("Canceled with selections: \(assets)")
+    }
+    
+    func imagePicker(_ imagePicker: ImagePickerController, didReachSelectionLimit count: Int) {
+        
+    }
+}
