@@ -208,9 +208,9 @@ extension AssetsViewController: UICollectionViewDelegate {
 
 extension AssetsViewController: PHPhotoLibraryChangeObserver {
     func photoLibraryDidChange(_ changeInstance: PHChange) {
-        guard let changes = changeInstance.changeDetails(for: fetchResult) else { return }
         // Since we are gonna update UI, make sure we are on main
         DispatchQueue.main.async {
+            guard let changes = changeInstance.changeDetails(for: self.fetchResult) else { return }
             if changes.hasIncrementalChanges {
                 self.collectionView.performBatchUpdates({
                     self.fetchResult = changes.fetchResultAfterChanges
