@@ -30,7 +30,7 @@ class ViewController: UIViewController {
         let imagePicker = ImagePickerController()
         imagePicker.settings.selection.max = 5
         imagePicker.settings.theme.selectionStyle = .numbered
-        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
+        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image(), .video()]
         imagePicker.settings.selection.unselectOnReachingMax = true
 
         let start = Date()
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         let imagePicker = ImagePickerController()
         imagePicker.settings.selection.max = 1
         imagePicker.settings.selection.unselectOnReachingMax = true
-        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
+        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image(), .video()]
         imagePicker.albumButton.tintColor = UIColor.green
         imagePicker.cancelButton.tintColor = UIColor.red
         imagePicker.doneButton.tintColor = UIColor.purple
@@ -99,7 +99,7 @@ class ViewController: UIViewController {
         })
 
         let imagePicker = ImagePickerController(selectedAssets: evenAssets)
-        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
+        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image()]
 
         self.presentImagePicker(imagePicker, select: { (asset) in
             print("Selected: \(asset)")
@@ -110,6 +110,46 @@ class ViewController: UIViewController {
         }, finish: { (assets) in
             print("Finished with selections: \(assets)")
         })
+    }
+    
+    @IBAction func showImagePickerWithLimit(_ sender: Any) {
+        let imagePicker = ImagePickerController()
+        imagePicker.settings.selection.max = 5
+        imagePicker.settings.theme.selectionStyle = .numbered
+        imagePicker.settings.fetch.assets.supportedMediaTypes = [
+            .image(max: 2),
+            .video(max: 1)
+        ]
+
+        imagePicker.imagePickerDelegate = self
+        self.present(imagePicker, animated: true)
+        
+    }
+}
+
+extension ViewController: ImagePickerControllerDelegate {
+    func imagePicker(_ imagePicker: ImagePickerController, didSelectAsset asset: PHAsset) {
+        print("Selected: \(asset)")
+    }
+    
+    func imagePicker(_ imagePicker: ImagePickerController, didDeselectAsset asset: PHAsset) {
+        print("Deselected: \(asset)")
+    }
+    
+    func imagePicker(_ imagePicker: ImagePickerController, didFinishWithAssets assets: [PHAsset]) {
+        print("Finished with selections: \(assets)")
+    }
+    
+    func imagePicker(_ imagePicker: ImagePickerController, didCancelWithAssets assets: [PHAsset]) {
+        print("Canceled with selections: \(assets)")
+    }
+    
+    func imagePicker(_ imagePicker: ImagePickerController, didReachSelectionLimit count: Int) {
+        print("didReachSelectionLimit with count: ", count)
+    }
+    
+    func imagePicker(_ imagePicker: ImagePickerController, didReachSelectionLimitForType type: PHAssetMediaType) {
+        print("didReachSelectionLimitForType: ", type.rawValue)
     }
 }
 

@@ -52,4 +52,8 @@ extension ImagePickerController: AssetsViewControllerDelegate {
         
         pushViewController(previewViewController, animated: true)
     }
+    
+    func assetsViewController(_ assetsViewController: AssetsViewController, didReachSelectionLimit asset: PHAsset) {
+        imagePickerDelegate?.imagePicker(self, didReachSelectionLimitForType: asset.mediaType)
+    }
 }
