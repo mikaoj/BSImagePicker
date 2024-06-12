@@ -48,6 +48,9 @@ import Photos
             // And since we are using the blocks api. Set ourselfs as delegate
             imagePicker.imagePickerDelegate = imagePicker
 
+            // Invoke presentationController before actually presenting it to fix a memory leak issue.
+            _ = imagePicker.presentationController
+
             // Present
             self.present(imagePicker, animated: animated, completion: completion)
         }
