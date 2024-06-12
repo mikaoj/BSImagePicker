@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F0FADE526669B0F005747B4 /* Size+BSImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0FADE426669B0F005747B4 /* Size+BSImagePicker.swift */; };
+		2F0FADE826669B3C005747B4 /* AutorizationStatusHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0FADE726669B3C005747B4 /* AutorizationStatusHeaderView.swift */; };
+		2F0FADEC2666A140005747B4 /* Alert+BSImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F0FADEB2666A140005747B4 /* Alert+BSImagePicker.swift */; };
 		531D8C532249C81A00281681 /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531D8C522249C81A00281681 /* SettingsTests.swift */; };
 		53FEDA162247FEB80098E34A /* CGSize+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FEDA152247FEB80098E34A /* CGSize+Scale.swift */; };
 		53FEDA18224805BA0098E34A /* CGSizeExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FEDA17224805BA0098E34A /* CGSizeExtensionTests.swift */; };
@@ -78,6 +81,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2F0FADE426669B0F005747B4 /* Size+BSImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Size+BSImagePicker.swift"; sourceTree = "<group>"; };
+		2F0FADE726669B3C005747B4 /* AutorizationStatusHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutorizationStatusHeaderView.swift; sourceTree = "<group>"; };
+		2F0FADEB2666A140005747B4 /* Alert+BSImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alert+BSImagePicker.swift"; sourceTree = "<group>"; };
 		531D8C522249C81A00281681 /* SettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
 		53FEDA152247FEB80098E34A /* CGSize+Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+Scale.swift"; sourceTree = "<group>"; };
 		53FEDA17224805BA0098E34A /* CGSizeExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSizeExtensionTests.swift; sourceTree = "<group>"; };
@@ -221,6 +227,7 @@
 				C2DC13C923F75BDA0035FD13 /* NumberView.swift */,
 				55BCF8C521D52C1000386752 /* CameraCollectionViewCell.swift */,
 				55F67B7A222F088500805134 /* GradientView.swift */,
+				2F0FADE726669B3C005747B4 /* AutorizationStatusHeaderView.swift */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -337,6 +344,8 @@
 			isa = PBXGroup;
 			children = (
 				94DA686F247BDE5900CD5251 /* UIColor+BSImagePicker.swift */,
+				2F0FADE426669B0F005747B4 /* Size+BSImagePicker.swift */,
+				2F0FADEB2666A140005747B4 /* Alert+BSImagePicker.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -462,6 +471,7 @@
 				550CB425230FD01200543217 /* ImageView.swift in Sources */,
 				55BCF8D521D52C1000386752 /* AssetCollectionViewCell.swift in Sources */,
 				559DB81B21E6B43400CD58B4 /* ImagePickerController+ButtonActions.swift in Sources */,
+				2F0FADEC2666A140005747B4 /* Alert+BSImagePicker.swift in Sources */,
 				559DB81121E6561300CD58B4 /* ImagePickerController+Closure.swift in Sources */,
 				55C5B802222BD529003CF3F1 /* DropdownPresentationController.swift in Sources */,
 				55BCF8E021D52C1000386752 /* ZoomAnimator.swift in Sources */,
@@ -471,11 +481,13 @@
 				94DA6870247BDE5900CD5251 /* UIColor+BSImagePicker.swift in Sources */,
 				5554729D21E5248400B90CA5 /* ImagePickerController.swift in Sources */,
 				55C5B800222BD445003CF3F1 /* DropdownTransitionDelegate.swift in Sources */,
+				2F0FADE526669B0F005747B4 /* Size+BSImagePicker.swift in Sources */,
 				55BCF8D321D52C1000386752 /* AssetsCollectionViewDataSource.swift in Sources */,
 				550CB427230FD08200543217 /* ImageViewLayout.swift in Sources */,
 				55BCF8D621D52C1000386752 /* AlbumCell.swift in Sources */,
 				55BCF8D021D52C1000386752 /* AlbumsTableViewDataSource.swift in Sources */,
 				55F67B77222EEB2500805134 /* VideoCollectionViewCell.swift in Sources */,
+				2F0FADE826669B3C005747B4 /* AutorizationStatusHeaderView.swift in Sources */,
 				559DB80F21E655D000CD58B4 /* ImagePickerControllerDelegate.swift in Sources */,
 				559DB81721E6AFD800CD58B4 /* ImagePickerController+Assets.swift in Sources */,
 				55CDB45B223435420050D572 /* PlayerView.swift in Sources */,
