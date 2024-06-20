@@ -47,6 +47,7 @@ import Photos
     var onDeselection: ((_ asset: PHAsset) -> Void)?
     var onCancel: ((_ assets: [PHAsset]) -> Void)?
     var onFinish: ((_ assets: [PHAsset]) -> Void)?
+    public var selectedAlbumIdentifier: String?
     
     let assetsViewController: AssetsViewController
     let albumsViewController = AlbumsViewController()
@@ -137,7 +138,10 @@ import Photos
             navigationBar.barTintColor = .systemBackgroundColor
         }
 
-        if let firstAlbum = albums.first {
+        if let selectedAlbumIdentifier = selectedAlbumIdentifier, let selectedAlbum = albums.first(where: { $0.localIdentifier == selectedAlbumIdentifier }) {
+            select(album: selectedAlbum)
+        } else if let firstAlbum = albums.first {
+            selectedAlbumIdentifier = firstAlbum.localIdentifier    //so the check mark appears in the albums list
             select(album: firstAlbum)
         }
     }

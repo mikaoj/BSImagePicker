@@ -47,6 +47,39 @@ class ViewController: UIViewController {
             print(finish.timeIntervalSince(start))
         })
     }
+
+    private var lastSelectedAlbum: String?
+    @IBAction func showImagePickerWithAlbums(_ sender: UIButton) {
+        let imagePicker = ImagePickerController()
+        imagePicker.settings.selection.max = 3
+        imagePicker.settings.theme.selectionStyle = .checked
+        imagePicker.settings.fetch.assets.supportedMediaTypes = [.image, .video]
+        imagePicker.settings.selection.unselectOnReachingMax = false
+
+        imagePicker.selectedAlbumIdentifier = lastSelectedAlbum
+        //Show the "Recent" album and all other ones available
+        let options = imagePicker.settings.fetch.album.options
+        imagePicker.settings.fetch.album.fetchResults = [
+            PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: options),
+            PHAssetCollection.fetchAssetCollections(with: .album, subtype: .albumRegular, options: options),
+        ]
+
+        let start = Date()
+        self.presentImagePicker(imagePicker, select: { (asset) in
+            print("Selected: \(asset)")
+        }, deselect: { (asset) in
+            print("Deselected: \(asset)")
+        }, cancel: { [weak self] (assets) in
+            self?.lastSelectedAlbum = imagePicker.selectedAlbumIdentifier
+            print("Canceled with selections: \(assets)")
+        }, finish: { [weak self] (assets) in
+            self?.lastSelectedAlbum = imagePicker.selectedAlbumIdentifier
+            print("Finished with selections: \(assets)")
+        }, completion: {
+            let finish = Date()
+            print(finish.timeIntervalSince(start))
+        })
+    }
     
     @IBAction func showCustomImagePicker(_ sender: UIButton) {
         let imagePicker = ImagePickerController()
